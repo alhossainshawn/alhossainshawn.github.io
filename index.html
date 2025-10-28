@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page Title -->
+    <title>Al Hossain Shawn - EEE Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Styles & Animations -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000; /* Pure Black Background */
+            color: #ffffff; /* White Text */
+        }
+
+        /* Red Accent Color */
+        .accent-color {
+            color: #ef4444; /* red-500 */
+        }
+        .bg-accent {
+            background-color: #ef4444;
+        }
+        .border-accent {
+            border-color: #ef4444;
+        }
+
+        /* Sticky Nav Active State */
+        .nav-link.active {
+            color: #ef4444;
+            font-weight: 600;
+        }
+        
+        /* Navigation Hover Animation */
+        .nav-link-hover {
+            transition: transform 0.2s ease-in-out;
+        }
+        .nav-link-hover:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Skill Bubble Hover Animation */
+        .skill-bubble {
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .skill-bubble:hover {
+            transform: scale(1.1);
+            background-color: #dc2626; /* red-600 */
+        }
+
+        /* Social Icon Hover Animation */
+        .social-icon {
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+        .social-icon:hover {
+            transform: scale(1.15);
+            color: #ef4444;
+        }
+
+        /* Animation Classes (for fade-in on scroll) */
+        .anim-hidden {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .anim-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Sticky Header -->
+    <header class="bg-black/80 backdrop-blur-md sticky top-0 z-50 w-full border-b border-gray-800">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Your Name -->
+            <a href="#home" class="text-2xl font-bold accent-color">
+                Al Hossain Shawn
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex space-x-8" id="desktop-nav">
+                <a href="#home" class="nav-link nav-link-hover text-white hover:text-red-500 font-medium transition-colors" data-target="home">Home</a>
+                <a href="#about" class="nav-link nav-link-hover text-white hover:text-red-500 font-medium transition-colors" data-target="about">About</a>
+                <a href="#projects" class="nav-link nav-link-hover text-white hover:text-red-500 font-medium transition-colors" data-target="projects">Projects</a>
+                <a href="#contact" class="nav-link nav-link-hover text-white hover:text-red-500 font-medium transition-colors" data-target="contact">Contact</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-white hover:bg-gray-800">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </nav>
+        
+        <!-- Mobile Menu (Dropdown) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-gray-800">
+            <a href="#home" class="nav-link-mobile block px-4 py-3 text-white hover:bg-gray-800" data-target="home">Home</a>
+            <a href="#about" class="nav-link-mobile block px-4 py-3 text-white hover:bg-gray-800" data-target="about">About</a>
+            <a href="#projects" class="nav-link-mobile block px-4 py-3 text-white hover:bg-gray-800" data-target="projects">Projects</a>
+            <a href="#contact" class="nav-link-mobile block px-4 py-3 text-white hover:bg-gray-800" data-target="contact">Contact</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Home Section -->
+        <section id="home" class="text-center min-h-[calc(100vh-69px)] flex items-center justify-center py-20 lg:py-32">
+            <div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">
+                    Hi, I'm <span class="accent-color">Al Hossain Shawn</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                    An <span class="accent-color">Electrical and Electronic Engineer</span> specializing in VLSI design, embedded systems, and circuit simulation.
+                </p>
+                <a href="#projects" class="bg-accent hover:bg-red-600 text-white font-medium py-3 px-8 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 text-lg">
+                    View My Work
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-16 md:py-24 anim-hidden">
+            <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+                <!-- Profile Image -->
+                <div class="flex-shrink-0 w-56 h-56 md:w-72 md:h-72">
+                    <img src="images/shawn.jpg" 
+                         alt="A professional headshot of Al Hossain Shawn" 
+                         class="w-full h-full rounded-full object-cover shadow-md border-4 border-accent">
+                </div>
+                
+                <!-- About Me Text -->
+                <div class="flex-1 text-center md:text-left">
+                    <h2 class="text-3xl font-bold mb-6 accent-color">About Me</h2>
+                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                        Fourth-year Electrical and Electronic Engineering student at BRAC University with solid experience in circuit design, SPICE-based simulation, and embedded systems. I have knowledge in VLSI layout design, physical verification, and both digital and analog circuit development.
+                    </p>
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">
+                        I am eager to contribute technical expertise and a strong work ethic to deliver IC design solutions, while advancing toward a long-term career as a VLSI design engineer in the global semiconductor industry.
+                    </p>
+                    
+                    <!-- Skills -->
+                    <h3 class="text-xl font-semibold mb-3">My Skills:</h3>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-2">
+                        <span class="skill-bubble bg-red-900 text-red-100 text-sm font-medium px-3 py-1 rounded-full">Cadence</span>
+                        <span class="skill-bubble bg-red-900 text-red-100 text-sm font-medium px-3 py-1 rounded-full">MATLAB</span>
+                        <span class="skill-bubble bg-red-900 text-red-100 text-sm font-medium px-3 py-1 rounded-full">Proteus</span>
+                        <span class="skill-bubble bg-red-900 text-red-100 text-sm font-medium px-3 py-1 rounded-full">PSpice</span>
+                        <span class="skill-bubble bg-red-900 text-red-100 text-sm font-medium px-3 py-1 rounded-full">LTSpice</span>
+                        <span class="skill-bubble bg-red-900 text-red-100 text-sm font-medium px-3 py-1 rounded-full">NI Multisim</span>
+                        <span class="skill-bubble bg-red-900 text-red-100 text-sm font-medium px-3 py-1 rounded-full">Altium</span>
+                        <span class="skill-bubble bg-red-900 text-red-100 text-sm font-medium px-3 py-1 rounded-full">Solidworks</span>
+                        <span class="skill-bubble bg-red-900 text-red-100 text-sm font-medium px-3 py-1 rounded-full">Verilog</span>
+                        <span class="skill-bubble bg-red-900 text-red-100 text-sm font-medium px-3 py-1 rounded-full">C</span>
+                        <span class="skill-bubble bg-red-900 text-red-100 text-sm font-medium px-3 py-1 rounded-full">Python</span>
+                        <span class="skill-bubble bg-red-900 text-red-100 text-sm font-medium px-3 py-1 rounded-full">VLSI Design</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-16 md:py-24 anim-hidden">
+            <h2 class="text-3xl font-bold text-center mb-12 accent-color">My Projects & Achievements</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1: APSCO CubeSat Competition -->
+                <div class="anim-hidden bg-gray-900 rounded-xl shadow-lg overflow-hidden flex flex-col transform hover:scale-[1.02] transition-transform duration-300">
+                    <img src="https://placehold.co/600x400/1f2937/ef4444?text=APSCO+CubeSat+Competition" 
+                         alt="APSCO CubeSat Competition" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-1">
+                        <h3 class="text-xl font-semibold mb-2">APSCO CubeSat Competition</h3>
+                        <p class="text-gray-300 mb-4 flex-1">
+                            Team Lead for BD-BRACU Mavericks. Ongoing project, successful as winner of Phase 0 & Phase 1.
+                        </p>
+                        <div class="mb-4">
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#CubeSat</span>
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#TeamLead</span>
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#APSCO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Satellite Expedition Contest -->
+                <div class="anim-hidden bg-gray-900 rounded-xl shadow-lg overflow-hidden flex flex-col transform hover:scale-[1.02] transition-transform duration-300">
+                    <img src="https://placehold.co/600x400/1f2937/ef4444?text=Satellite+Expedition+Contest" 
+                         alt="Satellite Expedition Contest" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-1">
+                        <h3 class="text-xl font-semibold mb-2">Satellite Expedition Contest</h3>
+                        <p class="text-gray-300 mb-4 flex-1">
+                            Achieved 2nd Runner-up position in the Satellite Expedition Contest held in October 2024.
+                        </p>
+                        <div class="mb-4">
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#Satellite</span>
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#Competition</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: BIRDS-X APRS Payload Competition -->
+                <div class="anim-hidden bg-gray-900 rounded-xl shadow-lg overflow-hidden flex flex-col transform hover:scale-[1.02] transition-transform duration-300">
+                    <img src="https://placehold.co/600x400/1f2937/ef4444?text=BIRDS-X+APRS+Payload" 
+                         alt="BIRDS-X APRS Payload Competition" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-1">
+                        <h3 class="text-xl font-semibold mb-2">BIRDS-X APRS Payload Competition</h3>
+                        <p class="text-gray-300 mb-4 flex-1">
+                            Successfully competed and was selected as a Winner of Phase 1 in April 2023.
+                        </p>
+                        <div class="mb-4">
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#APRS</span>
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#Payload</span>
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#BIRDS-X</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: NASA Space Apps Challenge -->
+                <div class="anim-hidden bg-gray-900 rounded-xl shadow-lg overflow-hidden flex flex-col transform hover:scale-[1.02] transition-transform duration-300">
+                    <img src="https://placehold.co/600x400/1f2937/ef4444?text=NASA+Space+Apps+Challenge" 
+                         alt="NASA Space Apps Challenge" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-1">
+                        <h3 class="text-xl font-semibold mb-2">NASA Space Apps Challenge</h3>
+                        <p class="text-gray-300 mb-4 flex-1">
+                            Made an API-based website utilizing the NASA Earth Observing Database during the October 2023 challenge.
+                        </p>
+                        <div class="mb-4">
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#NASA</span>
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#API</span>
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#WebDev</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 5: Publication -->
+                <div class="anim-hidden bg-gray-900 rounded-xl shadow-lg overflow-hidden flex flex-col transform hover:scale-[1.02] transition-transform duration-300">
+                    <img src="https://placehold.co/600x400/1f2937/ef4444?text=IAC-23+Publication" 
+                         alt="IAC-23 Publication" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-1">
+                        <h3 class="text-xl font-semibold mb-2">Publication: Small Satellites System Simulator</h3>
+                        <p class="text-gray-300 mb-4 flex-1">
+                            Co-authored a paper on the "Design and Evaluation of a Small Satellites System Overview Simulator," presented at the INTERNATIONAL ASTRONAUTICAL FEDERATION (IAC-23).
+                        </p>
+                        <div class="mb-4">
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#Publication</span>
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#IAC-23</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6: IEEE AESS Chair -->
+                <div class="anim-hidden bg-gray-900 rounded-xl shadow-lg overflow-hidden flex flex-col transform hover:scale-[1.02] transition-transform duration-300">
+                    <img src="https://placehold.co/600x400/1f2937/ef4444?text=IEEE+AESS+Chair" 
+                         alt="IEEE AESS Chair" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-1">
+                        <h3 class="text-xl font-semibold mb-2">Chair, IEEE AESS BRACU SB</h3>
+                        <p class="text-gray-300 mb-4 flex-1">
+                            Serving as the Chair for the Aerospace & Electronic System Society at the IEEE BRAC University Student Branch since January 2025.
+                        </p>
+                        <div class="mb-4">
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#IEEE</span>
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#AESS</span>
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#Leadership</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 md:py-24 anim-hidden">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-4 accent-color">Get In Touch</h2>
+                <p class="text-lg text-gray-300 mb-8">
+                    I'm currently open to new opportunities. Feel free to send me a message or connect with me on LinkedIn.
+                </p>
+            </div>
+            
+            <!-- Contact Form -->
+            <form action="#" method="POST" class="max-w-xl mx-auto" onsubmit="handleFormSubmit(event)">
+                <div class="space-y-4">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Name</label>
+                        <input type="text" id="name" name="name" required
+                               class="w-full px-4 py-2 border border-gray-700 rounded-lg bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                        <input type="email" id="email" name="email" required
+                               class="w-full px-4 py-2 border border-gray-700 rounded-lg bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-red-500">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Message</label>
+                        <textarea id="message" name="message" rows="5" required
+                                  class="w-full px-4 py-2 border border-gray-700 rounded-lg bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit"
+                                class="bg-accent hover:bg-red-600 text-white font-medium py-3 px-8 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105">
+                            Send Message
+                        </button>
+                    </div>
+                </div>
+            </form>
+            
+            <!-- Form Success Message -->
+            <div id="form-success" class="hidden max-w-xl mx-auto mt-6 p-4 text-center text-green-200 bg-green-900 rounded-lg">
+                Thank you! Your message has been sent.
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-gray-800 mt-16 w-full">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <!-- Social Icons -->
+            <div class="flex justify-center space-x-8 mb-4">
+                <a href="https://www.linkedin.com/in/al-hossain-shawn" target="_blank" class="social-icon text-gray-400 hover:text-red-500" aria-label="LinkedIn Profile">
+                    <i data-lucide="linkedin" class="w-7 h-7"></i>
+                </a>
+                <a href="mailto:alhossainshawn@gmail.com" class="social-icon text-gray-400 hover:text-red-500" aria-label="Email">
+                    <i data-lucide="mail" class="w-7 h-7"></i>
+                </a>
+                <!-- Add a GitHub link if you have one -->
+                <!--
+                <a href="#" class="social-icon text-gray-400 hover:text-red-500" aria-label="GitHub Profile">
+                    <i data-lucide="github" class="w-7 h-7"></i>
+                </a>
+                -->
+            </div>
+            <p class="text-gray-400 text-sm">
+                &copy; <span id="current-year"></span> Al Hossain Shawn. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Icon Initialization ---
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // --- Set current year in footer ---
+            const yearSpan = document.getElementById('current-year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+
+            // --- Mobile Menu Toggle ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            // Close mobile menu on link click
+            document.querySelectorAll('.nav-link-mobile').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // --- Smooth Scrolling for all anchor links ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // --- Active Nav Link on Scroll ---
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('#desktop-nav a.nav-link');
+            
+            function updateActiveNav() {
+                let current = 'home'; // Default
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    // Check if scroll is past the top of the section, minus a 100px offset
+                    if (pageYOffset >= sectionTop - 100) { 
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.dataset.target === current) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            // --- Fade-in Animations on Scroll ---
+            const hiddenElements = document.querySelectorAll('.anim-hidden');
+            
+            const animObserver = new IntersectionObserver(handleAnimIntersect, {
+                root: null, // relative to the viewport
+                threshold: 0.1, // 10% of the item must be visible
+            });
+
+            hiddenElements.forEach(el => animObserver.observe(el));
+            
+            function handleAnimIntersect(entries, observer) {
+                entries.forEach(entry => {
+                    // **FIXED THE TYPO HERE**
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('anim-visible');
+                    } else {
+                        // This makes the animation repeat (fade-out on scroll-out)
+                        entry.target.classList.remove('anim-visible');
+                    }
+                });
+            }
+            
+            // --- Attach scroll listeners ---
+            window.addEventListener('scroll', () => {
+                updateActiveNav();
+            });
+            // Initial check
+            updateActiveNav();
+
+        });
+
+        // --- Handle Contact Form Submission ---
+        function handleFormSubmit(event) {
+            event.preventDefault(); // Stop the form from submitting traditionally
+            const formSuccessMessage = document.getElementById('form-success');
+            const form = event.target;
+            
+            // In a real project, you would send this data to a backend or form service (like Netlify Forms)
+            // For this demo, we'll just show the success message.
+            console.log('Form submitted (demo)');
+            form.reset(); // Clear the form
+            formSuccessMessage.classList.remove('hidden');
+
+            // Hide the success message after 5 seconds
+            setTimeout(() => {
+                formSuccessMessage.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+
+</body>
+</html>
+
