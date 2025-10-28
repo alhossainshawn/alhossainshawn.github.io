@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page Title -->
     <title>Al Hossain Shawn - EEE Portfolio</title>
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
+    <!-- Custom Styles & Animations -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -73,16 +78,65 @@
             opacity: 1;
             transform: translateY(0);
         }
+        
+        /* --- New Chatbot Modal Styles --- */
+        #chat-modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        #chat-modal-content {
+            transition: transform 0.3s ease;
+        }
+        .chat-bubble {
+            padding: 12px 16px;
+            border-radius: 20px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .chat-bubble.user {
+            background-color: #ef4444; /* red-500 */
+            color: white;
+            border-bottom-right-radius: 4px;
+            align-self: flex-end;
+        }
+        .chat-bubble.bot {
+            background-color: #374151; /* gray-700 */
+            color: white;
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+        }
+        .chat-bubble.loading {
+            background-color: #374151;
+            color: #9ca3af;
+            font-style: italic;
+            align-self: flex-start;
+        }
+        #chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        /* Hide scrollbar but allow scrolling */
+        #chat-messages::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+        #chat-messages {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
     </style>
 </head>
 <body class="antialiased">
 
+    <!-- Sticky Header -->
     <header class="bg-black/80 backdrop-blur-md sticky top-0 z-50 w-full border-b border-gray-800">
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Your Name -->
             <a href="#home" class="text-2xl font-bold accent-color">
                 Al Hossain Shawn
             </a>
             
+            <!-- Desktop Navigation -->
             <div class="hidden md:flex space-x-6" id="desktop-nav">
                 <a href="#home" class="nav-link nav-link-hover text-white hover:text-red-500 font-medium transition-colors" data-target="home">Home</a>
                 <a href="#about" class="nav-link nav-link-hover text-white hover:text-red-500 font-medium transition-colors" data-target="about">About</a>
@@ -93,11 +147,13 @@
                 <a href="#contact" class="nav-link nav-link-hover text-white hover:text-red-500 font-medium transition-colors" data-target="contact">Contact</a>
             </div>
             
+            <!-- Mobile Menu Button -->
             <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-white hover:bg-gray-800">
                 <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
         </nav>
         
+        <!-- Mobile Menu (Dropdown) -->
         <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-gray-800">
             <a href="#home" class="nav-link-mobile block px-4 py-3 text-white hover:bg-gray-800" data-target="home">Home</a>
             <a href="#about" class="nav-link-mobile block px-4 py-3 text-white hover:bg-gray-800" data-target="about">About</a>
@@ -109,8 +165,10 @@
         </div>
     </header>
 
+    <!-- Main Content -->
     <main class="container mx-auto px-4 sm:px-6 lg:px-8">
 
+        <!-- Home Section -->
         <section id="home" class="text-center min-h-[calc(100vh-69px)] flex items-center justify-center py-20 lg:py-32">
             <div>
                 <h1 class="text-4xl md:text-6xl font-bold mb-4">
@@ -119,14 +177,18 @@
                 <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
                     An <span class="accent-color">Electrical and Electronic Engineer</span> specializing in VLSI design, embedded systems, and circuit simulation.
                 </p>
+                
                 <a href="#projects" class="bg-accent hover:bg-red-600 text-white font-medium py-3 px-8 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 text-lg">
                     View My Work
                 </a>
+
             </div>
         </section>
 
+        <!-- About Section -->
         <section id="about" class="py-16 md:py-24 anim-hidden">
             <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+                <!-- Profile Image -->
                 <div class="flex-shrink-0 w-56 h-56 md:w-72 md:h-72">
                     <img src="images/shawn.jpg" 
                          alt="A professional headshot of Al Hossain Shawn" 
@@ -135,17 +197,28 @@
                          class="w-full h-full rounded-full object-cover shadow-md border-4 border-accent">
                 </div>
                 
+                <!-- About Me Text -->
                 <div class="flex-1 text-center md:text-left">
-                    <h2 class="text-3xl font-bold mb-6 accent-color">About Me</h2>
-                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">
-                        Fourth-year Electrical and Electronic Engineering student at BRAC University with solid experience in circuit design, SPICE-based simulation, and embedded systems. I have knowledge in VLSI layout design, physical verification, and both digital and analog circuit development.
-                    </p>
-                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">
-                        I am eager to contribute technical expertise and a strong work ethic to deliver IC design solutions, while advancing toward a long-term career as a VLSI design engineer in the global semiconductor industry.
-                    </p>
+                    <div class="flex items-center justify-center md:justify-start gap-4 mb-6">
+                        <h2 class="text-3xl font-bold accent-color">About Me</h2>
+                        <!-- New Gemini TTS Button -->
+                        <button id="tts-button" class="p-2 bg-accent text-white rounded-full hover:bg-red-600 transition-all transform hover:scale-110 disabled:opacity-50" aria-label="Listen to profile summary">
+                            <i data-lucide="volume-2" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <div id="about-me-text">
+                        <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                            Fourth-year Electrical and Electronic Engineering student at BRAC University with solid experience in circuit design, SPICE-based simulation, and embedded systems. I have knowledge in VLSI layout design, physical verification, and both digital and analog circuit development.
+                        </p>
+                        <p class="text-lg text-gray-300 mb-8 leading-relaxed">
+                            I am eager to contribute technical expertise and a strong work ethic to deliver IC design solutions, while advancing toward a long-term career as a VLSI design engineer in the global semiconductor industry.
+                        </p>
+                    </div>
                     
+                    <!-- Skills -->
                     <h3 class="text-xl font-semibold mb-3">My Skills:</h3>
-                    <div class="flex flex-wrap justify-center md:justify-start gap-2">
+                    <div id="skills-list" class="flex flex-wrap justify-center md:justify-start gap-2">
                         <span class="skill-bubble bg-red-900 text-red-100 text-sm font-medium px-3 py-1 rounded-full">Cadence</span>
                         <span class="skill-bubble bg-red-900 text-red-100 text-sm font-medium px-3 py-1 rounded-full">MATLAB</span>
                         <span class="skill-bubble bg-red-900 text-red-100 text-sm font-medium px-3 py-1 rounded-full">Proteus</span>
@@ -163,6 +236,7 @@
             </div>
         </section>
 
+        <!-- Projects Section -->
         <section id="projects" class="py-16 md:py-24 anim-hidden">
             <h2 class="text-3xl font-bold text-center mb-12 accent-color">My Projects</h2>
             
@@ -172,6 +246,7 @@
 
         </section>
 
+        <!-- Achievements Section -->
         <section id="achievements" class="py-12 md:py-16 anim-hidden">
             <h2 class="text-3xl font-bold text-center mb-12 accent-color">Achievements</h2>
             <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -213,6 +288,7 @@
             </div>
         </section>
 
+        <!-- Papers Section -->
         <section id="papers" class="py-12 md:py-16 anim-hidden">
             <h2 class="text-3xl font-bold text-center mb-8 accent-color">Papers & Publications</h2>
             <div class="max-w-4xl mx-auto grid grid-cols-1 gap-6">
@@ -229,6 +305,7 @@
             </div>
         </section>
 
+        <!-- Work Experience Section -->
         <section id="work" class="py-12 md:py-16 anim-hidden">
             <h2 class="text-3xl font-bold text-center mb-8 accent-color">Work Experience</h2>
             <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -246,6 +323,7 @@
             </div>
         </section>
 
+        <!-- Contact Section -->
         <section id="contact" class="py-16 md:py-24 anim-hidden">
             <div class="max-w-2xl mx-auto text-center">
                 <h2 class="text-3xl font-bold mb-4 accent-color">Get In Touch</h2>
@@ -290,6 +368,7 @@
 
     </main>
 
+    <!-- Footer -->
     <footer class="bg-black border-t border-gray-800 mt-16 w-full">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
             <div class="flex justify-center space-x-8 mb-4">
@@ -309,8 +388,136 @@
         </div>
     </footer>
 
+    <!-- --- New Gemini AI Chatbot Button --- -->
+    <button id="ai-chat-button" class="fixed bottom-6 right-6 bg-accent hover:bg-red-600 text-white p-4 rounded-full shadow-lg transform transition-all hover:scale-110 z-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-red-500" aria-label="Open AI Assistant Chat">
+        <i data-lucide="sparkles" class="w-6 h-6"></i>
+    </button>
 
+    <!-- --- New Gemini AI Chatbot Modal --- -->
+    <div id="chat-modal" class="hidden fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4 opacity-0 visibility-hidden">
+        <div id="chat-modal-content" class="bg-gray-900 w-full max-w-lg rounded-xl shadow-2xl flex flex-col transform scale-95" style="height: 70vh;">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center p-4 border-b border-gray-700 flex-shrink-0">
+                <h3 class="text-lg font-semibold text-white">Ask my AI Assistant ✨</h3>
+                <button id="close-chat-button" class="text-gray-400 hover:text-white transform transition-transform hover:rotate-90" aria-label="Close chat">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <!-- Message List -->
+            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4">
+                <div class="chat-bubble bot">Hi! I'm Al Hossain's AI assistant. Feel free to ask any questions about his profile, skills, or achievements.</div>
+            </div>
+            <!-- Input Area -->
+            <form id="chat-form" class="p-4 border-t border-gray-700 flex gap-2 flex-shrink-0">
+                <input type="text" id="chat-input" class="flex-1 bg-gray-800 text-white rounded-lg p-2 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="e.g., What's his role at LaSSET?">
+                <button type="submit" id="chat-submit-button" class="bg-accent hover:bg-red-600 text-white p-2 rounded-lg transition-colors disabled:opacity-50">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- --- New Audio Player for TTS --- -->
+    <audio id="tts-audio-player" class="hidden"></audio>
+
+
+    <!-- JavaScript -->
     <script>
+        // --- Gemini API Configuration ---
+        // NOTE: In a real-world app, you'd hide this, but for this demo, we leave it as ""
+        // Canvas will automatically provide a key in runtime.
+        const API_KEY = ""; 
+        const CHAT_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${API_KEY}`;
+        const TTS_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${API_KEY}`;
+
+
+        // --- Helper function to scrape portfolio content for the AI assistant ---
+        function getPortfolioContext() {
+            let context = "Portfolio Context for Al Hossain Shawn:\n\n";
+            
+            // About Me
+            const aboutText = document.getElementById('about-me-text')?.innerText;
+            if (aboutText) context += `About Me:\n${aboutText}\n\n`;
+
+            // Skills
+            const skills = [...document.querySelectorAll('#skills-list .skill-bubble')].map(s => s.innerText);
+            if (skills.length > 0) context += `Skills:\n- ${skills.join('\n- ')}\n\n`;
+
+            // Achievements
+            const achievements = [...document.querySelectorAll('#achievements h3')].map(a => a.innerText);
+            if (achievements.length > 0) context += `Key Achievements:\n- ${achievements.join('\n- ')}\n\n`;
+
+            // Papers
+            const papers = [...document.querySelectorAll('#papers h3')].map(p => p.innerText);
+            if (papers.length > 0) context += `Papers & Publications:\n- ${papers.join('\n- ')}\n\n`;
+
+            // Work Experience
+            const work = [...document.querySelectorAll('#work h3')].map(w => {
+                const title = w.innerText;
+                const description = w.nextElementSibling.innerText;
+                return `${title}: ${description}`;
+            });
+            if (work.length > 0) context += `Work Experience:\n- ${work.join('\n- ')}\n\n`;
+            
+            return context;
+        }
+
+        // --- Helper functions for TTS Audio Processing ---
+        function base64ToArrayBuffer(base64) {
+            const binaryString = window.atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        function pcmToWav(pcmData, sampleRate) {
+            const numChannels = 1;
+            const bitsPerSample = 16;
+            const byteRate = sampleRate * numChannels * (bitsPerSample / 8);
+            const blockAlign = numChannels * (bitsPerSample / 8);
+            const dataSize = pcmData.length * (bitsPerSample / 8);
+            const buffer = new ArrayBuffer(44 + dataSize);
+            const view = new DataView(buffer);
+
+            // RIFF header
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, 36 + dataSize, true);
+            writeString(view, 8, 'WAVE');
+
+            // fmt chunk
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true); // Audio format (1 = PCM)
+            view.setUint16(22, numChannels, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, byteRate, true);
+            view.setUint16(32, blockAlign, true);
+            view.setUint16(34, bitsPerSample, true);
+
+            // data chunk
+            writeString(view, 36, 'data');
+            view.setUint32(40, dataSize, true);
+
+            // Write PCM data
+            let offset = 44;
+            for (let i = 0; i < pcmData.length; i++, offset += 2) {
+                view.setInt16(offset, pcmData[i], true);
+            }
+
+            return buffer;
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+        
+
+        // --- Main Application Logic ---
         document.addEventListener('DOMContentLoaded', function() {
             // --- Icon Initialization ---
             if (typeof lucide !== 'undefined') {
@@ -329,7 +536,6 @@
             mobileMenuButton.addEventListener('click', function() {
                 mobileMenu.classList.toggle('hidden');
             });
-            // Close mobile menu on link click
             document.querySelectorAll('.nav-link-mobile').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.add('hidden');
@@ -343,33 +549,25 @@
                     const targetId = this.getAttribute('href');
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
                     }
                 });
             });
 
             // --- Active Nav Link on Scroll ---
-            // Select ALL sections that have an ID
             const sections = document.querySelectorAll('section[id]');
-            // Select ALL navigation links
             const navLinks = document.querySelectorAll('#desktop-nav a.nav-link');
             
             function updateActiveNav() {
-                let current = 'home'; // Default
-                
+                let current = 'home';
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
-                    // Check if scroll is past the top of the section, minus a 100px offset
                     if (pageYOffset >= sectionTop - 100) { 
                         current = section.getAttribute('id');
                     }
                 });
-
                 navLinks.forEach(link => {
                     link.classList.remove('active');
-                    // Check if the link's data-target matches the current section's ID
                     if (link.dataset.target === current) {
                         link.classList.add('active');
                     }
@@ -378,12 +576,7 @@
 
             // --- Fade-in Animations on Scroll ---
             const hiddenElements = document.querySelectorAll('.anim-hidden');
-            
-            const animObserver = new IntersectionObserver(handleAnimIntersect, {
-                root: null, // relative to the viewport
-                threshold: 0.1, // 10% of the item must be visible
-            });
-
+            const animObserver = new IntersectionObserver(handleAnimIntersect, { root: null, threshold: 0.1 });
             hiddenElements.forEach(el => animObserver.observe(el));
             
             function handleAnimIntersect(entries, observer) {
@@ -391,36 +584,217 @@
                     if (entry.isIntersecting) {
                         entry.target.classList.add('anim-visible');
                     } else {
-                        // This makes the animation repeat (fade-out on scroll-out)
                         entry.target.classList.remove('anim-visible');
                     }
                 });
             }
             
             // --- Attach scroll listeners ---
-            window.addEventListener('scroll', () => {
-                updateActiveNav();
+            window.addEventListener('scroll', updateActiveNav);
+            updateActiveNav(); // Initial check
+
+            
+            // --- New Gemini TTS Logic ---
+            const ttsButton = document.getElementById('tts-button');
+            const ttsAudioPlayer = document.getElementById('tts-audio-player');
+            let isPlaying = false;
+            
+            ttsButton.addEventListener('click', async () => {
+                if (isPlaying) {
+                    ttsAudioPlayer.pause();
+                    ttsAudioPlayer.currentTime = 0;
+                    isPlaying = false;
+                    ttsButton.innerHTML = '<i data-lucide="volume-2" class="w-5 h-5"></i>';
+                    lucide.createIcons();
+                    return;
+                }
+
+                const textToSpeak = document.getElementById('about-me-text')?.innerText;
+                if (!textToSpeak) return;
+
+                // Show loading state
+                ttsButton.disabled = true;
+                ttsButton.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i>';
+                lucide.createIcons();
+
+                try {
+                    const payload = {
+                        contents: [{
+                            parts: [{ text: `Say this in a clear, professional voice: ${textToSpeak}` }]
+                        }],
+                        generationConfig: {
+                            responseModalities: ["AUDIO"],
+                            speechConfig: {
+                                voiceConfig: {
+                                    prebuiltVoiceConfig: { voiceName: "Kore" } // A firm, clear voice
+                                }
+                            }
+                        },
+                        model: "gemini-2.5-flash-preview-tts"
+                    };
+
+                    const response = await fetch(TTS_API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API request failed with status ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const part = result?.candidates?.[0]?.content?.parts?.[0];
+                    const audioData = part?.inlineData?.data;
+                    const mimeType = part?.inlineData?.mimeType;
+
+                    if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                        const sampleRate = parseInt(mimeType.match(/rate=(\d+)/)[1], 10);
+                        const pcmData = base64ToArrayBuffer(audioData);
+                        const pcm16 = new Int16Array(pcmData);
+                        const wavBlob = new Blob([pcmToWav(pcm16, sampleRate)], { type: 'audio/wav' });
+                        const audioUrl = URL.createObjectURL(wavBlob);
+
+                        ttsAudioPlayer.src = audioUrl;
+                        ttsAudioPlayer.play();
+                        isPlaying = true;
+                        ttsButton.innerHTML = '<i data-lucide="stop-circle" class="w-5 h-5"></i>';
+                    } else {
+                        throw new Error("Invalid audio data received from API.");
+                    }
+
+                } catch (error) {
+                    console.error("Error with TTS:", error);
+                    ttsButton.innerHTML = '<i data-lucide="volume-x" class="w-5 h-5"></i>';
+                    alert("Sorry, the text-to-speech service is currently unavailable.");
+                } finally {
+                    ttsButton.disabled = false;
+                    lucide.createIcons();
+                }
             });
-            // Initial check
-            updateActiveNav();
+
+            ttsAudioPlayer.onended = () => {
+                isPlaying = false;
+                ttsButton.innerHTML = '<i data-lucide="volume-2" class="w-5 h-5"></i>';
+                lucide.createIcons();
+            };
+
+
+            // --- New Gemini Chatbot Logic ---
+            const chatButton = document.getElementById('ai-chat-button');
+            const chatModal = document.getElementById('chat-modal');
+            const chatModalContent = document.getElementById('chat-modal-content');
+            const closeChatButton = document.getElementById('close-chat-button');
+            const chatForm = document.getElementById('chat-form');
+            const chatInput = document.getElementById('chat-input');
+            const chatMessages = document.getElementById('chat-messages');
+            const chatSubmitButton = document.getElementById('chat-submit-button');
+            
+            let chatHistory = []; // To hold the conversation
+            let portfolioContext = getPortfolioContext(); // Scrape context on load
+
+            // Open chat modal
+            chatButton.addEventListener('click', () => {
+                chatModal.classList.remove('hidden');
+                setTimeout(() => {
+                    chatModal.classList.remove('opacity-0', 'visibility-hidden');
+                    chatModalContent.classList.remove('scale-95');
+                    chatInput.focus();
+                }, 10);
+                // Re-scrape context every time chat is opened, in case of dynamic changes
+                portfolioContext = getPortfolioContext(); 
+            });
+
+            // Close chat modal
+            closeChatButton.addEventListener('click', () => {
+                chatModal.classList.add('opacity-0', 'visibility-hidden');
+                chatModalContent.classList.add('scale-95');
+                setTimeout(() => chatModal.classList.add('hidden'), 300);
+            });
+            
+            // Handle chat form submission
+            chatForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const userQuery = chatInput.value.trim();
+                if (!userQuery) return;
+
+                // Add user message to UI
+                addMessageToChat(userQuery, 'user');
+                chatInput.value = '';
+                chatSubmitButton.disabled = true;
+
+                // Add "thinking" bubble
+                const loadingBubble = addMessageToChat('Thinking...', 'loading');
+
+                try {
+                    // Prepare the payload for Gemini
+                    const systemPrompt = `You are a professional AI assistant for Al Hossain Shawn. Your job is to answer questions about his professional profile based *only* on the context provided. Do not make up information or answer questions outside of this context. If a question is not related to his profile, politely decline. Be concise, friendly, and helpful. Here is all the information you have:\n\n---PORTFOLIO CONTEXT---\n${portfolioContext}\n---END CONTEXT---`;
+                    
+                    const payload = {
+                        contents: [{ parts: [{ text: userQuery }] }],
+                        systemInstruction: {
+                            parts: [{ text: systemPrompt }]
+                        },
+                    };
+
+                    // Call the Gemini API
+                    const response = await fetch(CHAT_API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API request failed with status ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const botResponse = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (botResponse) {
+                        // Update "thinking" bubble with the real response
+                        loadingBubble.textContent = botResponse;
+                        loadingBubble.classList.remove('loading');
+                        loadingBubble.classList.add('bot');
+                    } else {
+                        throw new Error("No response text from API.");
+                    }
+
+                } catch (error) {
+                    console.error("Error with AI chat:", error);
+                    loadingBubble.textContent = "Sorry, I'm having trouble connecting right now. Please try again later.";
+                    loadingBubble.classList.remove('loading');
+                    loadingBubble.classList.add('bot');
+                } finally {
+                    chatSubmitButton.disabled = false;
+                    chatInput.focus();
+                }
+            });
+
+            // Helper to add a message to the chat UI
+            function addMessageToChat(text, sender) {
+                const bubble = document.createElement('div');
+                bubble.className = `chat-bubble ${sender}`;
+                bubble.textContent = text;
+                chatMessages.appendChild(bubble);
+                // Scroll to the new message
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                return bubble;
+            }
 
         });
 
-        // --- Handle Contact Form Submission (Web3Forms Code with YOUR KEY) ---
+        // --- Handle Contact Form Submission (Web3Forms) ---
         async function handleFormSubmit(event) {
-            event.preventDefault(); // Stop the form from submitting traditionally
-            
+            event.preventDefault();
             const form = event.target;
             const formData = new FormData(form);
             const formSuccessMessage = document.getElementById('form-success');
             const formErrorMessage = document.getElementById('form-error');
             const sendButton = form.querySelector('button[type="submit"]');
 
-            // --- Your Access Key is ALREADY included ---
             formData.set("access_key", "dc4cee12-5592-4eaa-8346-d5c9e064ef4c"); 
-            // ------------------------------------------
 
-            // Show loading state
             sendButton.disabled = true;
             sendButton.textContent = 'Sending...';
             formSuccessMessage.classList.add('hidden');
@@ -431,9 +805,7 @@
                     method: "POST",
                     body: formData
                 });
-
                 const data = await response.json();
-
                 if (data.success) {
                     form.reset();
                     formSuccessMessage.classList.remove('hidden');
@@ -445,11 +817,8 @@
                 console.error("Error submitting form:", error);
                 formErrorMessage.classList.remove('hidden');
             } finally {
-                // Restore button
                 sendButton.disabled = false;
                 sendButton.textContent = 'Send Message';
-                
-                // Hide success/error message after 5 seconds
                 setTimeout(() => {
                     formSuccessMessage.classList.add('hidden');
                     formErrorMessage.classList.add('hidden');
@@ -460,4 +829,4 @@
 
 </body>
 </html>
-```eof
+
