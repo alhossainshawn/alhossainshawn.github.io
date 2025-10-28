@@ -206,6 +206,9 @@
                             <i data-lucide="volume-2" class="w-5 h-5"></i>
                         </button>
                     </div>
+                    
+                    <!-- New TTS Error Message -->
+                    <span id="tts-error" class="hidden text-red-500 text-sm -mt-4 mb-4 block text-center md:text-left">Sorry, the audio service is unavailable.</span>
 
                     <div id="about-me-text">
                         <p class="text-lg text-gray-300 mb-6 leading-relaxed">
@@ -597,9 +600,12 @@
             // --- New Gemini TTS Logic ---
             const ttsButton = document.getElementById('tts-button');
             const ttsAudioPlayer = document.getElementById('tts-audio-player');
+            const ttsError = document.getElementById('tts-error'); // Get the error message span
             let isPlaying = false;
             
             ttsButton.addEventListener('click', async () => {
+                ttsError.classList.add('hidden'); // Hide error on new click
+
                 if (isPlaying) {
                     ttsAudioPlayer.pause();
                     ttsAudioPlayer.currentTime = 0;
@@ -618,29 +624,48 @@
                 lucide.createIcons();
 
                 try {
-                    const payload = {
-                        contents: [{
-                            parts: [{ text: `Say this in a clear, professional voice: ${textToSpeak}` }]
-                        }],
-                        generationConfig: {
-                            responseModalities: ["AUDIO"],
-                            speechConfig: {
-                                voiceConfig: {
-                                    prebuiltVoiceConfig: { voiceName: "Kore" } // A firm, clear voice
-                                }
-                            }
-                        },
-                        model: "gemini-2.5-flash-preview-tts"
-                    };
+                    // --- Exponential Backoff Retry Logic ---
+                    let response;
+                    let retries = 3;
+                    let delay = 1000; // Start with 1 second
 
-                    const response = await fetch(TTS_API_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
+                    for (let i = 0; i < retries; i++) {
+                        const payload = {
+                            contents: [{
+                                parts: [{ text: `Say this in a clear, professional voice: ${textToSpeak}` }]
+                            }],
+                            generationConfig: {
+                                responseModalities: ["AUDIO"],
+                                speechConfig: {
+                                    voiceConfig: {
+                                        prebuiltVoiceConfig: { voiceName: "Kore" } // A firm, clear voice
+                                    }
+                                }
+                            },
+                            model: "gemini-2.5-flash-preview-tts"
+                        };
+
+                        response = await fetch(TTS_API_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (response.ok) {
+                            break; // Success! Exit the loop.
+                        }
+                        
+                        // If response is not ok (e.g., 429, 500, 503), wait and retry
+                        if (i < retries - 1) {
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            delay *= 2; // Exponential backoff
+                        }
+                    }
+                    // --- End of Backoff Logic ---
+
 
                     if (!response.ok) {
-                        throw new Error(`API request failed with status ${response.status}`);
+                        throw new Error(`API request failed with status ${response.status} after retries`);
                     }
 
                     const result = await response.json();
@@ -666,7 +691,12 @@
                 } catch (error) {
                     console.error("Error with TTS:", error);
                     ttsButton.innerHTML = '<i data-lucide="volume-x" class="w-5 h-5"></i>';
-                    alert("Sorry, the text-to-speech service is currently unavailable.");
+                    // Show the new error message instead of the alert
+                    ttsError.classList.remove('hidden'); 
+                    // Hide the error message after 4 seconds
+                    setTimeout(() => {
+                        ttsError.classList.add('hidden');
+                    }, 4000);
                 } finally {
                     ttsButton.disabled = false;
                     lucide.createIcons();
@@ -727,25 +757,43 @@
                 const loadingBubble = addMessageToChat('Thinking...', 'loading');
 
                 try {
-                    // Prepare the payload for Gemini
-                    const systemPrompt = `You are a professional AI assistant for Al Hossain Shawn. Your job is to answer questions about his professional profile based *only* on the context provided. Do not make up information or answer questions outside of this context. If a question is not related to his profile, politely decline. Be concise, friendly, and helpful. Here is all the information you have:\n\n---PORTFOLIO CONTEXT---\n${portfolioContext}\n---END CONTEXT---`;
-                    
-                    const payload = {
-                        contents: [{ parts: [{ text: userQuery }] }],
-                        systemInstruction: {
-                            parts: [{ text: systemPrompt }]
-                        },
-                    };
+                    // --- Exponential Backoff Retry Logic ---
+                    let response;
+                    let retries = 3;
+                    let delay = 1000; // Start with 1 second
 
-                    // Call the Gemini API
-                    const response = await fetch(CHAT_API_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
+                    for (let i = 0; i < retries; i++) {
+                        // Prepare the payload for Gemini
+                        const systemPrompt = `You are a professional AI assistant for Al Hossain Shawn. Your job is to answer questions about his professional profile based *only* on the context provided. Do not make up information or answer questions outside of this context. If a question is not related to his profile, politely decline. Be concise, friendly, and helpful. Here is all the information you have:\n\n---PORTFOLIO CONTEXT---\n${portfolioContext}\n---END CONTEXT---`;
+                        
+                        const payload = {
+                            contents: [{ parts: [{ text: userQuery }] }],
+                            systemInstruction: {
+                                parts: [{ text: systemPrompt }]
+                            },
+                        };
+
+                        // Call the Gemini API
+                        response = await fetch(CHAT_API_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (response.ok) {
+                            break; // Success! Exit the loop.
+                        }
+
+                        // If response is not ok (e.g., 429, 500, 503), wait and retry
+                        if (i < retries - 1) {
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            delay *= 2; // Exponential backoff
+                        }
+                    }
+                    // --- End of Backoff Logic ---
 
                     if (!response.ok) {
-                        throw new Error(`API request failed with status ${response.status}`);
+                        throw new Error(`API request failed with status ${response.status} after retries`);
                     }
 
                     const result = await response.json();
@@ -801,10 +849,29 @@
             formErrorMessage.classList.add('hidden');
 
             try {
-                const response = await fetch("https://api.web3forms.com/submit", {
-                    method: "POST",
-                    body: formData
-                });
+                // --- Exponential Backoff Retry Logic ---
+                let response;
+                let retries = 3;
+                let delay = 1000; // Start with 1 second
+
+                for (let i = 0; i < retries; i++) {
+                    response = await fetch("https://api.web3forms.com/submit", {
+                        method: "POST",
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        break; // Success! Exit the loop.
+                    }
+
+                    // If response is not ok (e.g., 429, 500, 503), wait and retry
+                    if (i < retries - 1) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2; // Exponential backoff
+                    }
+                }
+                // --- End of Backoff Logic ---
+
                 const data = await response.json();
                 if (data.success) {
                     form.reset();
