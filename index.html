@@ -95,6 +95,8 @@
                 <a href="#home" class="nav-link nav-link-hover text-white hover:text-red-500 font-medium transition-colors" data-target="home">Home</a>
                 <a href="#about" class="nav-link nav-link-hover text-white hover:text-red-500 font-medium transition-colors" data-target="about">About</a>
                 <a href="#projects" class="nav-link nav-link-hover text-white hover:text-red-500 font-medium transition-colors" data-target="projects">Projects</a>
+                <a href="#achievements" class="nav-link nav-link-hover text-white hover:text-red-500 font-medium transition-colors" data-target="achievements">Achievements</a>
+                <a href="#papers" class="nav-link nav-link-hover text-white hover:text-red-500 font-medium transition-colors" data-target="papers">Papers</a>
                 <a href="#contact" class="nav-link nav-link-hover text-white hover:text-red-500 font-medium transition-colors" data-target="contact">Contact</a>
             </div>
             
@@ -109,6 +111,8 @@
             <a href="#home" class="nav-link-mobile block px-4 py-3 text-white hover:bg-gray-800" data-target="home">Home</a>
             <a href="#about" class="nav-link-mobile block px-4 py-3 text-white hover:bg-gray-800" data-target="about">About</a>
             <a href="#projects" class="nav-link-mobile block px-4 py-3 text-white hover:bg-gray-800" data-target="projects">Projects</a>
+            <a href="#achievements" class="nav-link-mobile block px-4 py-3 text-white hover:bg-gray-800" data-target="achievements">Achievements</a>
+            <a href="#papers" class="nav-link-mobile block px-4 py-3 text-white hover:bg-gray-800" data-target="papers">Papers</a>
             <a href="#contact" class="nav-link-mobile block px-4 py-3 text-white hover:bg-gray-800" data-target="contact">Contact</a>
         </div>
     </header>
@@ -138,6 +142,8 @@
                 <div class="flex-shrink-0 w-56 h-56 md:w-72 md:h-72">
                     <img src="images/shawn.jpg" 
                          alt="A professional headshot of Al Hossain Shawn" 
+                         loading="lazy" decoding="async"
+                         onerror="this.onerror=null;this.src='https://placehold.co/400x400/1f2937/ef4444?text=Al%20Hossain%20Shawn';"
                          class="w-full h-full rounded-full object-cover shadow-md border-4 border-accent">
                 </div>
                 
@@ -247,41 +253,50 @@
                     </div>
                 </div>
                 
-                <!-- Project 5: Publication -->
-                <div class="anim-hidden bg-gray-900 rounded-xl shadow-lg overflow-hidden flex flex-col transform hover:scale-[1.02] transition-transform duration-300">
-                    <img src="https://placehold.co/600x400/1f2937/ef4444?text=IAC-23+Publication" 
-                         alt="IAC-23 Publication" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-6 flex flex-col flex-1">
-                        <h3 class="text-xl font-semibold mb-2">Publication: Small Satellites System Simulator</h3>
-                        <p class="text-gray-300 mb-4 flex-1">
-                            Co-authored a paper on the "Design and Evaluation of a Small Satellites System Overview Simulator," presented at the INTERNATIONAL ASTRONAUTICAL FEDERATION (IAC-23).
-                        </p>
-                        <div class="mb-4">
-                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#Publication</span>
-                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#IAC-23</span>
-                        </div>
+                <!-- (Removed publication & leadership cards from Projects grid; moved below into Papers & Achievements sections) -->
+
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievements" class="py-12 md:py-16 anim-hidden">
+            <h2 class="text-3xl font-bold text-center mb-8 accent-color">Achievements</h2>
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gray-900 rounded-xl p-6 shadow-md">
+                    <h3 class="text-xl font-semibold mb-2">Chair, IEEE AESS BRACU SB</h3>
+                    <p class="text-gray-300 mb-2">Serving as the Chair for the Aerospace & Electronic System Society at the IEEE BRAC University Student Branch since January 2025.</p>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                        <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300">#IEEE</span>
+                        <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300">#Leadership</span>
                     </div>
                 </div>
 
-                <!-- Project 6: IEEE AESS Chair -->
-                <div class="anim-hidden bg-gray-900 rounded-xl shadow-lg overflow-hidden flex flex-col transform hover:scale-[1.02] transition-transform duration-300">
-                    <img src="https://placehold.co/600x400/1f2937/ef4444?text=IEEE+AESS+Chair" 
-                         alt="IEEE AESS Chair" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-6 flex flex-col flex-1">
-                        <h3 class="text-xl font-semibold mb-2">Chair, IEEE AESS BRACU SB</h3>
-                        <p class="text-gray-300 mb-4 flex-1">
-                            Serving as the Chair for the Aerospace & Electronic System Society at the IEEE BRAC University Student Branch since January 2025.
-                        </p>
-                        <div class="mb-4">
-                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#IEEE</span>
-                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#AESS</span>
-                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300 mr-2 mb-2">#Leadership</span>
+                <div class="bg-gray-900 rounded-xl p-6 shadow-md">
+                    <h3 class="text-xl font-semibold mb-2">Competition Results</h3>
+                    <ul class="text-gray-300 list-disc list-inside leading-relaxed">
+                        <li>APSCO CubeSat Competition — Winner of Phase 0 & Phase 1 (Team Lead)</li>
+                        <li>Satellite Expedition Contest — 2nd Runner-up (October 2024)</li>
+                        <li>BIRDS-X APRS Payload Competition — Winner of Phase 1 (April 2023)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Papers Section -->
+        <section id="papers" class="py-12 md:py-16 anim-hidden">
+            <h2 class="text-3xl font-bold text-center mb-8 accent-color">Papers & Publications</h2>
+            <div class="max-w-4xl mx-auto grid grid-cols-1 gap-6">
+                <div class="bg-gray-900 rounded-xl shadow-lg overflow-hidden flex flex-col">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Small Satellites System Simulator</h3>
+                        <p class="text-gray-300 mb-4">Co-authored the paper "Design and Evaluation of a Small Satellites System Overview Simulator," presented at the INTERNATIONAL ASTRONAUTICAL FEDERATION (IAC-23).</p>
+                        <!-- Optionally add a link to the paper PDF or DOI here -->
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300">#Publication</span>
+                            <span class="inline-block bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-300">#IAC-23</span>
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
