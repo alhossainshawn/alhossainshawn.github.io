@@ -254,7 +254,7 @@
                 </p>
             </div>
             
-            <form action="#" method="POST" class="max-w-xl mx-auto" onsubmit="handleFormSubmit(event)">
+            <form id="contact-form" class="max-w-xl mx-auto" onsubmit="handleFormSubmit(event)">
                 <div class="space-y-4">
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Name</label>
@@ -273,7 +273,7 @@
                     </div>
                     <div class="text-center">
                         <button type="submit"
-                                class="bg-accent hover:bg-red-600 text-white font-medium py-3 px-8 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105">
+                                class="bg-accent hover:bg-red-600 text-white font-medium py-3 px-8 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
                             Send Message
                         </button>
                     </div>
@@ -282,6 +282,9 @@
             
             <div id="form-success" class="hidden max-w-xl mx-auto mt-6 p-4 text-center text-green-200 bg-green-900 rounded-lg">
                 Thank you! Your message has been sent.
+            </div>
+            <div id="form-error" class="hidden max-w-xl mx-auto mt-6 p-4 text-center text-red-200 bg-red-900 rounded-lg">
+                Oops! Something went wrong. Please try again.
             </div>
         </section>
 
@@ -358,7 +361,6 @@
                 
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
                     // Check if scroll is past the top of the section, minus a 100px offset
                     if (pageYOffset >= sectionTop - 100) { 
                         current = section.getAttribute('id');
@@ -404,22 +406,55 @@
 
         });
 
-        // --- Handle Contact Form Submission ---
-        function handleFormSubmit(event) {
+        // --- Handle Contact Form Submission (Web3Forms Code with YOUR KEY) ---
+        async function handleFormSubmit(event) {
             event.preventDefault(); // Stop the form from submitting traditionally
-            const formSuccessMessage = document.getElementById('form-success');
-            const form = event.target;
             
-            // In a real project, you would send this data to a backend or form service (like Netlify Forms)
-            // For this demo, we'll just show the success message.
-            console.log('Form submitted (demo)');
-            form.reset(); // Clear the form
-            formSuccessMessage.classList.remove('hidden');
+            const form = event.target;
+            const formData = new FormData(form);
+            const formSuccessMessage = document.getElementById('form-success');
+            const formErrorMessage = document.getElementById('form-error');
+            const sendButton = form.querySelector('button[type="submit"]');
 
-            // Hide the success message after 5 seconds
-            setTimeout(() => {
-                formSuccessMessage.classList.add('hidden');
-            }, 5000);
+            // --- Your Access Key is ALREADY included ---
+            formData.set("access_key", "dc4cee12-5592-4eaa-8346-d5c9e064ef4c"); 
+            // ------------------------------------------
+
+            // Show loading state
+            sendButton.disabled = true;
+            sendButton.textContent = 'Sending...';
+            formSuccessMessage.classList.add('hidden');
+            formErrorMessage.classList.add('hidden');
+
+            try {
+                const response = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    form.reset();
+                    formSuccessMessage.classList.remove('hidden');
+                } else {
+                    console.error("Error from Web3Forms:", data.message);
+                    formErrorMessage.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error("Error submitting form:", error);
+                formErrorMessage.classList.remove('hidden');
+            } finally {
+                // Restore button
+                sendButton.disabled = false;
+                sendButton.textContent = 'Send Message';
+                
+                // Hide success/error message after 5 seconds
+                setTimeout(() => {
+                    formSuccessMessage.classList.add('hidden');
+                    formErrorMessage.classList.add('hidden');
+                }, 5000);
+            }
         }
     </script>
 
