@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FPGA &amp; Reconfigurable Computing — Al Hossain Shawn</title>
+<meta name="description" content="FPGA and reconfigurable computing — Vivado HLS, AXI4 co-design, hardware acceleration for AI inference on Artix-7 silicon." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+<div class="scroll-progress"></div>
+<div class="grid-pulse"></div>
+
+<div id="icon-defs" hidden></div>
+<script>
+fetch('../icons.svg').then(r => r.text()).then(svg => {
+  const el = document.getElementById('icon-defs');
+  if (el) el.innerHTML = svg;
+});
+</script>
+
+<div class="page">
+  <div class="frame">
+
+    <header class="titleblock">
+      <div>
+        <span class="blink"></span>
+        <span class="brand">A.H. Shawn</span>
+      </div>
+      <div class="nav">
+        <a href="../index.html#research" class="current">RESEARCH</a>
+        <a href="../index.html#projects">PROJECTS</a>
+        <a href="../index.html#publications">PAPERS</a>
+        <a href="../index.html#contact">CONTACT</a>
+      </div>
+      <div>Sheet<b>DOM-01</b></div>
+      <div>Class<b>Domain</b></div>
+      <div>Drawing<b>AHS-DOM-FPGA</b></div>
+    </header>
+
+    <a class="back-link" href="../index.html">← BACK TO INDEX</a>
+
+    <section class="detail-hero">
+      <div class="kicker">
+        <svg class="ico"><use href="#i-fpga"/></svg>
+        <span class="id">§ DOM-01</span>
+        <span>·</span>
+        <span>Active Domain</span>
+        <span>·</span>
+        <span>Primary focus area</span>
+      </div>
+
+      <h1>FPGA &amp; Reconfigurable <em>Computing</em></h1>
+
+      <p class="lead">
+        Programmable hardware as a <em>compute substrate</em> — turning Python-trained
+        neural networks into custom IP blocks that run on <em>Artix-7</em> silicon
+        through HLS, RTL refinement and SoC integration.
+      </p>
+
+      <div class="detail-meta">
+        <div>Focus<b>HW–SW co-design</b></div>
+        <div>Tooling<b>Vivado · Vitis HLS</b></div>
+        <div>Targets<b>Artix-7 XC7A200T</b></div>
+        <div>Status<b>● Active research</b></div>
+      </div>
+    </section>
+
+    <section class="detail-body">
+      <h2><span class="num">§ 01 — Overview</span><br/>The <em>question</em></h2>
+      <p>
+        Reconfigurable computing sits in a useful gap. ASICs give you peak
+        efficiency but commit silicon to one workload; CPUs and GPUs are flexible
+        but pay for it in joules per inference. <em>FPGAs</em> let you trade
+        between the two — re-fabricating the data path to match the model in
+        front of you.
+      </p>
+      <p>
+        The work here is about how to <em>actually</em> close that gap in
+        practice: choosing the right compute primitive (LUT, log-domain,
+        approximate), wrapping it in a clean AXI4 SoC, and pushing it through
+        Vivado without losing timing.
+      </p>
+    </section>
+
+    <section class="detail-body">
+      <h2><span class="num">§ 02 — Sub-areas</span><br/>What this <em>covers</em></h2>
+
+      <div class="subsystem-grid">
+        <div>
+          <div class="id">SUB-01</div>
+          <div class="name">High-Level Synthesis</div>
+          <div class="desc">Algorithmic descriptions in C/C++ compiled to RTL via Vivado HLS. Pragma-driven optimisation of pipelines, dataflow and memory partitioning.</div>
+        </div>
+        <div>
+          <div class="id">SUB-02</div>
+          <div class="name">RTL Architecture</div>
+          <div class="desc">Hand-tuned Verilog where HLS doesn't cut it — clock-domain crossings, FIFO sizing and pipelined arithmetic for predictable timing.</div>
+        </div>
+        <div>
+          <div class="id">SUB-03</div>
+          <div class="name">AXI4 SoC Integration</div>
+          <div class="desc">Memory-mapped AXI4 between custom accelerator IP and embedded ARM cores; DMA-driven activations and bitstream-baked metadata.</div>
+        </div>
+        <div>
+          <div class="id">SUB-04</div>
+          <div class="name">PPA Optimisation</div>
+          <div class="desc">Power, performance and area treated as first-class design knobs. Vivado reports parsed into sweep dashboards for repeatable exploration.</div>
+        </div>
+        <div>
+          <div class="id">SUB-05</div>
+          <div class="name">Quantisation &amp; Approximate Compute</div>
+          <div class="desc">Sensitivity-driven quantisation pipelines that pick precision per layer — the question is which layers tolerate which approximations.</div>
+        </div>
+        <div>
+          <div class="id">SUB-06</div>
+          <div class="name">Verification</div>
+          <div class="desc">Bit-accurate C++ models paired with cocotb testbenches; coverage-driven regression on representative DNN slices.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-body">
+      <h2><span class="num">§ 03 — Active threads</span><br/>What's <em>running</em></h2>
+
+      <div class="detail-bullets">
+        <a style="text-decoration:none;color:inherit" href="../projects/hybrid-neural-accelerator.html">
+          <div class="label">+ R-01 · HYBRID NEURAL ACCELERATOR</div>
+          <div class="text">Reconfigurable LUT / logarithmic compute engine for AI inference, prototyped on Artix-7 XC7A200T. AXI4-based co-design with ARM cores. <strong style="color:var(--accent)">[ READ → ]</strong></div>
+        </a>
+        <div>
+          <div class="label">+ R-03 · GLSVLSI 2026 (LBS)</div>
+          <div class="text">Companion paper — “Quantization-Aware Training for Efficient Edge DNN Deployment: A Sensitivity-Driven Approach.” Approved.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-body">
+      <h2><span class="num">§ 04 — Toolchain</span><br/>What I <em>reach for</em></h2>
+
+      <div class="subsystem-grid">
+        <div>
+          <div class="id">TOOL</div>
+          <div class="name">AMD Vivado Suite</div>
+          <div class="desc">End-to-end FPGA design — RTL, synthesis, implementation, timing closure.</div>
+        </div>
+        <div>
+          <div class="id">TOOL</div>
+          <div class="name">Vitis HLS</div>
+          <div class="desc">High-level synthesis from C/C++ to optimised RTL.</div>
+        </div>
+        <div>
+          <div class="id">TOOL</div>
+          <div class="name">Artix-7 XC7A200T</div>
+          <div class="desc">Target silicon — 215 K LUTs, 740 DSP slices, 13 Mb BRAM.</div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="next-prev">
+      <a href="../index.html">
+        <div class="label">← BACK</div>
+        <div class="name">Index</div>
+      </a>
+      <a href="dom-device-physics.html">
+        <div class="label">NEXT DOMAIN →</div>
+        <div class="name">Device <em>Physics</em></div>
+      </a>
+    </nav>
+
+    <footer class="foot">
+      <h2>Talk <em>shop</em>?</h2>
+      <p class="sub">Open to research collaborations, internships, and IC / hardware roles.</p>
+      <div class="contacts">
+        <div>
+          <div class="lbl"><svg class="ico"><use href="#i-mail"/></svg>[ Email ]</div>
+          <a class="val" href="mailto:alhossainshawn@gmail.com">alhossainshawn@gmail.com</a>
+        </div>
+        <div>
+          <div class="lbl"><svg class="ico"><use href="#i-linkedin"/></svg>[ LinkedIn ]</div>
+          <a class="val" href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">/in/al-hossain-shawn</a>
+        </div>
+        <div>
+          <div class="lbl"><svg class="ico"><use href="#i-phone"/></svg>[ Phone ]</div>
+          <div class="val">+880 1303-236292</div>
+        </div>
+        <div>
+          <div class="lbl"><svg class="ico"><use href="#i-pin"/></svg>[ Location ]</div>
+          <div class="val">Dhaka 1212, BD</div>
+        </div>
+      </div>
+      <div class="botbar">
+        <span>© 2026 · AL HOSSAIN SHAWN · DWG-AHS-DOM-FPGA · REV A</span>
+        <span class="ok">● PROCESS EXITED 0</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<script src="../interactive.js" defer></script>
+</body>
+</html>

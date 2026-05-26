@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MBCFET Modeling — Al Hossain Shawn</title>
+<meta name="description" content="GAA Multi-Bridge-Channel FET simulation in Silvaco TCAD, targeting sub-5 nm technology nodes." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+<div class="page">
+  <div class="frame">
+
+    <header class="titleblock">
+      <div>
+        <span class="blink"></span>
+        <span class="brand">A.H. Shawn</span>
+      </div>
+      <div class="nav">
+        <a href="../index.html#research" class="current">RESEARCH</a>
+        <a href="../index.html#projects">PROJECTS</a>
+        <a href="../index.html#publications">PAPERS</a>
+        <a href="../index.html#contact">CONTACT</a>
+      </div>
+      <div>Sheet<b>R-02</b></div>
+      <div>Status<b>Ongoing</b></div>
+      <div>Drawing<b>AHS-MBC-01</b></div>
+    </header>
+
+    <a class="back-link" href="../index.html">← BACK TO INDEX</a>
+
+    <section class="detail-hero">
+      <div class="kicker">
+        <span class="id">§ R-02</span>
+        <span>·</span>
+        <span>Active Research</span>
+        <span>·</span>
+        <span>Oct 2025 – Present</span>
+      </div>
+
+      <h1>MBCFET Structure <em>Modeling</em> &amp; Physics</h1>
+
+      <p class="lead">
+        TCAD-driven device study of the <em>Multi-Bridge-Channel FET</em> —
+        Samsung's GAA evolution of the nanosheet transistor — aimed at
+        understanding what controls <em>Ion/Ioff</em> and short-channel
+        immunity in <em>sub-5 nm</em> logic.
+      </p>
+
+      <div class="detail-meta">
+        <div>Type<b>Device-level TCAD study</b></div>
+        <div>Toolchain<b>Silvaco Athena + Atlas</b></div>
+        <div>Target node<b>Sub-5 nm</b></div>
+        <div>Focus<b>SCE · DIBL · subthreshold</b></div>
+      </div>
+    </section>
+
+    <section class="detail-body">
+      <h2><span class="num">§ 01 — Overview</span><br/>Why <em>MBCFET</em></h2>
+      <p>
+        As CMOS shrinks past FinFET, GAA architectures take over because
+        wrap-around gates restore electrostatic control of the channel. The
+        MBCFET stacks multiple nanosheet bridges in parallel to widen the
+        effective channel without growing the footprint — but the design
+        space (sheet thickness, pitch, spacing, doping) is vast and
+        non-linear.
+      </p>
+      <p>
+        This work uses <em>Silvaco TCAD</em> — Athena for process flow,
+        Atlas for device characterisation — to scan that design space and
+        identify the levers that matter for SCE and current drive in the
+        sub-5 nm regime.
+      </p>
+    </section>
+
+    <section class="detail-body">
+      <h2><span class="num">§ 02 — Approach</span><br/>Simulation <em>method</em></h2>
+
+      <div class="subsystem-grid">
+        <div>
+          <div class="id">PROC-01</div>
+          <div class="name">Process Flow (Athena)</div>
+          <div class="desc">Multi-step process simulation — epi growth, oxide, gate stack — assembled as a parametric script to enable sweeps.</div>
+        </div>
+        <div>
+          <div class="id">DEV-02</div>
+          <div class="name">Device Sim (Atlas)</div>
+          <div class="desc">DC characterisation: Id–Vg, Id–Vd, subthreshold slope, DIBL. Drift-diffusion with mobility models calibrated for thin-body silicon.</div>
+        </div>
+        <div>
+          <div class="id">GEO-03</div>
+          <div class="name">Geometry Sweeps</div>
+          <div class="desc">Nanosheet thickness, sheet pitch, gate length and S/D doping varied systematically to map their effect on Ion/Ioff.</div>
+        </div>
+        <div>
+          <div class="id">SCE-04</div>
+          <div class="name">Short-Channel Effects</div>
+          <div class="desc">DIBL, threshold-voltage roll-off, subthreshold slope quantified across the sweep — to find the geometry envelope that holds at scale.</div>
+        </div>
+        <div>
+          <div class="id">OPT-05</div>
+          <div class="name">Optimisation</div>
+          <div class="desc">Pareto curves of Ion vs Ioff guide selection of stack geometries that maintain drive current without sacrificing leakage.</div>
+        </div>
+        <div>
+          <div class="id">VAL-06</div>
+          <div class="name">Cross-Validation</div>
+          <div class="desc">Selected operating points cross-checked against analytical models and published Synopsys Sentaurus references for sanity.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-body">
+      <h2><span class="num">§ 03 — Why it matters</span><br/>What this <em>unlocks</em></h2>
+      <p>
+        A clean understanding of which geometric parameters dominate
+        MBCFET behaviour is a prerequisite for any compact model that
+        wants to predict circuit performance at sub-5 nm. This work feeds
+        directly into downstream questions about how next-generation
+        logic — including the FPGA work on Sheet R-01 — will scale on
+        post-FinFET silicon.
+      </p>
+    </section>
+
+    <nav class="next-prev">
+      <a href="hybrid-neural-accelerator.html">
+        <div class="label">← PREVIOUS</div>
+        <div class="name">Hybrid Neural <em>Accelerator</em></div>
+      </a>
+      <a href="cubesat.html">
+        <div class="label">NEXT →</div>
+        <div class="name">APSCO <em>CubeSat</em></div>
+      </a>
+    </nav>
+
+    <footer class="foot">
+      <h2>Curious to <em>discuss</em>?</h2>
+      <p class="sub">Always interested in conversations about device physics, TCAD and post-FinFET logic.</p>
+      <div class="contacts">
+        <div>
+          <div class="lbl">[ Email ]</div>
+          <a class="val" href="mailto:alhossainshawn@gmail.com">alhossainshawn@gmail.com</a>
+        </div>
+        <div>
+          <div class="lbl">[ LinkedIn ]</div>
+          <a class="val" href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">/in/al-hossain-shawn</a>
+        </div>
+        <div>
+          <div class="lbl">[ Phone ]</div>
+          <div class="val">+880 1303-236292</div>
+        </div>
+        <div>
+          <div class="lbl">[ Location ]</div>
+          <div class="val">Dhaka 1212, BD</div>
+        </div>
+      </div>
+      <div class="botbar">
+        <span>© 2026 · AL HOSSAIN SHAWN · DWG-AHS-MBC-01 · REV A</span>
+        <span class="ok">● PROCESS EXITED 0</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>
