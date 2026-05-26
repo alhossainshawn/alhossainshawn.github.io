@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Semiconductor Device Modeling &amp; Physics — Al Hossain Shawn</title>
+<meta name="description" content="Semiconductor device physics — TCAD modelling of beyond-CMOS architectures, GAA FETs and MBCFETs at sub-5 nm nodes." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+<div class="scroll-progress"></div>
+<div class="grid-pulse"></div>
+
+<div id="icon-defs" hidden></div>
+<script>
+fetch('../icons.svg').then(r => r.text()).then(svg => {
+  const el = document.getElementById('icon-defs');
+  if (el) el.innerHTML = svg;
+});
+</script>
+
+<div class="page">
+  <div class="frame">
+
+    <header class="titleblock">
+      <div>
+        <span class="blink"></span>
+        <span class="brand">A.H. Shawn</span>
+      </div>
+      <div class="nav">
+        <a href="../index.html#research" class="current">RESEARCH</a>
+        <a href="../index.html#projects">PROJECTS</a>
+        <a href="../index.html#publications">PAPERS</a>
+        <a href="../index.html#contact">CONTACT</a>
+      </div>
+      <div>Sheet<b>DOM-02</b></div>
+      <div>Class<b>Domain</b></div>
+      <div>Drawing<b>AHS-DOM-DEV</b></div>
+    </header>
+
+    <a class="back-link" href="../index.html">← BACK TO INDEX</a>
+
+    <section class="detail-hero">
+      <div class="kicker">
+        <svg class="ico"><use href="#i-transistor"/></svg>
+        <span class="id">§ DOM-02</span>
+        <span>·</span>
+        <span>Active Domain</span>
+        <span>·</span>
+        <span>Beyond-CMOS</span>
+      </div>
+
+      <h1>Semiconductor Device <em>Modeling</em> &amp; Physics</h1>
+
+      <p class="lead">
+        Designing the transistors that don't exist yet — <em>TCAD</em>-driven
+        exploration of <em>GAA</em> and <em>MBCFET</em> architectures at
+        sub-5 nm nodes, where short-channel effects dictate what's possible.
+      </p>
+
+      <div class="detail-meta">
+        <div>Focus<b>Beyond-CMOS devices</b></div>
+        <div>Tooling<b>Silvaco · Sentaurus</b></div>
+        <div>Scale<b>Sub-5 nm logic</b></div>
+        <div>Status<b>● Active research</b></div>
+      </div>
+    </section>
+
+    <section class="detail-body">
+      <h2><span class="num">§ 01 — Overview</span><br/>Where the <em>silicon</em> goes next</h2>
+      <p>
+        Classical CMOS scaling stopped working a decade ago. What replaced it —
+        FinFET, then GAA nanosheets, then multi-bridge channels — is a sequence
+        of geometric tricks to keep the gate in control of a channel that's
+        getting smaller than the physics it's made of.
+      </p>
+      <p>
+        This domain studies that boundary. Where does electrostatic control
+        break down? How thin can a sheet get before mobility collapses? Which
+        stack geometries hold up when you push them past the next node?
+      </p>
+    </section>
+
+    <section class="detail-body">
+      <h2><span class="num">§ 02 — Sub-areas</span><br/>What this <em>covers</em></h2>
+
+      <div class="subsystem-grid">
+        <div>
+          <div class="id">SUB-01</div>
+          <div class="name">GAA FET Architectures</div>
+          <div class="desc">Gate-all-around variants — nanowire and nanosheet topologies — and the trade-offs they introduce in drive current vs leakage.</div>
+        </div>
+        <div>
+          <div class="id">SUB-02</div>
+          <div class="name">MBCFET / Multi-Bridge Channels</div>
+          <div class="desc">Stacked-sheet successors to single-nanosheet GAAs — Samsung's roadmap device for the post-3 nm era.</div>
+        </div>
+        <div>
+          <div class="id">SUB-03</div>
+          <div class="name">Process Simulation</div>
+          <div class="desc">Silvaco Athena process flow — epi growth, oxide, gate stack — scripted parametrically to enable geometry sweeps.</div>
+        </div>
+        <div>
+          <div class="id">SUB-04</div>
+          <div class="name">Device Characterisation</div>
+          <div class="desc">Atlas DC sims — Id–Vg, Id–Vd, subthreshold slope, DIBL — with mobility models calibrated for thin-body silicon.</div>
+        </div>
+        <div>
+          <div class="id">SUB-05</div>
+          <div class="name">Short-Channel Effects</div>
+          <div class="desc">Drain-induced barrier lowering, threshold roll-off and subthreshold leakage as channel length pushes single-digit nm.</div>
+        </div>
+        <div>
+          <div class="id">SUB-06</div>
+          <div class="name">Carrier Transport</div>
+          <div class="desc">Drift-diffusion regimes vs ballistic effects in deeply scaled bodies — and where compact models begin to fail.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-body">
+      <h2><span class="num">§ 03 — Active threads</span><br/>What's <em>running</em></h2>
+
+      <div class="detail-bullets">
+        <a style="text-decoration:none;color:inherit" href="../projects/mbcfet.html">
+          <div class="label">+ R-02 · MBCFET STRUCTURE MODELING</div>
+          <div class="text">Silvaco TCAD simulation of stacked-sheet GAAs at sub-5 nm. Geometry sweeps, DIBL/SCE analysis, Ion/Ioff optimisation. <strong style="color:var(--accent)">[ READ → ]</strong></div>
+        </a>
+      </div>
+    </section>
+
+    <section class="detail-body">
+      <h2><span class="num">§ 04 — Toolchain</span><br/>What I <em>reach for</em></h2>
+
+      <div class="subsystem-grid">
+        <div>
+          <div class="id">TOOL</div>
+          <div class="name">Silvaco TCAD (Athena + Atlas)</div>
+          <div class="desc">Process &amp; device simulation — primary day-to-day toolchain for this work.</div>
+        </div>
+        <div>
+          <div class="id">TOOL</div>
+          <div class="name">Synopsys Sentaurus</div>
+          <div class="desc">Cross-validation reference and exposure to industry-standard TCAD flow.</div>
+        </div>
+        <div>
+          <div class="id">TOOL</div>
+          <div class="name">HSpice / DEVSIM</div>
+          <div class="desc">Circuit-level characterisation of extracted device models.</div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="next-prev">
+      <a href="dom-fpga.html">
+        <div class="label">← PREVIOUS</div>
+        <div class="name">FPGA &amp; <em>Reconfigurable</em></div>
+      </a>
+      <a href="dom-vlsi.html">
+        <div class="label">NEXT DOMAIN →</div>
+        <div class="name">VLSI &amp; <em>IC Design</em></div>
+      </a>
+    </nav>
+
+    <footer class="foot">
+      <h2>Talk <em>shop</em>?</h2>
+      <p class="sub">Open to research collaborations on TCAD, device physics and post-FinFET logic.</p>
+      <div class="contacts">
+        <div>
+          <div class="lbl"><svg class="ico"><use href="#i-mail"/></svg>[ Email ]</div>
+          <a class="val" href="mailto:alhossainshawn@gmail.com">alhossainshawn@gmail.com</a>
+        </div>
+        <div>
+          <div class="lbl"><svg class="ico"><use href="#i-linkedin"/></svg>[ LinkedIn ]</div>
+          <a class="val" href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">/in/al-hossain-shawn</a>
+        </div>
+        <div>
+          <div class="lbl"><svg class="ico"><use href="#i-phone"/></svg>[ Phone ]</div>
+          <div class="val">+880 1303-236292</div>
+        </div>
+        <div>
+          <div class="lbl"><svg class="ico"><use href="#i-pin"/></svg>[ Location ]</div>
+          <div class="val">Dhaka 1212, BD</div>
+        </div>
+      </div>
+      <div class="botbar">
+        <span>© 2026 · AL HOSSAIN SHAWN · DWG-AHS-DOM-DEV · REV A</span>
+        <span class="ok">● PROCESS EXITED 0</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<script src="../interactive.js" defer></script>
+</body>
+</html>

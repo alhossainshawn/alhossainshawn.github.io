@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VLSI &amp; IC Design — Al Hossain Shawn</title>
+<meta name="description" content="VLSI and IC design — RTL architecture, PPA-driven optimisation and full Cadence / Synopsys / Vivado flow integration." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+<div class="scroll-progress"></div>
+<div class="grid-pulse"></div>
+
+<div id="icon-defs" hidden></div>
+<script>
+fetch('../icons.svg').then(r => r.text()).then(svg => {
+  const el = document.getElementById('icon-defs');
+  if (el) el.innerHTML = svg;
+});
+</script>
+
+<div class="page">
+  <div class="frame">
+
+    <header class="titleblock">
+      <div>
+        <span class="blink"></span>
+        <span class="brand">A.H. Shawn</span>
+      </div>
+      <div class="nav">
+        <a href="../index.html#research" class="current">RESEARCH</a>
+        <a href="../index.html#projects">PROJECTS</a>
+        <a href="../index.html#publications">PAPERS</a>
+        <a href="../index.html#contact">CONTACT</a>
+      </div>
+      <div>Sheet<b>DOM-03</b></div>
+      <div>Class<b>Domain</b></div>
+      <div>Drawing<b>AHS-DOM-VLSI</b></div>
+    </header>
+
+    <a class="back-link" href="../index.html">← BACK TO INDEX</a>
+
+    <section class="detail-hero">
+      <div class="kicker">
+        <svg class="ico"><use href="#i-chip"/></svg>
+        <span class="id">§ DOM-03</span>
+        <span>·</span>
+        <span>Active Domain</span>
+        <span>·</span>
+        <span>From RTL to silicon</span>
+      </div>
+
+      <h1>VLSI &amp; IC <em>Design</em></h1>
+
+      <p class="lead">
+        Turning compute architectures into <em>silicon</em> — RTL design, functional
+        verification, and <em>PPA-driven</em> exploration across the full Cadence,
+        Vivado and Synopsys flow.
+      </p>
+
+      <div class="detail-meta">
+        <div>Focus<b>RTL · Architecture · PPA</b></div>
+        <div>Tooling<b>Cadence · Vivado</b></div>
+        <div>Scope<b>Digital · Low-power</b></div>
+        <div>Status<b>● Active</b></div>
+      </div>
+    </section>
+
+    <section class="detail-body">
+      <h2><span class="num">§ 01 — Overview</span><br/>Where ideas <em>become silicon</em></h2>
+      <p>
+        A clean compute idea is only worth as much as the chip it ends up on.
+        VLSI is the discipline of dragging a high-level architecture through
+        every stage — RTL, simulation, synthesis, place-and-route — without
+        losing what made it interesting in the first place.
+      </p>
+      <p>
+        The work here treats <em>power</em>, <em>performance</em> and <em>area</em>
+        as design variables, not afterthoughts: arithmetic units re-shaped to
+        match precision budgets, datapaths balanced for timing, and every micro-
+        architectural choice justified against the PPA frontier.
+      </p>
+    </section>
+
+    <section class="detail-body">
+      <h2><span class="num">§ 02 — Sub-areas</span><br/>What this <em>covers</em></h2>
+
+      <div class="subsystem-grid">
+        <div>
+          <div class="id">SUB-01</div>
+          <div class="name">RTL Design</div>
+          <div class="desc">Synthesizable Verilog / SystemVerilog for arithmetic blocks, pipelines and control state machines.</div>
+        </div>
+        <div>
+          <div class="id">SUB-02</div>
+          <div class="name">Functional Verification</div>
+          <div class="desc">Directed and constrained-random testbenches, golden-reference comparisons, and assertion-based checks.</div>
+        </div>
+        <div>
+          <div class="id">SUB-03</div>
+          <div class="name">Architecture Optimisation</div>
+          <div class="desc">PPA-driven trade studies across pipeline depth, parallelism and precision — finding the right operating point per workload.</div>
+        </div>
+        <div>
+          <div class="id">SUB-04</div>
+          <div class="name">Low-Power Design</div>
+          <div class="desc">Clock-gating, operand isolation, and precision-adaptive datapaths for energy-constrained inference.</div>
+        </div>
+        <div>
+          <div class="id">SUB-05</div>
+          <div class="name">Flow Integration</div>
+          <div class="desc">End-to-end Cadence / Vivado / Synopsys flow — from RTL through synthesis to gate-level signoff.</div>
+        </div>
+        <div>
+          <div class="id">SUB-06</div>
+          <div class="name">Arithmetic Units</div>
+          <div class="desc">Custom adders, multipliers and approximate primitives — the building blocks behind every accelerator on the bench.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-body">
+      <h2><span class="num">§ 03 — Active threads</span><br/>How it <em>connects</em></h2>
+
+      <div class="detail-bullets">
+        <a style="text-decoration:none;color:inherit" href="../projects/hybrid-neural-accelerator.html">
+          <div class="label">+ R-01 · ACCELERATOR ARCHITECTURE</div>
+          <div class="text">The compute core inside the Hybrid Neural Accelerator — LUT / log primitives, AXI4 SoC integration, PPA sweeps. <strong style="color:var(--accent)">[ READ → ]</strong></div>
+        </a>
+        <div>
+          <div class="label">+ INDUSTRIAL ATTACHMENT</div>
+          <div class="text">Neural Semiconductor — Cadence operation &amp; software exposure in an industry setting (Sep–Oct 2025).</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-body">
+      <h2><span class="num">§ 04 — Toolchain</span><br/>What I <em>reach for</em></h2>
+
+      <div class="subsystem-grid">
+        <div>
+          <div class="id">TOOL</div>
+          <div class="name">Cadence Design Suite</div>
+          <div class="desc">Industry-standard digital flow — RTL through GDS exposure via attachment.</div>
+        </div>
+        <div>
+          <div class="id">TOOL</div>
+          <div class="name">AMD Vivado</div>
+          <div class="desc">Synthesis, implementation and timing analysis on FPGA fabric — the daily prototyping tool.</div>
+        </div>
+        <div>
+          <div class="id">TOOL</div>
+          <div class="name">Synopsys HSpice</div>
+          <div class="desc">Mixed-signal and analog verification at the block level.</div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="next-prev">
+      <a href="dom-device-physics.html">
+        <div class="label">← PREVIOUS</div>
+        <div class="name">Device <em>Physics</em></div>
+      </a>
+      <a href="dom-embedded.html">
+        <div class="label">NEXT DOMAIN →</div>
+        <div class="name">Embedded &amp; <em>Robotics</em></div>
+      </a>
+    </nav>
+
+    <footer class="foot">
+      <h2>Talk <em>shop</em>?</h2>
+      <p class="sub">Open to VLSI internships, IC design roles and digital-architecture conversations.</p>
+      <div class="contacts">
+        <div>
+          <div class="lbl"><svg class="ico"><use href="#i-mail"/></svg>[ Email ]</div>
+          <a class="val" href="mailto:alhossainshawn@gmail.com">alhossainshawn@gmail.com</a>
+        </div>
+        <div>
+          <div class="lbl"><svg class="ico"><use href="#i-linkedin"/></svg>[ LinkedIn ]</div>
+          <a class="val" href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">/in/al-hossain-shawn</a>
+        </div>
+        <div>
+          <div class="lbl"><svg class="ico"><use href="#i-phone"/></svg>[ Phone ]</div>
+          <div class="val">+880 1303-236292</div>
+        </div>
+        <div>
+          <div class="lbl"><svg class="ico"><use href="#i-pin"/></svg>[ Location ]</div>
+          <div class="val">Dhaka 1212, BD</div>
+        </div>
+      </div>
+      <div class="botbar">
+        <span>© 2026 · AL HOSSAIN SHAWN · DWG-AHS-DOM-VLSI · REV A</span>
+        <span class="ok">● PROCESS EXITED 0</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+<script src="../interactive.js" defer></script>
+</body>
+</html>

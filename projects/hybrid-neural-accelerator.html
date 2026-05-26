@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hybrid Neural Accelerator — Al Hossain Shawn</title>
+<meta name="description" content="A reconfigurable LUT / logarithmic compute engine for AI inference, prototyped on the Artix-7 XC7A200T FPGA." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+<div class="page">
+  <div class="frame">
+
+    <header class="titleblock">
+      <div>
+        <span class="blink"></span>
+        <span class="brand">A.H. Shawn</span>
+      </div>
+      <div class="nav">
+        <a href="../index.html#research" class="current">RESEARCH</a>
+        <a href="../index.html#projects">PROJECTS</a>
+        <a href="../index.html#publications">PAPERS</a>
+        <a href="../index.html#contact">CONTACT</a>
+      </div>
+      <div>Sheet<b>R-01</b></div>
+      <div>Status<b>In Review</b></div>
+      <div>Drawing<b>AHS-HNA-01</b></div>
+    </header>
+
+    <a class="back-link" href="../index.html">← BACK TO INDEX</a>
+
+    <!-- Hero -->
+    <section class="detail-hero">
+      <div class="kicker">
+        <span class="id">§ R-01</span>
+        <span>·</span>
+        <span>Active Research</span>
+        <span>·</span>
+        <span>Feb 2026 – Present</span>
+      </div>
+
+      <h1>Hybrid Neural <em>Accelerator</em></h1>
+
+      <p class="lead">
+        A <em>reconfigurable LUT / logarithmic compute engine</em> for edge-AI
+        inference — bridging Python-trained neural networks to a custom IP
+        block on Xilinx Artix-7, with PPA optimisation as a first-class
+        design constraint.
+      </p>
+
+      <div class="detail-meta">
+        <div>Type<b>FPGA hardware accelerator</b></div>
+        <div>Target<b>Artix-7 XC7A200T</b></div>
+        <div>Tooling<b>Vivado HLS · Vitis · AXI4</b></div>
+        <div>Submission<b>GLSVLSI 2026 (LBS)</b></div>
+      </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="detail-body">
+      <h2><span class="num">§ 01 — Overview</span><br/>The <em>question</em></h2>
+      <p>
+        Edge inference is bottlenecked by the cost of multipliers. As precision
+        scales down — INT8, INT4, ternary, binary — the relative overhead of
+        memory traffic and control logic dominates the silicon budget. This
+        project asks whether a <em>hybrid compute primitive</em> — switching
+        between LUT-based and logarithmic-domain arithmetic on a per-layer
+        basis — can claw back area, power and timing simultaneously.
+      </p>
+      <p>
+        The accelerator is being co-designed with a sensitivity-driven
+        quantisation pipeline (the subject of the GLSVLSI 2026 submission)
+        so that layers most tolerant of approximation are mapped to the
+        cheapest compute path automatically.
+      </p>
+    </section>
+
+    <!-- Sub-systems -->
+    <section class="detail-body">
+      <h2><span class="num">§ 02 — Architecture</span><br/>Sub-<em>systems</em></h2>
+
+      <div class="subsystem-grid">
+        <div>
+          <div class="id">SYS-01</div>
+          <div class="name">Compute Engine</div>
+          <div class="desc">Reconfigurable LUT / log datapath written in Vivado HLS. Switches mode based on layer descriptor; INT8 → INT4 paths share storage.</div>
+        </div>
+        <div>
+          <div class="id">SYS-02</div>
+          <div class="name">RTL Backend</div>
+          <div class="desc">HLS-synthesised RTL placed on Artix-7 XC7A200T. Focus on timing closure, BRAM/LUT/DSP balance, and clock-domain hygiene.</div>
+        </div>
+        <div>
+          <div class="id">SYS-03</div>
+          <div class="name">AXI4 Interconnect</div>
+          <div class="desc">Memory-mapped AXI4 between the custom IP and an embedded ARM core; DMA-driven weight streaming and burst-aligned activations.</div>
+        </div>
+        <div>
+          <div class="id">SYS-04</div>
+          <div class="name">Quantisation Pipeline</div>
+          <div class="desc">Python-side sensitivity analysis selects per-layer precision; descriptors are baked into the bitstream metadata at synthesis time.</div>
+        </div>
+        <div>
+          <div class="id">SYS-05</div>
+          <div class="name">Verification</div>
+          <div class="desc">Bit-accurate C++ model paired with cocotb testbenches. Coverage-driven regression on a representative DNN slice.</div>
+        </div>
+        <div>
+          <div class="id">SYS-06</div>
+          <div class="name">PPA Telemetry</div>
+          <div class="desc">Vivado reports parsed into a sweep dashboard so design-space exploration over precision × topology is reproducible.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Progress -->
+    <section class="detail-body">
+      <h2><span class="num">§ 03 — Status</span><br/>Where it <em>stands</em></h2>
+
+      <div class="detail-bullets">
+        <div>
+          <div class="label">+ HLS COMPUTE PRIMITIVE</div>
+          <div class="text">First-pass LUT / log datapath synthesised; INT8 inference correct against reference model. Logarithmic-mode error bounded under the planned quantisation envelope.</div>
+        </div>
+        <div>
+          <div class="label">+ RTL PROTOTYPE</div>
+          <div class="text">Block placed on Artix-7 XC7A200T with timing closure at the target frequency for the first compute tile. Resource utilisation tracked across precision configurations.</div>
+        </div>
+        <div>
+          <div class="label">+ AXI4 INTEGRATION</div>
+          <div class="text">Memory-mapped path from ARM core to custom IP in place; DMA-driven activation streaming validated on small workloads.</div>
+        </div>
+        <div>
+          <div class="label">+ PUBLICATION</div>
+          <div class="text">Companion paper on the quantisation methodology — “Quantization-Aware Training for Efficient Edge DNN Deployment” — approved for GLSVLSI 2026 Late Breaking Session.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- next/prev -->
+    <nav class="next-prev">
+      <a href="../index.html">
+        <div class="label">← BACK</div>
+        <div class="name">Index</div>
+      </a>
+      <a href="mbcfet.html">
+        <div class="label">NEXT →</div>
+        <div class="name">MBCFET <em>Modeling</em></div>
+      </a>
+    </nav>
+
+    <footer class="foot" id="contact">
+      <h2>Curious to <em>discuss</em>?</h2>
+      <p class="sub">Always happy to talk about FPGA accelerators, quantisation, and edge AI.</p>
+      <div class="contacts">
+        <div>
+          <div class="lbl">[ Email ]</div>
+          <a class="val" href="mailto:alhossainshawn@gmail.com">alhossainshawn@gmail.com</a>
+        </div>
+        <div>
+          <div class="lbl">[ LinkedIn ]</div>
+          <a class="val" href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">/in/al-hossain-shawn</a>
+        </div>
+        <div>
+          <div class="lbl">[ Phone ]</div>
+          <div class="val">+880 1303-236292</div>
+        </div>
+        <div>
+          <div class="lbl">[ Location ]</div>
+          <div class="val">Dhaka 1212, BD</div>
+        </div>
+      </div>
+      <div class="botbar">
+        <span>© 2026 · AL HOSSAIN SHAWN · DWG-AHS-HNA-01 · REV A</span>
+        <span class="ok">● PROCESS EXITED 0</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+</body>
+</html>
