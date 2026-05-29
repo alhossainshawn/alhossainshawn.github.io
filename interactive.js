@@ -317,13 +317,32 @@
     if (!el) return;
 
     const text = 'whoami';
-    const chars = text.split('');
+    let isDeleting = false;
+    let txt = '';
+    
+    function tick() {
+      if (isDeleting) {
+        txt = text.substring(0, txt.length - 1);
+      } else {
+        txt = text.substring(0, txt.length + 1);
+      }
 
-    chars.forEach(function (char, index) {
-      const span = document.createElement('span');
-      span.textContent = char;
-      el.appendChild(span);
-    });
+      el.textContent = txt;
+
+      let delta = isDeleting ? 80 : 150;
+
+      if (!isDeleting && txt === text) {
+        delta = 2000; // Pause when word is complete
+        isDeleting = true;
+      } else if (isDeleting && txt === '') {
+        isDeleting = false;
+        delta = 500; // Pause when word is fully deleted
+      }
+
+      setTimeout(tick, delta);
+    }
+
+    tick();
   }
 
   // -------------------------------------------------------
