@@ -759,8 +759,8 @@ a.link:hover { color: var(--ink); }
 
 .section-head {
   display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 32px;
+  grid-template-columns: 1fr;
+  gap: 12px;
   margin-bottom: 44px;
   align-items: baseline;
 }
