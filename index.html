@@ -3,14 +3,23 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Al Hossain Shawn — Researcher · EEE · BRAC University</title>
-<meta name="description" content="Al Hossain Shawn — researcher in beyond-CMOS device physics, FPGA-based neural acceleration, and small-satellite engineering, based at BRAC University." />
+<title>Al Hossain Shawn - Researcher | EEE | BRAC University</title>
+<meta name="description" content="Al Hossain Shawn - researcher in beyond-CMOS device physics, FPGA-based neural acceleration, and small-satellite engineering, based at BRAC University." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
 
 <link rel="stylesheet" href="styles.css" />
+
+<template id="__bundler_thumbnail" data-bg-color="#0a0e27">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0a0e27"/>
+    <text x="600" y="300" font-size="120" font-weight="bold" fill="#ff6b6b" text-anchor="middle" font-family="monospace">AS</text>
+    <text x="600" y="420" font-size="48" fill="#ffffff" text-anchor="middle" font-family="monospace">Portfolio</text>
+    <line x1="200" y1="480" x2="1000" y2="480" stroke="#ff6b6b" stroke-width="2"/>
+  </svg>
+</template>
 </head>
 <body>
 <!-- Page-transition curtain (covers from first paint; lifted by interactive.js) -->
@@ -29,7 +38,7 @@
 <!-- Animated grid-pulse background (cells light up randomly) -->
 <div class="grid-pulse"></div>
 
-<!-- SVG icon library — fetched once, injected into the DOM so <use href="#i-NAME"/> works
+<!-- SVG icon library - fetched once, injected into the DOM so <use href="#i-NAME"/> works
      on any page (cross-document <use> is unreliable on Safari/iOS). -->
 <div id="icon-defs" hidden></div>
 <script>
@@ -55,16 +64,15 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
         <a href="#publications">Papers</a>
         <a href="#contact">Contact</a>
       </nav>
-      <div class="nav-status"><span data-uptime>T+0d</span> · Open to collabs</div>
     </header>
 
     <!-- =================================================
-         HERO — masthead
+         HERO - masthead
          ================================================= -->
     <section class="hero">
       <div class="hero-top">
         <div class="hero-kicker">
-          <span class="pchar">$</span> whoami<span class="caret"></span>
+          <span class="pchar">$</span> <span class="typing-whoami-char" id="typing-whoami"></span><span class="caret"></span>
           <span class="pout">research_assistant @ brac_university</span>
         </div>
         <div class="hero-coords">23.78°N · 90.41°E<br/>Dhaka, BD</div>
@@ -77,8 +85,8 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
 
       <div class="hero-base">
         <p class="hero-statement">
-          Simulating the transistors that don't exist&nbsp;yet —
-          and <em>building</em> with the ones that&nbsp;do.
+          Simulating the transistors that don't exist yet,
+          and <em>building</em> with the ones that do.
         </p>
         <a class="hero-scroll" href="#research">
           <span>Scroll to explore</span>
@@ -95,7 +103,7 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
     </section>
 
     <!-- =================================================
-         INTRO BAND — portrait + short bio
+         INTRO BAND - portrait + short bio + education
          ================================================= -->
     <section class="intro reveal">
       <div class="portrait-col">
@@ -116,13 +124,40 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
         <p>
           That means days split between <em>TCAD</em> simulations of transistors a
           few nanometres wide, <em>FPGA</em> accelerators for edge AI, and the
-          embedded systems that carry it all — from rovers to CubeSats in orbit.
+          embedded systems that carry it all - from rovers to CubeSats in orbit.
         </p>
+
+        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+          <div class="bio-label">// Education</div>
+          <div class="edu-timeline">
+            <div class="edu-item edu-item-1">
+              <div class="edu-year">2022–2026</div>
+              <div class="edu-content">
+                <div class="edu-degree">B.Sc. in Electrical and Electronics Engineering</div>
+                <div class="edu-institute">BRAC University</div>
+              </div>
+            </div>
+            <div class="edu-item edu-item-2">
+              <div class="edu-year">2020</div>
+              <div class="edu-content">
+                <div class="edu-degree">HSC</div>
+                <div class="edu-institute">Ispahani Public School &amp; College, Cumilla</div>
+              </div>
+            </div>
+            <div class="edu-item edu-item-3">
+              <div class="edu-year">2018</div>
+              <div class="edu-content">
+                <div class="edu-degree">SSC</div>
+                <div class="edu-institute">Ispahani Public School &amp; College, Cumilla</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- =================================================
-         CAPABILITIES STRIP — at-a-glance expertise icons
+         CAPABILITIES STRIP - at-a-glance expertise icons
          ================================================= -->
     <section class="cap-strip reveal">
       <div class="head">
@@ -130,19 +165,19 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
         <span>6 DOMAINS · TAP TO INSPECT</span>
       </div>
       <div class="cap-grid">
-        <div class="cap-cell" title="Device physics — beyond-CMOS, GAA, MBCFET">
+        <div class="cap-cell" title="Device physics: beyond-CMOS, GAA, MBCFET">
           <svg class="ico"><use href="#i-transistor"/></svg>
           <div class="lbl">Device<br/>Physics<span class="sub">TCAD · GAA</span></div>
         </div>
-        <div class="cap-cell" title="FPGA — Vivado HLS, reconfigurable computing">
+        <div class="cap-cell" title="FPGA: Vivado HLS, reconfigurable computing">
           <svg class="ico"><use href="#i-fpga"/></svg>
           <div class="lbl">FPGA<br/>/ HLS<span class="sub">Artix-7 · Vitis</span></div>
         </div>
-        <div class="cap-cell" title="VLSI / IC Design — Cadence, RTL, PPA optimisation">
+        <div class="cap-cell" title="VLSI / IC Design: Cadence, RTL, PPA optimisation">
           <svg class="ico"><use href="#i-chip"/></svg>
           <div class="lbl">VLSI<br/>/ IC<span class="sub">Cadence · RTL</span></div>
         </div>
-        <div class="cap-cell" title="PCB design — Altium, KiCad, hardware integration">
+        <div class="cap-cell" title="PCB design: Altium, KiCad, hardware integration">
           <svg class="ico"><use href="#i-pcb"/></svg>
           <div class="lbl">PCB<br/>/ Hardware<span class="sub">Altium · KiCad</span></div>
         </div>
@@ -158,7 +193,7 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
     </section>
 
     <!-- =================================================
-         STACK MAP — engineer's compute-stack diagram
+         STACK MAP - engineer's compute-stack diagram
          ================================================= -->
     <section class="stack-section reveal">
       <div class="head">
@@ -168,7 +203,7 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
       <div class="stack">
         <div class="stack-cell label"><svg class="ico"><use href="#i-neural"/></svg>APPLICATION</div>
         <div class="stack-cell content">Edge AI inference <span class="note">// DNN workloads</span></div>
-        <div class="stack-cell mark dim">—</div>
+        <div class="stack-cell mark dim">|</div>
 
         <div class="stack-cell label"><svg class="ico"><use href="#i-chip"/></svg>ACCELERATOR</div>
         <div class="stack-cell content">Hybrid LUT / log compute · AXI4 · Vitis HLS</div>
@@ -184,73 +219,88 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
     </section>
 
     <!-- =================================================
-         § 01 — RESEARCH INTERESTS
+         § 01 — EXPERIENCE
          ================================================= -->
-    <section class="section reveal" id="research">
+    <section class="section reveal exp-section" data-reveal="scan" id="roles">
       <div class="section-head">
-        <div class="section-num">§ 01 — Domains</div>
-        <div>
-          <h2 class="section-title">Research <em>interests</em></h2>
-          <p class="section-sub">
-            Three connected threads — device physics that defines what is possible,
-            hardware that turns it into compute, and embedded systems that put it into the world.
-          </p>
-        </div>
+        <h2 class="section-title">Roles &amp; <em>positions</em></h2>
       </div>
 
-      <div class="interests">
-        <a class="int-card" href="domains/dom-fpga.html">
-          <div class="head">
-            <span class="id"><svg class="ico"><use href="#i-fpga"/></svg> DOM-01</span>
-            <span class="pulse" title="active"></span>
+      <!-- FEATURED — current position -->
+      <a class="current-role" href="domains/dom-fpga.html">
+        <div class="cr-grid-bg"></div>
+        <div class="cr-scan"></div>
+        <div class="cr-head">
+          <span class="cr-badge"><span class="cr-dot"></span>CURRENTLY ACTIVE</span>
+          <span class="cr-period">MAR 2026 → <span data-uptime-since>NOW</span></span>
+        </div>
+        <div class="cr-body">
+          <div class="cr-icon"><svg class="ico"><use href="#i-fpga"/></svg></div>
+          <div class="cr-text">
+            <h3 class="cr-role">Research Assistant</h3>
+            <div class="cr-org">BRAC University, Electrical and Electronics Engineering</div>
+            <p class="cr-detail">
+              Leading hybrid neural-accelerator research with FPGA / HLS prototyping of a
+              reconfigurable compute engine for edge AI, from Python model to Artix-7 bitstream.
+            </p>
+            <div class="cr-tags">
+              <span>FPGA</span><span>Vitis HLS</span><span>AXI4</span><span>Edge AI</span>
+            </div>
           </div>
-          <h3>FPGA &amp; Reconfigurable Computing</h3>
-          <ul>
-            <li>Hardware accelerator design on Artix-7 — Vivado HLS to bitstream.</li>
-            <li>AXI4-based co-design between custom IP and embedded ARM cores.</li>
-            <li>Bridging Python-trained models to Verilog hardware for edge inference.</li>
-          </ul>
-          <div class="card-arrow">EXPLORE →</div>
-        </a>
-        <a class="int-card" href="domains/dom-device-physics.html">
-          <div class="head">
-            <span class="id"><svg class="ico"><use href="#i-transistor"/></svg> DOM-02</span>
-            <span class="pulse" title="active"></span>
+        </div>
+        <div class="cr-foot">
+          <span class="cr-foot-k">// active assignment</span>
+          <span class="cr-foot-link">EXPLORE THE WORK <svg class="ico"><use href="#i-arrow"/></svg></span>
+        </div>
+      </a>
+
+      <!-- PAST roles -->
+      <div class="past-label">// Previously</div>
+      <div class="gantt">
+        <div class="gantt-header">
+          <div>RECORD</div>
+          <div class="ticks">
+            <span style="left: 0">'22</span>
+            <span style="left: 25%">'23</span>
+            <span style="left: 50%">'24</span>
+            <span style="left: 75%">'25</span>
+            <span style="left: 100%" class="now">'26</span>
           </div>
-          <h3>Semiconductor Device Modeling &amp; Physics</h3>
-          <ul>
-            <li>Beyond-CMOS architectures — GAA FETs and MBCFETs for next-gen logic.</li>
-            <li>Process and device simulation in Silvaco TCAD (Athena &amp; Atlas).</li>
-            <li>Short-channel effects, carrier transport, and leakage reduction at deep scaling.</li>
-          </ul>
-          <div class="card-arrow">EXPLORE →</div>
-        </a>
-        <a class="int-card" href="domains/dom-vlsi.html">
-          <div class="head">
-            <span class="id"><svg class="ico"><use href="#i-chip"/></svg> DOM-03</span>
-            <span class="pulse"></span>
+          <div>SPAN</div>
+        </div>
+
+        <div class="gantt-row">
+          <div class="g-side">
+            <div class="g-role">Industrial Attachment <span class="note">(7-day training)</span></div>
+            <div class="g-org">Neural Semiconductor · Cadence ops</div>
           </div>
-          <h3>VLSI &amp; IC Design</h3>
-          <ul>
-            <li>RTL design, functional verification, and architecture optimization for low-power blocks.</li>
-            <li>PPA-driven design-space exploration for arithmetic units and compute primitives.</li>
-            <li>End-to-end Cadence / Vivado / Synopsys flow integration.</li>
-          </ul>
-          <div class="card-arrow">EXPLORE →</div>
-        </a>
-        <a class="int-card" href="domains/dom-embedded.html">
-          <div class="head">
-            <span class="id"><svg class="ico"><use href="#i-drone"/></svg> DOM-04</span>
-            <span class="pulse"></span>
+          <div class="g-track">
+            <div class="g-bar past" style="left: 73%; width: 4%;"></div>
           </div>
-          <h3>Embedded Systems &amp; Robotics</h3>
-          <ul>
-            <li>Locomotion algorithms and control for planetary rovers and quadrupeds.</li>
-            <li>CubeSat avionics, sensor fusion, and real-time embedded data pipelines.</li>
-            <li>Microcontroller-based system integration for resource-constrained platforms.</li>
-          </ul>
-          <div class="card-arrow">EXPLORE →</div>
-        </a>
+          <div class="g-detail">SEP – OCT 2025</div>
+        </div>
+
+        <div class="gantt-row">
+          <div class="g-side">
+            <div class="g-role">Chairperson, AESS</div>
+            <div class="g-org">IEEE BRAC University SB</div>
+          </div>
+          <div class="g-track">
+            <div class="g-bar past" style="left: 60%; width: 20%;"></div>
+          </div>
+          <div class="g-detail">JAN – DEC 2025</div>
+        </div>
+
+        <div class="gantt-row">
+          <div class="g-side">
+            <div class="g-role">Team Lead, BD-BRACU Mavericks</div>
+            <div class="g-org">LaSSET · BRAC University</div>
+          </div>
+          <div class="g-track">
+            <div class="g-bar past" style="left: 20%; width: 35%;"></div>
+          </div>
+          <div class="g-detail">JAN 2023 – OCT 2024</div>
+        </div>
       </div>
     </section>
 
@@ -259,14 +309,11 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
          ================================================= -->
     <section class="section reveal">
       <div class="section-head">
-        <div class="section-num">§ 02 — In progress</div>
-        <div>
-          <h2 class="section-title">Active <em>research</em></h2>
-          <p class="section-sub">
-            Two open threads: a hardware accelerator targeting edge AI workloads,
-            and a TCAD study of multi-bridge-channel devices for sub-5 nm logic.
-          </p>
-        </div>
+        <h2 class="section-title">Active <em>research</em></h2>
+        <p class="section-sub">
+          Two open threads: a hardware accelerator targeting edge AI workloads,
+          and a TCAD study of multi-bridge-channel devices for sub-5 nm logic.
+        </p>
       </div>
 
       <div class="research-grid">
@@ -321,18 +368,83 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
     </section>
 
     <!-- =================================================
-         § 03 — PROJECTS
+         § 03 — RESEARCH INTERESTS
+         ================================================= -->
+    <section class="section reveal" id="research">
+      <div class="section-head">
+        <h2 class="section-title">Research <em>interests</em></h2>
+        <p class="section-sub">
+          Three connected threads: device physics that defines what is possible,
+          hardware that turns it into compute, and embedded systems that put it into the world.
+        </p>
+      </div>
+
+      <div class="interests">
+        <a class="int-card" href="domains/dom-fpga.html">
+          <div class="head">
+            <span class="id"><svg class="ico"><use href="#i-fpga"/></svg> DOM-01</span>
+            <span class="pulse" title="active"></span>
+          </div>
+          <h3>FPGA &amp; Reconfigurable Computing</h3>
+          <ul>
+            <li>Hardware accelerator design on Artix-7: Vivado HLS to bitstream.</li>
+            <li>AXI4-based co-design between custom IP and embedded ARM cores.</li>
+            <li>Bridging Python-trained models to Verilog hardware for edge inference.</li>
+          </ul>
+          <div class="card-arrow">EXPLORE →</div>
+        </a>
+        <a class="int-card" href="domains/dom-device-physics.html">
+          <div class="head">
+            <span class="id"><svg class="ico"><use href="#i-transistor"/></svg> DOM-02</span>
+            <span class="pulse" title="active"></span>
+          </div>
+          <h3>Semiconductor Device Modeling &amp; Physics</h3>
+          <ul>
+            <li>Beyond-CMOS architectures: GAA FETs and MBCFETs for next-gen logic.</li>
+            <li>Process and device simulation in Silvaco TCAD (Athena &amp; Atlas).</li>
+            <li>Short-channel effects, carrier transport, and leakage reduction at deep scaling.</li>
+          </ul>
+          <div class="card-arrow">EXPLORE →</div>
+        </a>
+        <a class="int-card" href="domains/dom-vlsi.html">
+          <div class="head">
+            <span class="id"><svg class="ico"><use href="#i-chip"/></svg> DOM-03</span>
+            <span class="pulse"></span>
+          </div>
+          <h3>VLSI &amp; IC Design</h3>
+          <ul>
+            <li>RTL design, functional verification, and architecture optimization for low-power blocks.</li>
+            <li>PPA-driven design-space exploration for arithmetic units and compute primitives.</li>
+            <li>End-to-end Cadence / Vivado / Synopsys flow integration.</li>
+          </ul>
+          <div class="card-arrow">EXPLORE →</div>
+        </a>
+        <a class="int-card" href="domains/dom-embedded.html">
+          <div class="head">
+            <span class="id"><svg class="ico"><use href="#i-drone"/></svg> DOM-04</span>
+            <span class="pulse"></span>
+          </div>
+          <h3>Embedded Systems &amp; Robotics</h3>
+          <ul>
+            <li>Locomotion algorithms and control for planetary rovers and quadrupeds.</li>
+            <li>CubeSat avionics, sensor fusion, and real-time embedded data pipelines.</li>
+            <li>Microcontroller-based system integration for resource-constrained platforms.</li>
+          </ul>
+          <div class="card-arrow">EXPLORE →</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- =================================================
+         § 04 — PROJECTS
          ================================================= -->
     <section class="section reveal" id="projects">
       <div class="section-head">
-        <div class="section-num">§ 03 — Selected projects</div>
-        <div>
-          <h2 class="section-title">Engineered <em>artifacts</em></h2>
-          <p class="section-sub">
-            CubeSats, payloads and autonomous platforms — multi-system builds led
-            from concept through hardware integration.
-          </p>
-        </div>
+        <h2 class="section-title">Engineered <em>artifacts</em></h2>
+        <p class="section-sub">
+          CubeSats, payloads and autonomous platforms: multi-system builds led
+          from concept through hardware integration.
+        </p>
       </div>
 
       <div class="projects">
@@ -364,11 +476,11 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
             <span class="id">P-02</span>
           </div>
           <div>
-            <h3>APSCO CubeSat — 3U Mission</h3>
+            <h3>APSCO CubeSat - 3U Mission</h3>
             <div class="role">Team Lead · BD-BRACU Mavericks</div>
           </div>
           <div class="sum">
-            End-to-end 3U CubeSat — EPS, OBC, comms, ADCS, antenna and ground station —
+            End-to-end 3U CubeSat with EPS, OBC, comms, ADCS, antenna and ground station,
             through 3D, PCB, circuit and orbital simulation.
           </div>
           <div class="right">
@@ -391,7 +503,7 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
             <div class="role">Payload Engineer</div>
           </div>
           <div class="sum">
-            APRS payload focused on energy-transition messaging — Phase 1 winner of the
+            APRS payload focused on energy-transition messaging, Phase 1 winner of the
             BIRDS-X competition.
           </div>
           <div class="right">
@@ -407,14 +519,11 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
     </section>
 
     <!-- =================================================
-         § 04 — PUBLICATIONS
+         § 05 — PUBLICATIONS
          ================================================= -->
     <section class="section reveal" id="publications">
       <div class="section-head">
-        <div class="section-num">§ 04 — Publications</div>
-        <div>
-          <h2 class="section-title">Written <em>record</em></h2>
-        </div>
+        <h2 class="section-title">Written <em>record</em></h2>
       </div>
 
       <div class="pubs">
@@ -443,190 +552,103 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
     </section>
 
     <!-- =================================================
-         § 05 — EXPERIENCE
-         ================================================= -->
-    <section class="section reveal">
-      <div class="section-head">
-        <div class="section-num">§ 05 — Timeline</div>
-        <div>
-          <h2 class="section-title">Roles &amp; <em>positions</em></h2>
-        </div>
-      </div>
-
-      <div class="gantt">
-        <div class="gantt-header">
-          <div>RECORD</div>
-          <div class="ticks">
-            <span style="left: 0">'22</span>
-            <span style="left: 20%">'23</span>
-            <span style="left: 40%">'24</span>
-            <span style="left: 60%">'25</span>
-            <span style="left: 80%">'26</span>
-            <span style="left: 100%" class="now">NOW</span>
-          </div>
-          <div>SPAN</div>
-        </div>
-
-        <div class="gantt-row">
-          <div class="g-side">
-            <div class="g-role">Research Assistant</div>
-            <div class="g-org">BRAC University · EEE</div>
-          </div>
-          <div class="g-track">
-            <div class="g-bar live" style="left: 83%; width: 7%;"></div>
-          </div>
-          <div class="g-detail">MAR 2026 → NOW</div>
-        </div>
-
-        <div class="gantt-row">
-          <div class="g-side">
-            <div class="g-role">Industrial Attachment</div>
-            <div class="g-org">Neural Semiconductor · Cadence ops</div>
-          </div>
-          <div class="g-track">
-            <div class="g-bar past" style="left: 73%; width: 4%;"></div>
-          </div>
-          <div class="g-detail">SEP – OCT 2025</div>
-        </div>
-
-        <div class="gantt-row">
-          <div class="g-side">
-            <div class="g-role">Chairperson, AESS</div>
-            <div class="g-org">IEEE BRAC University SB</div>
-          </div>
-          <div class="g-track">
-            <div class="g-bar past" style="left: 60%; width: 20%;"></div>
-          </div>
-          <div class="g-detail">JAN – DEC 2025</div>
-        </div>
-
-        <div class="gantt-row">
-          <div class="g-side">
-            <div class="g-role">Team Lead, BD-BRACU Mavericks</div>
-            <div class="g-org">LaSSET · BRAC University</div>
-          </div>
-          <div class="g-track">
-            <div class="g-bar past" style="left: 20%; width: 35%;"></div>
-          </div>
-          <div class="g-detail">JAN 2023 – OCT 2024</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =================================================
          § 06 — SKILLS
          ================================================= -->
-    <section class="section reveal">
+    <section class="section reveal tools-section" id="stack" data-reveal="flip">
       <div class="section-head">
-        <div class="section-num">§ 06 — Stack</div>
-        <div>
-          <h2 class="section-title">Tools in <em>rotation</em></h2>
-        </div>
+        <h2 class="section-title">Tools in <em>rotation</em></h2>
+        <p class="section-sub">
+          The working toolchain: from device simulation down at the silicon,
+          up through IC design, PCB and embedded.
+        </p>
       </div>
 
-      <div class="skills">
-        <div class="skill-group">
-          <div class="group">Device Sim</div>
-          <ul>
-            <li><span class="skill-name">Silvaco TCAD</span><span class="skill-bar"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></span></li>
-            <li><span class="skill-name">Synopsys Sentaurus</span><span class="skill-bar"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></span></li>
-            <li><span class="skill-name">Synopsys HSpice</span><span class="skill-bar"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></span></li>
-            <li><span class="skill-name">DEVSIM</span><span class="skill-bar"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></span></li>
-          </ul>
+      <div class="toolgrid">
+        <!-- Device Simulation -->
+        <div class="tool-cat">
+          <div class="tool-cat-label"><svg class="ico"><use href="#i-transistor"/></svg> Device Simulation</div>
+          <div class="tool-tiles">
+            <div class="tool"><img src="assets/tools/silvaco.jpg" alt="Silvaco TCAD" class="tool-icon"/><span class="t-name">Silvaco TCAD</span></div>
+            <div class="tool"><img src="assets/tools/synopsys.png" alt="Synopsys" class="tool-icon"/><span class="t-name">Synopsys Sentaurus</span></div>
+            <div class="tool"><img src="assets/tools/hspice.jpg" alt="HSpice" class="tool-icon"/><span class="t-name">Synopsys HSpice</span></div>
+            <div class="tool"><img src="assets/tools/devsim.png" alt="DEVSIM" class="tool-icon"/><span class="t-name">DEVSIM</span></div>
+          </div>
         </div>
-        <div class="skill-group">
-          <div class="group">IC Design</div>
-          <ul>
-            <li><span class="skill-name">Cadence Suite</span><span class="skill-bar"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></span></li>
-            <li><span class="skill-name">AMD Vivado</span><span class="skill-bar"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></span></li>
-            <li><span class="skill-name">Vitis HLS</span><span class="skill-bar"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></span></li>
-          </ul>
+
+        <!-- IC Design -->
+        <div class="tool-cat">
+          <div class="tool-cat-label"><svg class="ico"><use href="#i-chip"/></svg> IC Design</div>
+          <div class="tool-tiles">
+            <div class="tool"><img src="assets/tools/cadence.webp" alt="Cadence" class="tool-icon"/><span class="t-name">Cadence Suite</span></div>
+            <div class="tool"><img src="assets/tools/vivado.png" alt="Vivado" class="tool-icon"/><span class="t-name">AMD Vivado</span></div>
+            <div class="tool"><img src="assets/tools/vitis.png" alt="Vitis" class="tool-icon"/><span class="t-name">Vitis HLS</span></div>
+          </div>
         </div>
-        <div class="skill-group">
-          <div class="group">3D / Mech</div>
-          <ul>
-            <li><span class="skill-name">SOLIDWORKS</span><span class="skill-bar"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></span></li>
-            <li><span class="skill-name">Fusion 360</span><span class="skill-bar"><span class="on"></span><span class="on"></span><span class="on"></span><span></span><span></span></span></li>
-          </ul>
+
+        <!-- 3D / Mechanical -->
+        <div class="tool-cat">
+          <div class="tool-cat-label"><svg class="ico"><use href="#i-cubesat"/></svg> 3D / Mechanical</div>
+          <div class="tool-tiles">
+            <div class="tool"><img src="assets/tools/solidworks.jpg" alt="SolidWorks" class="tool-icon"/><span class="t-name">SOLIDWORKS</span></div>
+            <div class="tool"><img src="assets/tools/fusion360.jpg" alt="Fusion 360" class="tool-icon"/><span class="t-name">Fusion 360</span></div>
+          </div>
         </div>
-        <div class="skill-group">
-          <div class="group">PCB</div>
-          <ul>
-            <li><span class="skill-name">Altium Designer</span><span class="skill-bar"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></span></li>
-            <li><span class="skill-name">KiCad</span><span class="skill-bar"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></span></li>
-          </ul>
+
+        <!-- PCB -->
+        <div class="tool-cat">
+          <div class="tool-cat-label"><svg class="ico"><use href="#i-pcb"/></svg> PCB Layout</div>
+          <div class="tool-tiles">
+            <div class="tool"><img src="assets/tools/altium.png" alt="Altium" class="tool-icon"/><span class="t-name">Altium Designer</span></div>
+            <div class="tool"><img src="assets/tools/kicad.png" alt="KiCad" class="tool-icon"/><span class="t-name">KiCad</span></div>
+          </div>
         </div>
-        <div class="skill-group">
-          <div class="group">Engineering</div>
-          <ul>
-            <li><span class="skill-name">MATLAB / Simulink</span><span class="skill-bar"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></span></li>
-            <li><span class="skill-name">Proteus</span><span class="skill-bar"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></span></li>
-            <li><span class="skill-name">LTSpice</span><span class="skill-bar"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span></span></span></li>
-          </ul>
+
+        <!-- Engineering / Sim -->
+        <div class="tool-cat">
+          <div class="tool-cat-label"><svg class="ico"><use href="#i-wave"/></svg> Engineering &amp; Sim</div>
+          <div class="tool-tiles">
+            <div class="tool"><img src="assets/tools/matlab.png" alt="MATLAB" class="tool-icon"/><span class="t-name">MATLAB / Simulink</span></div>
+            <div class="tool"><img src="assets/tools/proteus.png" alt="Proteus" class="tool-icon"/><span class="t-name">Proteus</span></div>
+            <div class="tool"><img src="assets/tools/ltspice.png" alt="LTSpice" class="tool-icon"/><span class="t-name">LTSpice</span></div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- =================================================
-         § 07 / § 08 — ACHIEVEMENTS + EDUCATION
+         § 07 — ACHIEVEMENTS & AWARDS
          ================================================= -->
     <section class="section reveal">
-      <div class="twocol">
-        <div>
-          <h3>§ 07 — Achievements &amp; awards</h3>
-          <div class="list-item">
-            <div class="ts">2024</div>
-            <div>
-              <div class="lbl">Satellite Expedition Contest</div>
-              <div class="dt">2nd Runner-Up</div>
-            </div>
-          </div>
-          <div class="list-item">
-            <div class="ts">2023</div>
-            <div>
-              <div class="lbl">BIRDS-X APRS Payload Competition</div>
-              <div class="dt">Winner — Phase 1</div>
-            </div>
-          </div>
-          <div class="list-item">
-            <div class="ts">2023</div>
-            <div>
-              <div class="lbl">NASA Space Apps Challenge</div>
-              <div class="dt">Built an API-based site using the NASA Earth Observing Database.</div>
-            </div>
-          </div>
-          <div class="list-item">
-            <div class="ts">2023</div>
-            <div>
-              <div class="lbl">Amateur Radio License (Operator Class)</div>
-              <div class="dt">Bangladesh Telecommunication Regulatory Commission (BTRC)</div>
-            </div>
-          </div>
-        </div>
+      <div class="section-head">
+        <h2 class="section-title">Achievements &amp; <em>awards</em></h2>
+      </div>
 
+      <div class="list-item">
+        <div class="ts">2024</div>
         <div>
-          <h3>§ 08 — Education</h3>
-          <div class="list-item">
-            <div class="ts">2022 — 2026</div>
-            <div>
-              <div class="lbl">B.Sc. — Electrical &amp; Electronics Engineering</div>
-              <div class="dt">BRAC University · CGPA 3.39</div>
-            </div>
-          </div>
-          <div class="list-item">
-            <div class="ts">2020</div>
-            <div>
-              <div class="lbl">HSC</div>
-              <div class="dt">Ispahani Public School &amp; College, Cumilla · GPA 5.00</div>
-            </div>
-          </div>
-          <div class="list-item">
-            <div class="ts">2018</div>
-            <div>
-              <div class="lbl">SSC</div>
-              <div class="dt">Ispahani Public School &amp; College, Cumilla · GPA 5.00</div>
-            </div>
-          </div>
+          <div class="lbl">Satellite Expedition Contest</div>
+          <div class="dt">2nd Runner-Up</div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="ts">2023</div>
+        <div>
+          <div class="lbl">BIRDS-X APRS Payload Competition</div>
+          <div class="dt">Winner - Phase 1</div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="ts">2023</div>
+        <div>
+          <div class="lbl">NASA Space Apps Challenge</div>
+          <div class="dt">Built an API-based site using the NASA Earth Observing Database.</div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="ts">2023</div>
+        <div>
+          <div class="lbl">Amateur Radio License (Operator Class)</div>
+          <div class="dt">Bangladesh Telecommunication Regulatory Commission (BTRC)</div>
         </div>
       </div>
     </section>
@@ -643,7 +665,7 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
       <div class="contacts">
         <div>
           <div class="lbl"><svg class="ico"><use href="#i-mail"/></svg>[ Email ]</div>
-          <a class="val" href="/cdn-cgi/l/email-protection#4b2a27232438382a222538232a3c250b2c262a222765282426"><span class="__cf_email__" data-cfemail="02636e6a6d7171636b6c716a63756c42656f636b6e2c616d6f">[email&#160;protected]</span></a>
+          <a class="val" href="mailto:alhossainshawn@gmail.com">alhossainshawn@gmail.com</a>
         </div>
         <div>
           <div class="lbl"><svg class="ico"><use href="#i-linkedin"/></svg>[ LinkedIn ]</div>
@@ -669,6 +691,6 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="interactive.js" defer></script>
+<script src="interactive.js" defer></script>
 </body>
 </html>
