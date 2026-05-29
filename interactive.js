@@ -132,14 +132,26 @@
   // -------------------------------------------------------
   function setupUptime() {
     const el = document.querySelector('[data-uptime]');
-    if (!el) return;
-    const start = new Date(2022, 0, 15).getTime(); // Jan 15, 2022
-    function update() {
-      const days = Math.floor((Date.now() - start) / 86400000);
-      el.textContent = 'T+' + days.toLocaleString() + 'd';
+    if (el) {
+      const start = new Date(2022, 0, 15).getTime(); // Jan 15, 2022
+      const update = function () {
+        const days = Math.floor((Date.now() - start) / 86400000);
+        el.textContent = 'T+' + days.toLocaleString() + 'd';
+      };
+      update();
+      setInterval(update, 60000);
     }
-    update();
-    setInterval(update, 60000); // refresh once a minute
+    // Current-role "since" counter (days as Research Assistant)
+    const since = document.querySelector('[data-uptime-since]');
+    if (since) {
+      const roleStart = new Date(2026, 2, 1).getTime(); // Mar 1, 2026
+      const upd = function () {
+        const d = Math.max(0, Math.floor((Date.now() - roleStart) / 86400000));
+        since.textContent = 'NOW · T+' + d + 'd';
+      };
+      upd();
+      setInterval(upd, 60000);
+    }
   }
 
   // -------------------------------------------------------
@@ -265,6 +277,56 @@
   }
 
   // -------------------------------------------------------
+  // 9. Tool proficiency dots — build 5 dots from data-level
+  // -------------------------------------------------------
+  function setupToolDots() {
+    document.querySelectorAll('.t-dots').forEach(function (el) {
+      const level = parseInt(el.getAttribute('data-level'), 10) || 0;
+      let html = '';
+      for (let i = 0; i < 5; i++) html += '<i class="' + (i < level ? 'on' : '') + '"></i>';
+      el.innerHTML = html;
+    });
+  }
+
+  // -------------------------------------------------------
+  // 10. Special section reveals — fire the scan-beam on the
+  //     current-role block when the experience section enters.
+  // -------------------------------------------------------
+  function setupSpecialReveals() {
+    if (!('IntersectionObserver' in window)) return;
+    const exp = document.querySelector('.exp-section');
+    if (exp) {
+      const io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            const cr = entry.target.querySelector('.current-role');
+            if (cr) cr.classList.add('beam');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      io.observe(exp);
+    }
+  }
+
+  // -------------------------------------------------------
+  // 11. Typing animation for whoami — character by character
+  // -------------------------------------------------------
+  function setupTypingAnimation() {
+    const el = document.getElementById('typing-whoami');
+    if (!el) return;
+
+    const text = 'whoami';
+    const chars = text.split('');
+
+    chars.forEach(function (char, index) {
+      const span = document.createElement('span');
+      span.textContent = char;
+      el.appendChild(span);
+    });
+  }
+
+  // -------------------------------------------------------
   // Init
   // -------------------------------------------------------
   function init() {
@@ -276,6 +338,9 @@
     setupUptime();
     setupGridPulse();
     setupStackInteraction();
+    setupToolDots();
+    setupSpecialReveals();
+    setupTypingAnimation();
   }
 
   if (document.readyState === 'loading') {
