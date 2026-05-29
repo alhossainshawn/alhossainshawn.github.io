@@ -13,6 +13,15 @@
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+<!-- Page-transition curtain (covers from first paint; lifted by interactive.js) -->
+<div class="pt-curtain" aria-hidden="true">
+  <div class="pt-panels"><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="pt-center">
+    <div class="pt-mark">A<b>H</b>S</div>
+    <div class="pt-bar"><i></i></div>
+    <div class="pt-count">000</div>
+  </div>
+</div>
 
 <!-- Scroll-progress bar at the top of the viewport -->
 <div class="scroll-progress"></div>
@@ -34,52 +43,62 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
   <div class="frame">
 
     <!-- =================================================
-         TITLE BLOCK (Drawing-frame top bar)
+         MINIMAL NAV (juanmora-style)
          ================================================= -->
-    <header class="titleblock">
-      <div>
-        <span class="blink"></span>
-        <span class="brand">A.H. Shawn</span>
-        <span class="uptime" data-uptime>T+0d</span>
-      </div>
-      <div class="nav">
-        <a href="#research">RESEARCH</a>
-        <a href="#projects">PROJECTS</a>
-        <a href="#publications">PAPERS</a>
-        <a href="#contact">CONTACT</a>
-      </div>
-      <div>Sheet<b>01 / 01</b></div>
-      <div>Revision<b>A · 2026</b></div>
-      <div>Drawing<b>AHS-PORT-01</b></div>
+    <header class="site-nav">
+      <a class="wordmark" href="index.html">
+        <span class="blink"></span>Al&nbsp;Hossain&nbsp;Shawn
+      </a>
+      <nav class="nav-links">
+        <a href="#research">Research</a>
+        <a href="#projects">Projects</a>
+        <a href="#publications">Papers</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-status"><span data-uptime>T+0d</span> · Open to collabs</div>
     </header>
 
     <!-- =================================================
-         HERO
+         HERO — masthead
          ================================================= -->
-    <section class="hero reveal">
-      <div class="hero-left">
-        <div class="prompt">
-          <span class="pchar">$</span> whoami<br />
-          <span class="pout">→ research_assistant @ brac_university</span><br />
-          <span class="pchar">$</span> cat ./about.txt
+    <section class="hero">
+      <div class="hero-top">
+        <div class="hero-kicker">
+          <span class="pchar">$</span> whoami<span class="caret"></span>
+          <span class="pout">research_assistant @ brac_university</span>
         </div>
-
-        <h1>Al Hossain<br /><em>Shawn</em></h1>
-
-        <p class="lede">
-          Working both ends of the stack — simulating the transistors
-          that don't exist yet, and building with the ones that do.
-        </p>
-
-        <div class="metabar">
-          <div>Position<b>Research Asst.</b></div>
-          <div>Institution<b>BRAC University · EEE</b></div>
-          <div>Focus<b>VLSI · HLS · TCAD</b></div>
-          <div>Status<b class="ok">● Open to collabs</b></div>
-        </div>
+        <div class="hero-coords">23.78°N · 90.41°E<br/>Dhaka, BD</div>
       </div>
 
-      <div class="portrait-wrap">
+      <h1 class="hero-name">
+        <span class="line">Al&nbsp;Hossain</span>
+        <span class="line accent">Shawn</span>
+      </h1>
+
+      <div class="hero-base">
+        <p class="hero-statement">
+          Simulating the transistors that don't exist&nbsp;yet —
+          and <em>building</em> with the ones that&nbsp;do.
+        </p>
+        <a class="hero-scroll" href="#research">
+          <span>Scroll to explore</span>
+          <svg class="ico"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+
+      <div class="hero-meta">
+        <div><span class="k">Position</span><span class="v">Research Assistant</span></div>
+        <div><span class="k">Institution</span><span class="v">BRAC University · EEE</span></div>
+        <div><span class="k">Focus</span><span class="v">VLSI · HLS · TCAD</span></div>
+        <div><span class="k">Domains</span><span class="v">6 areas of practice</span></div>
+      </div>
+    </section>
+
+    <!-- =================================================
+         INTRO BAND — portrait + short bio
+         ================================================= -->
+    <section class="intro reveal">
+      <div class="portrait-col">
         <div class="portrait">
           <span class="corner tl"></span>
           <span class="corner tr"></span>
@@ -87,6 +106,18 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
           <span class="corner br"></span>
           <img src="assets/portrait.jpg" alt="Portrait of Al Hossain Shawn" />
         </div>
+      </div>
+      <div class="bio-col">
+        <div class="bio-label">// About</div>
+        <p>
+          I'm a researcher at <em>BRAC University</em>, working at the seam between
+          device physics and the hardware that runs on it.
+        </p>
+        <p>
+          That means days split between <em>TCAD</em> simulations of transistors a
+          few nanometres wide, <em>FPGA</em> accelerators for edge AI, and the
+          embedded systems that carry it all — from rovers to CubeSats in orbit.
+        </p>
       </div>
     </section>
 
@@ -612,7 +643,7 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
       <div class="contacts">
         <div>
           <div class="lbl"><svg class="ico"><use href="#i-mail"/></svg>[ Email ]</div>
-          <a class="val" href="/cdn-cgi/l/email-protection#2d4c4145425e5e4c44435e454c5a436d4a404c4441034e4240"><span class="__cf_email__" data-cfemail="4d2c2125223e3e2c24233e252c3a230d2a202c2421632e2220">[email&#160;protected]</span></a>
+          <a class="val" href="/cdn-cgi/l/email-protection#4b2a27232438382a222538232a3c250b2c262a222765282426"><span class="__cf_email__" data-cfemail="02636e6a6d7171636b6c716a63756c42656f636b6e2c616d6f">[email&#160;protected]</span></a>
         </div>
         <div>
           <div class="lbl"><svg class="ico"><use href="#i-linkedin"/></svg>[ LinkedIn ]</div>
