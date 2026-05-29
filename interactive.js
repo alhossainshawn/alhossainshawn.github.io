@@ -42,7 +42,7 @@
   // 2. Sticky nav — compact state + scroll progress bar
   // -------------------------------------------------------
   function setupStickyNav() {
-    const tb = document.querySelector('.titleblock');
+    const tb = document.querySelector('.site-nav') || document.querySelector('.titleblock');
     const progressBar = document.querySelector('.scroll-progress');
     if (!tb && !progressBar) return;
 
@@ -68,7 +68,7 @@
   // -------------------------------------------------------
   function setupActiveNav() {
     if (!('IntersectionObserver' in window)) return;
-    const links = document.querySelectorAll('.titleblock .nav a[href^="#"]');
+    const links = document.querySelectorAll('.site-nav .nav-links a[href^="#"], .titleblock .nav a[href^="#"]');
     if (!links.length) return;
 
     const sectionIds = [...links].map(function (a) { return a.getAttribute('href').slice(1); });
@@ -188,9 +188,87 @@
   }
 
   // -------------------------------------------------------
+  // 8. Page transitions — synapser-style curtain wipe
+  //    Injects a full-screen curtain, lifts it on load,
+  //    and drops it over the screen before navigating to
+  //    another page (real multi-page navigation).
+  // -------------------------------------------------------
+  function setupTransitions() {
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return; // CSS hides the curtain; links navigate normally
+
+    const curtain = document.querySelector('.pt-curtain');
+    if (!curtain) return;
+
+    const bar = curtain.querySelector('.pt-bar i');
+    const count = curtain.querySelector('.pt-count');
+
+    // Enter counter flourish (the lift itself is pure CSS)
+    animateCount(count, null, 800);
+
+    // Safety net: guarantee the curtain is gone shortly after load even if
+    // the CSS reveal animation fails to run in some environment.
+    setTimeout(function () {
+      if (!curtain.classList.contains('is-covering')) {
+        curtain.style.visibility = 'hidden';
+        curtain.style.pointerEvents = 'none';
+      }
+    }, 1700);
+
+    // ---- EXIT: intercept internal link clicks, cover, then navigate ----
+    document.addEventListener('click', function (e) {
+      const a = e.target.closest('a');
+      if (!a) return;
+
+      const href = a.getAttribute('href');
+      if (!href) return;
+
+      // Skip: hash links, new-tab, downloads, mailto/tel, modified clicks
+      if (href.startsWith('#')) return;
+      if (a.target && a.target !== '_self') return;
+      if (a.hasAttribute('download')) return;
+      if (/^(mailto:|tel:)/.test(href)) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+
+      // Same-origin only
+      let url;
+      try { url = new URL(a.href, location.href); } catch (_) { return; }
+      if (url.origin !== location.origin) return;
+
+      e.preventDefault();
+
+      curtain.style.visibility = 'visible';
+      curtain.style.pointerEvents = '';
+      curtain.classList.add('is-covering');
+      if (bar) { bar.style.animation = 'none'; }
+      animateCount(count, bar, 560);
+
+      // Navigate once the panels have fully covered the screen.
+      let navigated = false;
+      const go = function () { if (!navigated) { navigated = true; window.location.href = url.href; } };
+      setTimeout(go, 880);
+    });
+  }
+
+  function animateCount(countEl, barEl, duration, done) {
+    if (!countEl && !barEl) { if (done) done(); return; }
+    const start = performance.now();
+    function frame(now) {
+      const t = Math.min(1, (now - start) / duration);
+      const v = Math.round(t * 100);
+      if (countEl) countEl.textContent = String(v).padStart(3, '0');
+      if (barEl) barEl.style.width = v + '%';
+      if (t < 1) requestAnimationFrame(frame);
+      else if (done) done();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // -------------------------------------------------------
   // Init
   // -------------------------------------------------------
   function init() {
+    setupTransitions();
     setupReveals();
     setupStickyNav();
     setupActiveNav();
