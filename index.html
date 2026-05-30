@@ -8,7 +8,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
 
 <link rel="stylesheet" href="styles.css" />
 
@@ -35,6 +35,10 @@
 <!-- Scroll-progress bar at the top of the viewport -->
 <div class="scroll-progress"></div>
 
+<!-- Cursor follower -->
+<div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
 <!-- Animated grid-pulse background (cells light up randomly) -->
 <div class="grid-pulse"></div>
 
@@ -52,11 +56,11 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
   <div class="frame">
 
     <!-- =================================================
-         MINIMAL NAV (juanmora-style)
+         FLOATING PILL NAV
          ================================================= -->
-    <header class="site-nav">
+    <header class="site-nav" role="navigation" aria-label="Main navigation">
       <a class="wordmark" href="index.html">
-        <span class="blink"></span>Al&nbsp;Hossain&nbsp;Shawn
+        <span class="blink"></span>A.H. Shawn
       </a>
       <nav class="nav-links">
         <a href="#research">Research</a>
@@ -72,7 +76,7 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
     <section class="hero">
       <div class="hero-top">
         <div class="hero-kicker">
-          <span class="pchar">$</span> <span class="typing-whoami-char" id="typing-whoami"></span><span class="caret"></span>
+          <span class="pchar">$</span>&nbsp;<span class="typing-whoami-char" id="typing-whoami"></span><span class="caret"></span>
           <span class="pout">research_assistant @ brac_university</span>
         </div>
         <div class="hero-coords">23.78°N · 90.41°E<br/>Dhaka, BD</div>
@@ -101,6 +105,39 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
         <div><span class="k">Domains</span><span class="v">6 areas of practice</span></div>
       </div>
     </section>
+
+    <!-- =================================================
+         MARQUEE SKILLS STRIP
+         ================================================= -->
+    <div class="marquee-strip" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-item"><span class="dot"></span>TCAD Simulation</div>
+        <div class="marquee-item"><span class="dot"></span>FPGA / HLS</div>
+        <div class="marquee-item"><span class="dot"></span>VLSI Design</div>
+        <div class="marquee-item"><span class="dot"></span>GAA Transistors</div>
+        <div class="marquee-item"><span class="dot"></span>PCB Layout</div>
+        <div class="marquee-item"><span class="dot"></span>CubeSat Engineering</div>
+        <div class="marquee-item"><span class="dot"></span>Embedded Systems</div>
+        <div class="marquee-item"><span class="dot"></span>Neural Acceleration</div>
+        <div class="marquee-item"><span class="dot"></span>Cadence Virtuoso</div>
+        <div class="marquee-item"><span class="dot"></span>Silvaco TCAD</div>
+        <div class="marquee-item"><span class="dot"></span>Vitis HLS</div>
+        <div class="marquee-item"><span class="dot"></span>RTL Design</div>
+        <!-- duplicate for seamless loop -->
+        <div class="marquee-item"><span class="dot"></span>TCAD Simulation</div>
+        <div class="marquee-item"><span class="dot"></span>FPGA / HLS</div>
+        <div class="marquee-item"><span class="dot"></span>VLSI Design</div>
+        <div class="marquee-item"><span class="dot"></span>GAA Transistors</div>
+        <div class="marquee-item"><span class="dot"></span>PCB Layout</div>
+        <div class="marquee-item"><span class="dot"></span>CubeSat Engineering</div>
+        <div class="marquee-item"><span class="dot"></span>Embedded Systems</div>
+        <div class="marquee-item"><span class="dot"></span>Neural Acceleration</div>
+        <div class="marquee-item"><span class="dot"></span>Cadence Virtuoso</div>
+        <div class="marquee-item"><span class="dot"></span>Silvaco TCAD</div>
+        <div class="marquee-item"><span class="dot"></span>Vitis HLS</div>
+        <div class="marquee-item"><span class="dot"></span>RTL Design</div>
+      </div>
+    </div>
 
     <!-- =================================================
          INTRO BAND - portrait + short bio + education
