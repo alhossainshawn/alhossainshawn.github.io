@@ -39,11 +39,11 @@
   }
 
   // -------------------------------------------------------
-  // 2. Scroll progress bar (pill nav no longer uses scrolled)
+  // 2. Scroll progress bar + top pill nav compact state
   // -------------------------------------------------------
   function setupStickyNav() {
     const progressBar = document.querySelector('.scroll-progress');
-    if (!progressBar) return;
+    const siteNav = document.querySelector('.site-nav');
 
     let ticking = false;
     function update() {
@@ -52,7 +52,17 @@
       const scrollable = doc.scrollHeight - window.innerHeight;
       const pct = scrollable > 0 ? Math.min(1, Math.max(0, y / scrollable)) : 0;
 
-      progressBar.style.transform = 'scaleX(' + pct + ')';
+      if (progressBar) progressBar.style.transform = 'scaleX(' + pct + ')';
+
+      // Compact nav after 60px of scroll
+      if (siteNav) {
+        if (y > 60) {
+          siteNav.classList.add('scrolled');
+        } else {
+          siteNav.classList.remove('scrolled');
+        }
+      }
+
       ticking = false;
     }
     update();

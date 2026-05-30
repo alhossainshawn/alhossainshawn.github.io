@@ -508,38 +508,54 @@ a.link:hover { color: var(--ink); }
    HERO
    ------------------------------------------------------------ */
 
-/* ---- Floating bottom pill nav ---- */
+/* ---- Floating top pill nav ---- */
+@keyframes navSlideDown {
+  from { opacity: 0; transform: translateX(-50%) translateY(-24px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
 .site-nav {
   position: fixed;
-  bottom: 32px;
+  top: 24px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 200;
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 16px;
-  background: rgba(22, 22, 22, 0.88);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--rule-2);
+  padding: 10px 20px;
+  background: rgba(13, 13, 13, 0.72);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 100px;
-  transition: opacity .4s ease, transform .4s ease;
-  animation: floatUp 5s ease-in-out infinite;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.45), 0 0 0 0.5px rgba(255,255,255,0.04) inset;
+  transition: padding .3s ease, background .3s ease, box-shadow .3s ease;
+  animation: navSlideDown 0.7s 0.3s cubic-bezier(.16, 1, .3, 1) backwards;
 }
+
+/* Compact state on scroll */
+.site-nav.scrolled {
+  padding: 7px 16px;
+  background: rgba(11, 13, 17, 0.90);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.60), 0 0 0 0.5px rgba(255,255,255,0.06) inset;
+}
+
 .site-nav .wordmark {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 11.5px;
   letter-spacing: 0.06em;
   color: var(--ink-2);
   white-space: nowrap;
-  padding-right: 10px;
-  border-right: 1px solid var(--rule-2);
-  margin-right: 4px;
+  padding-right: 14px;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  margin-right: 6px;
+  transition: color .2s ease;
 }
+.site-nav .wordmark:hover { color: var(--ink); }
 .site-nav .wordmark .blink {
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--accent-2);
@@ -548,7 +564,7 @@ a.link:hover { color: var(--ink); }
 }
 .site-nav .nav-links {
   display: flex;
-  gap: 4px;
+  gap: 2px;
   align-items: center;
 }
 .site-nav .nav-links a {
@@ -556,13 +572,13 @@ a.link:hover { color: var(--ink); }
   font-size: 11px;
   letter-spacing: 0.06em;
   color: var(--ink-3);
-  padding: 6px 14px;
+  padding: 6px 16px;
   border-radius: 100px;
   transition: color .2s ease, background .2s ease;
 }
 .site-nav .nav-links a:hover {
   color: var(--ink);
-  background: rgba(245, 240, 232, 0.06);
+  background: rgba(255, 255, 255, 0.07);
 }
 .site-nav .nav-links a.current {
   color: var(--bg);
