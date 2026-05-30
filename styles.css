@@ -2775,57 +2775,252 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ============================================================
-   MARQUEE SKILLS STRIP
+   MARQUEE SKILLS STRIP (TWO ROWS)
    ============================================================ */
-.marquee-strip {
+.marquee-container {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
   border-bottom: 1px solid var(--rule);
   border-top: 1px solid var(--rule);
-  background: var(--paper);
+  overflow: hidden;
+  position: relative;
+  gap: 0;
+}
+.marquee-container::before,
+.marquee-container::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 150px;
+  z-index: 5;
+  pointer-events: none;
+}
+.marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg), transparent);
+}
+.marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg), transparent);
+}
+
+.marquee-strip {
   overflow: hidden;
   padding: 0;
   white-space: nowrap;
   position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
-.marquee-strip::before,
-.marquee-strip::after {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 120px;
-  z-index: 2;
-  pointer-events: none;
+.marquee-strip.marquee-left {
+  border-bottom: 1px solid var(--rule);
 }
-.marquee-strip::before {
-  left: 0;
-  background: linear-gradient(to right, var(--paper), transparent);
-}
-.marquee-strip::after {
-  right: 0;
-  background: linear-gradient(to left, var(--paper), transparent);
-}
+
 .marquee-track {
   display: inline-flex;
-  animation: marqueeScroll 28s linear infinite;
   will-change: transform;
 }
+
+.marquee-left .marquee-track {
+  animation: marqueeScrollLeft 38s linear infinite;
+}
+
+.marquee-right .marquee-track {
+  animation: marqueeScrollRight 38s linear infinite;
+}
+
+/* Pause animation on hover to allow detailed inspection */
+.marquee-strip:hover .marquee-track {
+  animation-play-state: paused;
+}
+
 .marquee-item {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 18px 32px;
+  gap: 14px;
+  padding: 22px 44px;
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 16px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-3);
   border-right: 1px solid var(--rule);
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+.marquee-item:hover {
+  color: var(--ink);
+  background: var(--paper-2);
+}
+
 .marquee-item span.dot {
-  width: 5px; height: 5px;
+  width: 6px; height: 6px;
   border-radius: 50%;
   background: var(--accent);
   display: inline-block;
   opacity: 0.7;
+}
+
+/* Tool row styles */
+.tool-item {
+  gap: 16px;
+  font-size: 15px;
+  border-right: 1px solid var(--rule) !important;
+}
+.marquee-tool-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 4px;
+  filter: none; /* Colorful all the time */
+  opacity: 0.85; /* Subtle premium default opacity */
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tool-item:hover .marquee-tool-icon {
+  opacity: 1;
+  transform: scale(1.18);
+}
+
+/* Custom company brand styles - COLORFUL BY DEFAULT */
+.t-silvaco {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #2aa1f5 !important;
+}
+.t-synopsys, .t-hspice {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: lowercase;
+  letter-spacing: -0.03em;
+  color: #a855f7 !important;
+}
+.t-cadence {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  color: #ef4444 !important;
+}
+.t-vivado, .t-vitis {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-style: italic;
+  text-transform: uppercase;
+  color: #ff5a00 !important;
+}
+.t-altium {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ff9e1b !important;
+}
+.t-kicad {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  text-transform: none;
+  color: #4ba3e3 !important;
+}
+.t-matlab, .t-simulink {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #ea580c !important;
+}
+.t-solidworks {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  color: #ff3c43 !important;
+}
+.t-fusion360 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  text-transform: none;
+  color: #f97316 !important;
+}
+.t-ltspice {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #589df2 !important;
+}
+.t-proteus {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #ff7b00 !important;
+}
+.t-devsim {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  text-transform: lowercase;
+  color: #00ff66 !important;
+}
+
+/* Hover effects with brand-tinted glowing spotlights */
+.t-silvaco:hover {
+  background: rgba(42, 161, 245, 0.08) !important;
+  box-shadow: inset 0 0 0 1px rgba(42, 161, 245, 0.15) !important;
+}
+.t-synopsys:hover, .t-hspice:hover {
+  background: rgba(168, 85, 247, 0.08) !important;
+  box-shadow: inset 0 0 0 1px rgba(168, 85, 247, 0.15) !important;
+}
+.t-cadence:hover {
+  background: rgba(239, 68, 68, 0.08) !important;
+  box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.15) !important;
+}
+.t-vivado:hover, .t-vitis:hover {
+  background: rgba(255, 90, 0, 0.08) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 90, 0, 0.15) !important;
+}
+.t-altium:hover {
+  background: rgba(255, 158, 27, 0.08) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 158, 27, 0.15) !important;
+}
+.t-kicad:hover {
+  background: rgba(75, 163, 227, 0.08) !important;
+  box-shadow: inset 0 0 0 1px rgba(75, 163, 227, 0.15) !important;
+}
+.t-matlab:hover, .t-simulink:hover {
+  background: rgba(234, 88, 12, 0.08) !important;
+  box-shadow: inset 0 0 0 1px rgba(234, 88, 12, 0.15) !important;
+}
+.t-solidworks:hover {
+  background: rgba(255, 60, 67, 0.08) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 60, 67, 0.15) !important;
+}
+.t-fusion360:hover {
+  background: rgba(249, 115, 22, 0.08) !important;
+  box-shadow: inset 0 0 0 1px rgba(249, 115, 22, 0.15) !important;
+}
+.t-ltspice:hover {
+  background: rgba(88, 157, 242, 0.08) !important;
+  box-shadow: inset 0 0 0 1px rgba(88, 157, 242, 0.15) !important;
+}
+.t-proteus:hover {
+  background: rgba(255, 123, 0, 0.08) !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 123, 0, 0.15) !important;
+}
+.t-devsim:hover {
+  background: rgba(0, 255, 102, 0.08) !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 255, 102, 0.15) !important;
+}
+
+@keyframes marqueeScrollLeft {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marqueeScrollRight {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
 }
 
 /* ============================================================
@@ -3202,4 +3397,259 @@ a.link:hover { color: var(--ink); }
   transition: border-color .3s;
 }
 .current-role:hover { border-color: var(--accent); }
+
+/* ============================================================
+   CINEMATIC SECTION BACKGROUNDS
+   Each section gets a thematic, engineering-relevant image
+   overlaid with a dark gradient to preserve readability.
+   ============================================================ */
+
+/* ----- HERO: Silicon wafer with circuit traces ----- */
+.hero {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(11, 13, 17, 0.72) 0%,
+      rgba(11, 13, 17, 0.55) 50%,
+      rgba(11, 13, 17, 0.92) 100%
+    ),
+    url('assets/bg-hero.png');
+  background-size: cover;
+  background-position: center 40%;
+  background-attachment: fixed;
+}
+
+/* ----- INTRO / ABOUT: Oscilloscope waveforms ----- */
+.intro {
+  background-image:
+    linear-gradient(
+      135deg,
+      rgba(11, 13, 17, 0.88) 0%,
+      rgba(11, 13, 17, 0.70) 60%,
+      rgba(11, 13, 17, 0.88) 100%
+    ),
+    url('assets/bg-about.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* ----- RESEARCH SECTION: Neural / lattice structure ----- */
+#research {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(11, 13, 17, 0.80) 0%,
+      rgba(11, 13, 17, 0.65) 50%,
+      rgba(11, 13, 17, 0.85) 100%
+    ),
+    url('assets/bg-research.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* ----- PROJECTS SECTION: PCB circuit board ----- */
+#projects {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(11, 13, 17, 0.80) 0%,
+      rgba(11, 13, 17, 0.60) 40%,
+      rgba(11, 13, 17, 0.85) 100%
+    ),
+    url('assets/bg-projects.png');
+  background-size: cover;
+  background-position: center 60%;
+  background-attachment: fixed;
+}
+
+/* ----- PUBLICATIONS SECTION: reuse research bg with different tint ----- */
+#publications {
+  background-image:
+    linear-gradient(
+      160deg,
+      rgba(11, 13, 17, 0.88) 0%,
+      rgba(94, 184, 163, 0.04) 50%,
+      rgba(11, 13, 17, 0.88) 100%
+    ),
+    url('assets/bg-research.png');
+  background-size: cover;
+  background-position: center 70%;
+  background-attachment: fixed;
+}
+
+/* ----- STACK / TOOLS SECTION: IC/chip die shot ----- */
+#stack {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(11, 13, 17, 0.82) 0%,
+      rgba(11, 13, 17, 0.65) 50%,
+      rgba(11, 13, 17, 0.90) 100%
+    ),
+    url('assets/bg-skills.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* ----- ROLES / EXPERIENCE: use PCB bg with amber tint ----- */
+#roles {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(11, 13, 17, 0.85) 0%,
+      rgba(217, 119, 87, 0.05) 50%,
+      rgba(11, 13, 17, 0.90) 100%
+    ),
+    url('assets/bg-projects.png');
+  background-size: cover;
+  background-position: center 30%;
+  background-attachment: fixed;
+}
+
+/* ----- FOOTER: deep space/circuit ----- */
+.foot {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(11, 13, 17, 0.85) 0%,
+      rgba(11, 13, 17, 0.70) 50%,
+      rgba(11, 13, 17, 0.95) 100%
+    ),
+    url('assets/bg-footer.png');
+  background-size: cover;
+  background-position: center bottom;
+  background-attachment: fixed;
+}
+
+/* ----- Marquee container: subtle chip texture ----- */
+.marquee-container {
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(11, 13, 17, 0.92) 0%,
+      rgba(19, 22, 28, 0.80) 50%,
+      rgba(11, 13, 17, 0.92) 100%
+    ),
+    url('assets/bg-skills.png');
+  background-size: cover;
+  background-position: center;
+}
+
+/* ----- Cap-strip: hero wafer texture ----- */
+.cap-strip {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(19, 22, 28, 0.95) 0%,
+      rgba(19, 22, 28, 0.90) 100%
+    ),
+    url('assets/bg-hero.png');
+  background-size: cover;
+  background-position: center 20%;
+}
+
+/* ============================================================
+   PARALLAX DEPTH EFFECT — subtle scale on background
+   on mouse move (handled by JS), enhances depth perception
+   ============================================================ */
+.hero,
+#research,
+#projects,
+#publications,
+#stack,
+#roles,
+.intro,
+.foot {
+  background-attachment: fixed;
+  will-change: background-position;
+}
+
+/* On mobile: disable fixed background (it doesn't work well on iOS) */
+@media (max-width: 768px) {
+  .hero,
+  .intro,
+  #research,
+  #projects,
+  #publications,
+  #stack,
+  #roles,
+  .foot,
+  .marquee-container,
+  .cap-strip {
+    background-attachment: scroll;
+  }
+}
+
+/* ============================================================
+   SECTION GLOW ACCENTS — colored edge glow per section
+   These complement the background imagery with ambient color
+   ============================================================ */
+
+/* Research: teal left accent */
+#research::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, var(--accent-2), transparent);
+  pointer-events: none;
+}
+
+/* Projects: amber left accent */
+#projects::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+  pointer-events: none;
+}
+
+/* Publications: soft teal left accent */
+#publications::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, rgba(94, 184, 163, 0.6), transparent);
+  pointer-events: none;
+}
+
+/* Stack: amber gradient left accent */
+#stack::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, rgba(217, 119, 87, 0.7), transparent);
+  pointer-events: none;
+}
+
+/* ============================================================
+   SECTION BACKGROUND NOISE TEXTURE OVERLAY
+   Adds subtle grain over all image backgrounds to prevent
+   flat/digital look and match the engineering aesthetic
+   ============================================================ */
+.hero::after,
+.intro::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  mix-blend-mode: overlay;
+  opacity: 0.3;
+}
+
+/* Ensure section children stay above background effects */
+.hero > *,
+.intro > * {
+  position: relative;
+  z-index: 1;
+}
 
