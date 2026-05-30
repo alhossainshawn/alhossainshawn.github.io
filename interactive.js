@@ -39,12 +39,11 @@
   }
 
   // -------------------------------------------------------
-  // 2. Sticky nav — compact state + scroll progress bar
+  // 2. Scroll progress bar (pill nav no longer uses scrolled)
   // -------------------------------------------------------
   function setupStickyNav() {
-    const tb = document.querySelector('.site-nav') || document.querySelector('.titleblock');
     const progressBar = document.querySelector('.scroll-progress');
-    if (!tb && !progressBar) return;
+    if (!progressBar) return;
 
     let ticking = false;
     function update() {
@@ -53,8 +52,7 @@
       const scrollable = doc.scrollHeight - window.innerHeight;
       const pct = scrollable > 0 ? Math.min(1, Math.max(0, y / scrollable)) : 0;
 
-      if (tb) tb.classList.toggle('scrolled', y > 60);
-      if (progressBar) progressBar.style.transform = 'scaleX(' + pct + ')';
+      progressBar.style.transform = 'scaleX(' + pct + ')';
       ticking = false;
     }
     update();
@@ -346,6 +344,109 @@
   }
 
   // -------------------------------------------------------
+  // NEW: Cursor follower
+  // -------------------------------------------------------
+  function setupCursorFollower() {
+    const dot  = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    if (!dot || !ring) return;
+
+    // hide on mobile / touch devices
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      dot.style.display = 'none';
+      ring.style.display = 'none';
+      document.body.style.cursor = '';
+      return;
+    }
+
+    let mx = -100, my = -100;
+    let rx = -100, ry = -100;
+
+    document.addEventListener('mousemove', function (e) {
+      mx = e.clientX;
+      my = e.clientY;
+      dot.style.transform = 'translate(' + (mx - 4) + 'px, ' + (my - 4) + 'px)';
+    });
+
+    (function animateRing() {
+      rx += (mx - rx) * 0.14;
+      ry += (my - ry) * 0.14;
+      ring.style.transform = 'translate(' + (rx - 20) + 'px, ' + (ry - 20) + 'px)';
+      requestAnimationFrame(animateRing);
+    })();
+
+    // scale dot on clickable hover
+    document.addEventListener('mouseover', function (e) {
+      const el = e.target.closest('a, button, [role="button"], .cap-cell, .res-card, .int-card, .proj-row');
+      dot.style.transform = el
+        ? 'translate(' + (mx - 4) + 'px, ' + (my - 4) + 'px) scale(2.5)'
+        : 'translate(' + (mx - 4) + 'px, ' + (my - 4) + 'px) scale(1)';
+    });
+  }
+
+  // -------------------------------------------------------
+  // NEW: Scroll clip-reveals for section titles
+  // -------------------------------------------------------
+  function setupClipReveals() {
+    if (!('IntersectionObserver' in window)) return;
+    const clips = document.querySelectorAll('.reveal-clip');
+    if (!clips.length) return;
+
+    const io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    clips.forEach(function (el) { io.observe(el); });
+  }
+
+  // -------------------------------------------------------
+  // NEW: Card hover tilt effect
+  // -------------------------------------------------------
+  function setupCardTilt() {
+    const cards = document.querySelectorAll('.res-card, .int-card');
+    cards.forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        const rect = card.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+        card.style.transform = 'perspective(600px) rotateY(' + (dx * 4) + 'deg) rotateX(' + (-dy * 3) + 'deg) translateY(-4px)';
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = '';
+      });
+    });
+  }
+
+  // -------------------------------------------------------
+  // NEW: Magnetic button hover effect
+  // -------------------------------------------------------
+  function setupMagneticButtons() {
+    const btns = document.querySelectorAll('.hero-scroll, .site-nav .nav-links a');
+    btns.forEach(function (btn) {
+      btn.addEventListener('mousemove', function (e) {
+        const rect = btn.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) * 0.25;
+        const dy = (e.clientY - cy) * 0.25;
+        btn.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+      });
+      btn.addEventListener('mouseleave', function () {
+        btn.style.transform = '';
+        btn.style.transition = 'transform 0.4s cubic-bezier(.16,1,.3,1)';
+        setTimeout(function () { btn.style.transition = ''; }, 400);
+      });
+    });
+  }
+
+  // -------------------------------------------------------
   // Init
   // -------------------------------------------------------
   function init() {
@@ -360,6 +461,11 @@
     setupToolDots();
     setupSpecialReveals();
     setupTypingAnimation();
+    // New interactions
+    setupCursorFollower();
+    setupClipReveals();
+    setupCardTilt();
+    setupMagneticButtons();
   }
 
   if (document.readyState === 'loading') {
