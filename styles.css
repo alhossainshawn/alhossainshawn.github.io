@@ -263,8 +263,9 @@ a.link:hover {
   align-items: center;
   padding: 12px 48px;
   border-bottom: 1px solid var(--rule);
-  font-size: 12px;
-  letter-spacing: 0.14em;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink-3);
   background: var(--bg);
@@ -277,19 +278,46 @@ a.link:hover {
 .cap-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
+  background: rgba(19, 22, 28, 0.4);
 }
 
 .cap-cell {
-  padding: 24px 18px 22px;
+  padding: 32px 18px 26px;
   border-right: 1px solid var(--rule);
   text-align: center;
   position: relative;
   cursor: default;
-  transition: background .2s;
+  transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s ease;
+  overflow: hidden;
 }
 
 .cap-cell:last-child {
   border-right: none;
+}
+
+.cap-code {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  color: var(--ink-3);
+  opacity: 0.5;
+  transition: color 0.3s, opacity 0.3s;
+}
+
+.cap-cell:hover {
+  background: rgba(255, 255, 255, 0.02);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.cap-cell:hover .cap-code {
+  color: var(--accent);
+  opacity: 1;
 }
 
 .cap-cell::before {
@@ -299,48 +327,52 @@ a.link:hover {
   right: 0;
   bottom: 0;
   height: 2px;
-  background: var(--accent);
+  background: linear-gradient(to right, var(--accent), var(--accent-2));
   transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform .25s ease-out;
-}
-
-.cap-cell:hover {
-  background: var(--paper-2);
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cap-cell:hover::before {
   transform: scaleX(1);
 }
 
-.cap-cell:hover .ico {
-  color: var(--accent);
-  transform: translateY(-2px);
+.cap-cell .ico {
+  width: 32px;
+  height: 32px;
+  color: var(--ink-2);
+  margin-bottom: 16px;
+  transition: color 0.3s, transform 0.3s, filter 0.3s;
 }
 
-.cap-cell .ico {
-  width: 30px;
-  height: 30px;
-  color: var(--ink);
-  margin-bottom: 12px;
+.cap-cell:hover .ico {
+  color: var(--accent);
+  transform: scale(1.12);
+  filter: drop-shadow(0 0 10px var(--accent-soft));
 }
 
 .cap-cell .lbl {
   font-size: 12px;
-  letter-spacing: 0.10em;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ink-2);
-  font-weight: 500;
-  line-height: 1.5;
+  font-weight: 600;
+  line-height: 1.4;
+  transition: color 0.3s;
+}
+
+.cap-cell:hover .lbl {
+  color: var(--ink);
 }
 
 .cap-cell .lbl .sub {
   display: block;
   color: var(--ink-3);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   font-weight: 400;
-  font-size: 11px;
-  margin-top: 4px;
+  font-size: 10.5px;
+  margin-top: 5px;
 }
 
 /* ------------------------------------------------------------
@@ -2173,11 +2205,12 @@ a.link:hover {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ink-3);
+  font-family: var(--font-mono);
 }
 
 .stack-section .head .left {
@@ -2188,70 +2221,174 @@ a.link:hover {
   color: var(--ink-3);
 }
 
-.stack {
-  display: grid;
-  grid-template-columns: 180px 1fr 200px;
-  border: 1px solid var(--rule);
-  background: var(--paper);
-}
-
-.stack-cell {
-  padding: 18px 22px;
+.stack-rack {
   display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  padding-left: 36px;
+}
+
+/* Glowing backplane bus line on the left */
+.stack-rack::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 15px;
+  bottom: 15px;
+  width: 2px;
+  background: repeating-linear-gradient(to bottom,
+      var(--rule) 0px,
+      var(--rule) 4px,
+      transparent 4px,
+      transparent 8px);
+}
+
+.stack-layer {
+  display: grid;
+  grid-template-columns: 200px 1fr 180px;
   align-items: center;
-  border-bottom: 1px solid var(--rule);
-  border-right: 1px solid var(--rule);
-  font-size: 12px;
+  background: rgba(19, 22, 28, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 16px 24px;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s,
+              background 0.3s,
+              box-shadow 0.3s;
 }
 
-.stack-cell:nth-child(3n) {
-  border-right: none;
+/* Connecting motherboard node */
+.stack-layer::before {
+  content: '';
+  position: absolute;
+  left: -29px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rule-2);
+  border: 2px solid var(--bg);
+  z-index: 10;
+  transition: background 0.3s, box-shadow 0.3s;
 }
 
-.stack-cell.span2 {
-  grid-row: span 2;
+.stack-layer:hover {
+  transform: translateX(8px);
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
 }
 
-.stack-cell.label {
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-  font-weight: 500;
-  gap: 10px;
+.stack-layer:hover::before {
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
 }
 
-.stack-cell.content {
-  color: var(--ink);
-  letter-spacing: 0;
+/* Active nodes */
+.stack-layer.active::before {
+  background: var(--accent-2);
+  box-shadow: 0 0 8px var(--accent-2);
 }
 
-.stack-cell.content .note {
-  color: var(--ink-3);
-  margin-left: 8px;
+.stack-layer.active {
+  border-left: 2.5px solid var(--accent-2);
 }
 
-.stack-cell.mark {
-  justify-content: flex-end;
+.stack-layer.active-2 {
+  border-left: 2.5px solid var(--accent-3);
+}
+
+.stack-layer .layer-label {
+  font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink-3);
+  color: var(--accent);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.stack-cell.mark.active {
+.stack-layer.active .layer-label {
   color: var(--accent-2);
 }
 
-.stack-cell.mark.dim {
+.stack-layer .layer-label .ico {
+  width: 20px;
+  height: 20px;
+  color: currentColor;
+}
+
+.stack-layer .layer-content {
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+
+.stack-layer .layer-content .note {
+  color: var(--ink-3);
+  font-size: 11px;
+  margin-left: 10px;
+}
+
+.stack-layer .layer-status {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.stack-layer .layer-status.active {
+  color: var(--accent-2);
+  font-weight: 600;
+}
+
+.stack-layer .layer-status.active-2 {
+  color: var(--accent-3);
+  font-weight: 600;
+}
+
+.stack-layer .layer-status.dim {
   color: var(--ink-3);
 }
 
-/* Last row, no border-bottom */
-.stack-cell:nth-last-of-type(1),
-.stack-cell:nth-last-of-type(2),
-.stack-cell:nth-last-of-type(3) {
-  border-bottom: none;
+.stack-layer .layer-status .status-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rule-2);
+  display: inline-block;
+}
+
+.stack-layer .layer-status.active .pulse,
+.stack-layer .layer-status.active-2 .pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  animation: cpPulse 1.8s ease-in-out infinite;
+}
+
+.stack-layer .layer-status.active .pulse {
+  background-color: var(--accent-2);
+  box-shadow: 0 0 8px var(--accent-2);
+}
+
+.stack-layer .layer-status.active-2 .pulse {
+  background-color: var(--accent-3);
+  box-shadow: 0 0 8px var(--accent-3);
 }
 
 @media (max-width: 920px) {
@@ -2259,21 +2396,30 @@ a.link:hover {
     padding: 36px 28px;
   }
 
-  .stack {
-    grid-template-columns: 120px 1fr;
+  .stack-rack {
+    padding-left: 0;
   }
 
-  .stack-cell {
-    padding: 14px 16px;
-    font-size: 11px;
-  }
-
-  .stack-cell.mark {
+  .stack-rack::before {
     display: none;
   }
 
-  .stack-cell:nth-child(3n-1) {
-    border-right: none;
+  .stack-layer {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 18px;
+  }
+
+  .stack-layer::before {
+    display: none;
+  }
+
+  .stack-layer:hover {
+    transform: none;
+  }
+
+  .stack-layer .layer-status {
+    justify-content: flex-start;
   }
 }
 
@@ -3763,7 +3909,7 @@ background .25s;
 }
 
 /* ============================================================
-   SECTION 2: STACK MAP â€” Mobile Optimization
+   SECTION 2: STACK MAP — Mobile Optimization
    ============================================================ */
 @media (max-width: 600px) {
   .stack-section {
@@ -3788,58 +3934,54 @@ background .25s;
     font-size: 9px;
   }
 
-  .stack {
+  .stack-rack {
+    padding-left: 0;
+    gap: 12px;
+  }
+
+  .stack-rack::before {
+    display: none;
+  }
+
+  .stack-layer {
     grid-template-columns: 1fr;
-    gap: 0;
-    border: 1px solid var(--rule);
-    background: var(--paper);
+    gap: 8px;
+    padding: 14px 16px;
   }
 
-  .stack-cell {
-    padding: 12px 14px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid var(--rule);
-    border-right: none;
+  .stack-layer::before {
+    display: none;
+  }
+
+  .stack-layer:hover {
+    transform: none;
+  }
+
+  .stack-layer .layer-label {
     font-size: 10px;
-  }
-
-  .stack-cell:last-child {
-    border-bottom: none;
-  }
-
-  .stack-cell.label {
-    background: var(--paper);
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 600;
-    padding: 10px 14px;
     gap: 8px;
   }
 
-  .stack-cell.label .ico {
-    width: 12px;
-    height: 12px;
-    margin-right: 4px;
+  .stack-layer .layer-label .ico {
+    width: 16px;
+    height: 16px;
   }
 
-  .stack-cell.content {
-    color: var(--ink);
-    letter-spacing: 0;
+  .stack-layer .layer-content {
+    font-size: 12px;
+  }
+
+  .stack-layer .layer-content .note {
     font-size: 10px;
-    padding: 10px 14px;
-  }
-
-  .stack-cell.content .note {
-    color: var(--ink-3);
     margin-left: 6px;
-    font-size: 9px;
+    display: block;
+    margin-top: 4px;
   }
 
-  .stack-cell.mark {
-    display: none;
+  .stack-layer .layer-status {
+    justify-content: flex-start;
+    font-size: 9px;
+    margin-top: 4px;
   }
 }
 
