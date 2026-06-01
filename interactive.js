@@ -457,6 +457,73 @@
   }
 
   // -------------------------------------------------------
+  // NEW: Mobile menu drawer handler
+  // -------------------------------------------------------
+  function setupMobileMenu() {
+    const toggleBtn = document.getElementById('menu-toggle');
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const closeBtn = document.getElementById('menu-close-btn');
+    const links = document.querySelectorAll('.mobile-nav-links a');
+
+    if (!toggleBtn || !overlay) return;
+
+    function openMenu() {
+      overlay.style.visibility = 'visible';
+      overlay.classList.add('open');
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    function closeMenu() {
+      overlay.classList.remove('open');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      
+      // Delay visibility hiding until animation completes
+      setTimeout(function() {
+        if (!overlay.classList.contains('open')) {
+          overlay.style.visibility = 'hidden';
+        }
+      }, 400);
+    }
+
+    toggleBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      openMenu();
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeMenu();
+      });
+    }
+
+    // Close on overlay background click
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) {
+        closeMenu();
+      }
+    });
+
+    // Close on link click
+    links.forEach(function(link) {
+      link.addEventListener('click', function() {
+        closeMenu();
+      });
+    });
+
+    // Close on Escape key press
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) {
+        closeMenu();
+      }
+    });
+  }
+
+  // -------------------------------------------------------
   // Init
   // -------------------------------------------------------
   function init() {
@@ -476,6 +543,7 @@
     setupClipReveals();
     setupCardTilt();
     setupMagneticButtons();
+    setupMobileMenu();
   }
 
   if (document.readyState === 'loading') {
