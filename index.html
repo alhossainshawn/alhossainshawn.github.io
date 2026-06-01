@@ -109,33 +109,77 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
     <!-- =================================================
          MARQUEE SKILLS STRIP
          ================================================= -->
-    <div class="marquee-strip" aria-hidden="true">
-      <div class="marquee-track">
-        <div class="marquee-item"><span class="dot"></span>TCAD Simulation</div>
-        <div class="marquee-item"><span class="dot"></span>FPGA / HLS</div>
-        <div class="marquee-item"><span class="dot"></span>VLSI Design</div>
-        <div class="marquee-item"><span class="dot"></span>GAA Transistors</div>
-        <div class="marquee-item"><span class="dot"></span>PCB Layout</div>
-        <div class="marquee-item"><span class="dot"></span>CubeSat Engineering</div>
-        <div class="marquee-item"><span class="dot"></span>Embedded Systems</div>
-        <div class="marquee-item"><span class="dot"></span>Neural Acceleration</div>
-        <div class="marquee-item"><span class="dot"></span>Cadence Virtuoso</div>
-        <div class="marquee-item"><span class="dot"></span>Silvaco TCAD</div>
-        <div class="marquee-item"><span class="dot"></span>Vitis HLS</div>
-        <div class="marquee-item"><span class="dot"></span>RTL Design</div>
-        <!-- duplicate for seamless loop -->
-        <div class="marquee-item"><span class="dot"></span>TCAD Simulation</div>
-        <div class="marquee-item"><span class="dot"></span>FPGA / HLS</div>
-        <div class="marquee-item"><span class="dot"></span>VLSI Design</div>
-        <div class="marquee-item"><span class="dot"></span>GAA Transistors</div>
-        <div class="marquee-item"><span class="dot"></span>PCB Layout</div>
-        <div class="marquee-item"><span class="dot"></span>CubeSat Engineering</div>
-        <div class="marquee-item"><span class="dot"></span>Embedded Systems</div>
-        <div class="marquee-item"><span class="dot"></span>Neural Acceleration</div>
-        <div class="marquee-item"><span class="dot"></span>Cadence Virtuoso</div>
-        <div class="marquee-item"><span class="dot"></span>Silvaco TCAD</div>
-        <div class="marquee-item"><span class="dot"></span>Vitis HLS</div>
-        <div class="marquee-item"><span class="dot"></span>RTL Design</div>
+    <div class="marquee-container" aria-hidden="true">
+      <!-- Row 1: Specific Skills (Scrolling Left) -->
+      <div class="marquee-strip marquee-left">
+        <div class="marquee-track">
+          <div class="marquee-item"><span class="dot"></span>TCAD Simulation</div>
+          <div class="marquee-item"><span class="dot"></span>FPGA / HLS</div>
+          <div class="marquee-item"><span class="dot"></span>VLSI Design</div>
+          <div class="marquee-item"><span class="dot"></span>GAA Transistors</div>
+          <div class="marquee-item"><span class="dot"></span>PCB Layout</div>
+          <div class="marquee-item"><span class="dot"></span>CubeSat Engineering</div>
+          <div class="marquee-item"><span class="dot"></span>Embedded Systems</div>
+          <div class="marquee-item"><span class="dot"></span>Neural Acceleration</div>
+          <div class="marquee-item"><span class="dot"></span>RTL Design</div>
+          <div class="marquee-item"><span class="dot"></span>Reconfigurable Computing</div>
+          <div class="marquee-item"><span class="dot"></span>Device Physics</div>
+          <div class="marquee-item"><span class="dot"></span>IC Design</div>
+          <div class="marquee-item"><span class="dot"></span>Low-Power VLSI</div>
+          <div class="marquee-item"><span class="dot"></span>Semiconductor Modeling</div>
+          <!-- duplicate for seamless loop -->
+          <div class="marquee-item"><span class="dot"></span>TCAD Simulation</div>
+          <div class="marquee-item"><span class="dot"></span>FPGA / HLS</div>
+          <div class="marquee-item"><span class="dot"></span>VLSI Design</div>
+          <div class="marquee-item"><span class="dot"></span>GAA Transistors</div>
+          <div class="marquee-item"><span class="dot"></span>PCB Layout</div>
+          <div class="marquee-item"><span class="dot"></span>CubeSat Engineering</div>
+          <div class="marquee-item"><span class="dot"></span>Embedded Systems</div>
+          <div class="marquee-item"><span class="dot"></span>Neural Acceleration</div>
+          <div class="marquee-item"><span class="dot"></span>RTL Design</div>
+          <div class="marquee-item"><span class="dot"></span>Reconfigurable Computing</div>
+          <div class="marquee-item"><span class="dot"></span>Device Physics</div>
+          <div class="marquee-item"><span class="dot"></span>IC Design</div>
+          <div class="marquee-item"><span class="dot"></span>Low-Power VLSI</div>
+          <div class="marquee-item"><span class="dot"></span>Semiconductor Modeling</div>
+        </div>
+      </div>
+
+      <!-- Row 2: Tools Known (Scrolling Right) -->
+      <div class="marquee-strip marquee-right">
+        <div class="marquee-track">
+          <div class="marquee-item tool-item t-silvaco"><img src="assets/tools/silvaco.jpg" alt="Silvaco" class="marquee-tool-icon"/><span>Silvaco TCAD</span></div>
+          <div class="marquee-item tool-item t-synopsys"><img src="assets/tools/synopsys.png" alt="Synopsys" class="marquee-tool-icon"/><span>Synopsys Sentaurus</span></div>
+          <div class="marquee-item tool-item t-cadence"><img src="assets/tools/cadence.webp" alt="Cadence" class="marquee-tool-icon"/><span>Cadence Suite</span></div>
+          <div class="marquee-item tool-item t-vivado"><img src="assets/tools/vivado.png" alt="Vivado" class="marquee-tool-icon"/><span>AMD Vivado</span></div>
+          <div class="marquee-item tool-item t-vitis"><img src="assets/tools/vitis.png" alt="Vitis" class="marquee-tool-icon"/><span>Vitis HLS</span></div>
+          <div class="marquee-item tool-item t-altium"><img src="assets/tools/altium.png" alt="Altium" class="marquee-tool-icon"/><span>Altium Designer</span></div>
+          <div class="marquee-item tool-item t-kicad"><img src="assets/tools/kicad.png" alt="KiCad" class="marquee-tool-icon"/><span>KiCad</span></div>
+          <div class="marquee-item tool-item t-matlab"><img src="assets/tools/matlab.png" alt="MATLAB" class="marquee-tool-icon"/><span>MATLAB</span></div>
+          <div class="marquee-item tool-item t-simulink"><img src="assets/tools/simulink.png" alt="Simulink" class="marquee-tool-icon"/><span>Simulink</span></div>
+          <div class="marquee-item tool-item t-solidworks"><img src="assets/tools/solidworks.jpg" alt="SOLIDWORKS" class="marquee-tool-icon"/><span>SOLIDWORKS</span></div>
+          <div class="marquee-item tool-item t-fusion360"><img src="assets/tools/fusion360.jpg" alt="Fusion 360" class="marquee-tool-icon"/><span>Fusion 360</span></div>
+          <div class="marquee-item tool-item t-ltspice"><img src="assets/tools/ltspice.png" alt="LTSpice" class="marquee-tool-icon"/><span>LTSpice</span></div>
+          <div class="marquee-item tool-item t-hspice"><img src="assets/tools/hspice.jpg" alt="HSpice" class="marquee-tool-icon"/><span>Synopsys HSPICE</span></div>
+          <div class="marquee-item tool-item t-proteus"><img src="assets/tools/proteus.png" alt="Proteus" class="marquee-tool-icon"/><span>Proteus</span></div>
+          <div class="marquee-item tool-item t-devsim"><img src="assets/tools/devsim.png" alt="DEVSIM" class="marquee-tool-icon"/><span>DEVSIM</span></div>
+          <!-- duplicate for seamless loop -->
+          <div class="marquee-item tool-item t-silvaco"><img src="assets/tools/silvaco.jpg" alt="Silvaco" class="marquee-tool-icon"/><span>Silvaco TCAD</span></div>
+          <div class="marquee-item tool-item t-synopsys"><img src="assets/tools/synopsys.png" alt="Synopsys" class="marquee-tool-icon"/><span>Synopsys Sentaurus</span></div>
+          <div class="marquee-item tool-item t-cadence"><img src="assets/tools/cadence.webp" alt="Cadence" class="marquee-tool-icon"/><span>Cadence Suite</span></div>
+          <div class="marquee-item tool-item t-vivado"><img src="assets/tools/vivado.png" alt="Vivado" class="marquee-tool-icon"/><span>AMD Vivado</span></div>
+          <div class="marquee-item tool-item t-vitis"><img src="assets/tools/vitis.png" alt="Vitis" class="marquee-tool-icon"/><span>Vitis HLS</span></div>
+          <div class="marquee-item tool-item t-altium"><img src="assets/tools/altium.png" alt="Altium" class="marquee-tool-icon"/><span>Altium Designer</span></div>
+          <div class="marquee-item tool-item t-kicad"><img src="assets/tools/kicad.png" alt="KiCad" class="marquee-tool-icon"/><span>KiCad</span></div>
+          <div class="marquee-item tool-item t-matlab"><img src="assets/tools/matlab.png" alt="MATLAB" class="marquee-tool-icon"/><span>MATLAB</span></div>
+          <div class="marquee-item tool-item t-simulink"><img src="assets/tools/simulink.png" alt="Simulink" class="marquee-tool-icon"/><span>Simulink</span></div>
+          <div class="marquee-item tool-item t-solidworks"><img src="assets/tools/solidworks.jpg" alt="SOLIDWORKS" class="marquee-tool-icon"/><span>SOLIDWORKS</span></div>
+          <div class="marquee-item tool-item t-fusion360"><img src="assets/tools/fusion360.jpg" alt="Fusion 360" class="marquee-tool-icon"/><span>Fusion 360</span></div>
+          <div class="marquee-item tool-item t-ltspice"><img src="assets/tools/ltspice.png" alt="LTSpice" class="marquee-tool-icon"/><span>LTSpice</span></div>
+          <div class="marquee-item tool-item t-hspice"><img src="assets/tools/hspice.jpg" alt="HSpice" class="marquee-tool-icon"/><span>Synopsys HSPICE</span></div>
+          <div class="marquee-item tool-item t-proteus"><img src="assets/tools/proteus.png" alt="Proteus" class="marquee-tool-icon"/><span>Proteus</span></div>
+          <div class="marquee-item tool-item t-devsim"><img src="assets/tools/devsim.png" alt="DEVSIM" class="marquee-tool-icon"/><span>DEVSIM</span></div>
+        </div>
       </div>
     </div>
 
@@ -158,10 +202,10 @@ fetch('icons.svg').then(r => r.text()).then(svg => {
           I'm a researcher at <em>BRAC University</em>, working at the seam between
           device physics and the hardware that runs on it.
         </p>
-        <p>
-          That means days split between <em>TCAD</em> simulations of transistors a
-          few nanometres wide, <em>FPGA</em> accelerators for edge AI, and the
-          embedded systems that carry it all - from rovers to CubeSats in orbit.
+        <p class="bio-detail">
+          Transistors measured in nanometres in the morning, code running on a satellite by evening —
+          <em>TCAD</em> physics at the bottom of the stack,
+          <em>FPGA</em> logic in the middle, and whatever edge of atmosphere the mission demands at the top.
         </p>
 
         <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1);">
