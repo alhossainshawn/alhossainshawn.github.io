@@ -1,10 +1,10 @@
-/* ============================================================
-   Al Hossain Shawn — Portfolio
-   Design direction: Cinematic × Terminal × Premium Engineering
+﻿/* ============================================================
+   Al Hossain Shawn â€” Portfolio
+   Design direction: Cinematic Ã— Terminal Ã— Premium Engineering
    ============================================================ */
 
 :root {
-  /* Restored: original terminal dark × terracotta palette */
+  /* Restored: original terminal dark Ã— terracotta palette */
   --bg: #0b0d11;
   --paper: #13161c;
   --paper-2: #181c24;
@@ -13,9 +13,9 @@
   --ink-3: #6a727f;
   --rule: #1f242d;
   --rule-2: #2a313c;
-  --accent: #d97757;          /* terracotta — original accent */
+  --accent: #d97757;          /* terracotta â€” original accent */
   --accent-soft: rgba(217, 119, 87, 0.12);
-  --accent-2: #5eb8a3;        /* teal — kept */
+  --accent-2: #5eb8a3;        /* teal â€” kept */
   --accent-3: #ff6b50;
 
   /* Font system */
@@ -78,7 +78,7 @@ a, button, [role="button"], .cap-cell, .proj-row, .res-card, .int-card {
   cursor: none;
 }
 
-/* All emphasis is color-only, no italic — engineering documents don't lean.
+/* All emphasis is color-only, no italic â€” engineering documents don't lean.
    Use em for inline accent words; the global rule handles styling. */
 em {
   font-style: normal;
@@ -96,7 +96,7 @@ a.link:hover { color: var(--ink); }
 ::selection { background: var(--accent); color: var(--bg); }
 
 /* ------------------------------------------------------------
-   SCROLL PROGRESS BAR — sits at the top of the viewport
+   SCROLL PROGRESS BAR â€” sits at the top of the viewport
    ------------------------------------------------------------ */
 .scroll-progress {
   position: fixed;
@@ -113,7 +113,7 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ------------------------------------------------------------
-   GRID-PULSE BACKGROUND — random cells light up on top of grid
+   GRID-PULSE BACKGROUND â€” random cells light up on top of grid
    ------------------------------------------------------------ */
 .grid-pulse {
   position: fixed;
@@ -138,7 +138,7 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ------------------------------------------------------------
-   SCROLL REVEALS — opt-in via .js-loaded (no flash without JS)
+   SCROLL REVEALS â€” opt-in via .js-loaded (no flash without JS)
    ------------------------------------------------------------ */
 .js-loaded .reveal:not(.in) {
   opacity: 0;
@@ -186,7 +186,7 @@ a.link:hover { color: var(--ink); }
 .ico.sm { width: 14px; height: 14px; }
 
 /* ------------------------------------------------------------
-   CAPABILITIES STRIP — under the hero
+   CAPABILITIES STRIP â€” under the hero
    ------------------------------------------------------------ */
 
 .cap-strip {
@@ -257,7 +257,7 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ------------------------------------------------------------
-   BOOT-UP ANIMATION — runs once on page load (hero only)
+   BOOT-UP ANIMATION â€” runs once on page load (hero only)
    ------------------------------------------------------------ */
 
 @keyframes bootIn {
@@ -369,7 +369,7 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ------------------------------------------------------------
-   PAGE LAYOUT — drawing-frame wrapper
+   PAGE LAYOUT â€” drawing-frame wrapper
    ------------------------------------------------------------ */
 
 .page {
@@ -414,7 +414,7 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ------------------------------------------------------------
-   TITLE BLOCK — drawing-frame top bar
+   TITLE BLOCK â€” drawing-frame top bar
    ------------------------------------------------------------ */
 
 .titleblock {
@@ -796,7 +796,7 @@ a.link:hover { color: var(--ink); }
 .intro .bio-col p em { color: var(--accent); }
 
 /* ------------------------------------------------------------
-   SECTIONS — cinematic breathing room
+   SECTIONS â€” cinematic breathing room
    ------------------------------------------------------------ */
 
 .section {
@@ -839,7 +839,7 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ------------------------------------------------------------
-   INTEREST CARDS — 3 columns
+   INTEREST CARDS â€” 3 columns
    ------------------------------------------------------------ */
 
 .interests {
@@ -928,7 +928,7 @@ a.link:hover { color: var(--ink); }
 .int-card li:first-child { border-top: none; }
 
 /* ------------------------------------------------------------
-   RESEARCH CARDS — feature pair
+   RESEARCH CARDS â€” feature pair
    ------------------------------------------------------------ */
 
 .research-grid {
@@ -1239,7 +1239,7 @@ a.link:hover { color: var(--ink); }
   position: relative;
 }
 .skill-group li::before {
-  content: '·';
+  content: 'Â·';
   position: absolute;
   left: 0; top: 7px;
   color: var(--accent);
@@ -1247,7 +1247,7 @@ a.link:hover { color: var(--ink); }
 .skill-group li:first-child { border-top: none; }
 
 /* ------------------------------------------------------------
-   TWOCOL — Achievements + Education
+   TWOCOL â€” Achievements + Education
    ------------------------------------------------------------ */
 
 .twocol {
@@ -1363,7 +1363,7 @@ a.link:hover { color: var(--ink); }
 .botbar .ok { color: var(--accent-2); }
 
 /* ------------------------------------------------------------
-   GANTT — experience timeline
+   GANTT â€” experience timeline
    ------------------------------------------------------------ */
 
 .gantt {
@@ -1698,7 +1698,7 @@ a.link:hover { color: var(--ink); }
   color: var(--ink-3); margin-bottom: 18px;
 }
 
-/* SCAN reveal — the section's children rise with a stagger + the beam fires */
+/* SCAN reveal â€” the section's children rise with a stagger + the beam fires */
 .exp-section.in .current-role { animation: crIn .8s cubic-bezier(.2,.7,.2,1) backwards; }
 .exp-section.in .past-label   { animation: crIn .7s .25s cubic-bezier(.2,.7,.2,1) backwards; }
 .exp-section.in .gantt        { animation: crIn .7s .35s cubic-bezier(.2,.7,.2,1) backwards; }
@@ -1714,7 +1714,7 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ------------------------------------------------------------
-   TOOLS — brand-colour monogram tiles  (skills section)
+   TOOLS â€” brand-colour monogram tiles  (skills section)
    ------------------------------------------------------------ */
 .tools-section {
   background:
@@ -1798,7 +1798,7 @@ a.link:hover { color: var(--ink); }
 .tool .t-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--rule-2); display: block; }
 .tool .t-dots i.on { background: var(--brand); }
 
-/* FLIP reveal — tiles cascade in with a 3D flip */
+/* FLIP reveal â€” tiles cascade in with a 3D flip */
 .tools-section.in .tool {
   animation: toolFlip .6s cubic-bezier(.2,.8,.2,1) backwards;
 }
@@ -2026,7 +2026,7 @@ a.link:hover { color: var(--ink); }
 .next-prev .name em { color: var(--accent);  }
 
 /* ------------------------------------------------------------
-   SCROLL REVEAL — sections rise + fade as they enter view.
+   SCROLL REVEAL â€” sections rise + fade as they enter view.
    Gated by .js-loaded so content is visible without JS.
    ------------------------------------------------------------ */
 .js-loaded .reveal {
@@ -2048,7 +2048,7 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ------------------------------------------------------------
-   HERO NAME — masked line-by-line reveal on first load
+   HERO NAME â€” masked line-by-line reveal on first load
    (plays as the curtain lifts; first-load only)
    ------------------------------------------------------------ */
 .hero-name .line {
@@ -2078,10 +2078,10 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ------------------------------------------------------------
-   RESPONSIVE — collapse to single column at narrow widths
+   RESPONSIVE â€” collapse to single column at narrow widths
    ------------------------------------------------------------ */
 
-/* Mid widths — 4-col interest grid becomes 2x2 so cards stay readable */
+/* Mid widths â€” 4-col interest grid becomes 2x2 so cards stay readable */
 @media (min-width: 921px) and (max-width: 1180px) {
   .interests { grid-template-columns: repeat(2, 1fr); }
 }
@@ -2143,7 +2143,7 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ------------------------------------------------------------
-   PAGE TRANSITION CURTAIN — multi-panel stagger wipe
+   PAGE TRANSITION CURTAIN â€” multi-panel stagger wipe
    Enter reveal is pure CSS (auto-lifts even if JS is slow);
    JS only handles the cover-on-exit before navigation.
    ------------------------------------------------------------ */
@@ -2226,7 +2226,7 @@ a.link:hover { color: var(--ink); }
 }
 @keyframes ptFill { to { width: 100%; } }
 
-/* EXIT — panels drop down to cover, staggered (set by JS .is-covering) */
+/* EXIT â€” panels drop down to cover, staggered (set by JS .is-covering) */
 .pt-curtain.is-covering .pt-panels span {
   transform: translateY(100%);
   animation: ptDown 0.7s cubic-bezier(.76,0,.24,1) forwards;
@@ -2252,7 +2252,7 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ============================================================
-   EDUCATION TIMELINE — Clean, minimal animations
+   EDUCATION TIMELINE â€” Clean, minimal animations
    ============================================================ */
 .edu-timeline {
   display: flex;
@@ -2381,7 +2381,7 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ============================================================
-   SECTION 1: HERO / NAME — Mobile Optimization
+   SECTION 1: HERO / NAME â€” Mobile Optimization
    ============================================================ */
 @media (max-width: 600px) {
   .hero {
@@ -2489,7 +2489,7 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ============================================================
-   SECTION 2: STACK MAP — Mobile Optimization
+   SECTION 2: STACK MAP â€” Mobile Optimization
    ============================================================ */
 @media (max-width: 600px) {
   .stack-section {
@@ -2570,7 +2570,7 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ============================================================
-   SECTION 3: ROLES & POSITIONS — Mobile Optimization
+   SECTION 3: ROLES & POSITIONS â€” Mobile Optimization
    ============================================================ */
 @media (max-width: 600px) {
   .exp-section {
@@ -2734,7 +2734,7 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ============================================================
-   EXTRA SMALL DEVICES — under 380px
+   EXTRA SMALL DEVICES â€” under 380px
    ============================================================ */
 @media (max-width: 380px) {
   .hero {
@@ -3134,7 +3134,7 @@ a.link:hover { color: var(--ink); }
   position: relative;
 }
 .res-card .bullets li::before {
-  content: '›';
+  content: 'â€º';
   position: absolute;
   left: 0;
   color: var(--accent);
@@ -3415,257 +3415,102 @@ a.link:hover { color: var(--ink); }
 .current-role:hover { border-color: var(--accent); }
 
 /* ============================================================
-   CINEMATIC SECTION BACKGROUNDS
-   Each section gets a thematic, engineering-relevant image
-   overlaid with a dark gradient to preserve readability.
+   SECTION AMBIENT GLOWS â€” CSS-only, no images
+   Each section gets a unique, minimal gradient that ties into
+   the site palette (terracotta #d97757 Â· teal #5eb8a3 Â· bg #0b0d11)
    ============================================================ */
 
-/* ----- HERO: Silicon wafer with circuit traces ----- */
-.hero {
-  background-image:
-    linear-gradient(
-      to bottom,
-      rgba(11, 13, 17, 0.72) 0%,
-      rgba(11, 13, 17, 0.55) 50%,
-      rgba(11, 13, 17, 0.92) 100%
-    ),
-    url('assets/bg-hero.png');
-  background-size: cover;
-  background-position: center 40%;
-  background-attachment: fixed;
-}
-
-/* ----- INTRO / ABOUT: Oscilloscope waveforms ----- */
-.intro {
-  background-image:
-    linear-gradient(
-      135deg,
-      rgba(11, 13, 17, 0.88) 0%,
-      rgba(11, 13, 17, 0.70) 60%,
-      rgba(11, 13, 17, 0.88) 100%
-    ),
-    url('assets/bg-about.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-}
-
-/* ----- RESEARCH SECTION: Neural / lattice structure ----- */
-#research {
-  background-image:
-    linear-gradient(
-      to bottom,
-      rgba(11, 13, 17, 0.80) 0%,
-      rgba(11, 13, 17, 0.65) 50%,
-      rgba(11, 13, 17, 0.85) 100%
-    ),
-    url('assets/bg-research.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-}
-
-/* ----- PROJECTS SECTION: PCB circuit board ----- */
-#projects {
-  background-image:
-    linear-gradient(
-      to bottom,
-      rgba(11, 13, 17, 0.80) 0%,
-      rgba(11, 13, 17, 0.60) 40%,
-      rgba(11, 13, 17, 0.85) 100%
-    ),
-    url('assets/bg-projects.png');
-  background-size: cover;
-  background-position: center 60%;
-  background-attachment: fixed;
-}
-
-/* ----- PUBLICATIONS SECTION: reuse research bg with different tint ----- */
-#publications {
-  background-image:
-    linear-gradient(
-      160deg,
-      rgba(11, 13, 17, 0.88) 0%,
-      rgba(94, 184, 163, 0.04) 50%,
-      rgba(11, 13, 17, 0.88) 100%
-    ),
-    url('assets/bg-research.png');
-  background-size: cover;
-  background-position: center 70%;
-  background-attachment: fixed;
-}
-
-/* ----- STACK / TOOLS SECTION: IC/chip die shot ----- */
-#stack {
-  background-image:
-    linear-gradient(
-      to bottom,
-      rgba(11, 13, 17, 0.82) 0%,
-      rgba(11, 13, 17, 0.65) 50%,
-      rgba(11, 13, 17, 0.90) 100%
-    ),
-    url('assets/bg-skills.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-}
-
-/* ----- ROLES / EXPERIENCE: use PCB bg with amber tint ----- */
-#roles {
-  background-image:
-    linear-gradient(
-      to bottom,
-      rgba(11, 13, 17, 0.85) 0%,
-      rgba(217, 119, 87, 0.05) 50%,
-      rgba(11, 13, 17, 0.90) 100%
-    ),
-    url('assets/bg-projects.png');
-  background-size: cover;
-  background-position: center 30%;
-  background-attachment: fixed;
-}
-
-/* ----- FOOTER: deep space/circuit ----- */
-.foot {
-  background-image:
-    linear-gradient(
-      to bottom,
-      rgba(11, 13, 17, 0.85) 0%,
-      rgba(11, 13, 17, 0.70) 50%,
-      rgba(11, 13, 17, 0.95) 100%
-    ),
-    url('assets/bg-footer.png');
-  background-size: cover;
-  background-position: center bottom;
-  background-attachment: fixed;
-}
-
-/* ----- Marquee container: subtle chip texture ----- */
-.marquee-container {
-  background-image:
-    linear-gradient(
-      to right,
-      rgba(11, 13, 17, 0.92) 0%,
-      rgba(19, 22, 28, 0.80) 50%,
-      rgba(11, 13, 17, 0.92) 100%
-    ),
-    url('assets/bg-skills.png');
-  background-size: cover;
-  background-position: center;
-}
-
-/* ----- Cap-strip: hero wafer texture ----- */
-.cap-strip {
-  background-image:
-    linear-gradient(
-      to bottom,
-      rgba(19, 22, 28, 0.95) 0%,
-      rgba(19, 22, 28, 0.90) 100%
-    ),
-    url('assets/bg-hero.png');
-  background-size: cover;
-  background-position: center 20%;
-}
-
-/* ============================================================
-   PARALLAX DEPTH EFFECT — subtle scale on background
-   on mouse move (handled by JS), enhances depth perception
-   ============================================================ */
-.hero,
-#research,
-#projects,
-#publications,
-#stack,
-#roles,
-.intro,
-.foot {
-  background-attachment: fixed;
-  will-change: background-position;
-}
-
-/* On mobile: disable fixed background (it doesn't work well on iOS) */
-@media (max-width: 768px) {
-  .hero,
-  .intro,
-  #research,
-  #projects,
-  #publications,
-  #stack,
-  #roles,
-  .foot,
-  .marquee-container,
-  .cap-strip {
-    background-attachment: scroll;
-  }
-}
-
-/* ============================================================
-   SECTION GLOW ACCENTS — colored edge glow per section
-   These complement the background imagery with ambient color
-   ============================================================ */
-
-/* Research: teal left accent */
-#research::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: linear-gradient(to bottom, transparent, var(--accent-2), transparent);
-  pointer-events: none;
-}
-
-/* Projects: amber left accent */
-#projects::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: linear-gradient(to bottom, transparent, var(--accent), transparent);
-  pointer-events: none;
-}
-
-/* Publications: soft teal left accent */
-#publications::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: linear-gradient(to bottom, transparent, rgba(94, 184, 163, 0.6), transparent);
-  pointer-events: none;
-}
-
-/* Stack: amber gradient left accent */
-#stack::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: linear-gradient(to bottom, transparent, rgba(217, 119, 87, 0.7), transparent);
-  pointer-events: none;
-}
-
-/* ============================================================
-   SECTION BACKGROUND NOISE TEXTURE OVERLAY
-   Adds subtle grain over all image backgrounds to prevent
-   flat/digital look and match the engineering aesthetic
-   ============================================================ */
-.hero::after,
-.intro::after {
+/* ----- HERO: large dual-colour ambient radial -----
+   A warm terracotta glow pools in the top-left (name area)
+   and a cooler teal whisper sits bottom-right (statement area).
+   Sits behind everything via ::before so content is unaffected. */
+.hero::before {
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-  mix-blend-mode: overlay;
-  opacity: 0.3;
+  background:
+    radial-gradient(ellipse 70% 60% at 10% 30%,  rgba(217, 119, 87, 0.13) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 45% at 88% 80%,  rgba(94, 184, 163, 0.10) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 35% at 50% 50%,  rgba(217, 119, 87, 0.04) 0%, transparent 80%);
 }
 
-/* Ensure section children stay above background effects */
-.hero > *,
-.intro > * {
-  position: relative;
-  z-index: 1;
+/* ----- INTRO / ABOUT: portrait-side warm pool ----- */
+.intro {
+  background:
+    radial-gradient(ellipse 60% 80% at 20% 50%, rgba(217, 119, 87, 0.08) 0%, transparent 70%),
+    var(--bg);
 }
 
+/* ----- RESEARCH: teal accent, top-right origin ----- */
+#research {
+  background:
+    radial-gradient(ellipse 80% 50% at 90% 10%,  rgba(94, 184, 163, 0.09) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 5%  90%,  rgba(217, 119, 87, 0.05) 0%, transparent 60%),
+    var(--bg);
+}
+
+/* ----- PROJECTS: amber bloom, bottom-left ----- */
+#projects {
+  background:
+    radial-gradient(ellipse 75% 55% at 0%  80%,  rgba(217, 119, 87, 0.10) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 40% at 95% 15%,  rgba(94, 184, 163, 0.06) 0%, transparent 60%),
+    var(--bg);
+}
+
+/* ----- PUBLICATIONS: cool teal, centred ----- */
+#publications {
+  background:
+    radial-gradient(ellipse 65% 45% at 50% 30%,  rgba(94, 184, 163, 0.07) 0%, transparent 70%),
+    var(--bg);
+}
+
+/* ----- STACK / TOOLS: split amber + teal corners ----- */
+#stack {
+  background:
+    radial-gradient(ellipse 50% 60% at 0%   0%,  rgba(217, 119, 87, 0.09) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 100% 100%, rgba(94, 184, 163, 0.08) 0%, transparent 60%),
+    var(--bg);
+}
+
+/* ----- ROLES / EXPERIENCE: subtle amber ----- */
+#roles {
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 20%,  rgba(217, 119, 87, 0.07) 0%, transparent 65%),
+    var(--bg);
+}
+
+/* ----- FOOTER: deep vignette + teal horizon ----- */
+.foot {
+  background:
+    radial-gradient(ellipse 100% 60% at 50% 100%, rgba(94, 184, 163, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 80%  80% at 50%  50%, rgba(11, 13, 17, 0)      0%, rgba(0,0,0,0.3) 100%),
+    var(--bg);
+}
+
+/* ============================================================
+   SECTION GLOW ACCENTS â€” 3 px coloured left-edge stripe
+   ============================================================ */
+
+#research::before,
+#projects::before,
+#publications::before,
+#stack::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+#research::before    { background: linear-gradient(to bottom, transparent, var(--accent-2),              transparent); }
+#projects::before    { background: linear-gradient(to bottom, transparent, var(--accent),                transparent); }
+#publications::before{ background: linear-gradient(to bottom, transparent, rgba(94,184,163,0.55),        transparent); }
+#stack::before       { background: linear-gradient(to bottom, transparent, rgba(217,119,87,0.65),        transparent); }
+
+/* ============================================================
+   HERO CONTENT â€” stays above the ::before glow layer
+   ============================================================ */
+.hero > * { position: relative; z-index: 1; }
