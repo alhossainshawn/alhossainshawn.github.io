@@ -1,10 +1,10 @@
 /* ============================================================
-   Al Hossain Shawn â€” Portfolio
-   Design direction: Cinematic Ã— Terminal Ã— Premium Engineering
+   Al Hossain Shawn — Portfolio
+   Design direction: Cinematic × Terminal × Premium Engineering
    ============================================================ */
 
 :root {
-  /* Restored: original terminal dark Ã— terracotta palette */
+  /* Restored: original terminal dark × terracotta palette */
   --bg: #0b0d11;
   --paper: #13161c;
   --paper-2: #181c24;
@@ -1253,7 +1253,7 @@ a.link:hover { color: var(--ink); }
   position: relative;
 }
 .skill-group li::before {
-  content: 'Â·';
+  content: '\00b7 ';
   position: absolute;
   left: 0; top: 7px;
   color: var(--accent);
@@ -3148,7 +3148,7 @@ a.link:hover { color: var(--ink); }
   position: relative;
 }
 .res-card .bullets li::before {
-  content: 'â€º';
+  content: '\203a ';
   position: absolute;
   left: 0;
   color: var(--accent);
@@ -3429,9 +3429,9 @@ a.link:hover { color: var(--ink); }
 .current-role:hover { border-color: var(--accent); }
 
 /* ============================================================
-   SECTION AMBIENT GLOWS â€” CSS-only, no images
+   SECTION AMBIENT GLOWS — CSS-only, no images
    Each section gets a unique, minimal gradient that ties into
-   the site palette (terracotta #d97757 Â· teal #5eb8a3 Â· bg #0b0d11)
+   the site palette (terracotta #d97757 · teal #5eb8a3 · bg #0b0d11)
    ============================================================ */
 
 /* ----- HERO: large dual-colour ambient radial -----
@@ -3504,7 +3504,7 @@ a.link:hover { color: var(--ink); }
 }
 
 /* ============================================================
-   SECTION GLOW ACCENTS â€” 3 px coloured left-edge stripe
+   SECTION GLOW ACCENTS — 3 px coloured left-edge stripe
    ============================================================ */
 
 #research::before,
@@ -3527,6 +3527,6 @@ a.link:hover { color: var(--ink); }
 #stack::before       { background: linear-gradient(to bottom, transparent, rgba(217,119,87,0.65),        transparent); }
 
 /* ============================================================
-   HERO CONTENT â€” stays above the ::before glow layer
+   HERO CONTENT — stays above the ::before glow layer
    ============================================================ */
 .hero > * { position: relative; z-index: 1; }
