@@ -672,78 +672,91 @@
           </p>
         </div>
 
-        <div class="projects">
-          <a class="proj-row" href="projects/aerial-survey.html">
-            <div class="id-wrap">
-              <svg class="ico">
-                <use href="#i-drone" />
-              </svg>
-              <span class="id">P-01</span>
+        <div class="proj-grid">
+          <!-- P-01 Card (Autonomy) -->
+          <a class="proj-card p-autonomy" href="projects/aerial-survey.html">
+            <div class="card-glow"></div>
+            <div class="card-scan"></div>
+            <div class="card-header">
+              <span class="proj-id">P-01 // NODE.DRN</span>
+              <span class="proj-status"><span class="dot live"></span>ACTIVE</span>
             </div>
-            <div>
-              <h3>Autonomous Aerial Survey Platform</h3>
-              <div class="role">Final Year Design Project</div>
+            <div class="card-main">
+              <div class="card-icon-wrap">
+                <svg class="ico">
+                  <use href="#i-drone" />
+                </svg>
+              </div>
+              <h3 class="proj-title">Autonomous Aerial <em>Survey</em></h3>
+              <p class="proj-role">Final Year Design Project</p>
+              <p class="proj-desc">An autonomous drone pipeline combining flight simulation, image processing and survey automation.</p>
             </div>
-            <div class="sum">
-              An autonomous drone pipeline combining flight simulation, image processing
-              and survey automation.
+            <div class="card-specs">
+              <div><span class="sk">Platform</span><span class="sv">ROS · PX4</span></div>
+              <div><span class="sk">Payload</span><span class="sv">Thermal / HD</span></div>
+              <div><span class="sk">Firmware</span><span class="sv">C++ · Python</span></div>
             </div>
-            <div class="right">
-              <div class="period">JAN 2025 – DEC 2025</div>
-              <div>· Drone simulation</div>
-              <div>· Image processing</div>
-              <div>· Autonomy</div>
-              <div class="arrow">OPEN →</div>
-            </div>
-          </a>
-
-          <a class="proj-row" href="projects/cubesat.html">
-            <div class="id-wrap">
-              <svg class="ico">
-                <use href="#i-cubesat" />
-              </svg>
-              <span class="id">P-02</span>
-            </div>
-            <div>
-              <h3>APSCO CubeSat - 3U Mission</h3>
-              <div class="role">Team Lead · BD-BRACU Mavericks</div>
-            </div>
-            <div class="sum">
-              End-to-end 3U CubeSat with EPS, OBC, comms, ADCS, antenna and ground station,
-              through 3D, PCB, circuit and orbital simulation.
-            </div>
-            <div class="right">
-              <div class="period">JUL 2023 – MAY 2024</div>
-              <div>· 3D / CAD</div>
-              <div>· PCB</div>
-              <div>· Orbital sim</div>
-              <div>· Long-distance comms</div>
-              <div class="arrow">OPEN →</div>
+            <div class="card-footer">
+              <span class="proj-period">JAN 2025 – DEC 2025</span>
+              <span class="proj-link">OPEN MODULE →</span>
             </div>
           </a>
 
-          <a class="proj-row" href="projects/birds-x.html">
-            <div class="id-wrap">
-              <svg class="ico">
-                <use href="#i-antenna" />
-              </svg>
-              <span class="id">P-03</span>
+          <!-- P-02 Card (CubeSat) -->
+          <a class="proj-card p-cubesat" href="projects/cubesat.html">
+            <div class="card-glow"></div>
+            <div class="card-scan"></div>
+            <div class="card-header">
+              <span class="proj-id">P-02 // NODE.SAT</span>
+              <span class="proj-status"><span class="dot done"></span>COMPLETED</span>
             </div>
-            <div>
-              <h3>BIRDS-X APRS Payload</h3>
-              <div class="role">Payload Engineer</div>
+            <div class="card-main">
+              <div class="card-icon-wrap">
+                <svg class="ico">
+                  <use href="#i-cubesat" />
+                </svg>
+              </div>
+              <h3 class="proj-title">APSCO CubeSat <em>3U Mission</em></h3>
+              <p class="proj-role">Team Lead · BD-BRACU Mavericks</p>
+              <p class="proj-desc">End-to-end 3U CubeSat with EPS, OBC, comms, ADCS, antenna and ground station, through 3D, PCB, circuit and orbital simulation.</p>
             </div>
-            <div class="sum">
-              APRS payload focused on energy-transition messaging, Phase 1 winner of the
-              BIRDS-X competition.
+            <div class="card-specs">
+              <div><span class="sk">Structure</span><span class="sv">3U Chassis</span></div>
+              <div><span class="sk">CAD / PCB</span><span class="sv">Altium · SolidWorks</span></div>
+              <div><span class="sk">Telemetry</span><span class="sv">VHF / APRS</span></div>
             </div>
-            <div class="right">
-              <div class="period">JAN 2023 – APR 2023</div>
-              <div>· PCB</div>
-              <div>· 3D</div>
-              <div>· Orbital sim</div>
-              <div>· Image processing</div>
-              <div class="arrow">OPEN →</div>
+            <div class="card-footer">
+              <span class="proj-period">JUL 2023 – MAY 2024</span>
+              <span class="proj-link">OPEN MODULE →</span>
+            </div>
+          </a>
+
+          <!-- P-03 Card (APRS Payload) -->
+          <a class="proj-card p-aprs" href="projects/birds-x.html">
+            <div class="card-glow"></div>
+            <div class="card-scan"></div>
+            <div class="card-header">
+              <span class="proj-id">P-03 // NODE.PAY</span>
+              <span class="proj-status"><span class="dot award"></span>AWARD WINNER</span>
+            </div>
+            <div class="card-main">
+              <div class="card-icon-wrap">
+                <svg class="ico">
+                  <use href="#i-antenna" />
+                </svg>
+              </div>
+              <h3 class="proj-title">BIRDS-X APRS <em>Payload</em></h3>
+              <p class="proj-role">Payload Engineer</p>
+              <p class="proj-desc">APRS payload focused on energy-transition messaging, Phase 1 winner of the national BIRDS-X space payload competition.</p>
+            </div>
+            <div class="card-specs">
+              <div><span class="sk">Design</span><span class="sv">Altium Layout</span></div>
+              <div><span class="sk">RF Comms</span><span class="sv">AX.25 Packet</span></div>
+              <div><span class="sk">Payload</span><span class="sv">APRS Digipeater</span></div>
+            </div>
+            <div class="card-footer">
+              <span class="proj-period">JAN 2023 – APR 2023</span>
+              <span class="proj-link">OPEN MODULE →</span>
             </div>
           </a>
         </div>

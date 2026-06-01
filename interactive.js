@@ -418,9 +418,10 @@
   // NEW: Card hover tilt effect
   // -------------------------------------------------------
   function setupCardTilt() {
-    const cards = document.querySelectorAll('.res-card, .int-card');
+    const cards = document.querySelectorAll('.res-card, .int-card, .proj-card');
     cards.forEach(function (card) {
       card.addEventListener('mousemove', function (e) {
+        if (window.matchMedia('(pointer: coarse)').matches) return; // Touch safety
         const rect = card.getBoundingClientRect();
         const cx = rect.left + rect.width / 2;
         const cy = rect.top + rect.height / 2;
@@ -524,6 +525,23 @@
   }
 
   // -------------------------------------------------------
+  // NEW: Interactive spotlight glow for proj-cards
+  // -------------------------------------------------------
+  function setupProjectSpotlights() {
+    const cards = document.querySelectorAll('.proj-card');
+    cards.forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        if (window.matchMedia('(pointer: coarse)').matches) return; // Touch safety
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--x', x + 'px');
+        card.style.setProperty('--y', y + 'px');
+      });
+    });
+  }
+
+  // -------------------------------------------------------
   // Init
   // -------------------------------------------------------
   function init() {
@@ -544,6 +562,7 @@
     setupCardTilt();
     setupMagneticButtons();
     setupMobileMenu();
+    setupProjectSpotlights();
   }
 
   if (document.readyState === 'loading') {
