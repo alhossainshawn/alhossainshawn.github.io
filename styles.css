@@ -3457,8 +3457,8 @@ a.link:hover { color: var(--ink); }
     var(--bg);
 }
 
-/* ----- RESEARCH: teal accent, top-right origin ----- */
-#research {
+/* ----- RESEARCH & INTERESTS: teal accent, top-right origin ----- */
+#research, #interests {
   background:
     radial-gradient(ellipse 80% 50% at 90% 10%,  rgba(94, 184, 163, 0.09) 0%, transparent 65%),
     radial-gradient(ellipse 40% 40% at 5%  90%,  rgba(217, 119, 87, 0.05) 0%, transparent 60%),
@@ -3508,6 +3508,7 @@ a.link:hover { color: var(--ink); }
    ============================================================ */
 
 #research::before,
+#interests::before,
 #projects::before,
 #publications::before,
 #stack::before {
@@ -3519,7 +3520,8 @@ a.link:hover { color: var(--ink); }
   z-index: 2;
 }
 
-#research::before    { background: linear-gradient(to bottom, transparent, var(--accent-2),              transparent); }
+#research::before,
+#interests::before    { background: linear-gradient(to bottom, transparent, var(--accent-2),              transparent); }
 #projects::before    { background: linear-gradient(to bottom, transparent, var(--accent),                transparent); }
 #publications::before{ background: linear-gradient(to bottom, transparent, rgba(94,184,163,0.55),        transparent); }
 #stack::before       { background: linear-gradient(to bottom, transparent, rgba(217,119,87,0.65),        transparent); }
