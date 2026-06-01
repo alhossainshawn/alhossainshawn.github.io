@@ -387,7 +387,7 @@
 
     // scale dot on clickable hover
     document.addEventListener('mouseover', function (e) {
-      const el = e.target.closest('a, button, [role="button"], .cap-cell, .res-card, .int-card, .proj-row');
+      const el = e.target.closest('a, button, [role="button"], .cap-cell, .res-card, .int-card, .proj-card');
       dot.style.transform = el
         ? 'translate(' + (mx - 4) + 'px, ' + (my - 4) + 'px) scale(2.5)'
         : 'translate(' + (mx - 4) + 'px, ' + (my - 4) + 'px) scale(1)';
