@@ -502,14 +502,30 @@ code, .mono {
 .hero__meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(255,255,255,0.12);
+  gap: 1.5rem;
+  margin-top: 2.2rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid rgba(255,255,255,0.15);
 }
-.hero__meta-item { display: flex; flex-direction: column; gap: 0.1rem; }
-.hero__meta-label { font-size: 0.7rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.07em; }
-.hero__meta-value { font-size: 0.85rem; color: rgba(255,255,255,0.85); font-weight: 500; }
+.hero__meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1 1 250px;
+}
+.hero__meta-label {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-weight: 600;
+}
+.hero__meta-value {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.9);
+  font-weight: 500;
+  line-height: 1.5;
+}
 
 /* ── 9. Section Headers ───────────────────────────────────── */
 .section {
