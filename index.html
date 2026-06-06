@@ -135,36 +135,17 @@
       <!-- ================================================
            HERO
            ================================================ -->
-      <section class="hero" aria-labelledby="hero-name">
+      <section class="hero" aria-labelledby="hero-title">
         <div class="hero__content">
-          <div class="hero__kicker">Research Assistant · BRAC University · EEE</div>
-          <h1 class="hero__name" id="hero-name">
-            Al Hossain <span>Shawn</span>
+          <h1 class="hero__name" id="hero-title" style="font-size: 2.2rem; font-family: var(--font-heading); font-weight: 600;">
+            Semiconductor Device Physics &amp; Reconfigurable Hardware Systems
           </h1>
-          <p class="hero__tagline">
+          <p class="hero__tagline" style="margin-top: 1rem; max-width: 700px;">
             Simulating the transistors that don't exist yet, and building with the ones that do.
           </p>
-          <div class="hero__ctas">
-            <a href="#research" class="btn btn--primary">View Research</a>
-            <a href="#contact" class="btn btn--outline-white">Get in Touch</a>
-          </div>
-          <div class="hero__meta">
-            <div class="hero__meta-item">
-              <span class="hero__meta-label">Position</span>
-              <span class="hero__meta-value">Research Assistant</span>
-            </div>
-            <div class="hero__meta-item">
-              <span class="hero__meta-label">Institution</span>
-              <span class="hero__meta-value">BRAC University · EEE</span>
-            </div>
-            <div class="hero__meta-item">
-              <span class="hero__meta-label">Focus</span>
-              <span class="hero__meta-value">VLSI · HLS · TCAD</span>
-            </div>
-            <div class="hero__meta-item">
-              <span class="hero__meta-label">Location</span>
-              <span class="hero__meta-value">Dhaka, Bangladesh</span>
-            </div>
+          <div class="hero__ctas" style="margin-top: 1.5rem;">
+            <a href="#research" class="btn btn--primary">Explore Research</a>
+            <a href="#projects" class="btn btn--outline-white">Engineered Artifacts</a>
           </div>
         </div>
       </section>
@@ -177,14 +158,10 @@
           <h2 id="h-about">About</h2>
         </div>
         <p class="about__bio">
-          I'm a researcher at <em>BRAC University</em>, working at the intersection of device physics and hardware
-          architecture. My work spans sub-5&nbsp;nm TCAD transistor simulation, FPGA-based neural accelerators, and the
-          embedded systems that power edge computing platforms.
+          I am a researcher at <em>BRAC University</em> working at the intersection of semiconductor device physics and hardware-efficient compute architectures. My current research focuses on simulating sub-5&nbsp;nm multi-bridge-channel transistors (MBCFETs) using Silvaco TCAD, alongside designing reconfigurable, hardware-efficient neural accelerators on FPGA fabric using Vitis HLS.
         </p>
         <p class="about__bio">
-          Engineering at the intersection of device physics and system architecture: from <em>TCAD</em> simulations of
-          next-generation GAA and MBCFET transistors, to <em>FPGA</em> accelerators designed with Vitis HLS and mapped
-          onto AMD Artix-7 fabric, to the embedded avionics and ground systems behind a 3U CubeSat mission.
+          Beyond device modeling and digital design, I apply these technologies to aerospace and embedded systems—previously leading the avionics and ground station engineering for a 3U CubeSat mission, and developing locomotion and autonomy pipelines for robotic platforms.
         </p>
 
         <div style="margin-top: 2rem;">
@@ -220,56 +197,76 @@
       <!-- ================================================
            § EXPERTISE / CAPABILITIES
            ================================================ -->
+      <!-- ================================================
+           § RESEARCH DOMAINS
+           ================================================ -->
       <section class="section reveal" id="expertise" aria-labelledby="h-expertise">
         <div class="section-header">
-          <h2 id="h-expertise">Areas of Expertise</h2>
-          <p>Six engineering domains — tap to explore each.</p>
+          <h2 id="h-expertise">Research &amp; <em>Engineering Domains</em></h2>
+          <p>Four core research and development focus areas — click to explore detailed notes and work.</p>
         </div>
-        <div class="cap-grid">
-          <a class="cap-card" href="domains/dom-device-physics.html">
-            <div class="cap-card__icon">
-              <svg viewBox="0 0 24 24"><use href="#i-transistor"/></svg>
+        <div class="interests-grid">
+          <a class="int-card" href="domains/dom-fpga.html">
+            <div class="int-card__header">
+              <span class="int-card__id">
+                <svg viewBox="0 0 24 24"><use href="#i-fpga"/></svg>DOM-01
+              </span>
+              <span class="int-card__pulse"></span>
             </div>
-            <div class="cap-card__name">Device Physics</div>
-            <div class="cap-card__tools">TCAD · GAA · MBCFET</div>
+            <h3>FPGA &amp; Reconfigurable Computing</h3>
+            <ul>
+              <li>Hardware accelerator design on Artix-7: Vivado HLS to bitstream.</li>
+              <li>AXI4-based co-design between custom IP and embedded ARM cores.</li>
+              <li>Bridging Python-trained models to Verilog hardware for edge inference.</li>
+            </ul>
+            <span class="int-card__link">Explore →</span>
           </a>
-          <a class="cap-card" href="domains/dom-fpga.html">
-            <div class="cap-card__icon">
-              <svg viewBox="0 0 24 24"><use href="#i-fpga"/></svg>
+          <a class="int-card" href="domains/dom-device-physics.html">
+            <div class="int-card__header">
+              <span class="int-card__id">
+                <svg viewBox="0 0 24 24"><use href="#i-transistor"/></svg>DOM-02
+              </span>
+              <span class="int-card__pulse"></span>
             </div>
-            <div class="cap-card__name">FPGA &amp; HLS</div>
-            <div class="cap-card__tools">Artix-7 · Vitis HLS · AXI4</div>
+            <h3>Semiconductor Device Physics</h3>
+            <ul>
+              <li>Beyond-CMOS: GAA FETs and MBCFETs for next-generation logic.</li>
+              <li>Process and device simulation in Silvaco TCAD (Athena &amp; Atlas).</li>
+              <li>Short-channel effects and leakage reduction at deep scaling.</li>
+            </ul>
+            <span class="int-card__link">Explore →</span>
           </a>
-          <a class="cap-card" href="domains/dom-vlsi.html">
-            <div class="cap-card__icon">
-              <svg viewBox="0 0 24 24"><use href="#i-chip"/></svg>
+          <a class="int-card" href="domains/dom-vlsi.html">
+            <div class="int-card__header">
+              <span class="int-card__id">
+                <svg viewBox="0 0 24 24"><use href="#i-chip"/></svg>DOM-03
+              </span>
             </div>
-            <div class="cap-card__name">VLSI &amp; IC Design</div>
-            <div class="cap-card__tools">Cadence · RTL · Synopsys</div>
+            <h3>VLSI &amp; IC Design</h3>
+            <ul>
+              <li>RTL design, functional verification, and architecture optimisation.</li>
+              <li>PPA-driven design-space exploration for arithmetic units.</li>
+              <li>Cadence / Vivado / Synopsys flow integration.</li>
+            </ul>
+            <span class="int-card__link">Explore →</span>
           </a>
-          <a class="cap-card" href="domains/dom-embedded.html">
-            <div class="cap-card__icon">
-              <svg viewBox="0 0 24 24"><use href="#i-drone"/></svg>
+          <a class="int-card" href="domains/dom-embedded.html">
+            <div class="int-card__header">
+              <span class="int-card__id">
+                <svg viewBox="0 0 24 24"><use href="#i-drone"/></svg>DOM-04
+              </span>
             </div>
-            <div class="cap-card__name">Embedded &amp; Robotics</div>
-            <div class="cap-card__tools">ROS · PX4 · Autonomy</div>
-          </a>
-          <a class="cap-card" href="projects/cubesat.html">
-            <div class="cap-card__icon">
-              <svg viewBox="0 0 24 24"><use href="#i-satellite"/></svg>
-            </div>
-            <div class="cap-card__name">Aerospace &amp; CubeSat</div>
-            <div class="cap-card__tools">APRS · Ground Station</div>
-          </a>
-          <a class="cap-card" href="domains/dom-vlsi.html">
-            <div class="cap-card__icon">
-              <svg viewBox="0 0 24 24"><use href="#i-pcb"/></svg>
-            </div>
-            <div class="cap-card__name">PCB &amp; Hardware</div>
-            <div class="cap-card__tools">Altium Designer · KiCad</div>
+            <h3>Embedded Systems &amp; Robotics</h3>
+            <ul>
+              <li>Locomotion algorithms for planetary rovers and quadrupeds.</li>
+              <li>CubeSat avionics, sensor fusion, and real-time data pipelines.</li>
+              <li>Microcontroller integration for resource-constrained platforms.</li>
+            </ul>
+            <span class="int-card__link">Explore →</span>
           </a>
         </div>
       </section>
+
 
       <!-- ================================================
            § ROLES & POSITIONS
@@ -378,76 +375,6 @@
               <span class="tag">Device Physics</span>
             </div>
             <span class="res-card__link">Read more →</span>
-          </a>
-        </div>
-      </section>
-
-      <!-- ================================================
-           § RESEARCH INTERESTS
-           ================================================ -->
-      <section class="section reveal" id="interests" aria-labelledby="h-interests">
-        <div class="section-header">
-          <h2 id="h-interests">Research <em>Interests</em></h2>
-          <p>Three connected threads: device physics, hardware acceleration, and embedded systems.</p>
-        </div>
-        <div class="interests-grid">
-          <a class="int-card" href="domains/dom-fpga.html">
-            <div class="int-card__header">
-              <span class="int-card__id">
-                <svg viewBox="0 0 24 24"><use href="#i-fpga"/></svg>DOM-01
-              </span>
-              <span class="int-card__pulse"></span>
-            </div>
-            <h3>FPGA &amp; Reconfigurable Computing</h3>
-            <ul>
-              <li>Hardware accelerator design on Artix-7: Vivado HLS to bitstream.</li>
-              <li>AXI4-based co-design between custom IP and embedded ARM cores.</li>
-              <li>Bridging Python-trained models to Verilog hardware for edge inference.</li>
-            </ul>
-            <span class="int-card__link">Explore →</span>
-          </a>
-          <a class="int-card" href="domains/dom-device-physics.html">
-            <div class="int-card__header">
-              <span class="int-card__id">
-                <svg viewBox="0 0 24 24"><use href="#i-transistor"/></svg>DOM-02
-              </span>
-              <span class="int-card__pulse"></span>
-            </div>
-            <h3>Semiconductor Device Physics</h3>
-            <ul>
-              <li>Beyond-CMOS: GAA FETs and MBCFETs for next-generation logic.</li>
-              <li>Process and device simulation in Silvaco TCAD (Athena &amp; Atlas).</li>
-              <li>Short-channel effects and leakage reduction at deep scaling.</li>
-            </ul>
-            <span class="int-card__link">Explore →</span>
-          </a>
-          <a class="int-card" href="domains/dom-vlsi.html">
-            <div class="int-card__header">
-              <span class="int-card__id">
-                <svg viewBox="0 0 24 24"><use href="#i-chip"/></svg>DOM-03
-              </span>
-            </div>
-            <h3>VLSI &amp; IC Design</h3>
-            <ul>
-              <li>RTL design, functional verification, and architecture optimisation.</li>
-              <li>PPA-driven design-space exploration for arithmetic units.</li>
-              <li>Cadence / Vivado / Synopsys flow integration.</li>
-            </ul>
-            <span class="int-card__link">Explore →</span>
-          </a>
-          <a class="int-card" href="domains/dom-embedded.html">
-            <div class="int-card__header">
-              <span class="int-card__id">
-                <svg viewBox="0 0 24 24"><use href="#i-drone"/></svg>DOM-04
-              </span>
-            </div>
-            <h3>Embedded Systems &amp; Robotics</h3>
-            <ul>
-              <li>Locomotion algorithms for planetary rovers and quadrupeds.</li>
-              <li>CubeSat avionics, sensor fusion, and real-time data pipelines.</li>
-              <li>Microcontroller integration for resource-constrained platforms.</li>
-            </ul>
-            <span class="int-card__link">Explore →</span>
           </a>
         </div>
       </section>
