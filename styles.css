@@ -137,9 +137,9 @@ code, .mono {
 }
 
 .site-header__inner {
-  max-width: calc(var(--sidebar-w) + var(--content-max) + 6rem);
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 4rem;
   height: 60px;
   display: flex;
   align-items: center;
@@ -260,12 +260,12 @@ code, .mono {
 
 /* ── 5. Page Layout ────────────────────────────────────────── */
 .page-layout {
-  max-width: calc(var(--sidebar-w) + var(--content-max) + 6rem);
+  max-width: 100%;
   margin: 0 auto;
-  padding: 2.5rem 2rem;
+  padding: 2.5rem 4rem;
   display: grid;
   grid-template-columns: var(--sidebar-w) 1fr;
-  gap: 3rem;
+  gap: 4rem;
   align-items: start;
 }
 
@@ -437,11 +437,11 @@ code, .mono {
 .hero__name span { color: rgba(180,192,230,0.9); }
 
 .hero__tagline {
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: rgba(255,255,255,0.75);
   font-style: italic;
   margin-bottom: 2rem;
-  max-width: 700px;
+  max-width: 900px;
   line-height: 1.6;
 }
 
@@ -1257,7 +1257,7 @@ code, .mono {
 .site-footer {
   background: var(--bg-white);
   border-top: 1px solid var(--border);
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 4rem;
   text-align: center;
   font-size: 0.82rem;
   color: var(--text-muted);
@@ -1279,12 +1279,12 @@ code, .mono {
 
 /* ── 23. Subpage Layout ──────────────────────────────────── */
 .subpage-layout {
-  max-width: calc(var(--sidebar-w) + var(--content-max) + 6rem);
+  max-width: 100%;
   margin: 0 auto;
-  padding: 2.5rem 2rem;
+  padding: 2.5rem 4rem;
   display: grid;
   grid-template-columns: var(--sidebar-w) 1fr;
-  gap: 3rem;
+  gap: 4rem;
   align-items: start;
 }
 
