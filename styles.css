@@ -1036,7 +1036,7 @@ code, .mono {
 .timeline::before {
   content: '';
   position: absolute;
-  left: 90px;
+  left: 128px;
   top: 0; bottom: 0;
   width: 2px;
   background: var(--border);
@@ -1044,15 +1044,15 @@ code, .mono {
 
 .timeline-item {
   display: grid;
-  grid-template-columns: 90px 1fr;
-  gap: 1.5rem;
+  grid-template-columns: 110px 1fr;
+  gap: 2.2rem;
   padding: 1rem 0;
   position: relative;
 }
 .timeline-item::before {
   content: '';
   position: absolute;
-  left: calc(90px - 5px);
+  left: 124px;
   top: 1.4rem;
   width: 10px; height: 10px;
   background: var(--bg-white);
@@ -1501,9 +1501,9 @@ code, .mono {
   .research-grid,
   .interests-grid { grid-template-columns: 1fr; }
   .proj-grid { grid-template-columns: 1fr; }
-  .timeline::before { left: 70px; }
-  .timeline-item { grid-template-columns: 70px 1fr; }
-  .timeline-item::before { left: calc(70px - 5px); }
+  .timeline::before { left: 98px; }
+  .timeline-item { grid-template-columns: 85px 1fr; gap: 1.5rem; }
+  .timeline-item::before { left: 94px; }
   .pub-item { grid-template-columns: 48px 1fr auto; gap: 0.75rem; }
 
   .subpage-sidebar {
@@ -1521,6 +1521,10 @@ code, .mono {
   .pub-status { align-self: auto; }
   .current-role-card { grid-template-columns: 1fr; }
   .cr-icon { display: none; }
+  .timeline::before { display: none; }
+  .timeline-item { grid-template-columns: 1fr; gap: 0.25rem; padding: 0.75rem 0; }
+  .timeline-item::before { display: none; }
+  .timeline-date { text-align: left; font-weight: 600; color: var(--accent); margin-bottom: 0.2rem; }
 }
 
 /* ── 26. Utilities ───────────────────────────────────────── */
