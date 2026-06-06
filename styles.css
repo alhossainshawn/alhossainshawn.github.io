@@ -66,6 +66,46 @@
   --line-height:  1.7;
 }
 
+/* ── Dark Mode Overrides ──────────────────────────────────── */
+body.dark-mode {
+  --bg:           #0b0f19;
+  --bg-white:     #131a2c;
+  --bg-sidebar:   #131a2c;
+  --bg-hero:      #080c16;
+  --bg-section-alt: #1a233a;
+
+  --text:         #cbd5e1;
+  --text-muted:   #94a3b8;
+  --text-light:   #475569;
+  --text-heading: #f8fafc;
+
+  --accent:       #38bdf8;
+  --accent-dark:  #0ea5e9;
+  --accent-light: #0c4a6e;
+  --accent-rgb:   56, 189, 248;
+
+  --link:         #38bdf8;
+  --link-hover:   #7dd3fc;
+
+  --border:       #1e293b;
+  --border-hover: #334155;
+  
+  --tag-bg:       #1e293b;
+  --tag-text:     #38bdf8;
+  --tag-border:   #0c4a6e;
+}
+
+body.dark-mode .btn--primary {
+  background: #38bdf8;
+  color: #0b0f19;
+  border-color: #38bdf8;
+}
+body.dark-mode .btn--primary:hover {
+  background: #7dd3fc;
+  border-color: #7dd3fc;
+  color: #0b0f19;
+}
+
 /* ── 2. Reset & Base ───────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -162,6 +202,33 @@ code, .mono {
   display: flex;
   align-items: center;
   gap: 0.2rem;
+  margin-left: auto;
+}
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+  width: 36px;
+  height: 36px;
+  margin-left: 0.5rem;
+}
+.theme-toggle:hover {
+  background: var(--accent-light);
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.05);
+}
+.theme-toggle__icon {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2px;
 }
 
 .site-nav a {
@@ -1505,6 +1572,7 @@ code, .mono {
   .timeline-item { grid-template-columns: 85px 1fr; gap: 1.5rem; }
   .timeline-item::before { left: 94px; }
   .pub-item { grid-template-columns: 48px 1fr auto; gap: 0.75rem; }
+  .theme-toggle { margin-left: auto; }
 
   .subpage-sidebar {
     position: static;
