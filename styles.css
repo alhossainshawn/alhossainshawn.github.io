@@ -273,9 +273,31 @@ code, .mono {
 .sidebar {
   position: sticky;
   top: 80px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  padding-right: 0.5rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+.sidebar:hover {
+  scrollbar-width: thin;
+}
+.sidebar:hover::-webkit-scrollbar {
+  display: block;
+  width: 4px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
 }
 
 .sidebar__photo-wrap {
@@ -1291,9 +1313,31 @@ code, .mono {
 .subpage-sidebar {
   position: sticky;
   top: 80px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  padding-right: 0.5rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.subpage-sidebar::-webkit-scrollbar {
+  display: none;
+}
+.subpage-sidebar:hover {
+  scrollbar-width: thin;
+}
+.subpage-sidebar:hover::-webkit-scrollbar {
+  display: block;
+  width: 4px;
+}
+.subpage-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.subpage-sidebar::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
 }
 
 .back-link {
