@@ -68,42 +68,42 @@
 
 /* ── Dark Mode Overrides ──────────────────────────────────── */
 body.dark-mode {
-  --bg:           #0b0f19;
-  --bg-white:     #131a2c;
-  --bg-sidebar:   #131a2c;
-  --bg-hero:      #080c16;
-  --bg-section-alt: #1a233a;
+  --bg:           #0f121d;
+  --bg-white:     #171c2c;
+  --bg-sidebar:   #171c2c;
+  --bg-hero:      #111422;
+  --bg-section-alt: #1f253a;
 
   --text:         #cbd5e1;
   --text-muted:   #94a3b8;
   --text-light:   #475569;
   --text-heading: #f8fafc;
 
-  --accent:       #38bdf8;
-  --accent-dark:  #0ea5e9;
-  --accent-light: #0c4a6e;
-  --accent-rgb:   56, 189, 248;
+  --accent:       #748dbf;
+  --accent-dark:  #8da4d4;
+  --accent-light: #222c42;
+  --accent-rgb:   116, 141, 191;
 
-  --link:         #38bdf8;
-  --link-hover:   #7dd3fc;
+  --link:         #748dbf;
+  --link-hover:   #8da4d4;
 
-  --border:       #1e293b;
-  --border-hover: #334155;
+  --border:       #232a3f;
+  --border-hover: #333d5c;
   
-  --tag-bg:       #1e293b;
-  --tag-text:     #38bdf8;
-  --tag-border:   #0c4a6e;
+  --tag-bg:       #222c42;
+  --tag-text:     #748dbf;
+  --tag-border:   #313d5a;
 }
 
 body.dark-mode .btn--primary {
-  background: #38bdf8;
-  color: #0b0f19;
-  border-color: #38bdf8;
+  background: #748dbf;
+  color: #0f121d;
+  border-color: #748dbf;
 }
 body.dark-mode .btn--primary:hover {
-  background: #7dd3fc;
-  border-color: #7dd3fc;
-  color: #0b0f19;
+  background: #8da4d4;
+  border-color: #8da4d4;
+  color: #0f121d;
 }
 
 /* ── 2. Reset & Base ───────────────────────────────────────── */
