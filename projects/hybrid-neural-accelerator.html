@@ -1,205 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Hybrid Neural Accelerator — Al Hossain Shawn</title>
-<meta name="description" content="A reconfigurable LUT / logarithmic compute engine for AI inference, prototyped on the Artix-7 XC7A200T FPGA." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="../styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hybrid Neural Accelerator — Al Hossain Shawn</title>
+  <meta name="description" content="A reconfigurable LUT / logarithmic compute engine for AI inference, prototyped on the Artix-7 XC7A200T FPGA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <div id="icon-defs" hidden></div>
+  <script>fetch('../icons.svg').then(r=>r.text()).then(svg=>{const el=document.getElementById('icon-defs');if(el)el.innerHTML=svg;});</script>
 </head>
 <body>
-<!-- Page-transition curtain (covers from first paint; lifted by interactive.js) -->
-<div class="pt-curtain" aria-hidden="true">
-  <div class="pt-panels"><span></span><span></span><span></span><span></span><span></span></div>
-  <div class="pt-center">
-    <div class="pt-mark">A<b>H</b>S</div>
-    <div class="pt-bar"><i></i></div>
-    <div class="pt-count">000</div>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#research" class="active">Research</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav__drawer">
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <div class="mobile-nav__title">Al Hossain Shawn</div>
+      <hr class="mobile-nav__divider" />
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#research">Research</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#publications">Publications</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
   </div>
-</div>
 
-<div class="scroll-progress"></div>
-
-<!-- Cursor follower -->
-<div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
-<div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
-
-<div class="grid-pulse"></div>
-
-<div class="page">
-  <div class="frame">
-
-    <header class="titleblock">
-      <div>
-        <span class="blink"></span>
-        <span class="brand">A.H. Shawn</span>
-      </div>
-      <div class="nav">
-        <a href="../index.html#research" class="current">RESEARCH</a>
-        <a href="../index.html#projects">PROJECTS</a>
-        <a href="../index.html#publications">PAPERS</a>
-        <a href="../index.html#contact">CONTACT</a>
-      </div>
-      <div>Sheet<b>R-01</b></div>
-      <div>Status<b>In Review</b></div>
-      <div>Drawing<b>AHS-HNA-01</b></div>
-    </header>
-
-    <a class="back-link" href="../index.html">← BACK TO INDEX</a>
-
-    <!-- Hero -->
-    <section class="detail-hero">
-      <div class="kicker">
-        <span class="id">§ R-01</span>
-        <span>·</span>
-        <span>Active Research</span>
-        <span>·</span>
-        <span>Feb 2026 – Present</span>
-      </div>
-
-      <h1>Hybrid Neural <em>Accelerator</em></h1>
-
-      <p class="lead">
-        A <em>reconfigurable LUT / logarithmic compute engine</em> for edge-AI
-        inference — bridging Python-trained neural networks to a custom IP
-        block on Xilinx Artix-7, with PPA optimisation as a first-class
-        design constraint.
-      </p>
-
-      <div class="detail-meta">
-        <div>Type<b>FPGA hardware accelerator</b></div>
-        <div>Target<b>Artix-7 XC7A200T</b></div>
-        <div>Tooling<b>Vivado HLS · Vitis · AXI4</b></div>
-        <div>Submission<b>GLSVLSI 2026 (LBS)</b></div>
-      </div>
-    </section>
-
-    <!-- Overview -->
-    <section class="detail-body">
-      <h2><span class="num">§ 01 — Overview</span><br/>The <em>question</em></h2>
-      <p>
-        Edge inference is bottlenecked by the cost of multipliers. As precision
-        scales down — INT8, INT4, ternary, binary — the relative overhead of
-        memory traffic and control logic dominates the silicon budget. This
-        project asks whether a <em>hybrid compute primitive</em> — switching
-        between LUT-based and logarithmic-domain arithmetic on a per-layer
-        basis — can claw back area, power and timing simultaneously.
-      </p>
-      <p>
-        The accelerator is being co-designed with a sensitivity-driven
-        quantisation pipeline (the subject of the GLSVLSI 2026 submission)
-        so that layers most tolerant of approximation are mapped to the
-        cheapest compute path automatically.
-      </p>
-    </section>
-
-    <!-- Sub-systems -->
-    <section class="detail-body">
-      <h2><span class="num">§ 02 — Architecture</span><br/>Sub-<em>systems</em></h2>
-
-      <div class="subsystem-grid">
-        <div>
-          <div class="id">SYS-01</div>
-          <div class="name">Compute Engine</div>
-          <div class="desc">Reconfigurable LUT / log datapath written in Vivado HLS. Switches mode based on layer descriptor; INT8 → INT4 paths share storage.</div>
-        </div>
-        <div>
-          <div class="id">SYS-02</div>
-          <div class="name">RTL Backend</div>
-          <div class="desc">HLS-synthesised RTL placed on Artix-7 XC7A200T. Focus on timing closure, BRAM/LUT/DSP balance, and clock-domain hygiene.</div>
-        </div>
-        <div>
-          <div class="id">SYS-03</div>
-          <div class="name">AXI4 Interconnect</div>
-          <div class="desc">Memory-mapped AXI4 between the custom IP and an embedded ARM core; DMA-driven weight streaming and burst-aligned activations.</div>
-        </div>
-        <div>
-          <div class="id">SYS-04</div>
-          <div class="name">Quantisation Pipeline</div>
-          <div class="desc">Python-side sensitivity analysis selects per-layer precision; descriptors are baked into the bitstream metadata at synthesis time.</div>
-        </div>
-        <div>
-          <div class="id">SYS-05</div>
-          <div class="name">Verification</div>
-          <div class="desc">Bit-accurate C++ model paired with cocotb testbenches. Coverage-driven regression on a representative DNN slice.</div>
-        </div>
-        <div>
-          <div class="id">SYS-06</div>
-          <div class="name">PPA Telemetry</div>
-          <div class="desc">Vivado reports parsed into a sweep dashboard so design-space exploration over precision × topology is reproducible.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Progress -->
-    <section class="detail-body">
-      <h2><span class="num">§ 03 — Status</span><br/>Where it <em>stands</em></h2>
-
-      <div class="detail-bullets">
-        <div>
-          <div class="label">+ HLS COMPUTE PRIMITIVE</div>
-          <div class="text">First-pass LUT / log datapath synthesised; INT8 inference correct against reference model. Logarithmic-mode error bounded under the planned quantisation envelope.</div>
-        </div>
-        <div>
-          <div class="label">+ RTL PROTOTYPE</div>
-          <div class="text">Block placed on Artix-7 XC7A200T with timing closure at the target frequency for the first compute tile. Resource utilisation tracked across precision configurations.</div>
-        </div>
-        <div>
-          <div class="label">+ AXI4 INTEGRATION</div>
-          <div class="text">Memory-mapped path from ARM core to custom IP in place; DMA-driven activation streaming validated on small workloads.</div>
-        </div>
-        <div>
-          <div class="label">+ PUBLICATION</div>
-          <div class="text">Companion paper on the quantisation methodology — “Quantization-Aware Training for Efficient Edge DNN Deployment” — approved for GLSVLSI 2026 Late Breaking Session.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- next/prev -->
-    <nav class="next-prev">
-      <a href="../index.html">
-        <div class="label">← BACK</div>
-        <div class="name">Index</div>
+  <div class="subpage-layout">
+    <aside class="subpage-sidebar">
+      <a class="back-link" href="../index.html">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        Back to Portfolio
       </a>
-      <a href="mbcfet.html">
-        <div class="label">NEXT →</div>
-        <div class="name">MBCFET <em>Modeling</em></div>
-      </a>
-    </nav>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">On this page</div>
+      <nav class="subpage-nav">
+        <a href="#overview">Overview</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#status">Status</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="sidebar__section-title">Research</div>
+      <div class="sidebar__tags">
+        <span class="sidebar__tag">R-01</span>
+        <span class="sidebar__tag">FPGA</span>
+        <span class="sidebar__tag">Vitis HLS</span>
+        <span class="sidebar__tag">AXI4</span>
+        <span class="sidebar__tag">Edge AI</span>
+        <span class="sidebar__tag">Artix-7</span>
+      </div>
+    </aside>
 
-    <footer class="foot" id="contact">
-      <h2>Curious to <em>discuss</em>?</h2>
-      <p class="sub">Always happy to talk about FPGA accelerators, quantisation, and edge AI.</p>
-      <div class="contacts">
-        <div>
-          <div class="lbl">[ Email ]</div>
-          <a class="val" href="mailto:alhossainshawn@gmail.com">alhossainshawn@gmail.com</a>
+    <main class="subpage-content" id="main-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="../index.html#research">Research</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>Hybrid Neural Accelerator</span>
+      </div>
+
+      <div class="subpage-header">
+        <div class="tags-row" style="margin-bottom: 0.75rem;">
+          <span class="badge badge--amber">In Review</span>
+          <span class="tag">R-01</span>
         </div>
-        <div>
-          <div class="lbl">[ LinkedIn ]</div>
-          <a class="val" href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">/in/al-hossain-shawn</a>
-        </div>
-        <div>
-          <div class="lbl">[ Phone ]</div>
-          <div class="val">+880 1303-236292</div>
-        </div>
-        <div>
-          <div class="lbl">[ Location ]</div>
-          <div class="val">Dhaka 1212, BD</div>
+        <h1>Hybrid Neural <em>Accelerator</em></h1>
+        <div class="subpage-meta">
+          <span>Active Research</span>
+          <span>Feb 2026 – Present</span>
+          <span>GLSVLSI 2026 (Late Breaking Session)</span>
         </div>
       </div>
-      <div class="botbar">
-        <span>© 2026 · AL HOSSAIN SHAWN · DWG-AHS-HNA-01 · REV A</span>
-        <span class="ok">● PROCESS EXITED 0</span>
-      </div>
-    </footer>
 
+      <div class="prose">
+        <p>A <em>reconfigurable LUT / logarithmic compute engine</em> for edge-AI inference — bridging Python-trained neural networks to a custom IP block on AMD Artix-7 silicon, with PPA optimisation as a first-class design constraint.</p>
+
+        <table class="spec-table">
+          <tr><td>Type</td><td>FPGA hardware accelerator</td></tr>
+          <tr><td>Target</td><td>Artix-7 XC7A200T (215 K LUTs, 740 DSPs, 13 Mb BRAM)</td></tr>
+          <tr><td>Tooling</td><td>Vivado HLS · Vitis · AXI4</td></tr>
+          <tr><td>Submission</td><td>GLSVLSI 2026, Late Breaking Session — Approved</td></tr>
+        </table>
+
+        <h2 id="overview">Overview</h2>
+        <p>Edge inference is bottlenecked by the cost of multipliers. As precision scales down — INT8, INT4, ternary, binary — the relative overhead of memory traffic and control logic dominates the silicon budget. This project asks whether a <em>hybrid compute primitive</em> — switching between LUT-based and logarithmic-domain arithmetic on a per-layer basis — can reclaim area, power, and timing simultaneously.</p>
+        <p>The accelerator is co-designed with a sensitivity-driven quantisation pipeline (the subject of the GLSVLSI 2026 submission) so that layers most tolerant of approximation are mapped to the cheapest compute path automatically.</p>
+
+        <h2 id="architecture">Architecture</h2>
+        <ul>
+          <li><strong>Compute Engine (SYS-01)</strong> — Reconfigurable LUT / log datapath written in Vivado HLS. Switches mode based on layer descriptor; INT8 → INT4 paths share storage.</li>
+          <li><strong>RTL Backend (SYS-02)</strong> — HLS-synthesised RTL placed on Artix-7. Focus on timing closure, BRAM/LUT/DSP balance, and clock-domain hygiene.</li>
+          <li><strong>AXI4 Interconnect (SYS-03)</strong> — Memory-mapped AXI4 between the custom IP and an embedded ARM core; DMA-driven weight streaming and burst-aligned activations.</li>
+          <li><strong>Quantisation Pipeline (SYS-04)</strong> — Python-side sensitivity analysis selects per-layer precision; descriptors are baked into the bitstream metadata at synthesis.</li>
+          <li><strong>Verification (SYS-05)</strong> — Bit-accurate C++ model paired with cocotb testbenches; coverage-driven regression on a representative DNN slice.</li>
+          <li><strong>PPA Telemetry (SYS-06)</strong> — Vivado reports parsed into a sweep dashboard for reproducible design-space exploration over precision × topology.</li>
+        </ul>
+
+        <h2 id="status">Current Status</h2>
+        <ul>
+          <li><strong>HLS compute primitive</strong> — First-pass LUT / log datapath synthesised; INT8 inference correct against reference model.</li>
+          <li><strong>RTL prototype</strong> — Block placed on Artix-7 with timing closure at the target frequency for the first compute tile.</li>
+          <li><strong>AXI4 integration</strong> — Memory-mapped path from ARM core to custom IP validated on small workloads.</li>
+          <li><strong>Publication</strong> — Companion paper "Quantization-Aware Training for Efficient Edge DNN Deployment" approved for GLSVLSI 2026.</li>
+        </ul>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap;">
+        <a href="../index.html#research" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem;">
+          <span>← Back</span>
+          <span style="color: var(--text-heading); font-weight: 600;">All Research</span>
+        </a>
+        <a href="mbcfet.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem; text-align: right;">
+          <span>Next →</span>
+          <span style="color: var(--text-heading); font-weight: 600;">MBCFET Modeling</span>
+        </a>
+      </div>
+    </main>
   </div>
-</div>
 
-<script src="../interactive.js" defer></script>
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2026 Al Hossain Shawn &nbsp;·&nbsp; <a href="../index.html">Portfolio</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+
+  <script src="../interactive.js" defer></script>
 </body>
 </html>

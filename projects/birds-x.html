@@ -1,174 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>BIRDS-X APRS Payload — Al Hossain Shawn</title>
-<meta name="description" content="APRS payload focused on energy-transition messaging — Phase 1 winner of the BIRDS-X competition." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="../styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BIRDS-X APRS Payload — Al Hossain Shawn</title>
+  <meta name="description" content="APRS payload focused on energy-transition messaging — Phase 1 winner of the national BIRDS-X space payload competition." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
-<!-- Page-transition curtain (covers from first paint; lifted by interactive.js) -->
-<div class="pt-curtain" aria-hidden="true">
-  <div class="pt-panels"><span></span><span></span><span></span><span></span><span></span></div>
-  <div class="pt-center">
-    <div class="pt-mark">A<b>H</b>S</div>
-    <div class="pt-bar"><i></i></div>
-    <div class="pt-count">000</div>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
+      <nav class="site-nav">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#research">Research</a>
+        <a href="../index.html#projects" class="active">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav__drawer">
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <div class="mobile-nav__title">Al Hossain Shawn</div>
+      <hr class="mobile-nav__divider" />
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#research">Research</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#publications">Publications</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
   </div>
-</div>
 
-<div class="scroll-progress"></div>
-
-<!-- Cursor follower -->
-<div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
-<div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
-
-<div class="grid-pulse"></div>
-
-<div class="page">
-  <div class="frame">
-
-    <header class="titleblock">
-      <div>
-        <span class="blink"></span>
-        <span class="brand">A.H. Shawn</span>
-      </div>
-      <div class="nav">
-        <a href="../index.html#research">RESEARCH</a>
-        <a href="../index.html#projects" class="current">PROJECTS</a>
-        <a href="../index.html#publications">PAPERS</a>
-        <a href="../index.html#contact">CONTACT</a>
-      </div>
-      <div>Sheet<b>P-03</b></div>
-      <div>Result<b>Phase 1 Winner</b></div>
-      <div>Drawing<b>AHS-BRX-01</b></div>
-    </header>
-
-    <a class="back-link" href="../index.html">← BACK TO INDEX</a>
-
-    <section class="detail-hero">
-      <div class="kicker">
-        <span class="id">§ P-03</span>
-        <span>·</span>
-        <span>Payload Engineer</span>
-        <span>·</span>
-        <span>Jan 2023 – Apr 2023</span>
-      </div>
-
-      <h1>BIRDS-X <em>APRS Payload</em></h1>
-
-      <p class="lead">
-        An <em>APRS payload</em> designed around energy-transition messaging
-        — built for the BIRDS-X competition, where we won the
-        <em>Phase 1</em> round.
-      </p>
-
-      <div class="detail-meta">
-        <div>Type<b>APRS satellite payload</b></div>
-        <div>Result<b>Phase 1 Winner</b></div>
-        <div>Theme<b>Energy transition / renewables</b></div>
-        <div>Toolchain<b>PCB · 3D · Orbital sim · CV</b></div>
-      </div>
-    </section>
-
-    <section class="detail-body">
-      <h2><span class="num">§ 01 — Brief</span><br/>The <em>payload</em></h2>
-      <p>
-        The BIRDS-X programme asks teams to design APRS payloads that
-        amplify a chosen social or scientific theme. Ours centred on the
-        <em>energy transition</em> — planning, management and renewable
-        adoption — translating a policy question into a small radio
-        artefact that could fly.
-      </p>
-      <p>
-        The work spanned the full payload stack: hardware on PCB,
-        mechanical accommodation in 3D, orbit-aware operations planning,
-        and image processing for the data the payload would carry.
-      </p>
-    </section>
-
-    <section class="detail-body">
-      <h2><span class="num">§ 02 — Stack</span><br/>What we <em>built</em></h2>
-
-      <div class="subsystem-grid">
-        <div>
-          <div class="id">PCB</div>
-          <div class="name">Payload Hardware</div>
-          <div class="desc">Schematic, layout, and DFM on the payload PCB — sized for the BIRDS-X form factor and integrated into the host satellite bus.</div>
-        </div>
-        <div>
-          <div class="id">3D</div>
-          <div class="name">Mechanical</div>
-          <div class="desc">Mechanical accommodation modelled in 3D — clearance, fasteners, and thermal mounts checked against the bus envelope.</div>
-        </div>
-        <div>
-          <div class="id">ORB</div>
-          <div class="name">Orbital Simulation</div>
-          <div class="desc">Pass timing and station contact windows simulated to drive a realistic ops plan — what to transmit when.</div>
-        </div>
-        <div>
-          <div class="id">CV</div>
-          <div class="name">Image Processing</div>
-          <div class="desc">Image-side pipeline tuned for the chosen theme — turning sensor data into things worth downlinking.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="detail-body">
-      <h2><span class="num">§ 03 — Outcome</span><br/>Phase 1 <em>winner</em></h2>
-      <p>
-        The Phase 1 win validated the design choices — a focused theme,
-        a clean stack, and an ops plan rooted in real orbit numbers.
-        It also primed the larger CubeSat work that followed (Sheet P-02)
-        by giving the team a working language across the four disciplines.
-      </p>
-    </section>
-
-    <nav class="next-prev">
-      <a href="aerial-survey.html">
-        <div class="label">← PREVIOUS</div>
-        <div class="name">Aerial <em>Survey Platform</em></div>
+  <div class="subpage-layout">
+    <aside class="subpage-sidebar">
+      <a class="back-link" href="../index.html">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        Back to Portfolio
       </a>
-      <a href="../index.html">
-        <div class="label">BACK TO →</div>
-        <div class="name"><em>Index</em></div>
-      </a>
-    </nav>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">On this page</div>
+      <nav class="subpage-nav">
+        <a href="#brief">The Payload</a>
+        <a href="#stack">What We Built</a>
+        <a href="#outcome">Outcome</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="sidebar__section-title">Project</div>
+      <div class="sidebar__tags">
+        <span class="sidebar__tag">P-03</span>
+        <span class="sidebar__tag">Phase 1 Winner</span>
+        <span class="sidebar__tag">APRS</span>
+        <span class="sidebar__tag">Altium</span>
+        <span class="sidebar__tag">AX.25</span>
+        <span class="sidebar__tag">RF Comms</span>
+      </div>
+    </aside>
 
-    <footer class="foot">
-      <h2>Want to <em>collaborate</em>?</h2>
-      <p class="sub">Open to small-satellite payload work, ground-station builds and amateur-radio comms.</p>
-      <div class="contacts">
-        <div>
-          <div class="lbl">[ Email ]</div>
-          <a class="val" href="mailto:alhossainshawn@gmail.com">alhossainshawn@gmail.com</a>
+    <main class="subpage-content" id="main-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="../index.html#projects">Projects</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>BIRDS-X APRS Payload</span>
+      </div>
+
+      <div class="subpage-header">
+        <div class="tags-row" style="margin-bottom: 0.75rem;">
+          <span class="badge badge--amber">Award Winner</span>
+          <span class="tag">P-03</span>
         </div>
-        <div>
-          <div class="lbl">[ LinkedIn ]</div>
-          <a class="val" href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">/in/al-hossain-shawn</a>
-        </div>
-        <div>
-          <div class="lbl">[ Phone ]</div>
-          <div class="val">+880 1303-236292</div>
-        </div>
-        <div>
-          <div class="lbl">[ Location ]</div>
-          <div class="val">Dhaka 1212, BD</div>
+        <h1>BIRDS-X APRS <em>Payload</em></h1>
+        <div class="subpage-meta">
+          <span>Payload Engineer</span>
+          <span>Jan 2023 – Apr 2023</span>
+          <span>Phase 1 Winner — BIRDS-X Competition</span>
         </div>
       </div>
-      <div class="botbar">
-        <span>© 2026 · AL HOSSAIN SHAWN · DWG-AHS-BRX-01 · REV A</span>
-        <span class="ok">● PROCESS EXITED 0</span>
-      </div>
-    </footer>
 
+      <div class="prose">
+        <p>An <em>APRS payload</em> designed around energy-transition messaging — built for the BIRDS-X national space payload competition, where the team won the <em>Phase 1</em> round.</p>
+
+        <table class="spec-table">
+          <tr><td>Type</td><td>APRS satellite payload</td></tr>
+          <tr><td>Result</td><td>Phase 1 Winner</td></tr>
+          <tr><td>Theme</td><td>Energy transition / renewables</td></tr>
+          <tr><td>PCB Tool</td><td>Altium Designer</td></tr>
+          <tr><td>Protocol</td><td>AX.25 / APRS Digipeater</td></tr>
+        </table>
+
+        <h2 id="brief">The Payload</h2>
+        <p>The BIRDS-X programme asks teams to design APRS payloads that amplify a chosen social or scientific theme. Ours centred on the <em>energy transition</em> — planning, management, and renewable adoption — translating a policy question into a small radio artefact that could fly.</p>
+        <p>The work spanned the full payload stack: hardware on PCB, mechanical accommodation in 3D, orbit-aware operations planning, and image processing for the data the payload would carry.</p>
+
+        <h2 id="stack">What We Built</h2>
+        <ul>
+          <li><strong>Payload Hardware (PCB)</strong> — Schematic, layout, and DFM on the payload PCB, sized for the BIRDS-X form factor and integrated into the host satellite bus. Designed in Altium Designer.</li>
+          <li><strong>Mechanical (3D)</strong> — Mechanical accommodation modelled in 3D; clearance, fasteners, and thermal mounts checked against the bus envelope.</li>
+          <li><strong>Orbital Simulation (ORB)</strong> — Pass timing and station contact windows simulated to drive a realistic operations plan.</li>
+          <li><strong>Image Processing (CV)</strong> — Image-side pipeline tuned for the chosen theme, turning sensor data into things worth downlinking.</li>
+        </ul>
+
+        <h2 id="outcome">Phase 1 Win</h2>
+        <p>The Phase 1 win validated the design choices — a focused theme, a clean hardware stack, and an operations plan rooted in real orbit numbers. It also primed the larger CubeSat work that followed (Project P-02) by giving the team a working language across four engineering disciplines simultaneously.</p>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap;">
+        <a href="aerial-survey.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem;">
+          <span>← Previous</span>
+          <span style="color: var(--text-heading); font-weight: 600;">Aerial Survey Platform</span>
+        </a>
+        <a href="../index.html#projects" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem; text-align: right;">
+          <span>Back to →</span>
+          <span style="color: var(--text-heading); font-weight: 600;">All Projects</span>
+        </a>
+      </div>
+    </main>
   </div>
-</div>
 
-<script src="../interactive.js" defer></script>
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2026 Al Hossain Shawn &nbsp;·&nbsp; <a href="../index.html">Portfolio</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+
+  <script src="../interactive.js" defer></script>
 </body>
 </html>

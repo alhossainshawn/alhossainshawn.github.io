@@ -1,214 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>APSCO CubeSat — Al Hossain Shawn</title>
-<meta name="description" content="3U CubeSat — EPS, OBC, comms, ADCS, antenna and ground station — led from concept through hardware integration for the APSCO Student Small Satellite Competition." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="../styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>APSCO CubeSat 3U Mission — Al Hossain Shawn</title>
+  <meta name="description" content="End-to-end 3U CubeSat with EPS, OBC, comms, ADCS, antenna and ground station, developed for the APSCO Student Small Satellite Competition." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <div id="icon-defs" hidden></div>
+  <script>fetch('../icons.svg').then(r=>r.text()).then(svg=>{const el=document.getElementById('icon-defs');if(el)el.innerHTML=svg;});</script>
 </head>
 <body>
-<!-- Page-transition curtain (covers from first paint; lifted by interactive.js) -->
-<div class="pt-curtain" aria-hidden="true">
-  <div class="pt-panels"><span></span><span></span><span></span><span></span><span></span></div>
-  <div class="pt-center">
-    <div class="pt-mark">A<b>H</b>S</div>
-    <div class="pt-bar"><i></i></div>
-    <div class="pt-count">000</div>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#research">Research</a>
+        <a href="../index.html#projects" class="active">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav__drawer">
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <div class="mobile-nav__title">Al Hossain Shawn</div>
+      <hr class="mobile-nav__divider" />
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#research">Research</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#publications">Publications</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
   </div>
-</div>
 
-<div class="scroll-progress"></div>
-
-<!-- Cursor follower -->
-<div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
-<div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
-
-<div class="grid-pulse"></div>
-
-<div class="page">
-  <div class="frame">
-
-    <header class="titleblock">
-      <div>
-        <span class="blink"></span>
-        <span class="brand">A.H. Shawn</span>
-      </div>
-      <div class="nav">
-        <a href="../index.html#research">RESEARCH</a>
-        <a href="../index.html#projects" class="current">PROJECTS</a>
-        <a href="../index.html#publications">PAPERS</a>
-        <a href="../index.html#contact">CONTACT</a>
-      </div>
-      <div>Sheet<b>P-02</b></div>
-      <div>Class<b>3U CubeSat</b></div>
-      <div>Drawing<b>AHS-CST-01</b></div>
-    </header>
-
-    <a class="back-link" href="../index.html">← BACK TO INDEX</a>
-
-    <section class="detail-hero">
-      <div class="kicker">
-        <span class="id">§ P-02</span>
-        <span>·</span>
-        <span>Team Lead · BD-BRACU Mavericks</span>
-        <span>·</span>
-        <span>Jul 2023 – May 2024</span>
-      </div>
-
-      <h1>APSCO <em>CubeSat</em> — 3U Mission</h1>
-
-      <p class="lead">
-        A full-stack <em>3U CubeSat</em> developed for the APSCO Student
-        Small Satellite Competition — every subsystem owned in-house, from
-        the <em>EPS</em> and <em>OBC</em> up to the ground station and
-        orbital simulation.
-      </p>
-
-      <div class="detail-meta">
-        <div>Form factor<b>3U CubeSat</b></div>
-        <div>Role<b>Team Lead</b></div>
-        <div>Team<b>BD-BRACU Mavericks</b></div>
-        <div>Mission<b>APSCO SSS Competition</b></div>
-      </div>
-    </section>
-
-    <section class="detail-body">
-      <h2><span class="num">§ 01 — Mission</span><br/>The <em>build</em></h2>
-      <p>
-        APSCO's Student Small Satellite Competition asks teams to design,
-        build and demonstrate a complete CubeSat — not just an experiment
-        on a host bus. Our group, the BD-BRACU Mavericks at BRAC
-        University, took that as a chance to put every subsystem in the
-        hands of student engineers.
-      </p>
-      <p>
-        As <em>team lead</em>, my work cut across mechanical, electrical
-        and software layers — keeping the subsystem leads aligned,
-        owning the integration plan, and standing in for whichever board
-        was on fire that week.
-      </p>
-    </section>
-
-    <section class="detail-body">
-      <h2><span class="num">§ 02 — Sub-systems</span><br/>Bus <em>architecture</em></h2>
-
-      <div class="subsystem-grid">
-        <div>
-          <div class="id">EPS</div>
-          <div class="name">Electrical Power System</div>
-          <div class="desc">Solar harvesting, battery management and regulated rails for the bus and payload — sized against the orbit power budget.</div>
-        </div>
-        <div>
-          <div class="id">OBC</div>
-          <div class="name">On-Board Computer</div>
-          <div class="desc">Microcontroller-based flight computer handling scheduling, telemetry, and command decoding under tight resource budgets.</div>
-        </div>
-        <div>
-          <div class="id">COM</div>
-          <div class="name">Communications</div>
-          <div class="desc">UHF/VHF radio link to the ground station, framed for low-data-rate beaconing and reliable long-distance reception.</div>
-        </div>
-        <div>
-          <div class="id">ADCS</div>
-          <div class="name">Attitude Determination &amp; Control</div>
-          <div class="desc">Sensor fusion (IMU + sun sensor) and control law for nadir-pointing — sized for the satellite's moment of inertia.</div>
-        </div>
-        <div>
-          <div class="id">ANT</div>
-          <div class="name">Antenna</div>
-          <div class="desc">Deployable antenna design and integration with the structure; pattern and gain validated against the link budget.</div>
-        </div>
-        <div>
-          <div class="id">GS</div>
-          <div class="name">Ground Station</div>
-          <div class="desc">Tracking, doppler correction and decoded telemetry — closing the loop between the satellite and its operators.</div>
-        </div>
-        <div>
-          <div class="id">STR</div>
-          <div class="name">Structure</div>
-          <div class="desc">3U mechanical design in SOLIDWORKS — mass budget, thermal mounts and CubeSat-spec rail tolerances.</div>
-        </div>
-        <div>
-          <div class="id">SIM</div>
-          <div class="name">Orbital Simulation</div>
-          <div class="desc">Pass timing, eclipse fraction and ground-station contact windows analysed to drive duty-cycle and thermal planning.</div>
-        </div>
-        <div>
-          <div class="id">PYL</div>
-          <div class="name">Payload</div>
-          <div class="desc">Image-processing pipeline planned around the downlink budget — picking what to send when the link window is short.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="detail-body">
-      <h2><span class="num">§ 03 — What I took away</span><br/>The <em>lessons</em></h2>
-
-      <div class="detail-bullets">
-        <div>
-          <div class="label">+ SYSTEMS THINKING</div>
-          <div class="text">A CubeSat exposes you to every constraint a real spacecraft has — power, link, thermal, mass — in miniature. Trade-offs that span subsystems become daily decisions.</div>
-        </div>
-        <div>
-          <div class="label">+ LEADING ENGINEERS</div>
-          <div class="text">Aligning eight subsystem leads, managing the integration schedule, and being the person who carries the integration risk taught me what technical leadership actually looks like in practice.</div>
-        </div>
-        <div>
-          <div class="label">+ HARDWARE DISCIPLINE</div>
-          <div class="text">PCBs ship, boards die, schedules slip — building under a competition deadline forced rigour around revision control, test fixtures and integration-day procedures.</div>
-        </div>
-        <div>
-          <div class="label">+ COMMUNICATIONS</div>
-          <div class="text">Ground-station design, link budgeting and the amateur-radio license that came with it have stayed useful — I still see RF design as a craft to come back to.</div>
-        </div>
-      </div>
-    </section>
-
-    <nav class="next-prev">
-      <a href="mbcfet.html">
-        <div class="label">← PREVIOUS</div>
-        <div class="name">MBCFET <em>Modeling</em></div>
+  <div class="subpage-layout">
+    <!-- Sidebar -->
+    <aside class="subpage-sidebar">
+      <a class="back-link" href="../index.html">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        Back to Portfolio
       </a>
-      <a href="aerial-survey.html">
-        <div class="label">NEXT →</div>
-        <div class="name">Aerial <em>Survey Platform</em></div>
-      </a>
-    </nav>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">On this page</div>
+      <nav class="subpage-nav">
+        <a href="#mission">Mission</a>
+        <a href="#subsystems">Subsystems</a>
+        <a href="#lessons">Lessons</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="sidebar__section-title">Project</div>
+      <div class="sidebar__tags">
+        <span class="sidebar__tag">P-02</span>
+        <span class="sidebar__tag">CubeSat</span>
+        <span class="sidebar__tag">Team Lead</span>
+        <span class="sidebar__tag">Altium</span>
+        <span class="sidebar__tag">SolidWorks</span>
+        <span class="sidebar__tag">APRS</span>
+      </div>
+    </aside>
 
-    <footer class="foot">
-      <h2>Want to <em>collaborate</em>?</h2>
-      <p class="sub">Open to small-satellite work, ground-station builds, and student-team mentorship.</p>
-      <div class="contacts">
-        <div>
-          <div class="lbl">[ Email ]</div>
-          <a class="val" href="mailto:alhossainshawn@gmail.com">alhossainshawn@gmail.com</a>
+    <!-- Main Content -->
+    <main class="subpage-content" id="main-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="../index.html#projects">Projects</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>APSCO CubeSat 3U Mission</span>
+      </div>
+
+      <div class="subpage-header">
+        <div class="tags-row" style="margin-bottom: 0.75rem;">
+          <span class="badge badge--blue">Completed</span>
+          <span class="tag">P-02</span>
         </div>
-        <div>
-          <div class="lbl">[ LinkedIn ]</div>
-          <a class="val" href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">/in/al-hossain-shawn</a>
-        </div>
-        <div>
-          <div class="lbl">[ Phone ]</div>
-          <div class="val">+880 1303-236292</div>
-        </div>
-        <div>
-          <div class="lbl">[ Location ]</div>
-          <div class="val">Dhaka 1212, BD</div>
+        <h1>APSCO CubeSat — <em>3U Mission</em></h1>
+        <div class="subpage-meta">
+          <span>Team Lead · BD-BRACU Mavericks</span>
+          <span>Jul 2023 – May 2024</span>
+          <span>APSCO Student Small Satellite Competition</span>
         </div>
       </div>
-      <div class="botbar">
-        <span>© 2026 · AL HOSSAIN SHAWN · DWG-AHS-CST-01 · REV A</span>
-        <span class="ok">● PROCESS EXITED 0</span>
-      </div>
-    </footer>
 
+      <div class="prose">
+        <p>A full-stack <em>3U CubeSat</em> developed for the APSCO Student Small Satellite Competition — every subsystem owned in-house, from the EPS and OBC up to the ground station and orbital simulation.</p>
+
+        <h2 id="mission">Mission &amp; Role</h2>
+        <p>APSCO's Student Small Satellite Competition asks teams to design, build, and demonstrate a complete CubeSat. Our group, the <em>BD-BRACU Mavericks</em> at BRAC University, took that as a chance to put every subsystem in the hands of student engineers.</p>
+        <p>As <em>team lead</em>, my work cut across mechanical, electrical, and software layers — keeping the subsystem leads aligned, owning the integration plan, and standing in for whichever board was under pressure that week.</p>
+
+        <table class="spec-table">
+          <tr><td>Form Factor</td><td>3U CubeSat</td></tr>
+          <tr><td>Role</td><td>Team Lead</td></tr>
+          <tr><td>Team</td><td>BD-BRACU Mavericks</td></tr>
+          <tr><td>Competition</td><td>APSCO Student Small Satellite Competition</td></tr>
+          <tr><td>Result</td><td>2nd Runner-Up (2024)</td></tr>
+        </table>
+
+        <h2 id="subsystems">Bus Architecture</h2>
+        <p>All nine subsystems were designed in-house:</p>
+        <ul>
+          <li><strong>EPS (Electrical Power System)</strong> — Solar harvesting, battery management, and regulated rails sized against the orbit power budget.</li>
+          <li><strong>OBC (On-Board Computer)</strong> — Microcontroller-based flight computer for scheduling, telemetry, and command decoding under tight resource constraints.</li>
+          <li><strong>COM (Communications)</strong> — UHF/VHF radio link to the ground station, framed for low-data-rate beaconing and reliable long-distance reception.</li>
+          <li><strong>ADCS (Attitude Determination &amp; Control)</strong> — Sensor fusion (IMU + sun sensor) and control law for nadir-pointing, sized for the satellite's moment of inertia.</li>
+          <li><strong>ANT (Antenna)</strong> — Deployable antenna design and integration; pattern and gain validated against the link budget.</li>
+          <li><strong>GS (Ground Station)</strong> — Tracking, Doppler correction, and decoded telemetry — closing the loop between satellite and operators.</li>
+          <li><strong>STR (Structure)</strong> — 3U mechanical design in SOLIDWORKS with mass budget, thermal mounts, and CubeSat-spec rail tolerances.</li>
+          <li><strong>SIM (Orbital Simulation)</strong> — Pass timing, eclipse fraction, and contact windows to drive duty-cycle and thermal planning.</li>
+          <li><strong>PYL (Payload)</strong> — Image-processing pipeline planned around the downlink budget.</li>
+        </ul>
+
+        <h2 id="lessons">Lessons Taken Away</h2>
+        <ul>
+          <li><strong>Systems thinking</strong> — A CubeSat exposes every constraint a real spacecraft has — power, link, thermal, mass — in miniature. Subsystem-spanning trade-offs become daily decisions.</li>
+          <li><strong>Leading engineers</strong> — Aligning eight subsystem leads, managing the integration schedule, and carrying integration risk taught me what technical leadership actually looks like in practice.</li>
+          <li><strong>Hardware discipline</strong> — PCBs ship, boards die, schedules slip. Building under a competition deadline forced rigour around revision control, test fixtures, and integration procedures.</li>
+          <li><strong>RF communications</strong> — Ground-station design, link budgeting, and the amateur-radio licence that came with it have stayed useful well beyond the project.</li>
+        </ul>
+      </div>
+
+      <!-- Prev / Next -->
+      <div style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap;">
+        <a href="mbcfet.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem;">
+          <span>← Previous</span>
+          <span style="color: var(--text-heading); font-weight: 600;">MBCFET Modeling</span>
+        </a>
+        <a href="aerial-survey.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem; text-align: right;">
+          <span>Next →</span>
+          <span style="color: var(--text-heading); font-weight: 600;">Aerial Survey Platform</span>
+        </a>
+      </div>
+    </main>
   </div>
-</div>
 
-<script src="../interactive.js" defer></script>
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2026 Al Hossain Shawn &nbsp;·&nbsp; <a href="../index.html">Portfolio</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+
+  <script src="../interactive.js" defer></script>
 </body>
 </html>

@@ -1,168 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Autonomous Aerial Survey Platform — Al Hossain Shawn</title>
-<meta name="description" content="Final Year Design Project — an autonomous aerial survey platform combining drone flight simulation, image processing and automation." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="../styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Autonomous Aerial Survey Platform — Al Hossain Shawn</title>
+  <meta name="description" content="Final Year Design Project — an autonomous aerial survey platform combining drone flight simulation, image processing and mission automation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
-<!-- Page-transition curtain (covers from first paint; lifted by interactive.js) -->
-<div class="pt-curtain" aria-hidden="true">
-  <div class="pt-panels"><span></span><span></span><span></span><span></span><span></span></div>
-  <div class="pt-center">
-    <div class="pt-mark">A<b>H</b>S</div>
-    <div class="pt-bar"><i></i></div>
-    <div class="pt-count">000</div>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
+      <nav class="site-nav">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#research">Research</a>
+        <a href="../index.html#projects" class="active">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav__drawer">
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <div class="mobile-nav__title">Al Hossain Shawn</div>
+      <hr class="mobile-nav__divider" />
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#research">Research</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#publications">Publications</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
   </div>
-</div>
 
-<div class="scroll-progress"></div>
-
-<!-- Cursor follower -->
-<div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
-<div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
-
-<div class="grid-pulse"></div>
-
-<div class="page">
-  <div class="frame">
-
-    <header class="titleblock">
-      <div>
-        <span class="blink"></span>
-        <span class="brand">A.H. Shawn</span>
-      </div>
-      <div class="nav">
-        <a href="../index.html#research">RESEARCH</a>
-        <a href="../index.html#projects" class="current">PROJECTS</a>
-        <a href="../index.html#publications">PAPERS</a>
-        <a href="../index.html#contact">CONTACT</a>
-      </div>
-      <div>Sheet<b>P-01</b></div>
-      <div>Class<b>FYDP</b></div>
-      <div>Drawing<b>AHS-AAS-01</b></div>
-    </header>
-
-    <a class="back-link" href="../index.html">← BACK TO INDEX</a>
-
-    <section class="detail-hero">
-      <div class="kicker">
-        <span class="id">§ P-01</span>
-        <span>·</span>
-        <span>Final Year Design Project</span>
-        <span>·</span>
-        <span>Jan 2025 – Dec 2025</span>
-      </div>
-
-      <h1>Autonomous Aerial <em>Survey</em> Platform</h1>
-
-      <p class="lead">
-        An end-to-end pipeline for <em>autonomous aerial survey</em> — flight
-        simulation in the loop, on-board <em>image processing</em>, and
-        mission-level automation closing the loop between sensor and plan.
-      </p>
-
-      <div class="detail-meta">
-        <div>Type<b>Autonomous aerial platform</b></div>
-        <div>Class<b>Final Year Design Project</b></div>
-        <div>Domain<b>Sim · CV · Autonomy</b></div>
-        <div>Institution<b>BRAC University · EEE</b></div>
-      </div>
-    </section>
-
-    <section class="detail-body">
-      <h2><span class="num">§ 01 — Brief</span><br/>The <em>problem</em></h2>
-      <p>
-        Survey drones are still mostly piloted — a human flies the grid, a
-        human sifts the imagery. This project asks how much of that loop
-        can be moved into the platform itself, by combining a flight
-        simulator (for training and verification), a real-time image
-        processing stack (for on-board interpretation), and a planner
-        (for adapting the survey while it is happening).
-      </p>
-    </section>
-
-    <section class="detail-body">
-      <h2><span class="num">§ 02 — Pipeline</span><br/>The three <em>layers</em></h2>
-
-      <div class="subsystem-grid">
-        <div>
-          <div class="id">SIM</div>
-          <div class="name">Flight Simulation</div>
-          <div class="desc">Drone dynamics simulated in the loop — used to develop and verify the control law and the survey planner before any field test.</div>
-        </div>
-        <div>
-          <div class="id">CV</div>
-          <div class="name">Image Processing</div>
-          <div class="desc">On-board imagery pipeline tuned for survey workloads — feature extraction and target detection feeding the autonomy layer.</div>
-        </div>
-        <div>
-          <div class="id">AUT</div>
-          <div class="name">Automation</div>
-          <div class="desc">Mission planner that decides where to look next based on what the image stack reports — closing the loop in flight.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="detail-body">
-      <h2><span class="num">§ 03 — Why it mattered</span><br/>What it <em>taught</em> me</h2>
-      <p>
-        Closing a perception–planning loop end-to-end forced honesty about
-        every layer. The simulator caught what the controller would not;
-        the image stack caught what the simulator could not; and the
-        planner had to be conservative about what it could trust from
-        either. Useful preparation for the kind of co-design that hardware
-        accelerators for inference workloads also demand — knowing where
-        the slack lives.
-      </p>
-    </section>
-
-    <nav class="next-prev">
-      <a href="cubesat.html">
-        <div class="label">← PREVIOUS</div>
-        <div class="name">APSCO <em>CubeSat</em></div>
+  <div class="subpage-layout">
+    <aside class="subpage-sidebar">
+      <a class="back-link" href="../index.html">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        Back to Portfolio
       </a>
-      <a href="birds-x.html">
-        <div class="label">NEXT →</div>
-        <div class="name">BIRDS-X <em>APRS Payload</em></div>
-      </a>
-    </nav>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">On this page</div>
+      <nav class="subpage-nav">
+        <a href="#brief">Project Brief</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#lessons">Lessons</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="sidebar__section-title">Project</div>
+      <div class="sidebar__tags">
+        <span class="sidebar__tag">P-01</span>
+        <span class="sidebar__tag">FYDP</span>
+        <span class="sidebar__tag">ROS</span>
+        <span class="sidebar__tag">PX4</span>
+        <span class="sidebar__tag">C++</span>
+        <span class="sidebar__tag">Python</span>
+      </div>
+    </aside>
 
-    <footer class="foot">
-      <h2>Curious to <em>discuss</em>?</h2>
-      <p class="sub">Always interested in autonomy, perception and aerial robotics.</p>
-      <div class="contacts">
-        <div>
-          <div class="lbl">[ Email ]</div>
-          <a class="val" href="mailto:alhossainshawn@gmail.com">alhossainshawn@gmail.com</a>
+    <main class="subpage-content" id="main-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="../index.html#projects">Projects</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>Autonomous Aerial Survey Platform</span>
+      </div>
+
+      <div class="subpage-header">
+        <div class="tags-row" style="margin-bottom: 0.75rem;">
+          <span class="badge badge--green">Active</span>
+          <span class="tag">P-01</span>
+          <span class="tag">Final Year Design Project</span>
         </div>
-        <div>
-          <div class="lbl">[ LinkedIn ]</div>
-          <a class="val" href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">/in/al-hossain-shawn</a>
-        </div>
-        <div>
-          <div class="lbl">[ Phone ]</div>
-          <div class="val">+880 1303-236292</div>
-        </div>
-        <div>
-          <div class="lbl">[ Location ]</div>
-          <div class="val">Dhaka 1212, BD</div>
+        <h1>Autonomous Aerial <em>Survey</em> Platform</h1>
+        <div class="subpage-meta">
+          <span>Final Year Design Project</span>
+          <span>Jan 2025 – Dec 2025</span>
+          <span>BRAC University · EEE</span>
         </div>
       </div>
-      <div class="botbar">
-        <span>© 2026 · AL HOSSAIN SHAWN · DWG-AHS-AAS-01 · REV A</span>
-        <span class="ok">● PROCESS EXITED 0</span>
-      </div>
-    </footer>
 
+      <div class="prose">
+        <p>An end-to-end pipeline for <em>autonomous aerial survey</em> — flight simulation in the loop, on-board image processing, and mission-level automation closing the loop between sensor and plan.</p>
+
+        <table class="spec-table">
+          <tr><td>Type</td><td>Autonomous aerial platform</td></tr>
+          <tr><td>Class</td><td>Final Year Design Project</td></tr>
+          <tr><td>Platform</td><td>ROS · PX4</td></tr>
+          <tr><td>Payload</td><td>Thermal / HD imaging</td></tr>
+          <tr><td>Firmware</td><td>C++ · Python</td></tr>
+        </table>
+
+        <h2 id="brief">Project Brief</h2>
+        <p>Survey drones are still mostly piloted — a human flies the grid, a human sifts the imagery. This project asks how much of that loop can be moved into the platform itself, by combining a flight simulator (for training and verification), a real-time image processing stack (for on-board interpretation), and a mission planner (for adapting the survey while it is happening).</p>
+
+        <h2 id="pipeline">The Three-Layer Pipeline</h2>
+        <ul>
+          <li><strong>Flight Simulation (SIM)</strong> — Drone dynamics simulated in the loop, used to develop and verify the control law and survey planner before any field test. PX4 SITL with ROS integration.</li>
+          <li><strong>Image Processing (CV)</strong> — On-board imagery pipeline tuned for survey workloads: feature extraction and target detection feeding the autonomy layer. Thermal and visible-spectrum fusion.</li>
+          <li><strong>Mission Automation (AUT)</strong> — Mission planner that decides where to look next based on what the image stack reports — closing the loop in flight, adapting waypoints based on findings.</li>
+        </ul>
+
+        <h2 id="lessons">What It Taught Me</h2>
+        <p>Closing a perception–planning loop end-to-end forces honesty about every layer. The simulator catches what the controller would not; the image stack catches what the simulator cannot; and the planner must be conservative about what it can trust from either. This kind of co-design thinking — knowing where the slack lives — transfers directly to hardware accelerator design for inference workloads.</p>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap;">
+        <a href="cubesat.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem;">
+          <span>← Previous</span>
+          <span style="color: var(--text-heading); font-weight: 600;">APSCO CubeSat</span>
+        </a>
+        <a href="birds-x.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem; text-align: right;">
+          <span>Next →</span>
+          <span style="color: var(--text-heading); font-weight: 600;">BIRDS-X APRS Payload</span>
+        </a>
+      </div>
+    </main>
   </div>
-</div>
 
-<script src="../interactive.js" defer></script>
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2026 Al Hossain Shawn &nbsp;·&nbsp; <a href="../index.html">Portfolio</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+
+  <script src="../interactive.js" defer></script>
 </body>
 </html>

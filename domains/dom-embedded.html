@@ -1,229 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Embedded Systems &amp; Robotics — Al Hossain Shawn</title>
-<meta name="description" content="Embedded systems and robotics — autonomous navigation, CubeSat avionics, microcontroller integration and resource-constrained system design." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="../styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Embedded Systems &amp; Robotics — Al Hossain Shawn</title>
+  <meta name="description" content="Embedded systems and robotics — autonomous navigation, CubeSat avionics, microcontroller integration and resource-constrained system design." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
-<!-- Page-transition curtain (covers from first paint; lifted by interactive.js) -->
-<div class="pt-curtain" aria-hidden="true">
-  <div class="pt-panels"><span></span><span></span><span></span><span></span><span></span></div>
-  <div class="pt-center">
-    <div class="pt-mark">A<b>H</b>S</div>
-    <div class="pt-bar"><i></i></div>
-    <div class="pt-count">000</div>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
+      <nav class="site-nav">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#research" class="active">Research</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav__drawer">
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <div class="mobile-nav__title">Al Hossain Shawn</div>
+      <hr class="mobile-nav__divider" />
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#research">Research</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#publications">Publications</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
   </div>
-</div>
 
-<div class="scroll-progress"></div>
-
-<!-- Cursor follower -->
-<div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
-<div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
-
-<div class="grid-pulse"></div>
-
-<div id="icon-defs" hidden></div>
-<script>
-fetch('../icons.svg').then(r => r.text()).then(svg => {
-  const el = document.getElementById('icon-defs');
-  if (el) el.innerHTML = svg;
-});
-</script>
-
-<div class="page">
-  <div class="frame">
-
-    <header class="titleblock">
-      <div>
-        <span class="blink"></span>
-        <span class="brand">A.H. Shawn</span>
-      </div>
-      <div class="nav">
-        <a href="../index.html#research" class="current">RESEARCH</a>
-        <a href="../index.html#projects">PROJECTS</a>
-        <a href="../index.html#publications">PAPERS</a>
-        <a href="../index.html#contact">CONTACT</a>
-      </div>
-      <div>Sheet<b>DOM-04</b></div>
-      <div>Class<b>Domain</b></div>
-      <div>Drawing<b>AHS-DOM-EMB</b></div>
-    </header>
-
-    <a class="back-link" href="../index.html">← BACK TO INDEX</a>
-
-    <section class="detail-hero">
-      <div class="kicker">
-        <svg class="ico"><use href="#i-drone"/></svg>
-        <span class="id">§ DOM-04</span>
-        <span>·</span>
-        <span>Applied Domain</span>
-        <span>·</span>
-        <span>Robots &amp; spacecraft</span>
-      </div>
-
-      <h1>Embedded Systems &amp; <em>Robotics</em></h1>
-
-      <p class="lead">
-        Compute that <em>moves</em> — autonomous platforms, CubeSat avionics
-        and microcontroller systems where the design constraints are joules,
-        bytes and grams, all at once.
-      </p>
-
-      <div class="detail-meta">
-        <div>Focus<b>Autonomy · Avionics</b></div>
-        <div>Targets<b>Drones · CubeSats · Rovers</b></div>
-        <div>Scope<b>Sensor fusion · Control</b></div>
-        <div>Status<b>● Past + ongoing</b></div>
-      </div>
-    </section>
-
-    <section class="detail-body">
-      <h2><span class="num">§ 01 — Overview</span><br/>Compute that <em>lives</em> somewhere</h2>
-      <p>
-        Embedded engineering is what happens when you take everything else and
-        force it through a 32-bit microcontroller, a 2 W power budget, and a
-        bus on the other side of the satellite. It rewards designs that respect
-        their constraints — and punishes anything that doesn't.
-      </p>
-      <p>
-        The work here spans <em>autonomous flying platforms</em>, <em>planetary
-        rovers</em>, <em>quadruped mechanisms</em> and <em>CubeSat avionics</em>
-        — different bodies, but the same underlying problem: sense, decide, act,
-        without dropping a frame.
-      </p>
-    </section>
-
-    <section class="detail-body">
-      <h2><span class="num">§ 02 — Sub-areas</span><br/>What this <em>covers</em></h2>
-
-      <div class="subsystem-grid">
-        <div>
-          <div class="id">SUB-01</div>
-          <div class="name">Autonomous Navigation</div>
-          <div class="desc">Locomotion algorithms and control laws for aerial and ground platforms — closing the perception–planning loop on-board.</div>
-        </div>
-        <div>
-          <div class="id">SUB-02</div>
-          <div class="name">CubeSat Avionics</div>
-          <div class="desc">EPS, OBC, comms and ADCS subsystems sized for the bus, the orbit and the team building it.</div>
-        </div>
-        <div>
-          <div class="id">SUB-03</div>
-          <div class="name">Sensor Fusion</div>
-          <div class="desc">IMU, sun-sensor and camera streams combined into pose estimates that survive resource budgets and noise.</div>
-        </div>
-        <div>
-          <div class="id">SUB-04</div>
-          <div class="name">Real-Time Data Pipelines</div>
-          <div class="desc">Embedded data paths from sensor → processing → telemetry — bounded latency, predictable behaviour.</div>
-        </div>
-        <div>
-          <div class="id">SUB-05</div>
-          <div class="name">Microcontroller Integration</div>
-          <div class="desc">System integration on resource-constrained MCUs — peripherals, scheduling and power-aware firmware.</div>
-        </div>
-        <div>
-          <div class="id">SUB-06</div>
-          <div class="name">Mechanical Co-design</div>
-          <div class="desc">Working alongside the structural team — quadruped mechanisms, CubeSat enclosures, payload accommodation.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="detail-body">
-      <h2><span class="num">§ 03 — Active &amp; past threads</span><br/>What <em>flew</em></h2>
-
-      <div class="detail-bullets">
-        <a style="text-decoration:none;color:inherit" href="../projects/aerial-survey.html">
-          <div class="label">+ P-01 · AUTONOMOUS AERIAL SURVEY</div>
-          <div class="text">Final Year Design Project — flight simulation, image processing and survey automation in one autonomy stack. <strong style="color:var(--accent)">[ READ → ]</strong></div>
-        </a>
-        <a style="text-decoration:none;color:inherit" href="../projects/cubesat.html">
-          <div class="label">+ P-02 · APSCO 3U CUBESAT</div>
-          <div class="text">End-to-end 3U CubeSat — EPS, OBC, comms, ADCS, antenna and ground station. Led as team lead, BD-BRACU Mavericks. <strong style="color:var(--accent)">[ READ → ]</strong></div>
-        </a>
-        <a style="text-decoration:none;color:inherit" href="../projects/birds-x.html">
-          <div class="label">+ P-03 · BIRDS-X APRS PAYLOAD</div>
-          <div class="text">APRS payload focused on energy-transition messaging — Phase 1 winner of the BIRDS-X competition. <strong style="color:var(--accent)">[ READ → ]</strong></div>
-        </a>
-      </div>
-    </section>
-
-    <section class="detail-body">
-      <h2><span class="num">§ 04 — Toolchain</span><br/>What I <em>reach for</em></h2>
-
-      <div class="subsystem-grid">
-        <div>
-          <div class="id">TOOL</div>
-          <div class="name">MATLAB &amp; Simulink</div>
-          <div class="desc">Control law design, sensor-fusion prototyping, and simulation-in-the-loop.</div>
-        </div>
-        <div>
-          <div class="id">TOOL</div>
-          <div class="name">Proteus / LTSpice</div>
-          <div class="desc">Mixed-signal embedded validation before hardware spin-up.</div>
-        </div>
-        <div>
-          <div class="id">TOOL</div>
-          <div class="name">SOLIDWORKS / Fusion 360</div>
-          <div class="desc">Mechanical accommodation and structural design alongside the electronics.</div>
-        </div>
-        <div>
-          <div class="id">TOOL</div>
-          <div class="name">KiCad / Altium</div>
-          <div class="desc">PCB design for payload, OBC and ground-station hardware.</div>
-        </div>
-      </div>
-    </section>
-
-    <nav class="next-prev">
-      <a href="dom-vlsi.html">
-        <div class="label">← PREVIOUS</div>
-        <div class="name">VLSI &amp; <em>IC Design</em></div>
+  <div class="subpage-layout">
+    <aside class="subpage-sidebar">
+      <a class="back-link" href="../index.html">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        Back to Portfolio
       </a>
-      <a href="../index.html">
-        <div class="label">BACK TO →</div>
-        <div class="name"><em>Index</em></div>
-      </a>
-    </nav>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">On this page</div>
+      <nav class="subpage-nav">
+        <a href="#overview">Overview</a>
+        <a href="#subareas">Sub-areas</a>
+        <a href="#projects">Projects</a>
+        <a href="#toolchain">Toolchain</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">Other Domains</div>
+      <nav class="subpage-nav">
+        <a href="dom-fpga.html">FPGA &amp; HLS</a>
+        <a href="dom-device-physics.html">Device Physics</a>
+        <a href="dom-vlsi.html">VLSI &amp; IC Design</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="sidebar__section-title">Domain</div>
+      <div class="sidebar__tags">
+        <span class="sidebar__tag">DOM-04</span>
+        <span class="sidebar__tag">Embedded</span>
+        <span class="sidebar__tag">ROS</span>
+        <span class="sidebar__tag">PX4</span>
+        <span class="sidebar__tag">CubeSat</span>
+      </div>
+    </aside>
 
-    <footer class="foot">
-      <h2>Talk <em>shop</em>?</h2>
-      <p class="sub">Open to small-satellite work, robotics, and embedded-systems collaborations.</p>
-      <div class="contacts">
-        <div>
-          <div class="lbl"><svg class="ico"><use href="#i-mail"/></svg>[ Email ]</div>
-          <a class="val" href="mailto:alhossainshawn@gmail.com">alhossainshawn@gmail.com</a>
+    <main class="subpage-content" id="main-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="../index.html#interests">Research Interests</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>Embedded Systems &amp; Robotics</span>
+      </div>
+
+      <div class="subpage-header">
+        <div class="tags-row" style="margin-bottom: 0.75rem;">
+          <span class="badge badge--blue">Applied Domain</span>
+          <span class="tag">DOM-04</span>
         </div>
-        <div>
-          <div class="lbl"><svg class="ico"><use href="#i-linkedin"/></svg>[ LinkedIn ]</div>
-          <a class="val" href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">/in/al-hossain-shawn</a>
-        </div>
-        <div>
-          <div class="lbl"><svg class="ico"><use href="#i-phone"/></svg>[ Phone ]</div>
-          <div class="val">+880 1303-236292</div>
-        </div>
-        <div>
-          <div class="lbl"><svg class="ico"><use href="#i-pin"/></svg>[ Location ]</div>
-          <div class="val">Dhaka 1212, BD</div>
+        <h1>Embedded Systems &amp; <em>Robotics</em></h1>
+        <div class="subpage-meta">
+          <span>Platforms: Drones · CubeSats · Rovers</span>
+          <span>Focus: Autonomy · Avionics · Sensor Fusion</span>
         </div>
       </div>
-      <div class="botbar">
-        <span>© 2026 · AL HOSSAIN SHAWN · DWG-AHS-DOM-EMB · REV A</span>
-        <span class="ok">● PROCESS EXITED 0</span>
-      </div>
-    </footer>
 
+      <div class="prose">
+        <p>Compute that <em>moves</em> — autonomous platforms, CubeSat avionics, and microcontroller systems where the design constraints are joules, bytes, and grams, all at once.</p>
+
+        <h2 id="overview">Overview</h2>
+        <p>Embedded engineering is what happens when you take everything else and force it through a 32-bit microcontroller, a 2 W power budget, and a bus on the other side of a satellite. It rewards designs that respect their constraints — and punishes anything that doesn't.</p>
+        <p>The work here spans <em>autonomous flying platforms</em>, <em>planetary rovers</em>, <em>quadruped mechanisms</em>, and <em>CubeSat avionics</em> — different bodies, but the same underlying problem: sense, decide, act, without dropping a frame.</p>
+
+        <h2 id="subareas">Sub-areas</h2>
+        <ul>
+          <li><strong>Autonomous Navigation (SUB-01)</strong> — Locomotion algorithms and control laws for aerial and ground platforms — closing the perception–planning loop on-board.</li>
+          <li><strong>CubeSat Avionics (SUB-02)</strong> — EPS, OBC, comms, and ADCS subsystems sized for the bus, the orbit, and the team building it.</li>
+          <li><strong>Sensor Fusion (SUB-03)</strong> — IMU, sun-sensor, and camera streams combined into pose estimates that survive resource budgets and noise.</li>
+          <li><strong>Real-Time Data Pipelines (SUB-04)</strong> — Embedded data paths from sensor → processing → telemetry with bounded latency and predictable behaviour.</li>
+          <li><strong>Microcontroller Integration (SUB-05)</strong> — System integration on resource-constrained MCUs — peripherals, scheduling, and power-aware firmware.</li>
+          <li><strong>Mechanical Co-design (SUB-06)</strong> — Working alongside structural teams on quadruped mechanisms, CubeSat enclosures, and payload accommodation.</li>
+        </ul>
+
+        <h2 id="projects">Related Projects</h2>
+        <ul>
+          <li><strong><a href="../projects/aerial-survey.html">P-01 — Autonomous Aerial Survey</a></strong>: Final Year Design Project — flight simulation, image processing, and survey automation in one autonomy stack.</li>
+          <li><strong><a href="../projects/cubesat.html">P-02 — APSCO 3U CubeSat</a></strong>: End-to-end 3U CubeSat — EPS, OBC, comms, ADCS, antenna, and ground station. Led as team lead, BD-BRACU Mavericks.</li>
+          <li><strong><a href="../projects/birds-x.html">P-03 — BIRDS-X APRS Payload</a></strong>: APRS payload focused on energy-transition messaging — Phase 1 winner of the BIRDS-X competition.</li>
+        </ul>
+
+        <h2 id="toolchain">Toolchain</h2>
+        <table class="spec-table">
+          <tr><td>MATLAB / Simulink</td><td>Control law design, sensor-fusion prototyping, and simulation-in-the-loop.</td></tr>
+          <tr><td>ROS / PX4</td><td>Autonomous drone platform development and simulation.</td></tr>
+          <tr><td>Proteus / LTSpice</td><td>Mixed-signal embedded validation before hardware spin-up.</td></tr>
+          <tr><td>SOLIDWORKS / Fusion 360</td><td>Mechanical accommodation and structural design alongside electronics.</td></tr>
+          <tr><td>KiCad / Altium</td><td>PCB design for payload, OBC, and ground-station hardware.</td></tr>
+        </table>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap;">
+        <a href="dom-vlsi.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem;">
+          <span>← Previous Domain</span>
+          <span style="color: var(--text-heading); font-weight: 600;">VLSI &amp; IC Design</span>
+        </a>
+        <a href="../index.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem; text-align: right;">
+          <span>Back to →</span>
+          <span style="color: var(--text-heading); font-weight: 600;">Portfolio Index</span>
+        </a>
+      </div>
+    </main>
   </div>
-</div>
 
-<script src="../interactive.js" defer></script>
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2026 Al Hossain Shawn &nbsp;·&nbsp; <a href="../index.html">Portfolio</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+
+  <script src="../interactive.js" defer></script>
 </body>
 </html>
