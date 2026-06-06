@@ -53,7 +53,7 @@
   --status-blue-bg:   #dbeafe;
 
   /* Layout */
-  --sidebar-w:    300px;
+  --sidebar-w:    360px;
   --content-max:  1200px;
   --gap:          2rem;
   --section-gap:  4rem;
@@ -265,7 +265,7 @@ code, .mono {
   padding: 2.5rem 4rem;
   display: grid;
   grid-template-columns: var(--sidebar-w) 1fr;
-  gap: 4rem;
+  gap: 2.5rem;
   align-items: start;
 }
 
@@ -291,9 +291,8 @@ code, .mono {
   justify-content: center;
 }
 .sidebar__photo {
-  width: 100%;
-  max-width: 100%;
-  aspect-ratio: 4 / 5;
+  width: 200px;
+  height: 250px;
   border-radius: 8px;
   object-fit: cover;
   object-position: top center;
@@ -398,8 +397,8 @@ code, .mono {
 .hero {
   background: var(--bg-hero);
   border-radius: 12px;
-  padding: 3rem 3rem 2.5rem;
-  margin-bottom: 3rem;
+  padding: 2.2rem 2.5rem;
+  margin-bottom: 2rem;
   position: relative;
   overflow: hidden;
   color: #fff;
@@ -1292,7 +1291,7 @@ code, .mono {
   padding: 2.5rem 4rem;
   display: grid;
   grid-template-columns: var(--sidebar-w) 1fr;
-  gap: 4rem;
+  gap: 2.5rem;
   align-items: start;
 }
 
