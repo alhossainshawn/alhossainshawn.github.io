@@ -54,7 +54,7 @@
 
   /* Layout */
   --sidebar-w:    260px;
-  --content-max:  860px;
+  --content-max:  1200px;
   --gap:          2rem;
   --section-gap:  4rem;
 
@@ -423,7 +423,7 @@ code, .mono {
   color: rgba(255,255,255,0.75);
   font-style: italic;
   margin-bottom: 2rem;
-  max-width: 500px;
+  max-width: 700px;
   line-height: 1.6;
 }
 
