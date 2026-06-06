@@ -53,7 +53,7 @@
   --status-blue-bg:   #dbeafe;
 
   /* Layout */
-  --sidebar-w:    260px;
+  --sidebar-w:    300px;
   --content-max:  1200px;
   --gap:          2rem;
   --section-gap:  4rem;
@@ -285,20 +285,6 @@ code, .mono {
 .sidebar::-webkit-scrollbar {
   display: none;
 }
-.sidebar:hover {
-  scrollbar-width: thin;
-}
-.sidebar:hover::-webkit-scrollbar {
-  display: block;
-  width: 4px;
-}
-.sidebar::-webkit-scrollbar-track {
-  background: transparent;
-}
-.sidebar::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 4px;
-}
 
 .sidebar__photo-wrap {
   display: flex;
@@ -306,7 +292,7 @@ code, .mono {
 }
 .sidebar__photo {
   width: 100%;
-  max-width: 260px;
+  max-width: 100%;
   aspect-ratio: 4 / 5;
   border-radius: 8px;
   object-fit: cover;
@@ -1324,20 +1310,6 @@ code, .mono {
 }
 .subpage-sidebar::-webkit-scrollbar {
   display: none;
-}
-.subpage-sidebar:hover {
-  scrollbar-width: thin;
-}
-.subpage-sidebar:hover::-webkit-scrollbar {
-  display: block;
-  width: 4px;
-}
-.subpage-sidebar::-webkit-scrollbar-track {
-  background: transparent;
-}
-.subpage-sidebar::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 4px;
 }
 
 .back-link {
