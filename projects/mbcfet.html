@@ -124,33 +124,68 @@
           </figure>
         </div>
 
-        <h3>2. Transfer &amp; Subthreshold Characteristics</h3>
-        <p>Numerical solutions of the quantum-corrected drift-diffusion transport equation evaluate short-channel immunity. Density-gradient quantum models account for carrier confinement and peak concentration shift away from the oxide interfaces. Lombardi CVT mobility models compute field-dependent and surface-roughness scattering.</p>
+        <h3>2. Transfer &amp; Saturation Characteristics</h3>
+        <p>Numerical solutions of the quantum-corrected drift-diffusion transport equation evaluate short-channel immunity. Density-gradient quantum models account for carrier confinement and peak concentration shift away from the oxide interfaces. Lombardi CVT mobility models compute field-dependent and surface-roughness scattering. Below are the transfer characteristics plotted under linear and saturation drain biases.</p>
         
         <div class="simulation-gallery">
           <figure>
             <img src="../assets/projects/mbcfet/idvg_linear.png" alt="Transfer Characteristics (Id-Vg) - Linear" />
-            <figcaption>Figure 3: Simulated linear transfer characteristics ($I_d-V_g$) comparing drain currents under low ($V_{ds}=0.05\text{ V}$) and high ($V_{ds}=0.75\text{ V}$) bias.</figcaption>
+            <figcaption>Figure 3: Simulated linear transfer characteristics ($I_d-V_g$) under a low linear drain bias ($V_{ds}=0.05\text{ V}$).</figcaption>
           </figure>
           <figure>
-            <img src="../assets/projects/mbcfet/subthreshold_results%20(0.05%20Vd).png" alt="Subthreshold Leakage Characteristics" />
-            <figcaption>Figure 4: Simulated subthreshold leakage characteristics under $V_{ds}=0.05\text{ V}$ bias, illustrating the near-ideal subthreshold slope (SS).</figcaption>
+            <img src="../assets/projects/mbcfet/idvg_saturation.png" alt="Transfer Characteristics (Id-Vg) - Saturation" />
+            <figcaption>Figure 4: Simulated saturation transfer characteristics ($I_d-V_g$) under a high saturation drain bias ($V_{ds}=0.7\text{ V}$).</figcaption>
           </figure>
         </div>
 
-        <h3>3. Output &amp; Saturation Characteristics</h3>
-        <p>Simulated output family curves ($I_d-V_d$) at varying gate biases show current saturation and suppression of short-channel effects. The gate maintains excellent electrostatic control, suppressing DIBL and leakage paths.</p>
+        <h3>3. Subthreshold &amp; Output Characteristics</h3>
+        <p>Simulated output family curves ($I_d-V_d$) at varying gate biases show current saturation and suppression of short-channel effects. The subthreshold logarithmic transfer curve demonstrates gate-all-around volume inversion and electrostatic shielding barrier control.</p>
 
         <div class="simulation-gallery">
           <figure>
-            <img src="../assets/projects/mbcfet/idvd_outputs.png" alt="Output Family Curves (Id-Vd)" />
-            <figcaption>Figure 5: Output family curves ($I_d-V_d$) showing drain current saturation and suppression of channel-length modulation.</figcaption>
+            <img src="../assets/projects/mbcfet/subthreshold%20(0.05%20Vd).png" alt="Subthreshold Logarithmic Transfer Curves" />
+            <figcaption>Figure 5: Simulated subthreshold logarithmic transfer curve at $V_{ds}=0.05\text{ V}$ used to extract subthreshold swing and leakage current metrics.</figcaption>
           </figure>
           <figure>
-            <img src="../assets/projects/mbcfet/idvg_saturation.png" alt="Saturation Transfer Curves" />
-            <figcaption>Figure 6: Saturation transfer curves showing excellent subthreshold swing and gate control at higher drain bias.</figcaption>
+            <img src="../assets/projects/mbcfet/idvd_outputs.png" alt="Output Family Curves (Id-Vd)" />
+            <figcaption>Figure 6: Output family curves ($I_d-V_d$) showing drain current saturation and suppression of channel-length modulation.</figcaption>
           </figure>
         </div>
+
+        <h3>4. Extracted Subthreshold Parameters &amp; Analysis</h3>
+        <p>Instead of displaying raw Silvaco log outputs, the key electrical metrics extracted under linear drain bias ($V_{ds}=0.05\text{ V}$) using Constant Current (CC) and threshold-current methods are summarized and analyzed below:</p>
+
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Extracted Parameter</th>
+              <th>Simulated Value</th>
+              <th>Physical Extraction Method &amp; Analysis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Threshold Voltage ($V_{th}$)</strong></td>
+              <td>$0.291\text{ V}$</td>
+              <td>Extracted at a constant drain current criterion of $I_d = 10^{-7}\text{ A}$ from the $I_d-V_g$ curve. This demonstrates a well-controlled turn-on voltage suitable for low-power sub-1V logic.</td>
+            </tr>
+            <tr>
+              <td><strong>ON-State Current ($I_{on}$)</strong></td>
+              <td>$7.60\times 10^{-3}\text{ A}$</td>
+              <td>Extracted at the maximum gate sweep bias of $V_g = 0.75\text{ V}$. Shows excellent current drive capability driven by parallel conduction across the three stacked nanosheet channels.</td>
+            </tr>
+            <tr>
+              <td><strong>OFF-State Leakage Current ($I_{off}$)</strong></td>
+              <td>$2.08\times 10^{-12}\text{ A}$</td>
+              <td>Extracted at the standby gate bias of $V_g = 0.0\text{ V}$. Highlights the near-complete electrostatic closure and leakage suppression of the Gate-All-Around gate oxide.</td>
+            </tr>
+            <tr>
+              <td><strong>Current Ratio ($I_{on}/I_{off}$)</strong></td>
+              <td>$3.65\times 10^9$</td>
+              <td>Computed directly from the extracted values. The ratio of nearly 9 orders of magnitude indicates extremely high switching efficiency, making this design highly suited for energy-efficient logic circuits.</td>
+            </tr>
+          </tbody>
+        </table>
 
         <h2 id="results">Geometric Parameter Analysis &amp; Results</h2>
         <p>Our sweeps show that the nanosheet thickness ($T_{ns}$) is the single most critical parameter in suppressing short-channel effects. When $T_{ns}$ increases beyond 7 nm, subthreshold leakage spikes due to loss of volume inversion in the center of the sheet. Below is the summarized electrical telemetry comparing FinFET and MBCFET architectures at a scaled 12 nm gate length.</p>
