@@ -130,6 +130,17 @@
           </li>
         </ul>
 
+        <div class="simulation-gallery" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+          <figure>
+            <img src="../assets/projects/aerial-survey/approach1_sys.png" alt="Design Approach 1 Block Diagram" />
+            <figcaption>Figure 1: Systematic overview of Design Approach 1 (on-board edge compute, sensing, and control loops).</figcaption>
+          </figure>
+          <figure>
+            <img src="../assets/projects/aerial-survey/approach2_sys.png" alt="Design Approach 2 Block Diagram" />
+            <figcaption>Figure 2: Systematic overview of Design Approach 2 (data capture offloaded to ground base-station over local LAN).</figcaption>
+          </figure>
+        </div>
+
         <div style="overflow-x: auto; margin: 1.5rem 0;">
           <table class="spec-table responsive-table">
             <thead>
@@ -174,61 +185,81 @@
           </table>
         </div>
 
+        <div class="simulation-gallery" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+          <figure>
+            <img src="../assets/projects/aerial-survey/approach1_overview.png" alt="Design Approach 1 Details" />
+            <figcaption>Figure 3: Interconnection detailing of the edge-processing, camera, and radio links under Approach 1.</figcaption>
+          </figure>
+          <figure>
+            <img src="../assets/projects/aerial-survey/approach2_overview.png" alt="Design Approach 2 Details" />
+            <figcaption>Figure 4: Interconnection detailing of the image buffer offloading and docking station under Approach 2.</figcaption>
+          </figure>
+        </div>
+
         <h2 id="hardware">Hardware Components</h2>
         <p>The airframe and payload subsystems were selected to balance mechanical durability and electronic modularity. Full carbon fiber structural components minimize parasitic weight, maximizing flight time on a 4S LiPo power configuration.</p>
 
-        <div class="simulation-gallery" style="margin-bottom: 2rem;">
-          <div style="overflow-x: auto; width: 100%;">
-            <table class="spec-table responsive-table" style="margin: 0; width: 100%;">
-              <thead>
-                <tr>
-                  <th>Component</th>
-                  <th>Model Selection</th>
-                  <th>Key Technical Specifications</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td data-label="Component"><strong>Compute Platform</strong></td>
-                  <td data-label="Model Selection">Raspberry Pi 4 Model B</td>
-                  <td data-label="Key Specifications">Broadcom BCM2711, Quad-core Cortex-A72 @ 1.5GHz, 4GB LPDDR4, 15W TDP, 28nm CMOS</td>
-                </tr>
-                <tr>
-                  <td data-label="Component"><strong>Flight Controller</strong></td>
-                  <td data-label="Model Selection">Pixhawk 2.4.8</td>
-                  <td data-label="Key Specifications">32-bit STM32F427 Cortex-M4 @ 168MHz, LSM303D IMU, MS5611 Barometer, MAVLink support</td>
-                </tr>
-                <tr>
-                  <td data-label="Component"><strong>Camera Sensor</strong></td>
-                  <td data-label="Model Selection">Raspberry Pi Camera V2</td>
-                  <td data-label="Key Specifications">8MP Sony IMX219PQ, Back-Illuminated CMOS, NoIR and sRGB variants, 1080p @ 30fps</td>
-                </tr>
-                <tr>
-                  <td data-label="Component"><strong>Navigation/Compass</strong></td>
-                  <td data-label="Model Selection">Beitian BN-880</td>
-                  <td data-label="Key Specifications">U-blox M8030-KT GPS/GLONASS/BeiDou receiver, Honeywell HMC5883L I2C triple-axis compass</td>
-                </tr>
-                <tr>
-                  <td data-label="Component"><strong>BLDC Motors</strong></td>
-                  <td data-label="Model Selection">T-Motor AS2820 KV880</td>
-                  <td data-label="Key Specifications">880kV rating, 12N14P configuration, 3-4S support, 626W max power, 136g weight</td>
-                </tr>
-                <tr>
-                  <td data-label="Component"><strong>Airframe Frame</strong></td>
-                  <td data-label="Model Selection">LJI X500</td>
-                  <td data-label="Key Specifications">500mm diagonal wheelbase, 3K full carbon fiber construction, 453g bare frame weight</td>
-                </tr>
-                <tr>
-                  <td data-label="Component"><strong>Flight Data Recorder</strong></td>
-                  <td data-label="Model Selection">ESP32 WROOM32</td>
-                  <td data-label="Key Specifications">Xtensa dual-core LX6, 520kB SRAM, logging coordinates/headings to local micro SD over SPI</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div style="overflow-x: auto; width: 100%; margin-bottom: 2rem;">
+          <table class="spec-table responsive-table" style="margin: 0; width: 100%;">
+            <thead>
+              <tr>
+                <th>Component</th>
+                <th>Model Selection</th>
+                <th>Key Technical Specifications</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Component"><strong>Compute Platform</strong></td>
+                <td data-label="Model Selection">Raspberry Pi 4 Model B</td>
+                <td data-label="Key Specifications">Broadcom BCM2711, Quad-core Cortex-A72 @ 1.5GHz, 4GB LPDDR4, 15W TDP, 28nm CMOS</td>
+              </tr>
+              <tr>
+                <td data-label="Component"><strong>Flight Controller</strong></td>
+                <td data-label="Model Selection">Pixhawk 2.4.8</td>
+                <td data-label="Key Specifications">32-bit STM32F427 Cortex-M4 @ 168MHz, LSM303D IMU, MS5611 Barometer, MAVLink support</td>
+              </tr>
+              <tr>
+                <td data-label="Component"><strong>Camera Sensor</strong></td>
+                <td data-label="Model Selection">Raspberry Pi Camera V2</td>
+                <td data-label="Key Specifications">8MP Sony IMX219PQ, Back-Illuminated CMOS, NoIR and sRGB variants, 1080p @ 30fps</td>
+              </tr>
+              <tr>
+                <td data-label="Component"><strong>Navigation/Compass</strong></td>
+                <td data-label="Model Selection">Beitian BN-880</td>
+                <td data-label="Key Specifications">U-blox M8030-KT GPS/GLONASS/BeiDou receiver, Honeywell HMC5883L I2C triple-axis compass</td>
+              </tr>
+              <tr>
+                <td data-label="Component"><strong>BLDC Motors</strong></td>
+                <td data-label="Model Selection">T-Motor AS2820 KV880</td>
+                <td data-label="Key Specifications">880kV rating, 12N14P configuration, 3-4S support, 626W max power, 136g weight</td>
+              </tr>
+              <tr>
+                <td data-label="Component"><strong>Airframe Frame</strong></td>
+                <td data-label="Model Selection">LJI X500</td>
+                <td data-label="Key Specifications">500mm diagonal wheelbase, 3K full carbon fiber construction, 453g bare frame weight</td>
+              </tr>
+              <tr>
+                <td data-label="Component"><strong>Flight Data Recorder</strong></td>
+                <td data-label="Model Selection">ESP32 WROOM32</td>
+                <td data-label="Key Specifications">Xtensa dual-core LX6, 520kB SRAM, logging coordinates/headings to local micro SD over SPI</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
-        <h2 id="software">Software & Mapping Stack</h2>
+        <div class="simulation-gallery" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/camera_modules.png" alt="Raspberry Pi Dual Camera modules" />
+            <figcaption>Figure 5: Visible sRGB (right) and Near-IR NoIR (left) Sony IMX219 camera payload used for survey.</figcaption>
+          </figure>
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/optical_correction.png" alt="Spherical aberration chessboard correction" />
+            <figcaption>Figure 6: OpenCV chessboard calibration to estimate barrel distortion parameters for focal length scaling.</figcaption>
+          </figure>
+        </div>
+
+        <h2 id="software">Software &amp; Mapping Stack</h2>
         <p>A primary goal of the AASP software design is full independence from external web-based maps and cloud APIs, protecting sensitive infrastructure locations from remote data exposure:</p>
 
         <ul>
@@ -237,50 +268,21 @@
           <li><strong>MapLAB Deep Explorer:</strong> A Python Streamlit and Folium interactive mapping app. It provides local inspectors with a graphical dashboard to filter class faults, preview detection photos, and analyze road-tracing paths.</li>
         </ul>
 
-        <!-- Visual Schematic of Subsystem Connections -->
-        <div class="simulation-gallery" style="margin-top: 2rem; margin-bottom: 2rem;">
-          <figure style="background: var(--bg-white); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border); width: 100%;">
-            <svg viewBox="0 0 800 280" width="100%" height="auto" style="display: block; margin: 0 auto; max-width: 100%;">
-              <defs>
-                <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style="stop-color:#32b8c6;stop-opacity:1" />
-                  <stop offset="100%" style="stop-color:#21808d;stop-opacity:1" />
-                </linearGradient>
-                <linearGradient id="darkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style="stop-color:#232a3f;stop-opacity:1" />
-                  <stop offset="100%" style="stop-color:#111524;stop-opacity:1" />
-                </linearGradient>
-              </defs>
-              <!-- Core Nodes -->
-              <rect x="300" y="80" width="200" height="70" rx="8" fill="url(#blueGrad)" stroke="#1d7480" stroke-width="2" />
-              <text x="400" y="115" fill="#ffffff" font-family="'Inter', sans-serif" font-weight="600" font-size="14" text-anchor="middle">Raspberry Pi 4B</text>
-              <text x="400" y="135" fill="#e0f2f1" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">(Broadcom SoC / Edge Compute)</text>
-
-              <rect x="50" y="80" width="160" height="70" rx="8" fill="url(#darkGrad)" stroke="#232a3f" stroke-width="2" />
-              <text x="130" y="115" fill="#ffffff" font-family="'Inter', sans-serif" font-weight="600" font-size="13" text-anchor="middle">Sony IMX219 Camera</text>
-              <text x="130" y="135" fill="#8892b0" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">(NoIR / RGB Lens)</text>
-
-              <rect x="590" y="80" width="160" height="70" rx="8" fill="url(#darkGrad)" stroke="#232a3f" stroke-width="2" />
-              <text x="670" y="115" fill="#ffffff" font-family="'Inter', sans-serif" font-weight="600" font-size="13" text-anchor="middle">Pixhawk 2.4.8 FC</text>
-              <text x="670" y="135" fill="#8892b0" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">(Flight Control Loop)</text>
-
-              <rect x="300" y="200" width="200" height="60" rx="8" fill="url(#darkGrad)" stroke="#232a3f" stroke-width="2" />
-              <text x="400" y="235" fill="#ffffff" font-family="'Inter', sans-serif" font-weight="600" font-size="13" text-anchor="middle">ESP32 FDR Sub-Routine</text>
-              <text x="400" y="250" fill="#8892b0" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">(GPS / Compass SPI SD Logger)</text>
-
-              <!-- Interface Lines -->
-              <path d="M 210 115 L 300 115" stroke="#21808d" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
-              <text x="255" y="105" fill="#21808d" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">MIPI CSI-2</text>
-
-              <path d="M 500 115 L 590 115" stroke="#21808d" stroke-width="2.5" fill="none" />
-              <text x="545" y="105" fill="#21808d" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">MAVLink</text>
-
-              <path d="M 400 150 L 400 200" stroke="#21808d" stroke-width="2" fill="none" />
-              <text x="412" y="180" fill="#21808d" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="left">USART (SPI)</text>
-            </svg>
-            <figcaption style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Figure 1: High-level hardware interface routing between sensing, computing, and flight controllers.</figcaption>
+        <div class="simulation-gallery" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/mesh_generator.png" alt="Offline Data Point Mesh Generator" />
+            <figcaption>Figure 7: Data point mesh generator outputting local GIS vector coordinates on offline base tiles.</figcaption>
+          </figure>
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/verification_tool.png" alt="MapDVT Web Interface" />
+            <figcaption>Figure 8: MapDVT visualizer ingesting CSV coordinates to render georeferenced road fault locations.</figcaption>
           </figure>
         </div>
+
+        <figure style="max-width: 800px; margin: 1.5rem auto;">
+          <img src="../assets/projects/aerial-survey/deep_exploration.png" alt="MapLAB Deep Exploration Tool" style="width: 100%; border-radius: 8px; border: 1px solid var(--border);" />
+          <figcaption style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Figure 9: Streamlit-based MapLAB UI allowing inspection filters, geolocation details, and zoom options.</figcaption>
+        </figure>
 
         <h2 id="benchmarks">Simulation &amp; Benchmarks</h2>
         <p>To evaluate deep learning algorithms prior to physical deployment, the team established a simulated Raspberry Pi environment on x86_64 workstation hardware (AMD Ryzen 5 2400G host) by enforcing physical virtualization constraints. Using Linux Cgroups, each guest VM’s CPU performance was throttled by 50% to mirror the 1.8GHz clock speed limits of the ARM Cortex-A72 cores:</p>
@@ -293,52 +295,45 @@
 
         <p>This verified that the virtualized guest environments operated at approximately one-quarter of the host’s peak performance, providing a highly accurate representation of on-board Raspberry Pi telemetry.</p>
 
-        <h3>Image Classification Sweeps</h3>
-        <p>The team trained 12 separate classification backbones (ranging from light MobileNets to deep ResNet configurations) to establish a baseline of energy efficiency vs. computational complexity on the simulated ARM platform. The results of the top-performing finalists are plotted below:</p>
-
-        <div style="overflow-x: auto; margin: 1.5rem 0;">
-          <table class="spec-table responsive-table">
-            <thead>
-              <tr>
-                <th>Classification Model</th>
-                <th>VRAM Footprint</th>
-                <th>Parameter Count</th>
-                <th>Peak Power Draw (x86)</th>
-                <th>Training Time (Pi Sim)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Classification Model"><strong>MobileNetV2</strong></td>
-                <td data-label="VRAM Footprint">14 MB</td>
-                <td data-label="Parameter Count">3.5M</td>
-                <td data-label="Peak Power Draw">142.84 W</td>
-                <td data-label="Training Time">3,198.78 seconds</td>
-              </tr>
-              <tr>
-                <td data-label="Classification Model"><strong>EfficientNetB0</strong></td>
-                <td data-label="VRAM Footprint">29 MB</td>
-                <td data-label="Parameter Count">5.3M</td>
-                <td data-label="Peak Power Draw">154.65 W</td>
-                <td data-label="Training Time">6,504.66 seconds</td>
-              </tr>
-              <tr>
-                <td data-label="Classification Model"><strong>Xception</strong></td>
-                <td data-label="VRAM Footprint">88 MB</td>
-                <td data-label="Parameter Count">22.9M</td>
-                <td data-label="Peak Power Draw">156.62 W</td>
-                <td data-label="Training Time">17,506.38 seconds</td>
-              </tr>
-              <tr>
-                <td data-label="Classification Model"><strong>ResNet50V2</strong></td>
-                <td data-label="VRAM Footprint">98 MB</td>
-                <td data-label="Parameter Count">25.6M</td>
-                <td data-label="Peak Power Draw">154.65 W</td>
-                <td data-label="Training Time">19,339.26 seconds</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="simulation-gallery" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/top4_accuracy.png" alt="Training vs Validation Accuracy finalists" />
+            <figcaption>Figure 10: Training vs. validation accuracy and loss curves for the top 4 classification backbones on ARM.</figcaption>
+          </figure>
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/control_methodology.png" alt="Quadcopter Control Block Diagram" />
+            <figcaption>Figure 11: Cascaded control block diagram mapping position commands to low-level motor outputs.</figcaption>
+          </figure>
         </div>
+
+        <p>During the flight phase, the quadcopter’s trajectory was evaluated under different density survey patterns to analyze aerodynamic stability, tracking errors, and power discharge profiles. Below are the trajectory tracking sweeps of a medium density zigzag path:</p>
+
+        <div class="simulation-gallery" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/zigzag_trajectory.png" alt="Medium Density Zigzag Trajectory" />
+            <figcaption>Figure 12: Quadcopter 3D path trajectory mapping the preloaded path coordinates (red) vs. actual flight path (green).</figcaption>
+          </figure>
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/zigzag_verification.png" alt="Spline verification points" />
+            <figcaption>Figure 13: 3D verification nodes showing trajectory spline fit interpolation for smooth flight transition.</figcaption>
+          </figure>
+        </div>
+
+        <div class="simulation-gallery" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/zigzag_error_correction.png" alt="Trajectory Error Correction" />
+            <figcaption>Figure 14: Speed (top) and Yaw angle (bottom) adjustments over the zigzag distance showing error correction.</figcaption>
+          </figure>
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/aerodynamic_profile.png" alt="Aerodynamic Tracking profile" />
+            <figcaption>Figure 15: 3-axis velocity, roll, pitch, and yaw tracking profiles showing response latency under wind disturbances.</figcaption>
+          </figure>
+        </div>
+
+        <figure style="max-width: 800px; margin: 1.5rem auto;">
+          <img src="../assets/projects/aerial-survey/battery_discharge.png" alt="Battery Discharge Dynamics" style="width: 100%; border-radius: 8px; border: 1px solid var(--border);" />
+          <figcaption style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Figure 16: Battery state of charge depletion curve (top) and motor current draws (bottom) over flight duration.</figcaption>
+        </figure>
 
         <h2 id="object-detection">Object Detection &amp; Validation</h2>
         <p>Moving from pure classification to spatial localization, the team curated a dataset of <strong>12,662 high-resolution images</strong> split into training, validation, and testing partitions. To eliminate classification noise and count individual infrastructure defects, the team trained multiple object detection models from the Ultralytics YOLO ecosystem (v8n, 11n, 12n, and 12s) targeting four specific fault classes:</p>
@@ -350,58 +345,40 @@
           <li><strong>Insulator Faults:</strong> Broken ceramic shells on high-voltage power transmission systems.</li>
         </ol>
 
-        <p>A major finding during training was that training YOLO models without early stopping resulted in a sudden drop in precision and validation spikes after approximately 4,000 iterations due to overfitting on similar background frames. By implementing custom early-stopping criteria, the training halted at the optimal plateau, securing robust localization accuracy:</p>
+        <p>A major finding during training was that training YOLO models without early stopping resulted in a sudden drop in precision and validation spikes after approximately 4,000 iterations due to overfitting on similar background frames. By implementing custom early-stopping criteria, the training halted at the optimal plateau, securing robust localization accuracy.</p>
 
-        <div style="overflow-x: auto; margin: 1.5rem 0;">
-          <table class="spec-table responsive-table">
-            <thead>
-              <tr>
-                <th>Detection Backbone</th>
-                <th>Early Stopping iteration</th>
-                <th>mAP@0.5 (Confidence)</th>
-                <th>Inference Time (x86)</th>
-                <th>Inference Time (Pi Sim)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Detection Backbone"><strong>YOLOv8n</strong></td>
-                <td data-label="Early Stopping">~3,950 cycles</td>
-                <td data-label="mAP@0.5">80.2%</td>
-                <td data-label="Inference Time (x86)">3.54 ms</td>
-                <td data-label="Inference Time (Pi)">322.09 ms</td>
-              </tr>
-              <tr>
-                <td data-label="Detection Backbone"><strong>YOLO11n</strong></td>
-                <td data-label="Early Stopping">~4,120 cycles</td>
-                <td data-label="mAP@0.5">84.5%</td>
-                <td data-label="Inference Time (x86)">3.15 ms</td>
-                <td data-label="Inference Time (Pi)">326.29 ms</td>
-              </tr>
-              <tr>
-                <td data-label="Detection Backbone"><strong>YOLO12n</strong></td>
-                <td data-label="Early Stopping">~4,050 cycles</td>
-                <td data-label="mAP@0.5">85.4%</td>
-                <td data-label="Inference Time (x86)">2.66 ms</td>
-                <td data-label="Inference Time (Pi)">652.64 ms</td>
-              </tr>
-              <tr>
-                <td data-label="Detection Backbone"><strong>YOLO12s</strong></td>
-                <td data-label="Early Stopping">~2,000 cycles (Limit)</td>
-                <td data-label="mAP@0.5">78.1% (Undertrained)</td>
-                <td data-label="Inference Time (x86)">4.93 ms</td>
-                <td data-label="Inference Time (Pi)">982.16 ms</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="simulation-gallery" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/road_tracking_rgb.png" alt="Road Tracking RGB" />
+            <figcaption>Figure 17: Visual deflection detection tracking road boundaries in raw RGB camera feed.</figcaption>
+          </figure>
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/road_tracking_1bit.png" alt="Road Tracking 1-Bit" />
+            <figcaption>Figure 18: Image binarization (1-bit monochrome) to filter shadows and isolate unpaved road paths.</figcaption>
+          </figure>
         </div>
 
-        <p>The heavier <strong>YOLO12s</strong> model exhibits high theoretical capacity but requires a longer training horizon. Due to strict R&D time constraints, the training was capped at 2,000 cycles, leaving it under-optimized compared to the fully converged YOLO12n model. Therefore, <strong>YOLO12n</strong> was selected as the default operational model for deployment.</p>
+        <div class="simulation-gallery" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/shallow_angle_detection.png" alt="Shallow Angle Scanning" />
+            <figcaption>Figure 19: Shallow-angle scanning showing obstacle and person detection in flight path.</figcaption>
+          </figure>
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/detection_performance.png" alt="YOLOv12 Object Detection Output" />
+            <figcaption>Figure 20: YOLO object detection predicting bounding boxes on road cracks and debris under VMC.</figcaption>
+          </figure>
+        </div>
 
-        <h3>Optical Correction &amp; Georeferencing</h3>
-        <p>Wide-angle cameras suffer from severe barrel distortion near the lens borders, affecting distance estimation. To resolve this, a calibration algorithm uses a chessboard calibration pattern of known coordinates to calculate a correction matrix (pickled for OpenCV runtime use), correcting raw images in flight.</p>
-
-        <p>Precision landing and distance measurement assist use <strong>4x4 ArUco markers</strong>. Tracking these markers through OpenCV utilizes low computational overhead, avoiding NPU latency and securing rapid control responses during autonomous maneuvers. Additionally, geodetic position estimation was optimized through GPS calibration routines, reducing raw drift from several meters to a verified absolute error of <strong>25 centimeters</strong>.</p>
+        <div class="simulation-gallery" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/manual_override.png" alt="Manual Override" />
+            <figcaption>Figure 21: Autonomous flight interrupt triggered by detecting incoming objects, requesting operator control.</figcaption>
+          </figure>
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/measurement_assist.png" alt="OpenCV distance measurement assist" />
+            <figcaption>Figure 22: ArUco marker (4x4) tracking overlay showing distance calculations (61.2 cm) for landing.</figcaption>
+          </figure>
+        </div>
 
         <h2 id="mitigation">Mitigation &amp; Safety</h2>
         <p>Designing autonomous UAVs for dense urban environments requires strict adherence to international and local airspace safety frameworks. The AASP was built to comply with CAAB (Civil Aviation Authority of Bangladesh) Order No. 30/2020 and EASA/ICAO standards:</p>
@@ -421,6 +398,39 @@
             This overwrites the imaging cells with random noise in two passes and writes zeros over them, preventing data retrieval in the event of a drone capture.
           </li>
         </ul>
+
+        <div class="simulation-gallery" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/initial_flight_test.png" alt="Initial Airframe Prototype Hover Test" />
+            <figcaption>Figure 23: Initial carbon fiber airframe prototype hover test verifying ESC and motor responses.</figcaption>
+          </figure>
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/manual_flight_test.png" alt="Ground Station Path Tracing & Telemetry Test" />
+            <figcaption>Figure 24: Telemetry test showing real-time path coordinates plotting back to the ground control interface.</figcaption>
+          </figure>
+        </div>
+
+        <div class="simulation-gallery" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/autonomous_flight_test.png" alt="Autonomous GPS guided Survey Flight" />
+            <figcaption>Figure 25: Autonomous GPS-guided mission flight executing a preloaded mapping trajectory.</figcaption>
+          </figure>
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/path_tracing.png" alt="Real time georeferenced path tracing output" />
+            <figcaption>Figure 26: MapDVT georeferenced output displaying the exact lawnmower path traced by the GPS module.</figcaption>
+          </figure>
+        </div>
+
+        <div class="simulation-gallery" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/dronelab_full.png" alt="Full DroneLAB Visualizer" />
+            <figcaption>Figure 27: Full DroneLAB suite running in operational mode, showing connection diagnostics and path data.</figcaption>
+          </figure>
+          <figure style="flex: 1; min-width: 280px;">
+            <img src="../assets/projects/aerial-survey/mapdvt_modified.png" alt="Modified MapDVT Interface" />
+            <figcaption>Figure 28: Browser visualizer displaying georeferenced fault coordinates under local network host.</figcaption>
+          </figure>
+        </div>
 
         <div style="overflow-x: auto; margin-top: 1.5rem;">
           <table class="spec-table responsive-table">
