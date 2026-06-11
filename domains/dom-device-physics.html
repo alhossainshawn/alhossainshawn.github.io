@@ -50,9 +50,7 @@
       <hr class="sidebar__divider" />
       <div class="subpage-nav-title">On this page</div>
       <nav class="subpage-nav">
-        <a href="#overview">Overview</a>
-        <a href="#tcad">TCAD Approach</a>
-        <a href="#active">Active Work</a>
+        <a href="#active">Active Research</a>
       </nav>
       <hr class="sidebar__divider" />
       <div class="subpage-nav-title">Other Domains</div>
@@ -94,21 +92,6 @@
       </div>
 
       <div class="prose">
-        <p>The physics of how transistors work — and how they fail — as silicon scaling moves from FinFETs into <em>Gate-All-Around</em> territory. The goal is simulation-driven insight into what geometry and process choices enable sub-5 nm logic that still delivers useful current with manageable leakage.</p>
-
-        <h2 id="overview">Overview</h2>
-        <p>Post-FinFET transistors — GAA nanosheets, MBCFETs — offer better electrostatic control but introduce a wider design space. Geometry (nanosheet thickness, pitch, gate length) and doping profiles all interact non-linearly in ways that are hard to reason about without simulation.</p>
-        <p>The work here uses <em>Silvaco TCAD (Atlas)</em> for device modeling and characterisation to explore that space systematically, identify the geometric levers that dominate short-channel immunity and drive current, and cross-validate against published references.</p>
-
-        <h2 id="tcad">TCAD Approach</h2>
-        <ul>
-          <li><strong>Device Modeling (Atlas)</strong> — Three-dimensional structure definitions with parameterized channel thickness, vertical pitch, and gate-all-around stacks to enable structured sweeps.</li>
-          <li><strong>Device Characterisation (Atlas)</strong> — DC Id–Vg, Id–Vd sweeps; subthreshold slope; DIBL. Drift-diffusion transport with mobility models calibrated for thin-body silicon.</li>
-          <li><strong>Geometry Sweeps</strong> — Nanosheet thickness, pitch, gate length, and S/D doping varied to map their combined effect on Ion/Ioff.</li>
-          <li><strong>SCE Quantification</strong> — DIBL, Vt roll-off, and subthreshold slope tracked across the sweep — finding the geometry window that holds at scale.</li>
-          <li><strong>Optimisation</strong> — Pareto curves of Ion vs. Ioff to guide selection of stack geometries that maintain drive current without sacrificing leakage.</li>
-        </ul>
-
         <h2 id="active">Active Research</h2>
         <ul>
           <li><strong><a href="../projects/mbcfet.html">R-02 — MBCFET Structure Modeling &amp; Physics</a></strong>: GAA Multi-Bridge-Channel FET simulation in Silvaco TCAD, targeting sub-5 nm nodes. Ongoing.</li>
