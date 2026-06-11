@@ -54,7 +54,7 @@
       <nav class="subpage-nav">
         <a href="#overview">Overview</a>
         <a href="#subareas">Sub-areas</a>
-        <a href="#active">Active Work</a>
+        <a href="#active">Active Projects</a>
         <a href="#toolchain">Toolchain</a>
       </nav>
       <hr class="sidebar__divider" />
@@ -114,11 +114,66 @@
           <li><strong>Verification (SUB-06)</strong> — Bit-accurate C++ models paired with cocotb testbenches; coverage-driven regression on representative DNN slices.</li>
         </ul>
 
-        <h2 id="active">Active Research Threads</h2>
-        <ul>
-          <li><strong><a href="../projects/hybrid-neural-accelerator.html">R-01 — Hybrid Neural Accelerator</a></strong>: Reconfigurable LUT / logarithmic compute engine for AI inference, prototyped on Artix-7 XC7A200T.</li>
-          <li><strong>R-03 — GLSVLSI 2026 (LBS)</strong>: Companion paper — "Quantization-Aware Training for Efficient Edge DNN Deployment." Approved.</li>
-        </ul>
+        <h2 id="active">Active Projects</h2>
+        <div class="proj-grid" style="margin-top: 1.2rem; grid-template-columns: repeat(2, 1fr);">
+
+          <a class="proj-card" href="../projects/hybrid-neural-accelerator.html">
+            <div class="proj-card__img--placeholder">
+              <svg viewBox="0 0 24 24"><use href="#i-chip"/></svg>
+            </div>
+            <div class="proj-card__body">
+              <div class="proj-card__meta">
+                <span class="proj-card__id">R-01 &nbsp;·&nbsp; Feb 2026 – Present</span>
+                <span class="badge badge--amber">In Review</span>
+              </div>
+              <h3>Hybrid Neural <em>Accelerator</em></h3>
+              <p class="proj-card__desc">Reconfigurable LUT / logarithmic compute engine for edge-AI inference — mode-switching INT8, LNS, and INT4 datapath prototyped on Artix-7 XC7A200T.</p>
+              <ul class="res-card__bullets" style="margin: 0.4rem 0 0.8rem 0; padding-left: 1.1rem;">
+                <li>−75% DSP usage vs. standard INT8 baseline.</li>
+                <li>Timing closure at 225 MHz; WNS +0.42 ns.</li>
+                <li>Accepted at GLSVLSI 2026 Late Breaking Session.</li>
+              </ul>
+              <div class="tags-row">
+                <span class="tag">FPGA</span>
+                <span class="tag">HLS</span>
+                <span class="tag">LNS</span>
+                <span class="tag">Edge AI</span>
+                <span class="tag">AXI4</span>
+              </div>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__link">Read more &rarr;</span>
+            </div>
+          </a>
+
+          <a class="proj-card" href="../projects/cnn-digit-detector.html">
+            <img class="proj-card__img" src="../assets/projects/cnn-digit-detector/fpga_setup.jpeg" alt="PA-StarLite FPGA board running CNN Digit Detector" />
+            <div class="proj-card__body">
+              <div class="proj-card__meta">
+                <span class="proj-card__id">P-CNN &nbsp;·&nbsp; 2025</span>
+                <span class="badge badge--green">Complete</span>
+              </div>
+              <h3>CNN Digit <em>Detector</em></h3>
+              <p class="proj-card__desc">Full PyTorch-to-FPGA pipeline — trains a 2D CNN on an 8×8 digits dataset, exports fixed-point weights, synthesises via Vitis HLS, and displays live digit recognition over HDMI.</p>
+              <ul class="res-card__bullets" style="margin: 0.4rem 0 0.8rem 0; padding-left: 1.1rem;">
+                <li>Conv–ReLU–MaxPool–FC pipeline at II=1, 200 MHz.</li>
+                <li>ap_fixed&lt;16,6&gt; arithmetic; weights baked as ROM constants.</li>
+                <li>Live HDMI display with per-class logit bar chart.</li>
+              </ul>
+              <div class="tags-row">
+                <span class="tag">Vitis HLS</span>
+                <span class="tag">CNN</span>
+                <span class="tag">Artix-7</span>
+                <span class="tag">HDMI</span>
+                <span class="tag">Fixed-Point</span>
+              </div>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__link">Read more &rarr;</span>
+            </div>
+          </a>
+
+        </div>
 
         <h2 id="toolchain">Toolchain</h2>
         <table class="spec-table">

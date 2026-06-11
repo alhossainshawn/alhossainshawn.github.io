@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CNN Digit Detector — Al Hossain Shawn</title>
+  <meta name="description" content="A hardware-synthesised 2D Convolutional Neural Network for handwritten digit recognition, deployed on an FPGA via Vitis HLS with HDMI display output." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css?v=2.5" />
+  <div id="icon-defs" hidden></div>
+  <script>fetch('../icons.svg').then(r=>r.text()).then(svg=>{const el=document.getElementById('icon-defs');if(el)el.innerHTML=svg;});</script>
+  <style>
+    /* ── Gallery ─────────────────────────────────────────── */
+    .media-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .media-gallery figure {
+      margin: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg-section-alt);
+    }
+    .media-gallery figure img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    .media-gallery figure.wide {
+      grid-column: span 2;
+    }
+    .media-gallery figure.wide img {
+      height: 260px;
+    }
+    figcaption {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      padding: 0.5rem 0.75rem;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    /* ── Pipeline diagram ─────────────────────────────────── */
+    .pipeline-diagram {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+    .pipeline-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      min-width: 100px;
+    }
+    .pipeline-stage__box {
+      width: 100%;
+      background: var(--accent-light);
+      border: 1.5px solid var(--accent);
+      border-radius: 8px;
+      padding: 0.6rem 0.5rem;
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+      line-height: 1.35;
+    }
+    .pipeline-stage__dim {
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+      text-align: center;
+    }
+    .pipeline-arrow {
+      display: flex;
+      align-items: center;
+      padding: 0 0.25rem;
+      color: var(--text-light);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      padding-bottom: 1.4rem;
+    }
+    .pipeline-stage__box.io-box {
+      background: var(--bg-hero);
+      border-color: var(--accent-dark);
+      color: #fff;
+    }
+    .pipeline-stage__box.act-box {
+      background: #fff3e0;
+      border-color: #d97706;
+      color: #92400e;
+    }
+    body.dark-mode .pipeline-stage__box.act-box {
+      background: #2d1f00;
+      color: #fbbf24;
+      border-color: #d97706;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#research" class="active">Research</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav__drawer">
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <div class="mobile-nav__title">Al Hossain Shawn</div>
+      <hr class="mobile-nav__divider" />
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#research">Research</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#publications">Publications</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+
+  <div class="subpage-layout">
+    <aside class="subpage-sidebar">
+      <a class="back-link" href="../domains/dom-fpga.html">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        FPGA &amp; Reconfigurable Computing
+      </a>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">On this page</div>
+      <nav class="subpage-nav">
+        <a href="#overview">Overview</a>
+        <a href="#pipeline">CNN Pipeline</a>
+        <a href="#hls">HLS Design</a>
+        <a href="#rtl">RTL Architecture</a>
+        <a href="#hardware">Hardware Demo</a>
+        <a href="#results">Results</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="sidebar__section-title">Project</div>
+      <div class="sidebar__tags">
+        <span class="sidebar__tag">P-CNN</span>
+        <span class="sidebar__tag">Vitis HLS</span>
+        <span class="sidebar__tag">Vivado</span>
+        <span class="sidebar__tag">Artix-7</span>
+        <span class="sidebar__tag">CNN</span>
+        <span class="sidebar__tag">HDMI</span>
+        <span class="sidebar__tag">Fixed-Point</span>
+      </div>
+    </aside>
+
+    <main class="subpage-content" id="main-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="../domains/dom-fpga.html">FPGA &amp; Reconfigurable Computing</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>CNN Digit Detector</span>
+      </div>
+
+      <div class="subpage-header">
+        <div class="tags-row" style="margin-bottom: 0.75rem;">
+          <span class="badge badge--green">Complete</span>
+          <span class="tag">P-CNN</span>
+          <span class="tag">FPGA</span>
+          <span class="tag">Vitis HLS</span>
+        </div>
+        <h1>CNN Digit <em>Detector</em></h1>
+        <div class="subpage-meta">
+          <span>Hardware ML Project</span>
+          <span>PA-StarLite · Artix-7 XC7A200T</span>
+          <span>Vitis HLS · Vivado · PyTorch</span>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>A complete end-to-end pipeline that trains a 2D Convolutional Neural Network in <em>PyTorch</em>, exports its weights as fixed-point C++ constants, synthesises the network logic into hardware via <strong>Vitis HLS</strong>, and deploys the resulting bitstream to an Artix-7 FPGA — with <strong>live digit recognition displayed over HDMI</strong>.</p>
+
+        <table class="spec-table">
+          <tr><td>Target Device</td><td>PA-StarLite (Artix-7 XC7A200T · 215 K LUTs · 740 DSPs · 13 Mb BRAM)</td></tr>
+          <tr><td>Toolchain</td><td>Vitis HLS · AMD Vivado · PyTorch · Python (sklearn)</td></tr>
+          <tr><td>Dataset</td><td>scikit-learn Digits Dataset — 1,797 handwritten digit images (8×8 px, classes 0–9)</td></tr>
+          <tr><td>Interface</td><td>UART debug output · Push-button digit selection · HDMI live display (TMDS, 200 MHz diff. clock)</td></tr>
+          <tr><td>Arithmetic</td><td>16-bit fixed-point <code>ap_fixed&lt;16,6&gt;</code> — 6 integer bits · 10 fractional bits</td></tr>
+          <tr><td>Clock</td><td>200 MHz differential input (DIFF_SSTL135, 5.0 ns period)</td></tr>
+          <tr><td>Dynamic Power</td><td>0.405 W total — 0.074 W DSP · 0.146 W MMCM · 0.137 W I/O</td></tr>
+        </table>
+
+        <!-- ─ Overview ─────────────────────────────────────── -->
+        <h2 id="overview">Overview</h2>
+        <p>The design bridges the software-to-hardware boundary in four stages: training a compact CNN model in software, exporting baked-in weights, synthesising the forward pass into RTL, and integrating the result into a Vivado block design with a custom Verilog top-level. The digit ROM stores 1,797 pre-scaled test images directly in on-chip BRAM — navigated with physical push-buttons — and the CNN result is rendered as a bar chart on the HDMI monitor in real time.</p>
+
+        <!-- ─ CNN Pipeline ────────────────────────────────── -->
+        <h2 id="pipeline">CNN Hardware Pipeline</h2>
+        <p>The forward pass is a three-layer network: a 3×3 convolution with ReLU, a 2×2 max-pooling, and a fully-connected linear classifier for 10 digit classes. All intermediate buffers are dual-port BRAMs partitioned across channel dimensions for II=1 pipelining.</p>
+
+        <div class="pipeline-diagram">
+          <div class="pipeline-stage">
+            <div class="pipeline-stage__box io-box">Input Image</div>
+            <div class="pipeline-stage__dim">1 × 8 × 8</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage">
+            <div class="pipeline-stage__box">Conv 3×3<br/>+ Bias ROM</div>
+            <div class="pipeline-stage__dim">4 filters, pad=1</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage">
+            <div class="pipeline-stage__box act-box">ReLU</div>
+            <div class="pipeline-stage__dim">in-place clip</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage">
+            <div class="pipeline-stage__box">conv_out BRAM</div>
+            <div class="pipeline-stage__dim">4 × 8 × 8</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage">
+            <div class="pipeline-stage__box">MaxPool 2×2</div>
+            <div class="pipeline-stage__dim">stride=2</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage">
+            <div class="pipeline-stage__box">pool_out BRAM</div>
+            <div class="pipeline-stage__dim">4 × 4 × 4</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage">
+            <div class="pipeline-stage__box">Flatten → FC<br/>64 Weight ROMs</div>
+            <div class="pipeline-stage__dim">64 → 10</div>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-stage">
+            <div class="pipeline-stage__box io-box">Prediction</div>
+            <div class="pipeline-stage__dim">10 logits</div>
+          </div>
+        </div>
+
+        <h3>Layer 1 — 2D Convolution &amp; ReLU</h3>
+        <p>A 3×3 sliding window (stride=1, padding=1) is applied to the single-channel 8×8 input, producing four feature maps. Weights are baked into ROM constants (<code>conv_w[4][1][3][3]</code>) exported from PyTorch. Each output pixel is biased (<code>conv_b[4]</code>) and clipped to zero by the ReLU activation, then written to a dual-port BRAM partitioned along the channel dimension — enabling II=1 with the <code>#pragma HLS UNROLL</code> on the outer channel loop.</p>
+
+        <h3>Layer 2 — 2×2 Max Pooling</h3>
+        <p>Non-overlapping 2×2 windows reduce each of the four 8×8 feature maps to 4×4, yielding a 4×4×4 pooled tensor stored in a second BRAM. The hardware reads two adjacent rows simultaneously using both read ports of the dual-port BRAM and resolves the 4-pixel maximum through a hierarchical comparator chain, keeping the pool pipeline at II=1.</p>
+
+        <h3>Layer 3 — Fully Connected Classifier</h3>
+        <p>The 64-element flattened vector (from 4×4×4) is multiplied against 64 weight-ROM parameters per output class. The top-level module pre-loads all 64 values into parallel registers before launching the FC pipeline, which runs 10 dot products in a single pipeline iteration — each dot product accumulating 64 products and adding one bias ROM value, writing to the <code>prediction[10]</code> output interface.</p>
+
+        <h3>Precision &amp; Fixed-Point Arithmetic</h3>
+        <p>All data paths use <code>ap_fixed&lt;16,6&gt;</code> — 16-bit words with 6 integer bits (including sign, covering −32 to +31.999) and 10 fractional bits (resolution ≈ 0.001). This format was validated by co-simulating the HLS bit-accurate model against the floating-point PyTorch outputs.</p>
+
+        <!-- ─ HLS Design ────────────────────────────────── -->
+        <h2 id="hls">High-Level Synthesis Design</h2>
+        <p>The CNN forward pass is described in <code>cnn.cpp</code> using Vitis HLS pragmas for maximum throughput. Key directives:</p>
+
+        <pre><code>// Convolution outer-loop fully unrolled — 4 channels computed in parallel
+conv_label_oc: for (int oc = 0; oc &lt; 4; oc++) {
+    #pragma HLS UNROLL
+    conv_label_r: for (int r = 0; r &lt; 8; r++) {
+        conv_label_c: for (int c = 0; c &lt; 8; c++) {
+            #pragma HLS PIPELINE II=1
+            // 3x3 window accumulation with zero-padding
+        }
+    }
+}
+
+// Intermediate buffers partitioned to allow concurrent read/write
+data_t conv_out[4][8][8];
+#pragma HLS ARRAY_PARTITION variable=conv_out complete dim=1
+
+data_t pool_out[4][4][4];
+#pragma HLS ARRAY_PARTITION variable=pool_out complete dim=1</code></pre>
+
+        <p>The channel dimension is fully partitioned in both BRAM buffers so all four channels can be read or written in a single clock cycle, enabling the convolution and pooling loops to sustain II=1 without memory conflicts. The HLS project is built using the <code>run_hls.tcl</code> script and the complete Vivado integration is automated via <code>build_cnn.tcl</code>.</p>
+
+        <!-- ─ RTL Architecture ──────────────────────────── -->
+        <h2 id="rtl">RTL Architecture</h2>
+        <p>The HLS synthesis generates a module hierarchy under <code>cnn.v</code> orchestrated by a 20-state Control FSM. The FSM schedules overlapping convolution and pooling pipelines, then performs a parallel register-loading phase before firing the fully-connected classifier.</p>
+
+        <h3>Module Hierarchy</h3>
+        <ul>
+          <li><strong>cnn.v (Top-Level)</strong> — Control FSM, memory bus routing multiplexers, and AP handshake (<code>ap_start</code> / <code>ap_done</code>).</li>
+          <li><strong>8× conv_out BRAM</strong> — Dual-port AUTO-inferred BRAMs (<code>cnn_conv_out_RAM_AUTO_1R1W.v</code>) holding the 4×8×8 activated feature maps across two sub-banks per channel.</li>
+          <li><strong>4× pool_out BRAM</strong> — Dual-port BRAMs (<code>cnn_pool_out_RAM_AUTO_1R1W.v</code>) for the 4×4×4 pooled maps.</li>
+          <li><strong>4× Convolution Pipeline Modules</strong> — Each pipeline module drives a row/column loop controller and a DSP multiply-accumulator, reading pixel data through dual-port image interfaces and writing to a pair of conv_out BRAMs.</li>
+          <li><strong>4× Max Pooling Pipeline Modules</strong> — Each reads from a pair of conv_out BRAMs using all four read ports simultaneously, resolves the 2×2 maximum, and writes to one pool_out BRAM.</li>
+          <li><strong>1× Fully Connected Pipeline</strong> — Dot-product engine backed by 64 weight-parameter ROMs (<code>fc_w_0_ROM</code> … <code>fc_w_63_ROM</code>), 1 bias ROM, and a parallel DSP MAC array (<code>cnn_mac_muladd_...</code>).</li>
+        </ul>
+
+        <h3>FSM Schedule</h3>
+        <p>The 20-state FSM implements an overlapping execution schedule to maximise silicon utilisation. Convolution for one filter pair is launched while pooling from the previous pair runs in parallel:</p>
+        <ul>
+          <li><strong>States 1:</strong> Idle — wait for <code>ap_start</code></li>
+          <li><strong>States 2–10:</strong> Pipelined CONV+POOL — 4 convolution passes interleaved with 4 pooling passes</li>
+          <li><strong>States 11–19:</strong> Parallel Register Loading — 8 values fetched per cycle to fill 64 FC input registers</li>
+          <li><strong>State 20:</strong> FC Classification pipeline — assert <code>ap_done</code> when complete</li>
+        </ul>
+
+        <h3>Memory Bus Multiplexing</h3>
+        <p>Because both the convolution and pooling pipelines share the same conv_out BRAMs (one writes, one reads), the top-level instantiates address, write-enable, and chip-enable multiplexers controlled by the active FSM state. This prevents bus contention while allowing the two pipelines to overlap in alternating states.</p>
+
+        <!-- ─ Hardware Demo ──────────────────────────────── -->
+        <h2 id="hardware">Hardware Demonstration</h2>
+        <p>The synthesised bitstream was programmed to the <strong>PA-StarLite</strong> development board (Artix-7 XC7A200T) using a custom <code>program_cnn.tcl</code> script. The digit dataset is stored in on-chip BRAM via <code>digits_rom.v</code> (1,797 pre-loaded images). Two push-buttons cycle through the dataset, a UART port streams the predicted class to a terminal, and the HDMI output renders the 8×8 input pixel grid alongside a bar chart of the 10 class logits.</p>
+
+        <div class="media-gallery">
+          <figure class="wide">
+            <img src="../assets/projects/cnn-digit-detector/fpga_setup.jpeg" alt="PA-StarLite FPGA board running the CNN digit detector" />
+            <figcaption>PA-StarLite (Artix-7 XC7A200T) with HDMI and UART cables connected — running the CNN bitstream at 200 MHz.</figcaption>
+          </figure>
+          <figure>
+            <img src="../assets/projects/cnn-digit-detector/monitor_interface.jpeg" alt="HDMI monitor showing digit recognition output" />
+            <figcaption>HDMI display output: the 8×8 input pixel grid (left) and the 10-class prediction bar chart — digit "1" being detected.</figcaption>
+          </figure>
+          <figure>
+            <img src="../assets/projects/cnn-digit-detector/device_layout.png" alt="Vivado device layout showing placed and routed CNN logic" />
+            <figcaption>Vivado device floor plan after place &amp; route — CNN logic clustered in the lower pblock regions (X0Y0–X1Y2).</figcaption>
+          </figure>
+        </div>
+
+        <!-- ─ Results ────────────────────────────────────── -->
+        <h2 id="results">Synthesis Results &amp; Power</h2>
+
+        <h3>On-Chip Power Breakdown</h3>
+        <table class="spec-table">
+          <thead>
+            <tr><th>Component</th><th>Power</th><th>Share</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Total Dynamic</td><td>0.405 W</td><td>74%</td></tr>
+            <tr><td>— MMCM (clock management)</td><td>0.146 W</td><td>36%</td></tr>
+            <tr><td>— I/O (HDMI TMDS + UART)</td><td>0.137 W</td><td>33%</td></tr>
+            <tr><td>— DSP Slices (MAC units)</td><td>0.074 W</td><td>18%</td></tr>
+            <tr><td>— Clocking fabric</td><td>0.016 W</td><td>4%</td></tr>
+            <tr><td>— Signal routing</td><td>0.023 W</td><td>6%</td></tr>
+            <tr><td>— Logic (LUTs)</td><td>0.007 W</td><td>2%</td></tr>
+            <tr><td>— BRAM</td><td>0.002 W</td><td>1%</td></tr>
+            <tr><td>Device Static</td><td>0.140 W</td><td>26%</td></tr>
+          </tbody>
+        </table>
+
+        <div class="media-gallery">
+          <figure>
+            <img src="../assets/projects/cnn-digit-detector/on_chip_power.png" alt="On-chip power breakdown from Vivado" />
+            <figcaption>Vivado on-chip power analysis — MMCM and I/O dominate dynamic power due to the 200 MHz HDMI differential clock and TMDS output buffers.</figcaption>
+          </figure>
+          <figure>
+            <img src="../assets/projects/cnn-digit-detector/schematic.png" alt="Vivado block design schematic" />
+            <figcaption>Vivado elaborated schematic showing the <code>cnn.v</code> top-level wrapper with ROM, BRAM, and DSP block connections.</figcaption>
+          </figure>
+        </div>
+
+        <h3>Implementation Summary</h3>
+        <ul>
+          <li><strong>Clock</strong> — 200 MHz input differential clock (DIFF_SSTL135), constrained at 5.0 ns period. Timing closure achieved with no negative slack.</li>
+          <li><strong>Arithmetic precision</strong> — <code>ap_fixed&lt;16,6&gt;</code> throughout. Bit-accurate co-simulation matches PyTorch floating-point reference outputs.</li>
+          <li><strong>Control FSM</strong> — 20-state pipelined schedule with overlapping CONV/POOL phases and parallel register pre-loading for the FC stage.</li>
+          <li><strong>Memory</strong> — All intermediate feature maps stored in Vivado-inferred dual-port BRAMs; weight and bias constants synthesised as dedicated ROM resources from <code>weights.h</code>.</li>
+          <li><strong>I/O</strong> — HDMI TMDS output via 3 differential data lanes + 1 differential clock (Bank 14); UART TX at 3.3 V LVCMOS for serial debug; 2 push-buttons for dataset navigation.</li>
+        </ul>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap;">
+        <a href="../domains/dom-fpga.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem;">
+          <span>← Domain</span>
+          <span style="color: var(--text-heading); font-weight: 600;">FPGA &amp; Reconfigurable Computing</span>
+        </a>
+        <a href="hybrid-neural-accelerator.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem; text-align: right;">
+          <span>Related →</span>
+          <span style="color: var(--text-heading); font-weight: 600;">Hybrid Neural Accelerator</span>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2026 Al Hossain Shawn &nbsp;·&nbsp; <a href="../index.html">Portfolio</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+
+  <script src="../interactive.js" defer></script>
+</body>
+</html>
