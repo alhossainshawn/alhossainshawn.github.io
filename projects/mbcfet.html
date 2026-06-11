@@ -138,22 +138,21 @@
           </figure>
         </div>
 
-        <h3>3. Subthreshold &amp; Output Characteristics</h3>
-        <p>Simulated output family curves ($I_d-V_d$) at varying gate biases show current saturation and suppression of short-channel effects. The subthreshold logarithmic transfer curve demonstrates gate-all-around volume inversion and electrostatic shielding barrier control.</p>
-
-        <div class="simulation-gallery">
-          <figure>
-            <img src="../assets/projects/mbcfet/subthreshold%20(0.05%20Vd).png" alt="Subthreshold Logarithmic Transfer Curves" />
-            <figcaption>Figure 5: Simulated subthreshold logarithmic transfer curve at $V_{ds}=0.05\text{ V}$ used to extract subthreshold swing and leakage current metrics.</figcaption>
-          </figure>
-          <figure>
-            <img src="../assets/projects/mbcfet/idvd_outputs.png" alt="Output Family Curves (Id-Vd)" />
-            <figcaption>Figure 6: Output family curves ($I_d-V_d$) showing drain current saturation and suppression of channel-length modulation.</figcaption>
-          </figure>
-        </div>
+        <h3>3. Output Characteristics</h3>
+        <p>Simulated output family curves ($I_d-V_d$) at varying gate biases show current saturation and suppression of short-channel effects. The gate maintains excellent electrostatic control, suppressing DIBL and leakage paths.</p>
+        
+        <figure>
+          <img src="../assets/projects/mbcfet/idvd_outputs.png" alt="Output Family Curves (Id-Vd)" />
+          <figcaption>Figure 5: Output family curves ($I_d-V_d$) showing drain current saturation and suppression of channel-length modulation.</figcaption>
+        </figure>
 
         <h3>4. Extracted Subthreshold Parameters &amp; Analysis</h3>
-        <p>Instead of displaying raw Silvaco log outputs, the key electrical metrics extracted under linear drain bias ($V_{ds}=0.05\text{ V}$) using Constant Current (CC) and threshold-current methods are summarized and analyzed below:</p>
+        <p>Instead of displaying raw Silvaco log outputs, the key electrical metrics extracted under linear drain bias ($V_{ds}=0.05\text{ V}$) using Constant Current (CC) and threshold-current methods are summarized and analyzed below. The subthreshold logarithmic transfer curve ($I_d-V_g$) is displayed below for direct physical correlation:</p>
+
+        <figure style="max-width: 600px; margin: 1.5rem auto;">
+          <img src="../assets/projects/mbcfet/subthreshold%20(0.05%20Vd).png" alt="Subthreshold Logarithmic Transfer Curves" />
+          <figcaption>Figure 6: Simulated subthreshold logarithmic transfer curve at $V_{ds}=0.05\text{ V}$ showing subthreshold slope and leakage current floor.</figcaption>
+        </figure>
 
         <table class="spec-table">
           <thead>
