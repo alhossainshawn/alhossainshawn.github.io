@@ -4,106 +4,170 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CNN Digit Detector — Al Hossain Shawn</title>
-  <meta name="description" content="A hardware-synthesised 2D Convolutional Neural Network for handwritten digit recognition, deployed on an FPGA via Vitis HLS with HDMI display output." />
+  <meta name="description" content="A hardware-synthesised 2D CNN for handwritten digit recognition deployed on Artix-7 FPGA via Vitis HLS with live HDMI display output." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css?v=2.5" />
   <div id="icon-defs" hidden></div>
   <script>fetch('../icons.svg').then(r=>r.text()).then(svg=>{const el=document.getElementById('icon-defs');if(el)el.innerHTML=svg;});</script>
+
+  <!-- Mermaid for architecture diagrams -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        primaryColor: '#4a5d8c',
+        primaryTextColor: '#fff',
+        primaryBorderColor: '#303e66',
+        lineColor: '#6c757d',
+        secondaryColor: '#eaecf5',
+        tertiaryColor: '#f5f5f7',
+        background: '#ffffff',
+        mainBkg: '#eaecf5',
+        nodeBorder: '#4a5d8c',
+        clusterBkg: '#f0f0f5',
+        titleColor: '#1a1a2e',
+        edgeLabelBackground: '#fff',
+        fontFamily: 'Inter, system-ui, sans-serif',
+        fontSize: '13px'
+      }
+    });
+    // Re-render mermaid in dark mode
+    document.addEventListener('DOMContentLoaded', () => {
+      const obs = new MutationObserver(() => {
+        const dark = document.body.classList.contains('dark-mode');
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: dark ? 'dark' : 'base',
+          themeVariables: dark ? {} : {
+            primaryColor: '#4a5d8c',
+            primaryTextColor: '#fff',
+            primaryBorderColor: '#303e66',
+            lineColor: '#6c757d',
+            secondaryColor: '#eaecf5',
+            fontFamily: 'Inter, system-ui, sans-serif',
+            fontSize: '13px'
+          }
+        });
+        document.querySelectorAll('.mermaid[data-processed]').forEach(el => {
+          el.removeAttribute('data-processed');
+          el.innerHTML = el.getAttribute('data-source') || el.innerHTML;
+        });
+        mermaid.run();
+      });
+      obs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+      // Store original source
+      document.querySelectorAll('.mermaid').forEach(el => {
+        el.setAttribute('data-source', el.textContent);
+      });
+    });
+  </script>
+
   <style>
-    /* ── Gallery ─────────────────────────────────────────── */
-    .media-gallery {
+    /* ── Mermaid diagram containers ──────────────────── */
+    .diagram-block {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem 1rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+    .diagram-block .mermaid {
+      display: flex;
+      justify-content: center;
+    }
+    .diagram-block svg {
+      max-width: 100%;
+      height: auto;
+    }
+    .diagram-caption {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+    .diagram-label {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: var(--accent-light);
+      color: var(--accent);
+      border: 1px solid var(--tag-border);
+      border-radius: 4px;
+      padding: 0.15em 0.6em;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── Full-width media ────────────────────────────── */
+    .media-full {
+      margin: 1.5rem 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #000;
+    }
+    .media-full img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .media-full video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .media-full figcaption {
+      background: var(--bg-white);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      padding: 0.6rem 1rem;
+      font-style: italic;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Two-col media grid ──────────────────────────── */
+    .media-pair {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 1rem;
       margin: 1.5rem 0;
     }
-    .media-gallery figure {
+    .media-pair figure {
       margin: 0;
-      border-radius: 8px;
+      border-radius: 10px;
       overflow: hidden;
       border: 1px solid var(--border);
       background: var(--bg-section-alt);
     }
-    .media-gallery figure img {
+    .media-pair figure img {
       width: 100%;
-      height: 200px;
+      height: 220px;
       object-fit: cover;
       display: block;
     }
-    .media-gallery figure.wide {
-      grid-column: span 2;
-    }
-    .media-gallery figure.wide img {
-      height: 260px;
-    }
-    figcaption {
-      font-size: 0.8rem;
+    .media-pair figcaption {
+      font-size: 0.78rem;
       color: var(--text-muted);
       padding: 0.5rem 0.75rem;
-      line-height: 1.5;
       font-style: italic;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
     }
 
-    /* ── Pipeline diagram ─────────────────────────────────── */
-    .pipeline-diagram {
-      display: flex;
-      align-items: stretch;
-      gap: 0;
-      margin: 1.5rem 0;
-      overflow-x: auto;
-      padding-bottom: 0.5rem;
-    }
-    .pipeline-stage {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex: 1;
-      min-width: 100px;
-    }
-    .pipeline-stage__box {
-      width: 100%;
-      background: var(--accent-light);
-      border: 1.5px solid var(--accent);
-      border-radius: 8px;
-      padding: 0.6rem 0.5rem;
-      text-align: center;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--accent-dark);
-      line-height: 1.35;
-    }
-    .pipeline-stage__dim {
-      font-size: 0.68rem;
-      font-family: var(--font-mono);
-      color: var(--text-muted);
-      margin-top: 0.35rem;
-      text-align: center;
-    }
-    .pipeline-arrow {
-      display: flex;
-      align-items: center;
-      padding: 0 0.25rem;
-      color: var(--text-light);
-      font-size: 1.1rem;
-      flex-shrink: 0;
-      padding-bottom: 1.4rem;
-    }
-    .pipeline-stage__box.io-box {
-      background: var(--bg-hero);
-      border-color: var(--accent-dark);
-      color: #fff;
-    }
-    .pipeline-stage__box.act-box {
-      background: #fff3e0;
-      border-color: #d97706;
-      color: #92400e;
-    }
-    body.dark-mode .pipeline-stage__box.act-box {
-      background: #2d1f00;
-      color: #fbbf24;
-      border-color: #d97706;
+    /* ── Section divider ─────────────────────────────── */
+    .section-divider {
+      margin: 2.5rem 0 2rem;
+      border: none;
+      border-top: 2px solid var(--border);
     }
   </style>
 </head>
@@ -148,11 +212,13 @@
       <div class="subpage-nav-title">On this page</div>
       <nav class="subpage-nav">
         <a href="#overview">Overview</a>
-        <a href="#pipeline">CNN Pipeline</a>
-        <a href="#hls">HLS Design</a>
-        <a href="#rtl">RTL Architecture</a>
-        <a href="#hardware">Hardware Demo</a>
-        <a href="#results">Results</a>
+        <a href="#demo">Live Demonstration</a>
+        <a href="#cnn-arch">CNN Architecture</a>
+        <a href="#hls-design">HLS Design</a>
+        <a href="#rtl-master">RTL Hierarchy</a>
+        <a href="#rtl-fsm">Control FSM</a>
+        <a href="#rtl-modules">Module Diagrams</a>
+        <a href="#hardware">Hardware &amp; Results</a>
       </nav>
       <hr class="sidebar__divider" />
       <div class="sidebar__section-title">Project</div>
@@ -195,186 +261,441 @@
         <p>A complete end-to-end pipeline that trains a 2D Convolutional Neural Network in <em>PyTorch</em>, exports its weights as fixed-point C++ constants, synthesises the network logic into hardware via <strong>Vitis HLS</strong>, and deploys the resulting bitstream to an Artix-7 FPGA — with <strong>live digit recognition displayed over HDMI</strong>.</p>
 
         <table class="spec-table">
-          <tr><td>Target Device</td><td>PA-StarLite (Artix-7 XC7A200T · 215 K LUTs · 740 DSPs · 13 Mb BRAM)</td></tr>
+          <tr><td>Target Device</td><td>PA-StarLite · Artix-7 XC7A200T (215 K LUTs · 740 DSPs · 13 Mb BRAM)</td></tr>
           <tr><td>Toolchain</td><td>Vitis HLS · AMD Vivado · PyTorch · Python (sklearn)</td></tr>
-          <tr><td>Dataset</td><td>scikit-learn Digits Dataset — 1,797 handwritten digit images (8×8 px, classes 0–9)</td></tr>
-          <tr><td>Interface</td><td>UART debug output · Push-button digit selection · HDMI live display (TMDS, 200 MHz diff. clock)</td></tr>
-          <tr><td>Arithmetic</td><td>16-bit fixed-point <code>ap_fixed&lt;16,6&gt;</code> — 6 integer bits · 10 fractional bits</td></tr>
-          <tr><td>Clock</td><td>200 MHz differential input (DIFF_SSTL135, 5.0 ns period)</td></tr>
-          <tr><td>Dynamic Power</td><td>0.405 W total — 0.074 W DSP · 0.146 W MMCM · 0.137 W I/O</td></tr>
+          <tr><td>Dataset</td><td>scikit-learn Digits — 1,797 handwritten images (8×8 px, classes 0–9)</td></tr>
+          <tr><td>Interface</td><td>Push-buttons · UART debug · HDMI live display (TMDS · 200 MHz diff. clock)</td></tr>
+          <tr><td>Arithmetic</td><td><code>ap_fixed&lt;16,6&gt;</code> — 16-bit · 6 integer bits · 10 fractional bits</td></tr>
+          <tr><td>Clock</td><td>200 MHz differential (DIFF_SSTL135, 5.0 ns period)</td></tr>
+          <tr><td>Dynamic Power</td><td>0.405 W total (DSP 0.074 W · MMCM 0.146 W · I/O 0.137 W)</td></tr>
         </table>
 
-        <!-- ─ Overview ─────────────────────────────────────── -->
-        <h2 id="overview">Overview</h2>
-        <p>The design bridges the software-to-hardware boundary in four stages: training a compact CNN model in software, exporting baked-in weights, synthesising the forward pass into RTL, and integrating the result into a Vivado block design with a custom Verilog top-level. The digit ROM stores 1,797 pre-scaled test images directly in on-chip BRAM — navigated with physical push-buttons — and the CNN result is rendered as a bar chart on the HDMI monitor in real time.</p>
+        <!-- ═══════════════════════════════════════════════
+             LIVE DEMO VIDEO
+        ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="demo">Live Demonstration</h2>
+        <p>The video below shows the CNN running on hardware — push-buttons cycle through the stored digit dataset, the 8×8 pixel image is rendered on the HDMI monitor, and the predicted class is displayed in real time alongside the 10-class logit bar chart.</p>
 
-        <!-- ─ CNN Pipeline ────────────────────────────────── -->
-        <h2 id="pipeline">CNN Hardware Pipeline</h2>
-        <p>The forward pass is a three-layer network: a 3×3 convolution with ReLU, a 2×2 max-pooling, and a fully-connected linear classifier for 10 digit classes. All intermediate buffers are dual-port BRAMs partitioned across channel dimensions for II=1 pipelining.</p>
+        <figure class="media-full">
+          <video controls preload="metadata" poster="../assets/projects/cnn-digit-detector/monitor_interface.jpeg">
+            <source src="../assets/projects/cnn-digit-detector/demo_video.mp4" type="video/mp4" />
+            Your browser does not support HTML5 video.
+          </video>
+          <figcaption>Live hardware demonstration — CNN digit recognition running on PA-StarLite (Artix-7 XC7A200T) with HDMI output at 200 MHz.</figcaption>
+        </figure>
 
-        <div class="pipeline-diagram">
-          <div class="pipeline-stage">
-            <div class="pipeline-stage__box io-box">Input Image</div>
-            <div class="pipeline-stage__dim">1 × 8 × 8</div>
+        <!-- ═══════════════════════════════════════════════
+             FPGA SETUP
+        ═══════════════════════════════════════════════ -->
+        <figure class="media-full">
+          <img src="../assets/projects/cnn-digit-detector/fpga_setup.jpeg" alt="PA-StarLite FPGA board running the CNN digit detector" />
+          <figcaption>PA-StarLite development board (Artix-7 XC7A200T) with HDMI and UART cables connected — running the synthesised CNN bitstream.</figcaption>
+        </figure>
+
+        <!-- ═══════════════════════════════════════════════
+             SECTION: CNN ARCHITECTURE DIAGRAM
+        ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="cnn-arch">CNN Hardware Architecture</h2>
+        <p>The forward pass is a three-layer network: a 3×3 convolution with ReLU activation, a 2×2 max-pooling, and a fully-connected linear classifier for 10 digit classes. All intermediate buffers are dual-port BRAMs partitioned across channel dimensions for <strong>II=1 pipelining</strong>. In HLS, each block becomes physical hardware — multipliers, adders, comparators, and Block RAMs — all operating concurrently.</p>
+
+        <div class="diagram-block">
+          <span class="diagram-label">CNN Dataflow — Figure 1</span>
+          <div class="mermaid">
+flowchart TD
+    classDef io fill:#1a2744,stroke:#303e66,stroke-width:2px,color:#fff,font-weight:bold
+    classDef compute fill:#1e5f74,stroke:#2d8da8,stroke-width:2px,color:#fff
+    classDef act fill:#7a4100,stroke:#c06000,stroke-width:2px,color:#fff
+    classDef mem fill:#1a4731,stroke:#28a262,stroke-width:2px,color:#fff
+    classDef rom fill:#374151,stroke:#6b7280,stroke-width:2px,color:#fff,font-style:italic
+
+    Input(["Input Image<br/>[1][8][8] (ap_fixed&lt;16,6&gt;)"]):::io
+
+    subgraph L1 ["Layer 1: 2D Convolution &amp; ReLU"]
+        ConvW[/"conv_w ROM<br/>[4][1][3][3] weights"\]:::rom
+        ConvEngine["3×3 Convolution Sliding Window<br/>Stride: 1 · Pad: 1<br/>Loops: conv_label_r / conv_label_c"]:::compute
+        ConvB[/"conv_b ROM<br/>[4] biases"\]:::rom
+        AddBias1["Bias Addition<br/>sum = sum + conv_b[oc]"]:::compute
+        ReLU["ReLU Activation<br/>out = max(0, sum)"]:::act
+        Buffer1[("conv_out BRAM<br/>[4][8][8] — 4×64 values")]:::mem
+    end
+
+    subgraph L2 ["Layer 2: 2×2 Max Pooling"]
+        PoolEngine["Max Pooling Engine<br/>2×2 Window · Stride: 2<br/>Hierarchical comparator tree"]:::compute
+        Buffer2[("pool_out BRAM<br/>[4][4][4] — 4×16 values")]:::mem
+    end
+
+    subgraph L3 ["Layer 3: Fully Connected Classifier"]
+        Flatten["Flatten / Address Mapping<br/>flat_idx = ch×16 + pr×4 + pc"]:::compute
+        FCW[/"fc_w ROM<br/>[10][64] weights"\]:::rom
+        FCEngine["Dot Product Engine<br/>64 products per class"]:::compute
+        FCB[/"fc_b ROM<br/>[10] biases"\]:::rom
+        AddBias2["Bias Addition<br/>prediction[cls] = sum + fc_b[cls]"]:::compute
+    end
+
+    Output(["prediction [10]<br/>Class Logits → argmax → Digit"]):::io
+
+    Input -->|"1×8×8 pixels"| ConvEngine
+    ConvW --> ConvEngine
+    ConvEngine -->|"4×8×8 raw products"| AddBias1
+    ConvB --> AddBias1
+    AddBias1 -->|"4×8×8 biased sums"| ReLU
+    ReLU -->|"4×8×8 activated pixels"| Buffer1
+    Buffer1 -->|"4×8×8 Feature Map"| PoolEngine
+    PoolEngine -->|"4×4×4 Pooled Map"| Buffer2
+    Buffer2 -->|"4×4×4 elements"| Flatten
+    Flatten -->|"64-element 1D vector"| FCEngine
+    FCW --> FCEngine
+    FCEngine -->|"10×1 raw class scores"| AddBias2
+    FCB --> AddBias2
+    AddBias2 -->|"10×1 Final Logits"| Output
           </div>
-          <div class="pipeline-arrow">→</div>
-          <div class="pipeline-stage">
-            <div class="pipeline-stage__box">Conv 3×3<br/>+ Bias ROM</div>
-            <div class="pipeline-stage__dim">4 filters, pad=1</div>
-          </div>
-          <div class="pipeline-arrow">→</div>
-          <div class="pipeline-stage">
-            <div class="pipeline-stage__box act-box">ReLU</div>
-            <div class="pipeline-stage__dim">in-place clip</div>
-          </div>
-          <div class="pipeline-arrow">→</div>
-          <div class="pipeline-stage">
-            <div class="pipeline-stage__box">conv_out BRAM</div>
-            <div class="pipeline-stage__dim">4 × 8 × 8</div>
-          </div>
-          <div class="pipeline-arrow">→</div>
-          <div class="pipeline-stage">
-            <div class="pipeline-stage__box">MaxPool 2×2</div>
-            <div class="pipeline-stage__dim">stride=2</div>
-          </div>
-          <div class="pipeline-arrow">→</div>
-          <div class="pipeline-stage">
-            <div class="pipeline-stage__box">pool_out BRAM</div>
-            <div class="pipeline-stage__dim">4 × 4 × 4</div>
-          </div>
-          <div class="pipeline-arrow">→</div>
-          <div class="pipeline-stage">
-            <div class="pipeline-stage__box">Flatten → FC<br/>64 Weight ROMs</div>
-            <div class="pipeline-stage__dim">64 → 10</div>
-          </div>
-          <div class="pipeline-arrow">→</div>
-          <div class="pipeline-stage">
-            <div class="pipeline-stage__box io-box">Prediction</div>
-            <div class="pipeline-stage__dim">10 logits</div>
-          </div>
+          <p class="diagram-caption">Figure 1 — CNN hardware dataflow diagram. ROM blocks hold baked-in PyTorch weights; BRAM buffers pipeline layer outputs; dual-port partitioning enables II=1 concurrency throughout.</p>
         </div>
 
-        <h3>Layer 1 — 2D Convolution &amp; ReLU</h3>
-        <p>A 3×3 sliding window (stride=1, padding=1) is applied to the single-channel 8×8 input, producing four feature maps. Weights are baked into ROM constants (<code>conv_w[4][1][3][3]</code>) exported from PyTorch. Each output pixel is biased (<code>conv_b[4]</code>) and clipped to zero by the ReLU activation, then written to a dual-port BRAM partitioned along the channel dimension — enabling II=1 with the <code>#pragma HLS UNROLL</code> on the outer channel loop.</p>
+        <h3>Layer Specifications</h3>
+        <table class="spec-table">
+          <thead><tr><th>Layer</th><th>Operation</th><th>Input Shape</th><th>Output Shape</th><th>Parameters</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Conv + ReLU</strong></td><td>3×3 sliding window, pad=1, stride=1</td><td>1×8×8</td><td>4×8×8</td><td>conv_w[4][1][3][3] + conv_b[4]</td></tr>
+            <tr><td><strong>MaxPool</strong></td><td>2×2 window, stride=2, hierarchical max</td><td>4×8×8</td><td>4×4×4</td><td>—</td></tr>
+            <tr><td><strong>FC Classifier</strong></td><td>Dot product, flatten → linear</td><td>64 (flattened)</td><td>10 logits</td><td>fc_w[10][64] + fc_b[10]</td></tr>
+          </tbody>
+        </table>
 
-        <h3>Layer 2 — 2×2 Max Pooling</h3>
-        <p>Non-overlapping 2×2 windows reduce each of the four 8×8 feature maps to 4×4, yielding a 4×4×4 pooled tensor stored in a second BRAM. The hardware reads two adjacent rows simultaneously using both read ports of the dual-port BRAM and resolves the 4-pixel maximum through a hierarchical comparator chain, keeping the pool pipeline at II=1.</p>
+        <!-- ═══════════════════════════════════════════════
+             SECTION: HLS DESIGN
+        ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="hls-design">Vitis HLS Design</h2>
+        <p>The CNN function is described in C++ with HLS pragmas and synthesised directly to RTL. The key design decisions are <strong>full unrolling of the channel loop</strong> and <strong>complete array partitioning</strong> of the intermediate BRAMs along the channel dimension — enabling all four channels to be processed in parallel with no memory bank conflicts.</p>
 
-        <h3>Layer 3 — Fully Connected Classifier</h3>
-        <p>The 64-element flattened vector (from 4×4×4) is multiplied against 64 weight-ROM parameters per output class. The top-level module pre-loads all 64 values into parallel registers before launching the FC pipeline, which runs 10 dot products in a single pipeline iteration — each dot product accumulating 64 products and adding one bias ROM value, writing to the <code>prediction[10]</code> output interface.</p>
+        <div class="diagram-block">
+          <span class="diagram-label">HLS Compilation Flow — Figure 2</span>
+          <div class="mermaid">
+flowchart LR
+    classDef sw fill:#374151,stroke:#6b7280,color:#fff
+    classDef hls fill:#1a2744,stroke:#4a5d8c,color:#fff,font-weight:bold
+    classDef pragma fill:#1e5f74,stroke:#2d8da8,color:#fff
+    classDef hw fill:#1a4731,stroke:#28a262,color:#fff
+    classDef io fill:#4a1942,stroke:#9333ea,color:#fff
 
-        <h3>Precision &amp; Fixed-Point Arithmetic</h3>
-        <p>All data paths use <code>ap_fixed&lt;16,6&gt;</code> — 16-bit words with 6 integer bits (including sign, covering −32 to +31.999) and 10 fractional bits (resolution ≈ 0.001). This format was validated by co-simulating the HLS bit-accurate model against the floating-point PyTorch outputs.</p>
+    subgraph SW ["Software (Python/PyTorch)"]
+        Train["train_cnn.py<br/>SimpleCNN — Conv·ReLU·Pool·FC<br/>sklearn Digits dataset · 20 epochs"]:::sw
+        Export["weights.h export<br/>ap_fixed&lt;16,6&gt; constants<br/>conv_w · conv_b · fc_w · fc_b"]:::sw
+    end
 
-        <!-- ─ HLS Design ────────────────────────────────── -->
-        <h2 id="hls">High-Level Synthesis Design</h2>
-        <p>The CNN forward pass is described in <code>cnn.cpp</code> using Vitis HLS pragmas for maximum throughput. Key directives:</p>
+    subgraph HLS ["Vitis HLS (C++ Synthesis)"]
+        Header["cnn.h<br/>ap_fixed&lt;16,6&gt; data_t<br/>Interface declarations"]:::hls
+        Impl["cnn.cpp<br/>3-layer forward pass"]:::hls
+        subgraph PRAGMAS ["Key HLS Pragmas"]
+            P1["#pragma HLS UNROLL<br/>(channel outer loop)"]:::pragma
+            P2["#pragma HLS PIPELINE II=1<br/>(inner spatial loops)"]:::pragma
+            P3["#pragma HLS ARRAY_PARTITION<br/>complete dim=1<br/>(conv_out & pool_out)"]:::pragma
+            P4["#pragma HLS INTERFACE<br/>ap_ctrl_hs · ap_memory"]:::pragma
+        end
+    end
 
-        <pre><code>// Convolution outer-loop fully unrolled — 4 channels computed in parallel
+    subgraph RTL ["Generated RTL (Vivado)"]
+        Verilog["cnn.v top-level<br/>20-state Control FSM"]:::hw
+        DSP["DSP48 MAC units<br/>(muladd arithmetic)"]:::hw
+        BRAM["Dual-Port BRAMs<br/>conv_out / pool_out"]:::hw
+        ROM["Parameter ROMs<br/>weight & bias constants"]:::hw
+    end
+
+    FPGA["Bitstream → PA-StarLite<br/>Artix-7 XC7A200T<br/>200 MHz · 0.405 W"]:::io
+
+    Train -->|"model.pth"| Export
+    Export -->|"weights.h"| Impl
+    Header --> Impl
+    Impl --> P1 & P2 & P3 & P4
+    P1 & P2 & P3 & P4 --> Verilog
+    Verilog --> DSP & BRAM & ROM
+    DSP & BRAM & ROM --> FPGA
+          </div>
+          <p class="diagram-caption">Figure 2 — Vitis HLS compilation flow: PyTorch weights are serialised to <code>weights.h</code>, the C++ description with HLS pragmas is synthesised to Verilog, then placed-and-routed in Vivado and programmed to silicon.</p>
+        </div>
+
+        <pre><code>// Channel loop fully unrolled — 4 channels computed in parallel hardware
 conv_label_oc: for (int oc = 0; oc &lt; 4; oc++) {
     #pragma HLS UNROLL
     conv_label_r: for (int r = 0; r &lt; 8; r++) {
         conv_label_c: for (int c = 0; c &lt; 8; c++) {
-            #pragma HLS PIPELINE II=1
-            // 3x3 window accumulation with zero-padding
+            #pragma HLS PIPELINE II=1     // 1 pixel per clock cycle
+            data_t sum = conv_b[oc];
+            // 3×3 kernel with zero-padding
+            for (int kr = -1; kr &lt;= 1; kr++)
+                for (int kc = -1; kc &lt;= 1; kc++)
+                    if (r+kr &gt;= 0 &amp;&amp; r+kr &lt; 8 &amp;&amp; c+kc &gt;= 0 &amp;&amp; c+kc &lt; 8)
+                        sum += img[0][r+kr][c+kc] * conv_w[oc][0][kr+1][kc+1];
+            conv_out[oc][r][c] = (sum &lt; 0) ? data_t(0) : sum;  // ReLU
         }
     }
 }
 
-// Intermediate buffers partitioned to allow concurrent read/write
+// Intermediate buffers partitioned so all 4 channels accessible in one cycle
 data_t conv_out[4][8][8];
 #pragma HLS ARRAY_PARTITION variable=conv_out complete dim=1
 
 data_t pool_out[4][4][4];
 #pragma HLS ARRAY_PARTITION variable=pool_out complete dim=1</code></pre>
 
-        <p>The channel dimension is fully partitioned in both BRAM buffers so all four channels can be read or written in a single clock cycle, enabling the convolution and pooling loops to sustain II=1 without memory conflicts. The HLS project is built using the <code>run_hls.tcl</code> script and the complete Vivado integration is automated via <code>build_cnn.tcl</code>.</p>
+        <!-- ═══════════════════════════════════════════════
+             SECTION: RTL MASTER HIERARCHY
+        ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="rtl-master">RTL Module Hierarchy</h2>
+        <p>The HLS synthesis generates a Verilog module hierarchy under <code>cnn.v</code>. The top-level module acts as orchestrator — instantiating all BRAM buffers, pipeline modules, and the AP handshake interface.</p>
 
-        <!-- ─ RTL Architecture ──────────────────────────── -->
-        <h2 id="rtl">RTL Architecture</h2>
-        <p>The HLS synthesis generates a module hierarchy under <code>cnn.v</code> orchestrated by a 20-state Control FSM. The FSM schedules overlapping convolution and pooling pipelines, then performs a parallel register-loading phase before firing the fully-connected classifier.</p>
+        <div class="diagram-block">
+          <span class="diagram-label">RTL Master Hierarchy — Figure 3</span>
+          <div class="mermaid">
+flowchart TD
+    classDef top fill:#1a2744,stroke:#4a5d8c,stroke-width:3px,color:#fff,font-weight:bold
+    classDef sub fill:#1e5f74,stroke:#2d8da8,stroke-width:2px,color:#fff
+    classDef mem fill:#1a4731,stroke:#28a262,stroke-width:2px,color:#fff
+    classDef math fill:#4a1942,stroke:#9333ea,stroke-width:2px,color:#fff
 
-        <h3>Module Hierarchy</h3>
-        <ul>
-          <li><strong>cnn.v (Top-Level)</strong> — Control FSM, memory bus routing multiplexers, and AP handshake (<code>ap_start</code> / <code>ap_done</code>).</li>
-          <li><strong>8× conv_out BRAM</strong> — Dual-port AUTO-inferred BRAMs (<code>cnn_conv_out_RAM_AUTO_1R1W.v</code>) holding the 4×8×8 activated feature maps across two sub-banks per channel.</li>
-          <li><strong>4× pool_out BRAM</strong> — Dual-port BRAMs (<code>cnn_pool_out_RAM_AUTO_1R1W.v</code>) for the 4×4×4 pooled maps.</li>
-          <li><strong>4× Convolution Pipeline Modules</strong> — Each pipeline module drives a row/column loop controller and a DSP multiply-accumulator, reading pixel data through dual-port image interfaces and writing to a pair of conv_out BRAMs.</li>
-          <li><strong>4× Max Pooling Pipeline Modules</strong> — Each reads from a pair of conv_out BRAMs using all four read ports simultaneously, resolves the 2×2 maximum, and writes to one pool_out BRAM.</li>
-          <li><strong>1× Fully Connected Pipeline</strong> — Dot-product engine backed by 64 weight-parameter ROMs (<code>fc_w_0_ROM</code> … <code>fc_w_63_ROM</code>), 1 bias ROM, and a parallel DSP MAC array (<code>cnn_mac_muladd_...</code>).</li>
-        </ul>
+    CNN["cnn.v<br/>(Top-Level Module)<br/>20-state Control FSM + Bus MUX"]:::top
 
-        <h3>FSM Schedule</h3>
-        <p>The 20-state FSM implements an overlapping execution schedule to maximise silicon utilisation. Convolution for one filter pair is launched while pooling from the previous pair runs in parallel:</p>
-        <ul>
-          <li><strong>States 1:</strong> Idle — wait for <code>ap_start</code></li>
-          <li><strong>States 2–10:</strong> Pipelined CONV+POOL — 4 convolution passes interleaved with 4 pooling passes</li>
-          <li><strong>States 11–19:</strong> Parallel Register Loading — 8 values fetched per cycle to fill 64 FC input registers</li>
-          <li><strong>State 20:</strong> FC Classification pipeline — assert <code>ap_done</code> when complete</li>
-        </ul>
+    CNN --> RAM_CONV["8× cnn_conv_out_RAM_AUTO_1R1W.v<br/>Dual-Port BRAMs for Conv Outputs<br/>(2 banks × 4 channels)"]:::mem
+    CNN --> RAM_POOL["4× cnn_pool_out_RAM_AUTO_1R1W.v<br/>Dual-Port BRAMs for Pool Outputs<br/>(1 bank × 4 channels)"]:::mem
 
-        <h3>Memory Bus Multiplexing</h3>
-        <p>Because both the convolution and pooling pipelines share the same conv_out BRAMs (one writes, one reads), the top-level instantiates address, write-enable, and chip-enable multiplexers controlled by the active FSM state. This prevents bus contention while allowing the two pipelines to overlap in alternating states.</p>
+    CNN --> CONV_PIPES["4× Convolution Pipeline Modules<br/>cnn_cnn_Pipeline_conv_label_r_..."]:::sub
+    CNN --> POOL_PIPES["4× Max Pooling Pipeline Modules<br/>cnn_cnn_Pipeline_pool_label_r_..."]:::sub
+    CNN --> FC_PIPE["1× Fully Connected Classifier<br/>cnn_cnn_Pipeline_fc_label_class.v"]:::sub
 
-        <!-- ─ Hardware Demo ──────────────────────────────── -->
-        <h2 id="hardware">Hardware Demonstration</h2>
-        <p>The synthesised bitstream was programmed to the <strong>PA-StarLite</strong> development board (Artix-7 XC7A200T) using a custom <code>program_cnn.tcl</code> script. The digit dataset is stored in on-chip BRAM via <code>digits_rom.v</code> (1,797 pre-loaded images). Two push-buttons cycle through the dataset, a UART port streams the predicted class to a terminal, and the HDMI output renders the 8×8 input pixel grid alongside a bar chart of the 10 class logits.</p>
+    FC_PIPE --> FC_W_ROMS["64× Weight Parameter ROMs<br/>cnn_..._fc_w_0 … fc_w_63_ROM.v"]:::mem
+    FC_PIPE --> FC_B_ROM["1× Bias Parameter ROM<br/>cnn_..._fc_b_ROM.v"]:::mem
+    FC_PIPE --> MAC_UNITS["DSP48 Parallel MAC Array<br/>cnn_mac_muladd_..."]:::math
+          </div>
+          <p class="diagram-caption">Figure 3 — RTL module hierarchy generated by Vitis HLS. cnn.v is the orchestrator; 8 conv BRAMs and 4 pool BRAMs are shared via address/WE multiplexers; the FC module uses 64 dedicated weight ROMs and a parallel DSP MAC array.</p>
+        </div>
 
-        <div class="media-gallery">
-          <figure class="wide">
-            <img src="../assets/projects/cnn-digit-detector/fpga_setup.jpeg" alt="PA-StarLite FPGA board running the CNN digit detector" />
-            <figcaption>PA-StarLite (Artix-7 XC7A200T) with HDMI and UART cables connected — running the CNN bitstream at 200 MHz.</figcaption>
+        <!-- ═══════════════════════════════════════════════
+             SECTION: CONTROL FSM
+        ═══════════════════════════════════════════════ -->
+        <h2 id="rtl-fsm">Control FSM Schedule</h2>
+        <p>The 20-state main FSM orchestrates overlapping execution of the convolution and pooling pipelines to maximise hardware utilisation — one filter pair is being convolved while the previous pair is being pooled simultaneously.</p>
+
+        <div class="diagram-block">
+          <span class="diagram-label">Main Control FSM — Figure 4</span>
+          <div class="mermaid">
+flowchart TD
+    classDef idle fill:#374151,stroke:#6b7280,stroke-width:2px,color:#fff
+    classDef pipe fill:#1a2744,stroke:#4a5d8c,stroke-width:2px,color:#fff
+    classDef reg fill:#1e5f74,stroke:#2d8da8,stroke-width:2px,color:#fff
+    classDef fc fill:#4a1942,stroke:#9333ea,stroke-width:2px,color:#fff
+
+    Start(["Power-On / Reset"]) --> S1
+
+    subgraph IdlePhase ["Idle &amp; Handshake"]
+        S1(["State 1: Wait for ap_start"]):::idle
+    end
+
+    subgraph PipePhase ["Pipelined Convolution &amp; Pooling (Overlapping)"]
+        S1 -->|"ap_start = 1"| S2
+        S2(["State 2: CONV Pipeline 0<br/>(Filters 0, 1)"]):::pipe
+        S2 -->|done| S3
+        S3(["State 3: Trigger CONV 1 &amp; POOL 0"]):::pipe
+        S3 --> S4
+        S4(["State 4: Parallel CONV 1 (Filters 2,3)<br/>&amp; POOL 0 running"]):::pipe
+        S4 -->|done| S5
+        S5(["State 5: Trigger CONV 2 &amp; POOL 1"]):::pipe
+        S5 --> S6
+        S6(["State 6: Parallel CONV 2 (Filters 4,5)<br/>&amp; POOL 1 running"]):::pipe
+        S6 -->|done| S7
+        S7(["State 7: Trigger CONV 3 &amp; POOL 2"]):::pipe
+        S7 --> S8
+        S8(["State 8: Parallel CONV 3 (Filters 6,7)<br/>&amp; POOL 2 running"]):::pipe
+        S8 -->|done| S9
+        S9(["State 9: Trigger POOL 3"]):::pipe
+        S9 --> S10
+        S10(["State 10: POOL 3 completes"]):::pipe
+        S10 -->|done| S11
+    end
+
+    subgraph RegPhase ["Parallel Register Pre-Loading (8 values/cycle)"]
+        S11(["State 11: Address Bus Setup"]):::reg
+        S11 --> S12
+        S12(["States 12–19:<br/>Fetch 8× pool values per cycle"]):::reg
+        S12 -->|"64 registers loaded"| S20
+    end
+
+    subgraph FCPhase ["FC Classification"]
+        S20(["State 20: Run FC Pipeline<br/>10 dot products in parallel"]):::fc
+        S20 -->|"Assert ap_done"| S1
+    end
+          </div>
+          <p class="diagram-caption">Figure 4 — 20-state Control FSM. Convolution and pooling pipelines overlap in States 3–10. States 11–19 pre-load 64 pool values into parallel FC input registers (8 values/cycle). State 20 fires the FC dot-product pipeline and asserts ap_done.</p>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════
+             SECTION: ELABORATED MODULE DIAGRAMS
+        ═══════════════════════════════════════════════ -->
+        <h2 id="rtl-modules">Elaborated Module Diagrams</h2>
+
+        <h3>Convolution Pipeline Module</h3>
+        <div class="diagram-block">
+          <span class="diagram-label">Conv Pipeline Sub-Module — Figure 5</span>
+          <div class="mermaid">
+flowchart LR
+    classDef port fill:#0f172a,stroke:#38bdf8,stroke-width:1px,color:#fff
+    classDef logic fill:#1a2744,stroke:#4a5d8c,stroke-width:2px,color:#fff
+    classDef math fill:#4a1942,stroke:#9333ea,stroke-width:2px,color:#fff
+
+    subgraph PORTS ["Sub-Module Interface Ports"]
+        CLK["ap_clk (Input)"]:::port
+        START["ap_start (Input)"]:::port
+        DONE["ap_done (Output)"]:::port
+        IMG0["img_address0 [5:0] / img_q0 [15:0]"]:::port
+        IMG1["img_address1 [5:0] / img_q1 [15:0]"]:::port
+        CO0["conv_out_address0 [4:0]<br/>conv_out_we0 / conv_out_d0 [14:0]"]:::port
+        CO1["conv_out_1_address0 [4:0]<br/>conv_out_1_we0 / conv_out_1_d0 [14:0]"]:::port
+    end
+
+    subgraph ENGINE ["Internal Compute Engine"]
+        LoopCtrl["Row / Col Loop Controller"]:::logic
+        MAC["DSP48 Multiply-Accumulator<br/>9 products per output pixel"]:::math
+    end
+
+    START --> LoopCtrl
+    LoopCtrl --> IMG0
+    LoopCtrl --> IMG1
+    IMG0 -->|"pixel data"| MAC
+    IMG1 -->|"pixel data"| MAC
+    MAC --> CO0
+    MAC --> CO1
+    LoopCtrl --> CO0
+    LoopCtrl --> CO1
+    LoopCtrl --> DONE
+          </div>
+          <p class="diagram-caption">Figure 5 — Each convolution pipeline module reads two pixel values per cycle via dual-port image interfaces, accumulates through a DSP MAC, and writes results to two conv_out BRAM banks simultaneously.</p>
+        </div>
+
+        <h3>Max Pooling Pipeline Module</h3>
+        <div class="diagram-block">
+          <span class="diagram-label">Pool Pipeline Sub-Module — Figure 6</span>
+          <div class="mermaid">
+flowchart LR
+    classDef port fill:#0f172a,stroke:#38bdf8,stroke-width:1px,color:#fff
+    classDef logic fill:#1a2744,stroke:#4a5d8c,stroke-width:2px,color:#fff
+    classDef math fill:#4a1942,stroke:#9333ea,stroke-width:2px,color:#fff
+
+    subgraph PORTS ["Sub-Module Interface Ports"]
+        CLK2["ap_clk (Input)"]:::port
+        START2["ap_start (Input)"]:::port
+        DONE2["ap_done (Output)"]:::port
+        C0["conv_out Port 0+1<br/>address0 [4:0] / q0+q1 [14:0]"]:::port
+        C1["conv_out_1 Port 0+1<br/>address0+1 [4:0] / q0+q1 [14:0]"]:::port
+        PO["pool_out_address0 [3:0]<br/>pool_out_we0 / pool_out_d0 [14:0]"]:::port
+    end
+
+    subgraph POOL ["Internal Pooling Comparator"]
+        PLoop["2×2 Window<br/>Loop Controller"]:::logic
+        CMP["Comparator Tree<br/>max(val00, val01, val10, val11)"]:::math
+    end
+
+    START2 --> PLoop
+    PLoop --> C0
+    PLoop --> C1
+    C0 -->|"4 pixels / cycle"| CMP
+    C1 -->|"4 pixels / cycle"| CMP
+    CMP -->|"max value"| PO
+    PLoop --> PO
+    PLoop --> DONE2
+          </div>
+          <p class="diagram-caption">Figure 6 — Each pooling module reads all four 2×2 window pixels simultaneously using both read ports of two conv_out BRAMs, resolves the maximum via a comparator tree, and writes to a pool_out BRAM.</p>
+        </div>
+
+        <h3>Fully Connected Pipeline &amp; Memory Bus Multiplexing</h3>
+        <div class="diagram-block">
+          <span class="diagram-label">FC Module &amp; Bus MUX — Figure 7</span>
+          <div class="mermaid">
+flowchart TB
+    classDef port fill:#0f172a,stroke:#38bdf8,stroke-width:1px,color:#fff
+    classDef logic fill:#1a2744,stroke:#4a5d8c,stroke-width:2px,color:#fff
+    classDef math fill:#4a1942,stroke:#9333ea,stroke-width:2px,color:#fff
+    classDef mem fill:#1a4731,stroke:#28a262,stroke-width:2px,color:#fff
+    classDef mux fill:#7f1d1d,stroke:#f87171,stroke-width:2px,color:#fff
+
+    subgraph FC ["Fully Connected Module"]
+        REGS["64× Parallel Input Registers<br/>(pre-loaded in States 11–19)"]:::port
+        WROM["64× Weight ROMs<br/>(one ROM per input dimension)"]:::mem
+        BROM["1× Bias ROM<br/>(fc_b[10])"]:::mem
+        MAC2["Parallel DSP MAC Array<br/>cnn_mac_muladd_..."]:::math
+        ACCUM["Accumulator + Bias Add"]:::math
+        POUT["prediction_d0 [15:0]<br/>prediction_address0 / we0"]:::port
+    end
+
+    subgraph MUX ["Memory Bus Multiplexing (FSM-controlled)"]
+        CONV_P2["Convolution Pipeline"]:::logic
+        POOL_P2["Pooling Pipeline"]:::logic
+        MADDR["Address MUX"]:::mux
+        MWE["WE MUX"]:::mux
+        MCE["CE MUX"]:::mux
+        BRAM2["conv_out_U<br/>Dual-Port BRAM"]:::mem
+    end
+
+    REGS ==>|"64 values"| MAC2
+    WROM ==>|"64 weights"| MAC2
+    BROM ==>|"bias"| ACCUM
+    MAC2 ==>|"parallel products"| ACCUM
+    ACCUM ==>|"logit"| POUT
+
+    CONV_P2 -->|"write_address"| MADDR
+    POOL_P2 -->|"read_address"| MADDR
+    CONV_P2 -->|"write_enable"| MWE
+    CONV_P2 -->|"write_ce"| MCE
+    POOL_P2 -->|"read_ce"| MCE
+    MADDR -->|"address0"| BRAM2
+    MWE -->|"we0"| BRAM2
+    MCE -->|"ce0"| BRAM2
+    BRAM2 -->|"q0 / q1 read data"| POOL_P2
+          </div>
+          <p class="diagram-caption">Figure 7 — Top: FC module uses 64 pre-loaded registers plus 64 weight ROMs to compute 10 dot products in one pipeline pass. Bottom: Address/WE/CE multiplexers share the conv_out BRAMs between the writing convolution pipelines and the reading pooling pipelines, controlled by the active FSM state.</p>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════
+             HARDWARE RESULTS
+        ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="hardware">Hardware &amp; Results</h2>
+
+        <figure class="media-full">
+          <img src="../assets/projects/cnn-digit-detector/monitor_interface.jpeg" alt="HDMI monitor showing digit recognition output" />
+          <figcaption>HDMI display output — the 8×8 input pixel grid (left box) and the 10-class logit bar chart rendered on the monitor by the Artix-7 fabric in real time.</figcaption>
+        </figure>
+
+        <div class="media-pair">
+          <figure>
+            <img src="../assets/projects/cnn-digit-detector/device_layout.png" alt="Vivado device floor plan after place and route" />
+            <figcaption>Vivado device floor plan — CNN logic placed in the lower pblock regions (X0Y0–X1Y2); MMCM and I/O logic visible in upper banks.</figcaption>
           </figure>
           <figure>
-            <img src="../assets/projects/cnn-digit-detector/monitor_interface.jpeg" alt="HDMI monitor showing digit recognition output" />
-            <figcaption>HDMI display output: the 8×8 input pixel grid (left) and the 10-class prediction bar chart — digit "1" being detected.</figcaption>
-          </figure>
-          <figure>
-            <img src="../assets/projects/cnn-digit-detector/device_layout.png" alt="Vivado device layout showing placed and routed CNN logic" />
-            <figcaption>Vivado device floor plan after place &amp; route — CNN logic clustered in the lower pblock regions (X0Y0–X1Y2).</figcaption>
+            <img src="../assets/projects/cnn-digit-detector/on_chip_power.png" alt="On-chip power analysis from Vivado" />
+            <figcaption>Vivado on-chip power analysis — 0.405 W dynamic total. MMCM (36%) and I/O (33%) dominate due to 200 MHz HDMI TMDS differential output.</figcaption>
           </figure>
         </div>
 
-        <!-- ─ Results ────────────────────────────────────── -->
-        <h2 id="results">Synthesis Results &amp; Power</h2>
-
-        <h3>On-Chip Power Breakdown</h3>
-        <table class="spec-table">
-          <thead>
-            <tr><th>Component</th><th>Power</th><th>Share</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Total Dynamic</td><td>0.405 W</td><td>74%</td></tr>
-            <tr><td>— MMCM (clock management)</td><td>0.146 W</td><td>36%</td></tr>
-            <tr><td>— I/O (HDMI TMDS + UART)</td><td>0.137 W</td><td>33%</td></tr>
-            <tr><td>— DSP Slices (MAC units)</td><td>0.074 W</td><td>18%</td></tr>
-            <tr><td>— Clocking fabric</td><td>0.016 W</td><td>4%</td></tr>
-            <tr><td>— Signal routing</td><td>0.023 W</td><td>6%</td></tr>
-            <tr><td>— Logic (LUTs)</td><td>0.007 W</td><td>2%</td></tr>
-            <tr><td>— BRAM</td><td>0.002 W</td><td>1%</td></tr>
-            <tr><td>Device Static</td><td>0.140 W</td><td>26%</td></tr>
-          </tbody>
-        </table>
-
-        <div class="media-gallery">
-          <figure>
-            <img src="../assets/projects/cnn-digit-detector/on_chip_power.png" alt="On-chip power breakdown from Vivado" />
-            <figcaption>Vivado on-chip power analysis — MMCM and I/O dominate dynamic power due to the 200 MHz HDMI differential clock and TMDS output buffers.</figcaption>
-          </figure>
-          <figure>
-            <img src="../assets/projects/cnn-digit-detector/schematic.png" alt="Vivado block design schematic" />
-            <figcaption>Vivado elaborated schematic showing the <code>cnn.v</code> top-level wrapper with ROM, BRAM, and DSP block connections.</figcaption>
-          </figure>
-        </div>
+        <figure class="media-full">
+          <img src="../assets/projects/cnn-digit-detector/schematic.png" alt="Vivado elaborated schematic" />
+          <figcaption>Vivado elaborated schematic — <code>cnn.v</code> top-level wrapper showing ROM, BRAM, DSP MAC block connections, and HDMI output stage.</figcaption>
+        </figure>
 
         <h3>Implementation Summary</h3>
-        <ul>
-          <li><strong>Clock</strong> — 200 MHz input differential clock (DIFF_SSTL135), constrained at 5.0 ns period. Timing closure achieved with no negative slack.</li>
-          <li><strong>Arithmetic precision</strong> — <code>ap_fixed&lt;16,6&gt;</code> throughout. Bit-accurate co-simulation matches PyTorch floating-point reference outputs.</li>
-          <li><strong>Control FSM</strong> — 20-state pipelined schedule with overlapping CONV/POOL phases and parallel register pre-loading for the FC stage.</li>
-          <li><strong>Memory</strong> — All intermediate feature maps stored in Vivado-inferred dual-port BRAMs; weight and bias constants synthesised as dedicated ROM resources from <code>weights.h</code>.</li>
-          <li><strong>I/O</strong> — HDMI TMDS output via 3 differential data lanes + 1 differential clock (Bank 14); UART TX at 3.3 V LVCMOS for serial debug; 2 push-buttons for dataset navigation.</li>
-        </ul>
+        <table class="spec-table">
+          <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Clock Frequency</td><td>200 MHz — timing closure achieved, no negative slack</td></tr>
+            <tr><td>Pipeline II</td><td>1 (both convolution and pooling spatial loops)</td></tr>
+            <tr><td>FSM States</td><td>20 — overlapping CONV/POOL + parallel register pre-load</td></tr>
+            <tr><td>Dynamic Power</td><td>0.405 W (MMCM 0.146 W · I/O 0.137 W · DSP 0.074 W)</td></tr>
+            <tr><td>Arithmetic</td><td>ap_fixed&lt;16,6&gt; — bit-accurate co-simulation matches PyTorch FP32 outputs</td></tr>
+            <tr><td>Weight storage</td><td>64 fc_w ROMs + 1 fc_b ROM + conv_w/conv_b constants in LUT fabric</td></tr>
+          </tbody>
+        </table>
       </div>
 
       <div style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap;">
