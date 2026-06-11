@@ -4,18 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Autonomous Aerial Survey Platform — Al Hossain Shawn</title>
-  <meta name="description" content="Final Year Design Project — an autonomous aerial survey platform combining drone flight simulation, image processing and mission automation." />
+  <meta name="description" content="Final Year Design Project — An autonomous aerial survey platform leveraging off-the-shelf hardware and open-source toolchains for cost-effective infrastructure inspection." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css?v=2.5" />
+
+  <!-- KaTeX for math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
 </head>
 <body>
 
   <header class="site-header" role="banner">
     <div class="site-header__inner">
       <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
-      <nav class="site-nav">
+      <nav class="site-nav" aria-label="Main navigation">
         <a href="../index.html#about">About</a>
         <a href="../index.html#research">Research</a>
         <a href="../index.html#projects" class="active">Projects</a>
@@ -50,19 +55,23 @@
       <hr class="sidebar__divider" />
       <div class="subpage-nav-title">On this page</div>
       <nav class="subpage-nav">
-        <a href="#brief">Project Brief</a>
-        <a href="#pipeline">Pipeline</a>
-        <a href="#lessons">Lessons</a>
+        <a href="#overview">Overview</a>
+        <a href="#design-approaches">Design Approaches</a>
+        <a href="#hardware">Hardware Components</a>
+        <a href="#software">Software & Mapping Stack</a>
+        <a href="#benchmarks">Simulation & Benchmarks</a>
+        <a href="#object-detection">Object Detection & Validation</a>
+        <a href="#mitigation">Mitigation & Safety</a>
       </nav>
       <hr class="sidebar__divider" />
-      <div class="sidebar__section-title">Project</div>
+      <div class="sidebar__section-title">Research</div>
       <div class="sidebar__tags">
         <span class="sidebar__tag">P-01</span>
         <span class="sidebar__tag">FYDP</span>
-        <span class="sidebar__tag">ROS</span>
-        <span class="sidebar__tag">PX4</span>
-        <span class="sidebar__tag">C++</span>
+        <span class="sidebar__tag">UAV</span>
+        <span class="sidebar__tag">YOLO</span>
         <span class="sidebar__tag">Python</span>
+        <span class="sidebar__tag">FOSS</span>
       </div>
     </aside>
 
@@ -84,34 +93,373 @@
         <h1>Autonomous Aerial <em>Survey</em> Platform</h1>
         <div class="subpage-meta">
           <span>Final Year Design Project</span>
-          <span>Jan 2025 – Dec 2025</span>
+          <span>Feb 2025 – Jan 2026</span>
           <span>BRAC University · EEE</span>
         </div>
       </div>
 
       <div class="prose">
-        <p>An end-to-end pipeline for <em>autonomous aerial survey</em> — flight simulation in the loop, on-board image processing, and mission-level automation closing the loop between sensor and plan.</p>
+        <h2 id="overview">Overview</h2>
+        <p>Traditional infrastructure monitoring and topographic mapping represent labor-intensive, hazardous, and capital-heavy tasks. In developing nations, the steep licensing costs of commercial flight planners, data post-processing suites, and proprietary hardware architectures often lead to safety surveys being neglected or omitted entirely, introducing severe risks of structural failures and preventable accidents.</p>
+        
+        <p>The <strong>Autonomous Aerial Survey Platform (AASP)</strong> addresses this research gap by developing a self-contained, low-cost drone surveying platform utilizing commercial off-the-shelf (COTS) components and free/open-source software (FOSS) toolchains. The system is designed to autonomously execute dynamic flight path patterns, perform real-time optical capture, and leverage edge-optimized computer vision networks to identify and map infrastructure faults (such as road potholes, concrete cracks, metal corrosion, and high-voltage insulator damage) under Visual Meteorological Conditions (VMC).</p>
 
         <table class="spec-table">
-          <tr><td>Type</td><td>Autonomous aerial platform</td></tr>
-          <tr><td>Class</td><td>Final Year Design Project</td></tr>
-          <tr><td>Platform</td><td>ROS · PX4</td></tr>
-          <tr><td>Payload</td><td>Thermal / HD imaging</td></tr>
-          <tr><td>Firmware</td><td>C++ · Python</td></tr>
+          <tr><td>Project Type</td><td>Final Year Design Project (FYDP)</td></tr>
+          <tr><td>Target Application</td><td>Infrastructure inspection, disaster response, environmental monitoring</td></tr>
+          <tr><td>Primary Hardware</td><td>Raspberry Pi 4B · ESP32 · Pixhawk 2.4.8 · Sony IMX219 (NoIR/RGB)</td></tr>
+          <tr><td>Software Ecosystem</td><td>Python · OpenCV · TensorFlow · Ultralytics YOLO · TileServer GL</td></tr>
+          <tr><td>Budget Profile</td><td>~53,500 BDT (highly optimized vs. proprietary platforms)</td></tr>
         </table>
 
-        <h2 id="brief">Project Brief</h2>
-        <p>Survey drones are still mostly piloted — a human flies the grid, a human sifts the imagery. This project asks how much of that loop can be moved into the platform itself, by combining a flight simulator (for training and verification), a real-time image processing stack (for on-board interpretation), and a mission planner (for adapting the survey while it is happening).</p>
+        <h2 id="design-approaches">Design Approaches</h2>
+        <p>To identify the optimal trade-off between power, weight, data security, and latency, the technical team evaluated two complementary system architectures under identical simulated mission envelopes:</p>
 
-        <h2 id="pipeline">The Three-Layer Pipeline</h2>
         <ul>
-          <li><strong>Flight Simulation (SIM)</strong> — Drone dynamics simulated in the loop, used to develop and verify the control law and survey planner before any field test. PX4 SITL with ROS integration.</li>
-          <li><strong>Image Processing (CV)</strong> — On-board imagery pipeline tuned for survey workloads: feature extraction and target detection feeding the autonomy layer. Thermal and visible-spectrum fusion.</li>
-          <li><strong>Mission Automation (AUT)</strong> — Mission planner that decides where to look next based on what the image stack reports — closing the loop in flight, adapting waypoints based on findings.</li>
+          <li><strong>Design Approach 1 (Self-Contained Edge Inference):</strong> Integrates data capture and deep learning inference directly on the drone’s embedded system (Broadcom SoC/NPU). As the drone navigates a preloaded path, real-time object detection model crops the image buffers. When a fault is detected with high confidence, the coordinates are fetched from the GPS and appended to a local CSV file. Post-flight, the drone connects to a secure landing-pad LAN to offload only the light text-based telemetry digest.
+            <ul>
+              <li><em>Advantages:</em> Real-time localization, zero network-connectivity dependence in flight, high data privacy (OPSEC).</li>
+              <li><em>Disadvantages:</em> Elevated on-board power draw (~15W compute), requires active heatsink cooling.</li>
+            </ul>
+          </li>
+          <li><strong>Design Approach 2 (Base-Station Offloading):</strong> The drone acts solely as a data acquisition node, capturing sRGB and Near-IR streams to local high-speed storage. Upon landing, the drone establishes an opportunistic Wi-Fi tunnel to a localized ground station server (which runs advanced GPU-accelerated networks) to offload the raw data for processing and buffer wiping.
+            <ul>
+              <li><em>Advantages:</em> Lighter payload, lower on-board power draw, permits larger models (e.g., YOLOv12s, Transformers).</li>
+              <li><em>Disadvantages:</em> High transfer latency, relies on stable post-flight connection, high storage write-cycles.</li>
+            </ul>
+          </li>
         </ul>
 
-        <h2 id="lessons">What It Taught Me</h2>
-        <p>Closing a perception–planning loop end-to-end forces honesty about every layer. The simulator catches what the controller would not; the image stack catches what the simulator cannot; and the planner must be conservative about what it can trust from either. This kind of co-design thinking — knowing where the slack lives — transfers directly to hardware accelerator design for inference workloads.</p>
+        <div style="overflow-x: auto; margin: 1.5rem 0;">
+          <table class="spec-table responsive-table">
+            <thead>
+              <tr>
+                <th>Differentiating Criteria</th>
+                <th>Design Approach 1 (Edge Inference)</th>
+                <th>Design Approach 2 (Base Offload)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Differentiating Criteria"><strong>Processing Location</strong></td>
+                <td data-label="Design Approach 1">Embedded SoC/NPU on drone</td>
+                <td data-label="Design Approach 2">Local Ground Station Server (x86_64)</td>
+              </tr>
+              <tr>
+                <td data-label="Differentiating Criteria"><strong>Average Training Time</strong></td>
+                <td data-label="Design Approach 1">11,524.77 minutes (on-device simulation)</td>
+                <td data-label="Design Approach 2">90.16 minutes (GPU workstation)</td>
+              </tr>
+              <tr>
+                <td data-label="Differentiating Criteria"><strong>Inference Frame Rate</strong></td>
+                <td data-label="Design Approach 1">2.18 FPS (Raspberry Pi 4B)</td>
+                <td data-label="Design Approach 2">296.67 FPS (Workstation)</td>
+              </tr>
+              <tr>
+                <td data-label="Differentiating Criteria"><strong>Inference Efficiency</strong></td>
+                <td data-label="Design Approach 1">0.17 frames/Watt</td>
+                <td data-label="Design Approach 2">2.38 frames/Watt</td>
+              </tr>
+              <tr>
+                <td data-label="Differentiating Criteria"><strong>Data Security</strong></td>
+                <td data-label="Design Approach 1">Local telemetry digest, immediate buffer wipe</td>
+                <td data-label="Design Approach 2">Encrypted buffer transfer via secure tunnel</td>
+              </tr>
+              <tr>
+                <td data-label="Differentiating Criteria"><strong>Final Scoring Metric</strong></td>
+                <td data-label="Design Approach 1"><strong>8 / 12 (Selected Optimal Solution)</strong></td>
+                <td data-label="Design Approach 2">5 / 12</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="hardware">Hardware Components</h2>
+        <p>The airframe and payload subsystems were selected to balance mechanical durability and electronic modularity. Full carbon fiber structural components minimize parasitic weight, maximizing flight time on a 4S LiPo power configuration.</p>
+
+        <div class="simulation-gallery" style="margin-bottom: 2rem;">
+          <div style="overflow-x: auto; width: 100%;">
+            <table class="spec-table responsive-table" style="margin: 0; width: 100%;">
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Model Selection</th>
+                  <th>Key Technical Specifications</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-label="Component"><strong>Compute Platform</strong></td>
+                  <td data-label="Model Selection">Raspberry Pi 4 Model B</td>
+                  <td data-label="Key Specifications">Broadcom BCM2711, Quad-core Cortex-A72 @ 1.5GHz, 4GB LPDDR4, 15W TDP, 28nm CMOS</td>
+                </tr>
+                <tr>
+                  <td data-label="Component"><strong>Flight Controller</strong></td>
+                  <td data-label="Model Selection">Pixhawk 2.4.8</td>
+                  <td data-label="Key Specifications">32-bit STM32F427 Cortex-M4 @ 168MHz, LSM303D IMU, MS5611 Barometer, MAVLink support</td>
+                </tr>
+                <tr>
+                  <td data-label="Component"><strong>Camera Sensor</strong></td>
+                  <td data-label="Model Selection">Raspberry Pi Camera V2</td>
+                  <td data-label="Key Specifications">8MP Sony IMX219PQ, Back-Illuminated CMOS, NoIR and sRGB variants, 1080p @ 30fps</td>
+                </tr>
+                <tr>
+                  <td data-label="Component"><strong>Navigation/Compass</strong></td>
+                  <td data-label="Model Selection">Beitian BN-880</td>
+                  <td data-label="Key Specifications">U-blox M8030-KT GPS/GLONASS/BeiDou receiver, Honeywell HMC5883L I2C triple-axis compass</td>
+                </tr>
+                <tr>
+                  <td data-label="Component"><strong>BLDC Motors</strong></td>
+                  <td data-label="Model Selection">T-Motor AS2820 KV880</td>
+                  <td data-label="Key Specifications">880kV rating, 12N14P configuration, 3-4S support, 626W max power, 136g weight</td>
+                </tr>
+                <tr>
+                  <td data-label="Component"><strong>Airframe Frame</strong></td>
+                  <td data-label="Model Selection">LJI X500</td>
+                  <td data-label="Key Specifications">500mm diagonal wheelbase, 3K full carbon fiber construction, 453g bare frame weight</td>
+                </tr>
+                <tr>
+                  <td data-label="Component"><strong>Flight Data Recorder</strong></td>
+                  <td data-label="Model Selection">ESP32 WROOM32</td>
+                  <td data-label="Key Specifications">Xtensa dual-core LX6, 520kB SRAM, logging coordinates/headings to local micro SD over SPI</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h2 id="software">Software & Mapping Stack</h2>
+        <p>A primary goal of the AASP software design is full independence from external web-based maps and cloud APIs, protecting sensitive infrastructure locations from remote data exposure:</p>
+
+        <ul>
+          <li><strong>Offline GIS Mapping Stack (TileServer GL):</strong> Hosted in a Hyper-V Linux guest container. It serves vectorized, multi-layer map tiles of target zones in Bangladesh locally over HTTP on port <code>8080</code> using the <code>map_data.mbtiles</code> database.</li>
+          <li><strong>MapDVT (Data Verification Tool):</strong> A custom HTML5/CSS3/JavaScript applet designed to ingest the detection coordinates, calculate exact geodetic vectors, and project them onto the local map canvas using trigonometric formulations.</li>
+          <li><strong>MapLAB Deep Explorer:</strong> A Python Streamlit and Folium interactive mapping app. It provides local inspectors with a graphical dashboard to filter class faults, preview detection photos, and analyze road-tracing paths.</li>
+        </ul>
+
+        <!-- Visual Schematic of Subsystem Connections -->
+        <div class="simulation-gallery" style="margin-top: 2rem; margin-bottom: 2rem;">
+          <figure style="background: var(--bg-white); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border); width: 100%;">
+            <svg viewBox="0 0 800 280" width="100%" height="auto" style="display: block; margin: 0 auto; max-width: 100%;">
+              <defs>
+                <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#32b8c6;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#21808d;stop-opacity:1" />
+                </linearGradient>
+                <linearGradient id="darkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#232a3f;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#111524;stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <!-- Core Nodes -->
+              <rect x="300" y="80" width="200" height="70" rx="8" fill="url(#blueGrad)" stroke="#1d7480" stroke-width="2" />
+              <text x="400" y="115" fill="#ffffff" font-family="'Inter', sans-serif" font-weight="600" font-size="14" text-anchor="middle">Raspberry Pi 4B</text>
+              <text x="400" y="135" fill="#e0f2f1" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">(Broadcom SoC / Edge Compute)</text>
+
+              <rect x="50" y="80" width="160" height="70" rx="8" fill="url(#darkGrad)" stroke="#232a3f" stroke-width="2" />
+              <text x="130" y="115" fill="#ffffff" font-family="'Inter', sans-serif" font-weight="600" font-size="13" text-anchor="middle">Sony IMX219 Camera</text>
+              <text x="130" y="135" fill="#8892b0" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">(NoIR / RGB Lens)</text>
+
+              <rect x="590" y="80" width="160" height="70" rx="8" fill="url(#darkGrad)" stroke="#232a3f" stroke-width="2" />
+              <text x="670" y="115" fill="#ffffff" font-family="'Inter', sans-serif" font-weight="600" font-size="13" text-anchor="middle">Pixhawk 2.4.8 FC</text>
+              <text x="670" y="135" fill="#8892b0" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">(Flight Control Loop)</text>
+
+              <rect x="300" y="200" width="200" height="60" rx="8" fill="url(#darkGrad)" stroke="#232a3f" stroke-width="2" />
+              <text x="400" y="235" fill="#ffffff" font-family="'Inter', sans-serif" font-weight="600" font-size="13" text-anchor="middle">ESP32 FDR Sub-Routine</text>
+              <text x="400" y="250" fill="#8892b0" font-family="'Inter', sans-serif" font-size="11" text-anchor="middle">(GPS / Compass SPI SD Logger)</text>
+
+              <!-- Interface Lines -->
+              <path d="M 210 115 L 300 115" stroke="#21808d" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+              <text x="255" y="105" fill="#21808d" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">MIPI CSI-2</text>
+
+              <path d="M 500 115 L 590 115" stroke="#21808d" stroke-width="2.5" fill="none" />
+              <text x="545" y="105" fill="#21808d" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">MAVLink</text>
+
+              <path d="M 400 150 L 400 200" stroke="#21808d" stroke-width="2" fill="none" />
+              <text x="412" y="180" fill="#21808d" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="left">USART (SPI)</text>
+            </svg>
+            <figcaption style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Figure 1: High-level hardware interface routing between sensing, computing, and flight controllers.</figcaption>
+          </figure>
+        </div>
+
+        <h2 id="benchmarks">Simulation &amp; Benchmarks</h2>
+        <p>To evaluate deep learning algorithms prior to physical deployment, the team established a simulated Raspberry Pi environment on x86_64 workstation hardware (AMD Ryzen 5 2400G host) by enforcing physical virtualization constraints. Using Linux Cgroups, each guest VM’s CPU performance was throttled by 50% to mirror the 1.8GHz clock speed limits of the ARM Cortex-A72 cores:</p>
+
+        <p>$$\text{CPU Quota } \% = \frac{F_p}{F_H} \times 100\% = 50\%$$</p>
+
+        <p>Where $F_p$ is the target processor speed ($1.8\text{ GHz}$) and $F_H$ is the host clock speed ($3.6\text{ GHz}$). Additionally, memory bounds were constrained to $8\text{ GB}$ per VM with dynamic memory ballooning drivers to limit host overhead. The overall performance normalization factor was calculated as:</p>
+
+        <p>$$\text{Performance Factor } \% = \frac{F_p}{F_H} \times \frac{\text{VM Memory Bandwidth}}{\text{Host Memory Bandwidth}} \times 100\% = 0.5 \times 0.5 \times 100\% = 25\%$$</p>
+
+        <p>This verified that the virtualized guest environments operated at approximately one-quarter of the host’s peak performance, providing a highly accurate representation of on-board Raspberry Pi telemetry.</p>
+
+        <h3>Image Classification Sweeps</h3>
+        <p>The team trained 12 separate classification backbones (ranging from light MobileNets to deep ResNet configurations) to establish a baseline of energy efficiency vs. computational complexity on the simulated ARM platform. The results of the top-performing finalists are plotted below:</p>
+
+        <div style="overflow-x: auto; margin: 1.5rem 0;">
+          <table class="spec-table responsive-table">
+            <thead>
+              <tr>
+                <th>Classification Model</th>
+                <th>VRAM Footprint</th>
+                <th>Parameter Count</th>
+                <th>Peak Power Draw (x86)</th>
+                <th>Training Time (Pi Sim)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Classification Model"><strong>MobileNetV2</strong></td>
+                <td data-label="VRAM Footprint">14 MB</td>
+                <td data-label="Parameter Count">3.5M</td>
+                <td data-label="Peak Power Draw">142.84 W</td>
+                <td data-label="Training Time">3,198.78 seconds</td>
+              </tr>
+              <tr>
+                <td data-label="Classification Model"><strong>EfficientNetB0</strong></td>
+                <td data-label="VRAM Footprint">29 MB</td>
+                <td data-label="Parameter Count">5.3M</td>
+                <td data-label="Peak Power Draw">154.65 W</td>
+                <td data-label="Training Time">6,504.66 seconds</td>
+              </tr>
+              <tr>
+                <td data-label="Classification Model"><strong>Xception</strong></td>
+                <td data-label="VRAM Footprint">88 MB</td>
+                <td data-label="Parameter Count">22.9M</td>
+                <td data-label="Peak Power Draw">156.62 W</td>
+                <td data-label="Training Time">17,506.38 seconds</td>
+              </tr>
+              <tr>
+                <td data-label="Classification Model"><strong>ResNet50V2</strong></td>
+                <td data-label="VRAM Footprint">98 MB</td>
+                <td data-label="Parameter Count">25.6M</td>
+                <td data-label="Peak Power Draw">154.65 W</td>
+                <td data-label="Training Time">19,339.26 seconds</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="object-detection">Object Detection &amp; Validation</h2>
+        <p>Moving from pure classification to spatial localization, the team curated a dataset of <strong>12,662 high-resolution images</strong> split into training, validation, and testing partitions. To eliminate classification noise and count individual infrastructure defects, the team trained multiple object detection models from the Ultralytics YOLO ecosystem (v8n, 11n, 12n, and 12s) targeting four specific fault classes:</p>
+
+        <ol>
+          <li><strong>Potholes:</strong> Roads surface cavities.</li>
+          <li><strong>Concrete Cracks:</strong> Structural integrity failures in highway dividers and pillars.</li>
+          <li><strong>Metal Corrosion:</strong> Oxide damage on bridge girders and transmission towers.</li>
+          <li><strong>Insulator Faults:</strong> Broken ceramic shells on high-voltage power transmission systems.</li>
+        </ol>
+
+        <p>A major finding during training was that training YOLO models without early stopping resulted in a sudden drop in precision and validation spikes after approximately 4,000 iterations due to overfitting on similar background frames. By implementing custom early-stopping criteria, the training halted at the optimal plateau, securing robust localization accuracy:</p>
+
+        <div style="overflow-x: auto; margin: 1.5rem 0;">
+          <table class="spec-table responsive-table">
+            <thead>
+              <tr>
+                <th>Detection Backbone</th>
+                <th>Early Stopping iteration</th>
+                <th>mAP@0.5 (Confidence)</th>
+                <th>Inference Time (x86)</th>
+                <th>Inference Time (Pi Sim)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Detection Backbone"><strong>YOLOv8n</strong></td>
+                <td data-label="Early Stopping">~3,950 cycles</td>
+                <td data-label="mAP@0.5">80.2%</td>
+                <td data-label="Inference Time (x86)">3.54 ms</td>
+                <td data-label="Inference Time (Pi)">322.09 ms</td>
+              </tr>
+              <tr>
+                <td data-label="Detection Backbone"><strong>YOLO11n</strong></td>
+                <td data-label="Early Stopping">~4,120 cycles</td>
+                <td data-label="mAP@0.5">84.5%</td>
+                <td data-label="Inference Time (x86)">3.15 ms</td>
+                <td data-label="Inference Time (Pi)">326.29 ms</td>
+              </tr>
+              <tr>
+                <td data-label="Detection Backbone"><strong>YOLO12n</strong></td>
+                <td data-label="Early Stopping">~4,050 cycles</td>
+                <td data-label="mAP@0.5">85.4%</td>
+                <td data-label="Inference Time (x86)">2.66 ms</td>
+                <td data-label="Inference Time (Pi)">652.64 ms</td>
+              </tr>
+              <tr>
+                <td data-label="Detection Backbone"><strong>YOLO12s</strong></td>
+                <td data-label="Early Stopping">~2,000 cycles (Limit)</td>
+                <td data-label="mAP@0.5">78.1% (Undertrained)</td>
+                <td data-label="Inference Time (x86)">4.93 ms</td>
+                <td data-label="Inference Time (Pi)">982.16 ms</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>The heavier <strong>YOLO12s</strong> model exhibits high theoretical capacity but requires a longer training horizon. Due to strict R&D time constraints, the training was capped at 2,000 cycles, leaving it under-optimized compared to the fully converged YOLO12n model. Therefore, <strong>YOLO12n</strong> was selected as the default operational model for deployment.</p>
+
+        <h3>Optical Correction &amp; Georeferencing</h3>
+        <p>Wide-angle cameras suffer from severe barrel distortion near the lens borders, affecting distance estimation. To resolve this, a calibration algorithm uses a chessboard calibration pattern of known coordinates to calculate a correction matrix (pickled for OpenCV runtime use), correcting raw images in flight.</p>
+
+        <p>Precision landing and distance measurement assist use <strong>4x4 ArUco markers</strong>. Tracking these markers through OpenCV utilizes low computational overhead, avoiding NPU latency and securing rapid control responses during autonomous maneuvers. Additionally, geodetic position estimation was optimized through GPS calibration routines, reducing raw drift from several meters to a verified absolute error of <strong>25 centimeters</strong>.</p>
+
+        <h2 id="mitigation">Mitigation &amp; Safety</h2>
+        <p>Designing autonomous UAVs for dense urban environments requires strict adherence to international and local airspace safety frameworks. The AASP was built to comply with CAAB (Civil Aviation Authority of Bangladesh) Order No. 30/2020 and EASA/ICAO standards:</p>
+
+        <ul>
+          <li><strong>Flight Bounds:</strong> Altitude is electronically restricted to a maximum of 200 feet Above Ground Level (AGL), and flight path routing enforces a mandatory 10 Nautical Mile (NM) buffer zone around CAAB aerodromes.</li>
+          <li><strong>Weather Safeguards:</strong> An integrated base-station weather analyzer blocks autonomous takeoffs if wind speeds exceed 15 knots or if precipitation is detected.</li>
+          <li><strong>Emergency Failsafes:</strong>
+            <ul>
+              <li><em>Mission Failure:</em> An on-board relay isolates the 4S LiPo battery in case of mechanical faults to prevent electrical short-circuits.</li>
+              <li><em>Power Loss:</em> A low-power capacitor backup system triggers an audible buzzer during a sudden crash to alert bystanders.</li>
+              <li><em>Navigation Loss:</em> A safe-parking routine commands an immediate descent or a return-to-base sequence if GPS locks are compromised.</li>
+            </ul>
+          </li>
+          <li><strong>OPSEC Buffer Wiping:</strong> After copying the text-based GPS coordinates to the ground station over an SCP tunnel, the on-board compute module initiates a secure wiping cycle:
+            <pre><code>shred -n 2 -z -u *</code></pre>
+            This overwrites the imaging cells with random noise in two passes and writes zeros over them, preventing data retrieval in the event of a drone capture.
+          </li>
+        </ul>
+
+        <div style="overflow-x: auto; margin-top: 1.5rem;">
+          <table class="spec-table responsive-table">
+            <thead>
+              <tr>
+                <th>Identified Risk Event</th>
+                <th>Likelihood</th>
+                <th>Impact Severity</th>
+                <th>Implemented Mitigation Protocol</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Identified Risk Event"><strong>Hardware/Propulsion Failure</strong></td>
+                <td data-label="Likelihood">Medium</td>
+                <td data-label="Impact Severity">High</td>
+                <td data-label="Mitigation Protocol">Dual GPS/Compass redundancy, pre-flight checks, local spare parts sourcing</td>
+              </tr>
+              <tr>
+                <td data-label="Identified Risk Event"><strong>Data Leak / Interception</strong></td>
+                <td data-label="Likelihood">Medium</td>
+                <td data-label="Impact Severity">High</td>
+                <td data-label="Mitigation Protocol">Air-gapped operation, SCP data transfer, multi-pass on-board shredding</td>
+              </tr>
+              <tr>
+                <td data-label="Identified Risk Event"><strong>GPS Position Drift</strong></td>
+                <td data-label="Likelihood">High</td>
+                <td data-label="Impact Severity">Medium</td>
+                <td data-label="Mitigation Protocol">On-board manufacturer calibration profile (absolute error limited to 25 cm)</td>
+              </tr>
+              <tr>
+                <td data-label="Identified Risk Event"><strong>Severe Weather Conditions</strong></td>
+                <td data-label="Likelihood">Low</td>
+                <td data-label="Impact Severity">High</td>
+                <td data-label="Mitigation Protocol">Mini weather station block at takeoff, manual remote disarm radio link</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap;">
