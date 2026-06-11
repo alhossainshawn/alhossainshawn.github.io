@@ -1501,6 +1501,45 @@ body.dark-mode pre {
 .prose li { margin-bottom: 0.4em; }
 .prose p { margin-bottom: 1em; }
 
+.prose figure {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+.prose figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.prose figure img:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.prose figcaption {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 0.6rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.simulation-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+@media (max-width: 768px) {
+  .simulation-gallery {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+}
+
 .spec-table {
   width: 100%;
   border-collapse: collapse;
