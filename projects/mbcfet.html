@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=2.4" />
+  <link rel="stylesheet" href="../styles.css?v=2.5" />
   
   <!-- KaTeX for math rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
@@ -89,7 +89,7 @@
         <div class="subpage-meta">
           <span>Active Research</span>
           <span>Oct 2025 – Present</span>
-          <span>Silvaco TCAD (Athena + Atlas)</span>
+          <span>Silvaco TCAD (Atlas)</span>
         </div>
       </div>
 
@@ -98,7 +98,7 @@
 
         <table class="spec-table">
           <tr><td>Type</td><td>Device-level TCAD study</td></tr>
-          <tr><td>Toolchain</td><td>Silvaco TCAD (Athena for process, Atlas for device characterization)</td></tr>
+          <tr><td>Toolchain</td><td>Silvaco TCAD (Atlas for device simulation)</td></tr>
           <tr><td>Target Node</td><td>Sub-5 nm logic nodes</td></tr>
           <tr><td>Key Focus</td><td>Short-channel effects (SCE) · DIBL · subthreshold slope (SS)</td></tr>
         </table>
@@ -108,15 +108,15 @@
         <p>However, the MBCFET design space is highly sensitive to nanometer-scale variations. Parameters such as nanosheet thickness ($T_{ns}$), sheet vertical pitch, gate length ($L_g$), and inner spacer material density must be optimized together to suppress Drain-Induced Barrier Lowering (DIBL) and subthreshold slope degradation.</p>
 
         <h2 id="method">TCAD Simulation Methodology</h2>
-        <p>This study uses a two-phase Silvaco TCAD workflow to model the fabrication process and evaluate electrical characteristics. The process flow defines the layer structures, and the device solver simulates carrier transport and electrostatic behavior.</p>
+        <p>This study uses the Silvaco Atlas device simulator to define the 3D device structure and evaluate its electrical characteristics, analyzing carrier transport and electrostatic behavior.</p>
 
         <h3>1. Device Structure Modeling</h3>
-        <p>The 3D model of the stacked Gate-All-Around (GAA) Multi-Bridge-Channel FET (MBCFET) is defined with alternating epitaxial Si/SiGe superlattice definitions. The sacrificial SiGe layers are selectively etched to release three suspended silicon nanosheets, followed by high-k gate dielectric ($HfO_2$) deposition and metal gate fill to wrap completely around the channels.</p>
+        <p>The 3D model of the stacked Gate-All-Around (GAA) Multi-Bridge-Channel FET (MBCFET) is constructed directly in the device simulator with three stacked silicon nanosheet channels, a high-k gate dielectric ($HfO_2$) insulation layer, and a metal gate electrode wrapping completely around the channels.</p>
         
         <div class="simulation-gallery">
           <figure>
             <img src="../assets/projects/mbcfet/device_stucture_3d.png" alt="3D MBCFET Mesh Structure" />
-            <figcaption>Figure 1: 3D process-simulated mesh of the 3-stacked MBCFET, detailing the source, drain, and gate-all-around channels.</figcaption>
+            <figcaption>Figure 1: 3D simulated mesh structure of the 3-stacked MBCFET, detailing the source, drain, and gate-all-around channels.</figcaption>
           </figure>
           <figure>
             <img src="../assets/projects/mbcfet/device_stucture_2d.png" alt="2D Nanosheet Cross Section" />
@@ -156,7 +156,7 @@
           </figure>
           
           <div style="overflow-x: auto; width: 100%;">
-            <table class="spec-table" style="margin: 0; width: 100%;">
+            <table class="spec-table responsive-table" style="margin: 0; width: 100%;">
               <thead>
                 <tr>
                   <th>Extracted Parameter</th>
@@ -166,24 +166,24 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>Threshold Voltage ($V_{th}$)</strong></td>
-                  <td>$0.291\text{ V}$</td>
-                  <td>Extracted at a constant drain current criterion of $I_d = 10^{-7}\text{ A}$ from the $I_d-V_g$ curve. Suitable for low-power sub-1V logic.</td>
+                  <td data-label="Extracted Parameter"><strong>Threshold Voltage ($V_{th}$)</strong></td>
+                  <td data-label="Simulated Value">$0.291\text{ V}$</td>
+                  <td data-label="Physical Analysis">Extracted at a constant drain current criterion of $I_d = 10^{-7}\text{ A}$ from the $I_d-V_g$ curve. Suitable for low-power sub-1V logic.</td>
                 </tr>
                 <tr>
-                  <td><strong>ON-State Current ($I_{on}$)</strong></td>
-                  <td>$7.60\times 10^{-3}\text{ A}$</td>
-                  <td>Extracted at the maximum gate sweep bias of $V_g = 0.75\text{ V}$. Driven by parallel conduction across the three stacked nanosheets.</td>
+                  <td data-label="Extracted Parameter"><strong>ON-State Current ($I_{on}$)</strong></td>
+                  <td data-label="Simulated Value">$7.60\times 10^{-3}\text{ A}$</td>
+                  <td data-label="Physical Analysis">Extracted at the maximum gate sweep bias of $V_g = 0.75\text{ V}$. Driven by parallel conduction across the three stacked nanosheets.</td>
                 </tr>
                 <tr>
-                  <td><strong>OFF-State Leakage Current ($I_{off}$)</strong></td>
-                  <td>$2.08\times 10^{-12}\text{ A}$</td>
-                  <td>Extracted at the standby gate bias of $V_g = 0.0\text{ V}$. Highlights the complete electrostatic closure of the GAA gate oxide.</td>
+                  <td data-label="Extracted Parameter"><strong>OFF-State Leakage Current ($I_{off}$)</strong></td>
+                  <td data-label="Simulated Value">$2.08\times 10^{-12}\text{ A}$</td>
+                  <td data-label="Physical Analysis">Extracted at the standby gate bias of $V_g = 0.0\text{ V}$. Highlights the complete electrostatic closure of the GAA gate oxide.</td>
                 </tr>
                 <tr>
-                  <td><strong>Current Ratio ($I_{on}/I_{off}$)</strong></td>
-                  <td>$3.65\times 10^9$</td>
-                  <td>Computed directly from extracted values. Ratio of nearly 9 orders of magnitude indicates extremely high switching efficiency.</td>
+                  <td data-label="Extracted Parameter"><strong>Current Ratio ($I_{on}/I_{off}$)</strong></td>
+                  <td data-label="Simulated Value">$3.65\times 10^9$</td>
+                  <td data-label="Physical Analysis">Computed directly from extracted values. Ratio of nearly 9 orders of magnitude indicates extremely high switching efficiency.</td>
                 </tr>
               </tbody>
             </table>
@@ -243,7 +243,7 @@
         </table>
 
         <h2 id="significance">Significance</h2>
-        <p>Successfully predicting electrostatic limits using calibrated TCAD process flows reduces the need for expensive physical trial wafers. This study maps out a robust geometric envelope (with sheet thickness kept between 4–6 nm and vertical spacing at 8–10 nm) where MBCFET devices can scale to the 3 nm or 2 nm nodes without running into thermal or gate-leakage limits. These findings form the basis for creating compact BSIM-GAA models for next-generation logic block simulations.</p>
+        <p>Successfully predicting electrostatic limits using calibrated TCAD device models reduces the need for expensive physical trial wafers. This study maps out a robust geometric envelope (with sheet thickness kept between 4–6 nm and vertical spacing at 8–10 nm) where MBCFET devices can scale to the 3 nm or 2 nm nodes without running into thermal or gate-leakage limits. These findings form the basis for creating compact BSIM-GAA models for next-generation logic block simulations.</p>
       </div>
 
       <div style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap;">

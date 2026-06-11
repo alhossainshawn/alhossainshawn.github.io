@@ -1568,6 +1568,55 @@ body.dark-mode pre {
   white-space: nowrap;
 }
 
+@media (max-width: 600px) {
+  .responsive-table thead {
+    display: none;
+  }
+  .responsive-table, 
+  .responsive-table tbody, 
+  .responsive-table tr, 
+  .responsive-table td {
+    display: block;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+  .responsive-table tr {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-white);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  body.dark-mode .responsive-table tr {
+    background: #111524;
+    border-color: #232a3f;
+  }
+  .responsive-table td {
+    border-bottom: none;
+    padding: 0.4rem 0 !important;
+    text-align: left !important;
+  }
+  .responsive-table td:first-child {
+    width: 100% !important;
+    white-space: normal !important;
+    font-size: 0.9rem !important;
+  }
+  .responsive-table td:not(:last-child) {
+    border-bottom: 1px dashed var(--border);
+  }
+  .responsive-table td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.2rem;
+    letter-spacing: 0.05em;
+  }
+}
+
 /* ── 24. Breadcrumb ──────────────────────────────────────── */
 .breadcrumb {
   display: flex;

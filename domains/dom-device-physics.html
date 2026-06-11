@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Semiconductor Device Physics — Al Hossain Shawn</title>
-  <meta name="description" content="Beyond-CMOS device physics — GAA FETs, MBCFET, TCAD simulation with Silvaco Athena and Atlas for sub-5 nm logic." />
+  <meta name="description" content="Beyond-CMOS device physics — GAA FETs, MBCFET, TCAD simulation with Silvaco Atlas for sub-5 nm logic." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=2.4" />
+  <link rel="stylesheet" href="../styles.css?v=2.5" />
 </head>
 <body>
 
@@ -88,7 +88,7 @@
         </div>
         <h1>Semiconductor Device <em>Physics</em></h1>
         <div class="subpage-meta">
-          <span>Tooling: Silvaco TCAD (Athena + Atlas)</span>
+          <span>Tooling: Silvaco TCAD (Atlas)</span>
           <span>Focus: Beyond-CMOS, GAA, sub-5 nm</span>
         </div>
       </div>
@@ -97,12 +97,12 @@
         <p>The physics of how transistors work — and how they fail — as silicon scaling moves from FinFETs into <em>Gate-All-Around</em> territory. The goal is simulation-driven insight into what geometry and process choices enable sub-5 nm logic that still delivers useful current with manageable leakage.</p>
 
         <h2 id="overview">Overview</h2>
-        <p>Post-FinFET transistors — GAA nanosheets, MBCFETs — offer better electrostatic control but introduce a wider design space. Geometry (nanosheet thickness, pitch, gate length), doping profiles, and process flow all interact non-linearly in ways that are hard to reason about without simulation.</p>
-        <p>The work here uses <em>Silvaco TCAD</em> — Athena for process simulation, Atlas for device characterisation — to explore that space systematically, identify the geometric levers that dominate short-channel immunity and drive current, and cross-validate against published references.</p>
+        <p>Post-FinFET transistors — GAA nanosheets, MBCFETs — offer better electrostatic control but introduce a wider design space. Geometry (nanosheet thickness, pitch, gate length) and doping profiles all interact non-linearly in ways that are hard to reason about without simulation.</p>
+        <p>The work here uses <em>Silvaco TCAD (Atlas)</em> for device modeling and characterisation to explore that space systematically, identify the geometric levers that dominate short-channel immunity and drive current, and cross-validate against published references.</p>
 
         <h2 id="tcad">TCAD Approach</h2>
         <ul>
-          <li><strong>Process Simulation (Athena)</strong> — Multi-step process scripts covering epi growth, oxide deposition, and gate stack definition. Parametric to enable structured sweeps.</li>
+          <li><strong>Device Modeling (Atlas)</strong> — Three-dimensional structure definitions with parameterized channel thickness, vertical pitch, and gate-all-around stacks to enable structured sweeps.</li>
           <li><strong>Device Characterisation (Atlas)</strong> — DC Id–Vg, Id–Vd sweeps; subthreshold slope; DIBL. Drift-diffusion transport with mobility models calibrated for thin-body silicon.</li>
           <li><strong>Geometry Sweeps</strong> — Nanosheet thickness, pitch, gate length, and S/D doping varied to map their combined effect on Ion/Ioff.</li>
           <li><strong>SCE Quantification</strong> — DIBL, Vt roll-off, and subthreshold slope tracked across the sweep — finding the geometry window that holds at scale.</li>
