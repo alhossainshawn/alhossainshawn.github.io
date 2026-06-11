@@ -120,26 +120,77 @@
       height: auto;
       display: block;
     }
-    /* Portrait video — constrained and centred */
-    .media-full.video-wrap {
+    /* Portrait video — side-by-side with description */
+    .demo-wrap {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.5rem;
+      align-items: flex-start;
+      margin: 1.5rem 0;
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .demo-wrap__video {
       background: #111;
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
     }
-    .media-full.video-wrap video {
-      max-height: 520px;
+    .demo-wrap__video video {
+      max-height: 480px;
       width: auto;
-      max-width: 100%;
+      max-width: 280px;
       display: block;
     }
-    .media-full figcaption {
-      background: var(--bg-white);
-      font-size: 0.82rem;
+    .demo-wrap__caption {
+      font-size: 0.78rem;
       color: var(--text-muted);
-      padding: 0.6rem 1rem;
       font-style: italic;
+      padding: 0.5rem 0.75rem;
+      background: var(--bg-white);
       border-top: 1px solid var(--border);
+      width: 100%;
+      text-align: center;
+    }
+    .demo-wrap__desc {
+      padding: 1.25rem 1.25rem 1.25rem 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .demo-wrap__desc h3 {
+      margin-top: 0;
+      margin-bottom: 0.6rem;
+      font-size: 1rem;
+      color: var(--text-heading);
+    }
+    .demo-wrap__desc p {
+      font-size: 0.88rem;
+      color: var(--text-body);
+      line-height: 1.7;
+      margin: 0 0 0.8rem 0;
+    }
+    .demo-wrap__desc ul {
+      font-size: 0.86rem;
+      color: var(--text-body);
+      padding-left: 1.1rem;
+      margin: 0;
+      line-height: 1.8;
+    }
+    @media (max-width: 640px) {
+      .demo-wrap {
+        grid-template-columns: 1fr;
+      }
+      .demo-wrap__video video {
+        max-width: 100%;
+        max-height: 360px;
+      }
+      .demo-wrap__desc {
+        padding: 1rem;
+      }
     }
 
     /* ── Two-col media grid ──────────────────────────── */
@@ -158,8 +209,7 @@
     }
     .media-pair figure img {
       width: 100%;
-      height: 220px;
-      object-fit: cover;
+      height: auto;
       display: block;
     }
     .media-pair figcaption {
@@ -283,13 +333,27 @@
         <h2 id="demo">Live Demonstration</h2>
         <p>The video below shows the CNN running on hardware — push-buttons cycle through the stored digit dataset, the 8×8 pixel image is rendered on the HDMI monitor, and the predicted class is displayed in real time alongside the 10-class logit bar chart.</p>
 
-        <figure class="media-full video-wrap">
-          <video controls preload="metadata" poster="../assets/projects/cnn-digit-detector/monitor_interface.jpeg">
-            <source src="../assets/projects/cnn-digit-detector/demo_video.mp4" type="video/mp4" />
-            Your browser does not support HTML5 video.
-          </video>
-          <figcaption style="width:100%;">Live hardware demonstration — CNN digit recognition running on PA-StarLite (Artix-7 XC7A200T) with HDMI output at 200 MHz.</figcaption>
-        </figure>
+        <div class="demo-wrap">
+          <div class="demo-wrap__video">
+            <video autoplay loop muted playsinline controls
+                   poster="../assets/projects/cnn-digit-detector/monitor_interface.jpeg">
+              <source src="../assets/projects/cnn-digit-detector/demo_video.mp4" type="video/mp4" />
+              Your browser does not support HTML5 video.
+            </video>
+            <div class="demo-wrap__caption">Live on PA-StarLite · Artix-7 XC7A200T · 200 MHz</div>
+          </div>
+          <div class="demo-wrap__desc">
+            <h3>What you are seeing</h3>
+            <p>The CNN bitstream is running directly on FPGA hardware. Physical <strong>push-buttons</strong> cycle through 1,797 stored digit images. For each button press:</p>
+            <ul>
+              <li>The selected 8×8 pixel image is fetched from on-chip <strong>BRAM</strong> and fed to the CNN accelerator.</li>
+              <li>The hardware completes a full forward pass — Conv → ReLU → MaxPool → FC — in a <strong>single clock burst</strong> at 200 MHz.</li>
+              <li>The HDMI output renders the <strong>pixel grid</strong> (left panel) and a <strong>10-class logit bar chart</strong> side-by-side on the monitor.</li>
+              <li>The tallest bar identifies the predicted digit class in real time — no CPU involved after the AXI handshake.</li>
+            </ul>
+            <p style="margin-top: 0.8rem; font-size: 0.82rem; color: var(--text-muted);">Video is muted and loops automatically. Use the controls to pause or scrub.</p>
+          </div>
+        </div>
 
         <!-- ═══════════════════════════════════════════════
              FPGA SETUP
