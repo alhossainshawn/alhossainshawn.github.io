@@ -70,10 +70,12 @@
   <style>
     /* ── Mermaid diagram containers ──────────────────── */
     .diagram-block {
-      background: var(--bg-white);
-      border: 1px solid var(--border);
+      /* Always dark so node colors (white text on dark fills) remain readable
+         regardless of whether the site is in light or dark mode */
+      background: #111827;
+      border: 1px solid #2d3a5a;
       border-radius: 10px;
-      padding: 1.5rem 1rem;
+      padding: 1.25rem 1rem 1rem;
       margin: 1.5rem 0;
       overflow-x: auto;
     }
@@ -87,21 +89,23 @@
     }
     .diagram-caption {
       text-align: center;
-      font-size: 0.82rem;
-      color: var(--text-muted);
+      font-size: 0.8rem;
+      /* Fixed light color — always readable against the dark block */
+      color: #94a3b8;
       font-style: italic;
       margin-top: 0.75rem;
       padding-top: 0.75rem;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid #2d3a5a;
     }
     .diagram-label {
       display: inline-block;
       font-family: var(--font-mono);
       font-size: 0.72rem;
       font-weight: 600;
-      background: var(--accent-light);
-      color: var(--accent);
-      border: 1px solid var(--tag-border);
+      /* Slightly tinted pill on the dark background */
+      background: rgba(74, 93, 140, 0.35);
+      color: #93c5fd;
+      border: 1px solid #4a5d8c;
       border-radius: 4px;
       padding: 0.15em 0.6em;
       margin-bottom: 0.75rem;
