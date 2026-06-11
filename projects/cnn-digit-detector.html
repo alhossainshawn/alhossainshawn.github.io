@@ -12,58 +12,55 @@
   <div id="icon-defs" hidden></div>
   <script>fetch('../icons.svg').then(r=>r.text()).then(svg=>{const el=document.getElementById('icon-defs');if(el)el.innerHTML=svg;});</script>
 
-  <!-- Mermaid for architecture diagrams -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
   <script>
+    /* ── Shared dark palette: diagrams always sit on #111827 card ── */
+    const MERMAID_THEME_VARS = {
+      primaryColor:        '#4a5d8c',
+      primaryTextColor:    '#ffffff',
+      primaryBorderColor:  '#303e66',
+      lineColor:           '#8b9dc3',      /* visible on dark bg */
+      secondaryColor:      '#1e5f74',
+      tertiaryColor:       '#1a4731',
+      background:          '#111827',
+      mainBkg:             '#1e2a45',
+      nodeBorder:          '#4a5d8c',
+      clusterBkg:          '#1a2030',      /* dark cluster so titles are visible */
+      clusterBorder:       '#4a5d8c',
+      titleColor:          '#c7d8f0',      /* light text for subgraph titles */
+      edgeLabelBackground: '#1e2a45',      /* dark bg so white edge labels show */
+      fontFamily:          'Inter, system-ui, sans-serif',
+      fontSize:            '13px'
+    };
+
     mermaid.initialize({
       startOnLoad: true,
       theme: 'base',
-      themeVariables: {
-        primaryColor: '#4a5d8c',
-        primaryTextColor: '#fff',
-        primaryBorderColor: '#303e66',
-        lineColor: '#6c757d',
-        secondaryColor: '#eaecf5',
-        tertiaryColor: '#f5f5f7',
-        background: '#ffffff',
-        mainBkg: '#eaecf5',
-        nodeBorder: '#4a5d8c',
-        clusterBkg: '#f0f0f5',
-        titleColor: '#1a1a2e',
-        edgeLabelBackground: '#fff',
-        fontFamily: 'Inter, system-ui, sans-serif',
-        fontSize: '13px'
-      }
+      themeVariables: MERMAID_THEME_VARS
     });
-    // Re-render mermaid in dark mode
+
+    /* ── Re-initialise when site theme toggles (keep same palette) ── */
     document.addEventListener('DOMContentLoaded', () => {
+      /* Store original Mermaid source before first render */
+      document.querySelectorAll('.mermaid').forEach(el => {
+        el.setAttribute('data-source', el.textContent.trim());
+      });
+
       const obs = new MutationObserver(() => {
-        const dark = document.body.classList.contains('dark-mode');
+        /* Always use the same dark palette regardless of site mode */
         mermaid.initialize({
           startOnLoad: false,
-          theme: dark ? 'dark' : 'base',
-          themeVariables: dark ? {} : {
-            primaryColor: '#4a5d8c',
-            primaryTextColor: '#fff',
-            primaryBorderColor: '#303e66',
-            lineColor: '#6c757d',
-            secondaryColor: '#eaecf5',
-            fontFamily: 'Inter, system-ui, sans-serif',
-            fontSize: '13px'
-          }
+          theme: 'base',
+          themeVariables: MERMAID_THEME_VARS
         });
+        /* Re-render all diagrams from stored source */
         document.querySelectorAll('.mermaid[data-processed]').forEach(el => {
           el.removeAttribute('data-processed');
-          el.innerHTML = el.getAttribute('data-source') || el.innerHTML;
+          el.textContent = el.getAttribute('data-source') || '';
         });
         mermaid.run();
       });
       obs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-
-      // Store original source
-      document.querySelectorAll('.mermaid').forEach(el => {
-        el.setAttribute('data-source', el.textContent);
-      });
     });
   </script>
 
