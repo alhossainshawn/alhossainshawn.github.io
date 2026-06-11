@@ -164,6 +164,29 @@ code, .mono {
   color: var(--accent-dark);
   padding: 0.1em 0.4em;
   border-radius: 3px;
+  transition: background 0.2s, color 0.2s;
+}
+
+pre {
+  background: var(--bg-section-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.2rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  transition: background 0.2s, border-color 0.2s;
+}
+pre code {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  background: none;
+  color: var(--text);
+  padding: 0;
+  border-radius: 0;
+}
+body.dark-mode pre {
+  background: #111524;
+  border-color: #232a3f;
 }
 
 /* ── 4. Site Header ────────────────────────────────────────── */
