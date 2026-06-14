@@ -68,7 +68,7 @@
     navLinks.forEach(function (link) {
       link.classList.remove('active');
       const href = link.getAttribute('href');
-      if (href && href === '#' + current) {
+      if (href && (href === '#' + current || (href === '#expertise' && current === 'research'))) {
         link.classList.add('active');
       }
     });
