@@ -1719,3 +1719,37 @@ body.dark-mode pre {
 .align-center { align-items: center; }
 .gap-1 { gap: 0.5rem; }
 .gap-2 { gap: 1rem; }
+
+/* ── 27. Clickable Cards Hover Tooltip ────────────────────── */
+.current-role-card, .int-card, .res-card, .proj-card {
+  position: relative;
+}
+
+.current-role-card::after, .int-card::after, .res-card::after, .proj-card::after {
+  content: 'Click for more details';
+  position: absolute;
+  bottom: 0.6rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  background: rgba(17, 24, 39, 0.9);
+  color: #93c5fd;
+  border: 1px solid rgba(74, 93, 140, 0.5);
+  padding: 0.25rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-family: var(--font-sans);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.current-role-card:hover::after, .int-card:hover::after, .res-card:hover::after, .proj-card:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
