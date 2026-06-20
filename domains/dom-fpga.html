@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FPGA &amp; Reconfigurable Computing — Al Hossain Shawn</title>
-  <meta name="description" content="FPGA and reconfigurable computing — Vivado HLS, AXI4 co-design, hardware acceleration for AI inference on Artix-7 silicon." />
+  <title>FPGA &amp; Reconfigurable Computing | Al Hossain Shawn</title>
+  <meta name="description" content="FPGA and reconfigurable computing, covering Vivado HLS, AXI4 co-design, and hardware acceleration for AI inference on Artix-7 silicon." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -98,20 +98,20 @@
       </div>
 
       <div class="prose">
-        <p>Programmable hardware as a <em>compute substrate</em> — turning Python-trained neural networks into custom IP blocks that run on Artix-7 silicon through HLS, RTL refinement, and SoC integration.</p>
+        <p>Programmable hardware as a <em>compute substrate</em>, turning Python-trained neural networks into custom IP blocks that run on Artix-7 silicon through HLS, RTL refinement, and SoC integration.</p>
 
         <h2 id="overview">Overview</h2>
-        <p>Reconfigurable computing sits in a useful gap. ASICs give peak efficiency but commit silicon to one workload; CPUs and GPUs are flexible but pay in joules per inference. <em>FPGAs</em> let you trade between the two — re-fabricating the datapath to match the model in front of you.</p>
+        <p>Reconfigurable computing sits in a useful gap. ASICs give peak efficiency but commit silicon to one workload; CPUs and GPUs are flexible but pay in joules per inference. <em>FPGAs</em> let you trade between the two, re-fabricating the datapath to match the model in front of you.</p>
         <p>The work here is about how to actually close that gap in practice: choosing the right compute primitive (LUT, log-domain, approximate), wrapping it in a clean AXI4 SoC, and pushing it through Vivado without losing timing.</p>
 
         <h2 id="subareas">Sub-areas</h2>
         <ul>
-          <li><strong>High-Level Synthesis (SUB-01)</strong> — Algorithmic descriptions in C/C++ compiled to RTL via Vivado HLS. Pragma-driven optimisation of pipelines, dataflow, and memory partitioning.</li>
-          <li><strong>RTL Architecture (SUB-02)</strong> — Hand-tuned Verilog where HLS doesn't cut it — clock-domain crossings, FIFO sizing, and pipelined arithmetic for predictable timing.</li>
-          <li><strong>AXI4 SoC Integration (SUB-03)</strong> — Memory-mapped AXI4 between custom accelerator IP and embedded ARM cores; DMA-driven activations and bitstream-baked metadata.</li>
-          <li><strong>PPA Optimisation (SUB-04)</strong> — Power, performance, and area as first-class design knobs. Vivado reports parsed into sweep dashboards for repeatable exploration.</li>
-          <li><strong>Quantisation &amp; Approximate Compute (SUB-05)</strong> — Sensitivity-driven quantisation pipelines that pick precision per layer.</li>
-          <li><strong>Verification (SUB-06)</strong> — Bit-accurate C++ models paired with cocotb testbenches; coverage-driven regression on representative DNN slices.</li>
+          <li><strong>High-Level Synthesis (SUB-01)</strong>: Algorithmic descriptions in C/C++ compiled to RTL via Vivado HLS, with pragma-driven optimisation of pipelines, dataflow, and memory partitioning.</li>
+          <li><strong>RTL Architecture (SUB-02)</strong>: Hand-tuned Verilog where HLS is insufficient, including clock-domain crossings, FIFO sizing, and pipelined arithmetic for predictable timing.</li>
+          <li><strong>AXI4 SoC Integration (SUB-03)</strong>: Memory-mapped AXI4 between custom accelerator IP and embedded ARM cores, featuring DMA-driven activations and bitstream-baked metadata.</li>
+          <li><strong>PPA Optimisation (SUB-04)</strong>: Power, performance, and area as first-class design knobs, with Vivado reports parsed into sweep dashboards for repeatable exploration.</li>
+          <li><strong>Quantisation &amp; Approximate Compute (SUB-05)</strong>: Sensitivity-driven quantisation pipelines that pick precision per layer.</li>
+          <li><strong>Verification (SUB-06)</strong>: Bit-accurate C++ models paired with cocotb testbenches, providing coverage-driven regression on representative DNN slices.</li>
         </ul>
 
         <h2 id="active">Active Projects</h2>
@@ -127,7 +127,7 @@
                 <span class="badge badge--green">Ongoing</span>
               </div>
               <h3>Hybrid Neural <em>Accelerator</em></h3>
-              <p class="proj-card__desc">Reconfigurable LUT / logarithmic compute engine for edge-AI inference — mode-switching INT8, LNS, and INT4 datapath prototyped on Artix-7 XC7A200T.</p>
+              <p class="proj-card__desc">Reconfigurable LUT / logarithmic compute engine for edge-AI inference, featuring a mode-switching INT8, LNS, and INT4 datapath prototyped on Artix-7 XC7A200T.</p>
               <ul class="res-card__bullets" style="margin: 0.4rem 0 0.8rem 0; padding-left: 1.1rem;">
                 <li>−75% DSP usage vs. standard INT8 baseline.</li>
                 <li>Timing closure at 225 MHz; WNS +0.42 ns.</li>
@@ -154,7 +154,7 @@
                 <span class="badge badge--blue">Completed</span>
               </div>
               <h3>CNN Digit <em>Detector</em></h3>
-              <p class="proj-card__desc">Full PyTorch-to-FPGA pipeline — trains a 2D CNN on an 8×8 digits dataset, exports fixed-point weights, synthesises via Vitis HLS, and displays live digit recognition over HDMI.</p>
+              <p class="proj-card__desc">Full PyTorch-to-FPGA pipeline that trains a 2D CNN on an 8×8 digits dataset, exports fixed-point weights, synthesises via Vitis HLS, and displays live digit recognition over HDMI.</p>
               <ul class="res-card__bullets" style="margin: 0.4rem 0 0.8rem 0; padding-left: 1.1rem;">
                 <li>Conv–ReLU–MaxPool–FC pipeline at II=1, 200 MHz.</li>
                 <li>ap_fixed&lt;16,6&gt; arithmetic; weights baked as ROM constants.</li>
@@ -204,9 +204,9 @@
 
         <h2 id="toolchain">Toolchain</h2>
         <table class="spec-table">
-          <tr><td>AMD Vivado Suite</td><td>End-to-end FPGA design — RTL, synthesis, implementation, timing closure.</td></tr>
+          <tr><td>AMD Vivado Suite</td><td>End-to-end FPGA design covering RTL, synthesis, implementation, and timing closure.</td></tr>
           <tr><td>Vitis HLS</td><td>High-level synthesis from C/C++ to optimised RTL.</td></tr>
-          <tr><td>Artix-7 XC7A200T</td><td>Target silicon — 215 K LUTs, 740 DSP slices, 13 Mb BRAM.</td></tr>
+          <tr><td>Artix-7 XC7A200T</td><td>Target silicon with 215 K LUTs, 740 DSP slices, and 13 Mb BRAM.</td></tr>
         </table>
       </div>
 

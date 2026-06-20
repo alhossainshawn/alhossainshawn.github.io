@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VLSI &amp; IC Design — Al Hossain Shawn</title>
-  <meta name="description" content="VLSI and IC design — RTL architecture, PPA-driven optimisation and full Cadence / Synopsys / Vivado flow integration." />
+  <title>VLSI &amp; IC Design | Al Hossain Shawn</title>
+  <meta name="description" content="VLSI and IC design, focusing on RTL architecture, PPA-driven optimisation, and full Cadence / Synopsys / Vivado flow integration." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -95,32 +95,32 @@
       </div>
 
       <div class="prose">
-        <p>Turning compute architectures into <em>silicon</em> — RTL design, functional verification, and PPA-driven exploration across the full Cadence, Vivado, and Synopsys flow.</p>
+        <p>Turning compute architectures into <em>silicon</em> through RTL design, functional verification, and PPA-driven exploration across the full Cadence, Vivado, and Synopsys flow.</p>
 
         <h2 id="overview">Overview</h2>
-        <p>A clean compute idea is only worth as much as the chip it ends up on. VLSI is the discipline of dragging a high-level architecture through every stage — RTL, simulation, synthesis, place-and-route — without losing what made it interesting in the first place.</p>
+        <p>A clean compute idea is only worth as much as the chip it ends up on. VLSI is the discipline of dragging a high-level architecture through every stage, including RTL, simulation, synthesis, and place-and-route, without losing what made it interesting in the first place.</p>
         <p>The work here treats <em>power</em>, <em>performance</em>, and <em>area</em> as design variables, not afterthoughts: arithmetic units reshaped to match precision budgets, datapaths balanced for timing, and every micro-architectural choice justified against the PPA frontier.</p>
 
         <h2 id="subareas">Sub-areas</h2>
         <ul>
-          <li><strong>RTL Design (SUB-01)</strong> — Synthesizable Verilog / SystemVerilog for arithmetic blocks, pipelines, and control state machines.</li>
-          <li><strong>Functional Verification (SUB-02)</strong> — Directed and constrained-random testbenches, golden-reference comparisons, and assertion-based checks.</li>
-          <li><strong>Architecture Optimisation (SUB-03)</strong> — PPA-driven trade studies across pipeline depth, parallelism, and precision — finding the right operating point per workload.</li>
-          <li><strong>Low-Power Design (SUB-04)</strong> — Clock-gating, operand isolation, and precision-adaptive datapaths for energy-constrained inference.</li>
-          <li><strong>Flow Integration (SUB-05)</strong> — End-to-end Cadence / Vivado / Synopsys flow — from RTL through synthesis to gate-level signoff.</li>
-          <li><strong>Arithmetic Units (SUB-06)</strong> — Custom adders, multipliers, and approximate primitives — the building blocks behind every accelerator.</li>
+          <li><strong>RTL Design (SUB-01)</strong>: Synthesizable Verilog / SystemVerilog for arithmetic blocks, pipelines, and control state machines.</li>
+          <li><strong>Functional Verification (SUB-02)</strong>: Directed and constrained-random testbenches, golden-reference comparisons, and assertion-based checks.</li>
+          <li><strong>Architecture Optimisation (SUB-03)</strong>: PPA-driven trade studies across pipeline depth, parallelism, and precision to find the right operating point per workload.</li>
+          <li><strong>Low-Power Design (SUB-04)</strong>: Clock-gating, operand isolation, and precision-adaptive datapaths for energy-constrained inference.</li>
+          <li><strong>Flow Integration (SUB-05)</strong>: End-to-end Cadence / Vivado / Synopsys flow from RTL through synthesis to gate-level signoff.</li>
+          <li><strong>Arithmetic Units (SUB-06)</strong>: Custom adders, multipliers, and approximate primitives, which are the building blocks behind every accelerator.</li>
         </ul>
 
         <h2 id="active">Active Threads</h2>
         <ul>
-          <li><strong><a href="../projects/hybrid-neural-accelerator.html">R-01 — Accelerator Architecture</a></strong>: The compute core inside the Hybrid Neural Accelerator — LUT / log primitives, AXI4 SoC integration, PPA sweeps.</li>
-          <li><strong>Industrial Attachment</strong>: Neural Semiconductor — Cadence operation and software exposure in an industry setting (Sep–Oct 2025).</li>
+          <li><strong><a href="../projects/hybrid-neural-accelerator.html">R-01: Accelerator Architecture</a></strong>: The compute core inside the Hybrid Neural Accelerator, featuring LUT / log primitives, AXI4 SoC integration, and PPA sweeps.</li>
+          <li><strong>Industrial Attachment</strong>: Neural Semiconductor, covering Cadence operation and software exposure in an industry setting (Sep–Oct 2025).</li>
         </ul>
 
         <h2 id="toolchain">Toolchain</h2>
         <table class="spec-table">
-          <tr><td>Cadence Design Suite</td><td>Industry-standard digital flow — RTL through GDS exposure via industrial attachment.</td></tr>
-          <tr><td>AMD Vivado</td><td>Synthesis, implementation, and timing analysis on FPGA fabric — the daily prototyping tool.</td></tr>
+          <tr><td>Cadence Design Suite</td><td>Industry-standard digital flow from RTL through GDS exposure via industrial attachment.</td></tr>
+          <tr><td>AMD Vivado</td><td>Synthesis, implementation, and timing analysis on FPGA fabric, acting as the daily prototyping tool.</td></tr>
           <tr><td>Synopsys HSpice</td><td>Mixed-signal and analog verification at the block level.</td></tr>
         </table>
       </div>

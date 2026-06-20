@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CNN Digit Detector — Al Hossain Shawn</title>
+  <title>CNN Digit Detector | Al Hossain Shawn</title>
   <meta name="description" content="A hardware-synthesised 2D CNN for handwritten digit recognition deployed on Artix-7 FPGA via Vitis HLS with live HDMI display output." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -87,7 +87,7 @@
     .diagram-caption {
       text-align: center;
       font-size: 0.8rem;
-      /* Fixed light color — always readable against the dark block */
+      /* Fixed light color, always readable against the dark block */
       color: #94a3b8;
       font-style: italic;
       margin-top: 0.75rem;
@@ -121,7 +121,7 @@
       height: auto;
       display: block;
     }
-    /* Portrait video — side-by-side with description */
+    /* Portrait video, side-by-side with description */
     .demo-wrap {
       display: grid;
       grid-template-columns: auto 1fr;
@@ -315,14 +315,14 @@
       </div>
 
       <div class="prose">
-        <p>A complete end-to-end pipeline that trains a 2D Convolutional Neural Network in <em>PyTorch</em>, exports its weights as fixed-point C++ constants, synthesises the network logic into hardware via <strong>Vitis HLS</strong>, and deploys the resulting bitstream to an Artix-7 FPGA — with <strong>live digit recognition displayed over HDMI</strong>.</p>
+        <p>A complete end-to-end pipeline that trains a 2D Convolutional Neural Network in <em>PyTorch</em>, exports its weights as fixed-point C++ constants, synthesises the network logic into hardware via <strong>Vitis HLS</strong>, and deploys the resulting bitstream to an Artix-7 FPGA, displaying <strong>live digit recognition over HDMI</strong>.</p>
 
         <table class="spec-table">
           <tr><td>Target Device</td><td>PA-StarLite · Artix-7 XC7A200T (215 K LUTs · 740 DSPs · 13 Mb BRAM)</td></tr>
           <tr><td>Toolchain</td><td>Vitis HLS · AMD Vivado · PyTorch · Python (sklearn)</td></tr>
-          <tr><td>Dataset</td><td>scikit-learn Digits — 1,797 handwritten images (8×8 px, classes 0–9)</td></tr>
+          <tr><td>Dataset</td><td>scikit-learn Digits containing 1,797 handwritten images (8×8 px, classes 0–9)</td></tr>
           <tr><td>Interface</td><td>Push-buttons · UART debug · HDMI live display (TMDS · 200 MHz diff. clock)</td></tr>
-          <tr><td>Arithmetic</td><td><code>ap_fixed&lt;16,6&gt;</code> — 16-bit · 6 integer bits · 10 fractional bits</td></tr>
+          <tr><td>Arithmetic</td><td><code>ap_fixed&lt;16,6&gt;</code> (16-bit with 6 integer bits and 10 fractional bits)</td></tr>
           <tr><td>Clock</td><td>200 MHz differential (DIFF_SSTL135, 5.0 ns period)</td></tr>
           <tr><td>Dynamic Power</td><td>0.405 W total (DSP 0.074 W · MMCM 0.146 W · I/O 0.137 W)</td></tr>
         </table>
@@ -332,7 +332,7 @@
         ═══════════════════════════════════════════════ -->
         <hr class="section-divider" />
         <h2 id="demo">Live Demonstration</h2>
-        <p>The video below shows the CNN running on hardware — push-buttons cycle through the stored digit dataset, the 8×8 pixel image is rendered on the HDMI monitor, and the predicted class is displayed in real time alongside the 10-class logit bar chart.</p>
+        <p>The video below shows the CNN running on hardware, where push-buttons cycle through the stored digit dataset, the 8×8 pixel image is rendered on the HDMI monitor, and the predicted class is displayed in real time alongside the 10-class logit bar chart.</p>
 
         <div class="demo-wrap">
           <div class="demo-wrap__video">
@@ -348,9 +348,9 @@
             <p>The CNN bitstream is running directly on FPGA hardware. Physical <strong>push-buttons</strong> cycle through 1,797 stored digit images. For each button press:</p>
             <ul>
               <li>The selected 8×8 pixel image is fetched from on-chip <strong>BRAM</strong> and fed to the CNN accelerator.</li>
-              <li>The hardware completes a full forward pass — Conv → ReLU → MaxPool → FC — in a <strong>single clock burst</strong> at 200 MHz.</li>
+              <li>The hardware completes a full forward pass (Conv → ReLU → MaxPool → FC) in a <strong>single clock burst</strong> at 200 MHz.</li>
               <li>The HDMI output renders the <strong>pixel grid</strong> (left panel) and a <strong>10-class logit bar chart</strong> side-by-side on the monitor.</li>
-              <li>The tallest bar identifies the predicted digit class in real time — no CPU involved after the AXI handshake.</li>
+              <li>The tallest bar identifies the predicted digit class in real time, with no CPU involved after the AXI handshake.</li>
             </ul>
             <p style="margin-top: 0.8rem; font-size: 0.82rem; color: var(--text-muted);">Video is muted and loops automatically. Use the controls to pause or scrub.</p>
           </div>
@@ -361,7 +361,7 @@
         ═══════════════════════════════════════════════ -->
         <figure class="media-full">
           <img src="../assets/projects/cnn-digit-detector/fpga_setup.jpeg" alt="PA-StarLite FPGA board running the CNN digit detector" />
-          <figcaption>PA-StarLite development board (Artix-7 XC7A200T) with HDMI and UART cables connected — running the synthesised CNN bitstream.</figcaption>
+          <figcaption>PA-StarLite development board (Artix-7 XC7A200T) with HDMI and UART cables connected, running the synthesised CNN bitstream.</figcaption>
         </figure>
 
         <!-- ═══════════════════════════════════════════════
@@ -369,7 +369,7 @@
         ═══════════════════════════════════════════════ -->
         <hr class="section-divider" />
         <h2 id="cnn-arch">CNN Hardware Architecture</h2>
-        <p>The forward pass is a three-layer network: a 3×3 convolution with ReLU activation, a 2×2 max-pooling, and a fully-connected linear classifier for 10 digit classes. All intermediate buffers are dual-port BRAMs partitioned across channel dimensions for <strong>II=1 pipelining</strong>. In HLS, each block becomes physical hardware — multipliers, adders, comparators, and Block RAMs — all operating concurrently.</p>
+        <p>The forward pass is a three-layer network: a 3×3 convolution with ReLU activation, a 2×2 max-pooling, and a fully-connected linear classifier for 10 digit classes. All intermediate buffers are dual-port BRAMs partitioned across channel dimensions for <strong>II=1 pipelining</strong>. In HLS, each block becomes physical hardware, including multipliers, adders, comparators, and Block RAMs, all operating concurrently.</p>
 
         <div class="diagram-block">
           <span class="diagram-label">CNN Hardware Pipeline</span>
@@ -396,7 +396,7 @@ flowchart LR
     PBUF -->|"64 values"| FC
     FC -->|"argmax"| OUT
           </div>
-          <p class="diagram-caption">CNN hardware dataflow — three pipelined stages. BRAM buffers (cylinders) hold intermediate feature maps; all loops run at II=1 with full channel unrolling.</p>
+          <p class="diagram-caption">CNN hardware dataflow showing three pipelined stages. BRAM buffers (cylinders) hold intermediate feature maps, and all loops run at II=1 with full channel unrolling.</p>
         </div>
         <hr class="section-divider" />
         <h2 id="hls-design">HLS Design</h2>
@@ -425,7 +425,7 @@ flowchart LR
     PRAGS -->|"synthesise"| VLG
     VLG -->|"impl + P&R"| BIT
           </div>
-          <p class="diagram-caption">HLS compilation flow — PyTorch trains the model and exports fixed-point weights; Vitis HLS synthesises the C++ forward pass to RTL; Vivado places, routes, and generates the bitstream.</p>
+          <p class="diagram-caption">HLS compilation flow: PyTorch trains the model and exports fixed-point weights; Vitis HLS synthesises the C++ forward pass to RTL; Vivado places, routes, and generates the bitstream.</p>
         </div>
 
         <pre><code>// Channel loop unrolled → 4 parallel hardware convolution engines
@@ -445,7 +445,7 @@ data_t conv_out[4][8][8];
         <!-- RTL ARCHITECTURE -->
         <hr class="section-divider" />
         <h2 id="rtl-arch">RTL Architecture</h2>
-        <p>The HLS synthesis generates a Verilog hierarchy under <code>cnn.v</code> — orchestrated by a <strong>20-state Control FSM</strong> that schedules overlapping convolution and pooling to maximise utilisation: one filter pair convolved while the previous is being pooled.</p>
+        <p>The HLS synthesis generates a Verilog hierarchy under <code>cnn.v</code>, orchestrated by a <strong>20-state Control FSM</strong> that schedules overlapping convolution and pooling to maximise utilisation: one filter pair convolved while the previous is being pooled.</p>
 
         <div class="diagram-block">
           <span class="diagram-label">RTL Module Hierarchy &amp; FSM</span>
@@ -457,7 +457,7 @@ flowchart TD
     classDef math fill:#4a1942,stroke:#9333ea,stroke-width:2px,color:#fff
     classDef fsm fill:#374151,stroke:#6b7280,stroke-width:2px,color:#fff
 
-    CNN["cnn.v — Top Level\n20-state Control FSM + Bus MUX"]:::top
+    CNN["cnn.v: Top Level\n20-state Control FSM + Bus MUX"]:::top
 
     CNN --> CRAM["8× conv_out BRAM\nDual-port · 4 channels"]:::mem
     CNN --> PRAM["4× pool_out BRAM\nDual-port · 4 channels"]:::mem
@@ -470,7 +470,7 @@ flowchart TD
     FCPIPE --> MACARR["DSP48 MAC Array\ncnn_mac_muladd_..."]:::math
 
     subgraph FSM ["FSM Execution Schedule"]
-        ST1["S1: Idle — wait ap_start"]:::fsm
+        ST1["S1: Idle, wait ap_start"]:::fsm
         ST2["S2–10: CONV + POOL\nOverlapping pipelines"]:::fsm
         ST3["S11–19: Register load\n8 pool values / cycle"]:::fsm
         ST4["S20: FC pipeline\nAssert ap_done"]:::fsm
@@ -488,34 +488,34 @@ flowchart TD
 
         <figure class="media-full">
           <img src="../assets/projects/cnn-digit-detector/monitor_interface.jpeg" alt="HDMI monitor showing digit recognition output" />
-          <figcaption>HDMI display output — the 8×8 input pixel grid (left box) and the 10-class logit bar chart rendered on the monitor by the Artix-7 fabric in real time.</figcaption>
+          <figcaption>HDMI display output showing the 8×8 input pixel grid (left box) and the 10-class logit bar chart rendered on the monitor by the Artix-7 fabric in real time.</figcaption>
         </figure>
 
         <div class="media-pair">
           <figure>
             <img src="../assets/projects/cnn-digit-detector/device_layout.png" alt="Vivado device floor plan after place and route" />
-            <figcaption>Vivado device floor plan — CNN logic placed in the lower pblock regions (X0Y0–X1Y2); MMCM and I/O logic visible in upper banks.</figcaption>
+            <figcaption>Vivado device floor plan: CNN logic placed in the lower pblock regions (X0Y0–X1Y2), with MMCM and I/O logic visible in upper banks.</figcaption>
           </figure>
           <figure>
             <img src="../assets/projects/cnn-digit-detector/on_chip_power.png" alt="On-chip power analysis from Vivado" />
-            <figcaption>Vivado on-chip power analysis — 0.405 W dynamic total. MMCM (36%) and I/O (33%) dominate due to 200 MHz HDMI TMDS differential output.</figcaption>
+            <figcaption>Vivado on-chip power analysis: 0.405 W dynamic total. MMCM (36%) and I/O (33%) dominate due to the 200 MHz HDMI TMDS differential output.</figcaption>
           </figure>
         </div>
 
         <figure class="media-full">
           <img src="../assets/projects/cnn-digit-detector/schematic.png" alt="Vivado elaborated schematic" />
-          <figcaption>Vivado elaborated schematic — <code>cnn.v</code> top-level wrapper showing ROM, BRAM, DSP MAC block connections, and HDMI output stage.</figcaption>
+          <figcaption>Vivado elaborated schematic: <code>cnn.v</code> top-level wrapper showing ROM, BRAM, DSP MAC block connections, and HDMI output stage.</figcaption>
         </figure>
 
         <h3>Implementation Summary</h3>
         <table class="spec-table">
           <thead><tr><th>Metric</th><th>Value</th></tr></thead>
           <tbody>
-            <tr><td>Clock Frequency</td><td>200 MHz — timing closure achieved, no negative slack</td></tr>
+            <tr><td>Clock Frequency</td><td>200 MHz (timing closure achieved, no negative slack)</td></tr>
             <tr><td>Pipeline II</td><td>1 (both convolution and pooling spatial loops)</td></tr>
-            <tr><td>FSM States</td><td>20 — overlapping CONV/POOL + parallel register pre-load</td></tr>
+            <tr><td>FSM States</td><td>20 (overlapping CONV/POOL + parallel register pre-load)</td></tr>
             <tr><td>Dynamic Power</td><td>0.405 W (MMCM 0.146 W · I/O 0.137 W · DSP 0.074 W)</td></tr>
-            <tr><td>Arithmetic</td><td>ap_fixed&lt;16,6&gt; — bit-accurate co-simulation matches PyTorch FP32 outputs</td></tr>
+            <tr><td>Arithmetic</td><td>ap_fixed&lt;16,6&gt; (bit-accurate co-simulation matches PyTorch FP32 outputs)</td></tr>
             <tr><td>Weight storage</td><td>64 fc_w ROMs + 1 fc_b ROM + conv_w/conv_b constants in LUT fabric</td></tr>
           </tbody>
         </table>

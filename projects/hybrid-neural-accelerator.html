@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hybrid Neural Accelerator — Al Hossain Shawn</title>
+  <title>Hybrid Neural Accelerator | Al Hossain Shawn</title>
   <meta name="description" content="A reconfigurable LUT / logarithmic compute engine for AI inference, prototyped on the Artix-7 XC7A200T FPGA." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -91,17 +91,17 @@
       </div>
 
       <div class="prose">
-        <p>A <em>reconfigurable LUT / logarithmic compute engine</em> for edge-AI inference — bridging Python-trained neural networks to a custom IP block on AMD Artix-7 silicon, with PPA (Power, Performance, Area) optimization as a first-class design constraint.</p>
+        <p>A <em>reconfigurable LUT / logarithmic compute engine</em> for edge-AI inference that bridges Python-trained neural networks to a custom IP block on AMD Artix-7 silicon, with PPA (Power, Performance, Area) optimization as a first-class design constraint.</p>
 
         <table class="spec-table">
           <tr><td>Type</td><td>FPGA hardware accelerator</td></tr>
           <tr><td>Target Device</td><td>AMD Artix-7 XC7A200T-2FBG484I (215K LUTs, 740 DSPs, 13 Mb BRAM)</td></tr>
           <tr><td>Toolchain</td><td>Vivado HLS · Vivado Design Suite · Vitis Core Development Kit · AXI4</td></tr>
-          <tr><td>Publication</td><td>GLSVLSI 2026, Late Breaking Session — Accepted</td></tr>
+          <tr><td>Publication</td><td>GLSVLSI 2026, Late Breaking Session (Accepted)</td></tr>
         </table>
 
         <h2 id="overview">Overview</h2>
-        <p>Edge inference is bottlenecked by the physical and power overhead of multipliers. While standard Deep Neural Networks (DNNs) rely heavily on 8-bit fixed-point (INT8) multiply-accumulate (MAC) operations, hardware efficiency can be substantially improved by reducing precision or using alternative number systems. As precision scales down — to INT4, ternary, or binary representations — the relative overhead of memory traffic, register buffering, and control logic dominates the silicon budget.</p>
+        <p>Edge inference is bottlenecked by the physical and power overhead of multipliers. While standard Deep Neural Networks (DNNs) rely heavily on 8-bit fixed-point (INT8) multiply-accumulate (MAC) operations, hardware efficiency can be substantially improved by reducing precision or using alternative number systems. As precision scales down (to INT4, ternary, or binary representations), the relative overhead of memory traffic, register buffering, and control logic dominates the silicon budget.</p>
         <p>This project introduces a <strong>hybrid compute primitive</strong> capable of dynamically switching between standard integer arithmetic, Logarithmic Number System (LNS) arithmetic, and low-precision INT4 modes on a per-layer basis. In the logarithmic domain, multiplication is simplified to bit-width-matched integer addition, removing the need for power-hungry hardware multipliers. The accelerator is paired with a sensitivity-driven Quantization-Aware Training (QAT) pipeline: layers most sensitive to noise are retained in INT8, while robust layers are compressed and mapped to the LNS or INT4 compute paths automatically.</p>
 
         <h2 id="architecture">Architecture</h2>
@@ -208,10 +208,10 @@ void hybrid_mac_unit(
 
         <h2 id="status">Current Status</h2>
         <ul>
-          <li><strong>HLS Primitive Validation</strong> — Completed bit-accurate software model validation. The HLS core yields zero mismatch against the PyTorch quantization compiler outputs.</li>
-          <li><strong>Timing Closure</strong> — Achieved complete timing closure at 200 MHz on the Artix-7 fabric. The worst negative slack (WNS) is positive at +0.42ns.</li>
-          <li><strong>DMA System Integration</strong> — Memory subsystem successfully integrated and verified with Xilinx AXI Central DMA (CDMA) on the testbench.</li>
-          <li><strong>Conference Submission</strong> — Accepted for publication at the <strong>2026 Great Lakes Symposium on VLSI (GLSVLSI)</strong> in the Late Breaking Session.</li>
+          <li><strong>HLS Primitive Validation</strong>: Completed bit-accurate software model validation. The HLS core yields zero mismatch against the PyTorch quantization compiler outputs.</li>
+          <li><strong>Timing Closure</strong>: Achieved complete timing closure at 200 MHz on the Artix-7 fabric. The worst negative slack (WNS) is positive at +0.42ns.</li>
+          <li><strong>DMA System Integration</strong>: Memory subsystem successfully integrated and verified with Xilinx AXI Central DMA (CDMA) on the testbench.</li>
+          <li><strong>Conference Submission</strong>: Accepted for publication at the <strong>2026 Great Lakes Symposium on VLSI (GLSVLSI)</strong> in the Late Breaking Session.</li>
         </ul>
       </div>
 
