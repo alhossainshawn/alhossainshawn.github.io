@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css?v=3.0" />
+  <div id="icon-defs" hidden></div>
+  <script>fetch('../icons.svg').then(r=>r.text()).then(svg=>{const el=document.getElementById('icon-defs');if(el)el.innerHTML=svg;});</script>
 </head>
 <body>
 
@@ -112,11 +114,82 @@
         </ul>
 
         <h2 id="projects">Related Projects</h2>
-        <ul>
-          <li><strong><a href="../projects/aerial-survey.html">P-01: Autonomous Aerial Survey</a></strong>: Final Year Design Project involving flight simulation, image processing, and survey automation in one autonomy stack.</li>
-          <li><strong><a href="../projects/cubesat.html">P-02: APSCO 3U CubeSat</a></strong>: End-to-end 3U CubeSat with EPS, OBC, comms, ADCS, antenna, and ground station, led as team lead of BD-BRACU Mavericks.</li>
-          <li><strong><a href="../projects/birds-x.html">P-03: BIRDS-X APRS Payload</a></strong>: APRS payload focused on energy-transition messaging, which won Phase 1 of the BIRDS-X competition.</li>
-        </ul>
+        <div class="proj-grid" style="margin-top: 1.2rem;">
+
+          <!-- P-01 -->
+          <a class="proj-card" href="../projects/aerial-survey.html">
+            <img class="proj-card__img" src="../assets/projects/aerial-survey/initial_flight_test.png" alt="Initial carbon fiber airframe prototype hover test" loading="lazy" />
+            <div class="proj-card__body">
+              <div class="proj-card__meta">
+                <span class="proj-card__id">P-01</span>
+                <span class="badge badge--blue">Completed</span>
+              </div>
+              <h3>Autonomous Aerial <em>Survey</em></h3>
+              <div class="proj-card__role">Final Year Design Project</div>
+              <p class="proj-card__desc">Autonomous drone pipeline combining flight simulation, image processing, and survey automation.</p>
+              <div class="tags-row">
+                <span class="tag">ROS</span>
+                <span class="tag">PX4</span>
+                <span class="tag">C++</span>
+              </div>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__period">Jan 2025 – Dec 2025</span>
+              <span class="proj-card__link">Open →</span>
+            </div>
+          </a>
+
+          <!-- P-02 -->
+          <a class="proj-card" href="../projects/cubesat.html">
+            <div class="proj-card__img--placeholder">
+              <svg viewBox="0 0 24 24"><use href="#i-cubesat"/></svg>
+            </div>
+            <div class="proj-card__body">
+              <div class="proj-card__meta">
+                <span class="proj-card__id">P-02</span>
+                <span class="badge badge--blue">Completed</span>
+              </div>
+              <h3>APSCO CubeSat <em>3U Mission</em></h3>
+              <div class="proj-card__role">Team Lead · BD-BRACU Mavericks</div>
+              <p class="proj-card__desc">End-to-end 3U CubeSat with EPS, OBC, comms, ADCS, antenna and ground station developed through 3D, PCB, and orbital simulation.</p>
+              <div class="tags-row">
+                <span class="tag">Altium</span>
+                <span class="tag">SolidWorks</span>
+                <span class="tag">APRS</span>
+              </div>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__period">Jul 2023 – May 2024</span>
+              <span class="proj-card__link">Open →</span>
+            </div>
+          </a>
+
+          <!-- P-03 -->
+          <a class="proj-card" href="../projects/birds-x.html">
+            <div class="proj-card__img--placeholder">
+              <svg viewBox="0 0 24 24"><use href="#i-antenna"/></svg>
+            </div>
+            <div class="proj-card__body">
+              <div class="proj-card__meta">
+                <span class="proj-card__id">P-03</span>
+                <span class="badge badge--amber">Award Winner</span>
+              </div>
+              <h3>BIRDS-X APRS <em>Payload</em></h3>
+              <div class="proj-card__role">Payload Engineer</div>
+              <p class="proj-card__desc">APRS payload focused on energy-transition messaging. Phase 1 winner of the national BIRDS-X space payload competition.</p>
+              <div class="tags-row">
+                <span class="tag">Altium</span>
+                <span class="tag">AX.25</span>
+                <span class="tag">RF Comms</span>
+              </div>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__period">Jan 2023 – Apr 2023</span>
+              <span class="proj-card__link">Open →</span>
+            </div>
+          </a>
+
+        </div>
 
         <h2 id="toolchain">Toolchain</h2>
         <table class="spec-table">
