@@ -115,7 +115,7 @@
         </ul>
 
         <h2 id="active">Active Projects</h2>
-        <div class="proj-grid" style="margin-top: 1.2rem; grid-template-columns: repeat(2, 1fr);">
+        <div class="proj-grid" style="margin-top: 1.2rem;">
 
           <a class="proj-card" href="../projects/hybrid-neural-accelerator.html">
             <div class="proj-card__img--placeholder">
@@ -166,6 +166,33 @@
                 <span class="tag">Artix-7</span>
                 <span class="tag">HDMI</span>
                 <span class="tag">Fixed-Point</span>
+              </div>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__link">Read more &rarr;</span>
+            </div>
+          </a>
+
+          <a class="proj-card" href="../projects/fpga-adder.html">
+            <img class="proj-card__img" src="../assets/projects/fpga-adder/hardware_setup.jpeg" alt="Hardware setup of the FPGA Adder showing the PA-StarLite board and LCD" />
+            <div class="proj-card__body">
+              <div class="proj-card__meta">
+                <span class="proj-card__id">P-05 &nbsp;·&nbsp; May 2026</span>
+                <span class="badge badge--blue">Completed</span>
+              </div>
+              <h3>Interactive FPGA <em>Adder</em></h3>
+              <p class="proj-card__desc">Interactive 4-bit accumulator implemented in Verilog HDL on the PA-StarLite board, featuring debounced button control, a custom dynamic I2C LCD driver, and real-time UART logging.</p>
+              <ul class="res-card__bullets" style="margin: 0.4rem 0 0.8rem 0; padding-left: 1.1rem;">
+                <li>Three-state accumulator FSM (Num1 Entry, Num2 Entry, and Result calculation).</li>
+                <li>Custom Verilog I2C master controller driving a 16×2 character LCD screen.</li>
+                <li>UART telemetry interface log outputs to PuTTY console at 115200 baud.</li>
+              </ul>
+              <div class="tags-row">
+                <span class="tag">FPGA</span>
+                <span class="tag">Verilog</span>
+                <span class="tag">I2C LCD</span>
+                <span class="tag">UART</span>
+                <span class="tag">FSM</span>
               </div>
             </div>
             <div class="proj-card__footer">

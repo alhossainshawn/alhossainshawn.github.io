@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive FPGA Adder — Al Hossain Shawn</title>
+  <meta name="description" content="An interactive hardware 4-bit accumulator on Artix-7 FPGA with debounced inputs, a custom dynamic I2C LCD driver, and real-time UART telemetry — implemented in pure Verilog HDL." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css?v=3.0" />
+  <div id="icon-defs" hidden></div>
+  <script>fetch('../icons.svg').then(r=>r.text()).then(svg=>{const el=document.getElementById('icon-defs');if(el)el.innerHTML=svg;});</script>
+
+
+
+  <style>
+    /* ── Media layouts ── */
+    .media-full {
+      margin: 1.5rem 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .media-full img { width: 100%; height: auto; display: block; }
+
+    .media-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .media-pair figure {
+      margin: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg-section-alt);
+    }
+    .media-pair figure img { width: 100%; height: auto; display: block; }
+    .media-pair figcaption {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding: 0.5rem 0.75rem;
+      font-style: italic;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Demo layout ── */
+    .demo-wrap {
+      display: grid;
+      grid-template-columns: 55% 1fr;
+      gap: 0;
+      margin: 1.25rem 0;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--bg-white);
+    }
+    .demo-wrap__video {
+      background: #000;
+      display: flex;
+      flex-direction: column;
+    }
+    .demo-wrap__video video {
+      width: 100%;
+      flex: 1;
+      display: block;
+      object-fit: contain;
+      background: #000;
+    }
+    .demo-wrap__caption {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-style: italic;
+      padding: 0.4rem 0.8rem;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .demo-wrap__desc {
+      padding: 1.25rem;
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow-y: auto;
+    }
+    .demo-wrap__desc h3 {
+      margin: 0 0 0.4rem;
+      font-size: 0.95rem;
+      color: var(--text-heading);
+    }
+    .demo-wrap__desc > p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin: 0 0 0.9rem;
+      line-height: 1.6;
+    }
+    @media (max-width: 700px) {
+      .demo-wrap { grid-template-columns: 1fr; }
+      .demo-wrap__desc { border-left: none; border-top: 1px solid var(--border); }
+    }
+
+    /* ── Section divider ── */
+    .section-divider {
+      margin: 2.5rem 0 2rem;
+      border: none;
+      border-top: 2px solid var(--border);
+    }
+
+    /* ── Stat strip ── */
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin: 1.5rem 0;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--bg-section-alt);
+    }
+    .stat-cell {
+      padding: 1.1rem 1rem;
+      border-right: 1px solid var(--border);
+      text-align: center;
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-cell__val {
+      font-family: var(--font-mono);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-cell__val .hi { color: var(--accent); }
+    .stat-cell__label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    @media (max-width: 600px) {
+      .stat-strip { grid-template-columns: 1fr 1fr; }
+      .stat-cell:nth-child(2) { border-right: none; }
+      .stat-cell:nth-child(1),
+      .stat-cell:nth-child(2) { border-bottom: 1px solid var(--border); }
+      .media-pair { grid-template-columns: 1fr; }
+    }
+
+    /* ── Op steps (state list) ── */
+    .op-steps { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; }
+    .op-step {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 0.85rem;
+      align-items: flex-start;
+    }
+    .op-badge {
+      width: 38px; height: 38px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .op-badge.s0 { background: rgba(74,93,140,0.18); color: var(--accent); border: 1px solid rgba(74,93,140,0.3); }
+    .op-badge.s1 { background: rgba(30,95,116,0.18); color: #38bdf8;      border: 1px solid rgba(30,95,116,0.3); }
+    .op-badge.s2 { background: rgba(22,163,74,0.14);  color: #4ade80;      border: 1px solid rgba(22,163,74,0.25); }
+    .op-badge.sr { background: rgba(217,119,6,0.14);  color: #fbbf24;      border: 1px solid rgba(217,119,6,0.25); }
+    .op-content { }
+    .op-content strong { display: block; font-size: 0.88rem; color: var(--text-heading); margin-bottom: 0.2rem; }
+    .op-content span { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#expertise" class="active">Research</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav__drawer">
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <div class="mobile-nav__title">Al Hossain Shawn</div>
+      <hr class="mobile-nav__divider" />
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#expertise">Research</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#publications">Publications</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+
+  <div class="subpage-layout">
+    <aside class="subpage-sidebar">
+      <a class="back-link" href="../domains/dom-fpga.html">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        FPGA &amp; Reconfigurable Computing
+      </a>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">On this page</div>
+      <nav class="subpage-nav">
+        <a href="#overview">Overview</a>
+        <a href="#demo">Live Demonstration</a>
+        <a href="#architecture">System Architecture</a>
+        <a href="#state-machine">Verilog FSM</a>
+        <a href="#hardware">Hardware &amp; Results</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="sidebar__section-title">Project</div>
+      <div class="sidebar__tags">
+        <span class="sidebar__tag">P-05</span>
+        <span class="sidebar__tag">Verilog HDL</span>
+        <span class="sidebar__tag">Vivado 2025.2</span>
+        <span class="sidebar__tag">Artix-7</span>
+        <span class="sidebar__tag">I²C Master</span>
+        <span class="sidebar__tag">UART TX</span>
+        <span class="sidebar__tag">FSM</span>
+        <span class="sidebar__tag">MMCM PLL</span>
+      </div>
+    </aside>
+
+    <main class="subpage-content" id="main-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="../domains/dom-fpga.html">FPGA &amp; Reconfigurable Computing</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>Interactive FPGA Adder</span>
+      </div>
+
+      <div class="subpage-header">
+        <div class="tags-row" style="margin-bottom: 0.75rem;">
+          <span class="badge badge--blue">Completed</span>
+          <span class="tag">P-05</span>
+          <span class="tag">Verilog</span>
+          <span class="tag">I²C LCD</span>
+          <span class="tag">UART</span>
+        </div>
+        <h1>Interactive FPGA <em>Adder</em></h1>
+        <div class="subpage-meta">
+          <span>Digital Design Project</span>
+          <span>PA-StarLite · Artix-7 XC7A200T</span>
+          <span>AMD Vivado 2025.2 · Verilog HDL</span>
+        </div>
+      </div>
+
+      <div class="prose">
+
+        <!-- ═══════════════════════════════════════════
+             § OVERVIEW
+        ═══════════════════════════════════════════ -->
+        <p id="overview">An interactive, hardware-level 4-bit accumulator deployed on the Artix-7 FPGA. Built entirely in synthesizable <strong>Verilog HDL</strong>, the system incorporates physical button de-bouncing, a 3-state FSM orchestrating data entry and calculation, a custom dynamic <strong>I²C LCD driver</strong> for a 16×2 character display, and a UART telemetry transmitter that logs every keypress and bus transaction to a host console.</p>
+
+        <!-- Key numbers -->
+        <div class="stat-strip">
+          <div class="stat-cell">
+            <div class="stat-cell__val"><span class="hi">74.28</span></div>
+            <div class="stat-cell__label">MHz Sys Clock (MMCM)</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-cell__val"><span class="hi">3</span></div>
+            <div class="stat-cell__label">FSM Control States</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-cell__val"><span class="hi">115k</span></div>
+            <div class="stat-cell__label">UART Baud Rate</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-cell__val" style="color: #4ade80;">+8.3 ns</div>
+            <div class="stat-cell__label">Timing WNS</div>
+          </div>
+        </div>
+
+        <table class="spec-table">
+          <tr><td>Target Device</td><td>PA-StarLite · Artix-7 XC7A200T (215 K LUTs · 740 DSPs)</td></tr>
+          <tr><td>Toolchain</td><td>AMD Vivado 2025.2 (Verilog HDL)</td></tr>
+          <tr><td>Clock System</td><td>200 MHz differential input → <strong>74.28 MHz</strong> via MMCME2_BASE PLL</td></tr>
+          <tr><td>Display Interface</td><td>Custom Verilog I²C master → 16×2 character LCD (dynamic frame driver)</td></tr>
+          <tr><td>Telemetry Output</td><td>UART TX at 115,200 baud — formatted keypress and bus-event log</td></tr>
+          <tr><td>Reset Modes</td><td>Active-low hardware reset pin + simultaneous dual-button soft-reset</td></tr>
+          <tr><td>Operand / Result Width</td><td>4-bit inputs (0–15), 8-bit result (0–30)</td></tr>
+        </table>
+
+        <!-- ═══════════════════════════════════════════
+             § LIVE DEMO
+        ═══════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="demo">Live Demonstration</h2>
+        <p>Physical buttons drive a 3-state Verilog FSM. The 16×2 LCD updates in real time over I²C and every input event is logged as a formatted string through the UART port.</p>
+
+        <div class="demo-wrap">
+          <div class="demo-wrap__video">
+            <video autoplay loop muted playsinline controls
+                   poster="../assets/projects/fpga-adder/hardware_setup.jpeg">
+              <source src="../assets/projects/fpga-adder/demo_video.mp4" type="video/mp4" />
+              Your browser does not support HTML5 video.
+            </video>
+            <div class="demo-wrap__caption">PA-StarLite · Artix-7 XC7A200T · 74.28 MHz system clock</div>
+          </div>
+          <div class="demo-wrap__desc">
+            <h3>Three-State Operation</h3>
+            <p>Hardware FSM cycles through three states triggered entirely by physical button presses — no software, no CPU:</p>
+            <div class="op-steps">
+              <div class="op-step">
+                <div class="op-badge s0">S0</div>
+                <div class="op-content">
+                  <strong>Num 1 Entry Mode</strong>
+                  <span>Button 1 increments the first operand (0–15). LCD row 1 shows "Num 1: X". Button 2 locks the value and advances state.</span>
+                </div>
+              </div>
+              <div class="op-step">
+                <div class="op-badge s1">S1</div>
+                <div class="op-content">
+                  <strong>Num 2 Entry Mode</strong>
+                  <span>Button 1 increments the second operand. Button 2 computes the sum and transitions to the result state.</span>
+                </div>
+              </div>
+              <div class="op-step">
+                <div class="op-badge s2">S2</div>
+                <div class="op-content">
+                  <strong>Result Display Mode</strong>
+                  <span>LCD shows "X + Y = Z" on row 1 and "Result: Z" on row 2. UART logs the equation. Button 2 resets all registers to zero.</span>
+                </div>
+              </div>
+              <div class="op-step">
+                <div class="op-badge sr">RST</div>
+                <div class="op-content">
+                  <strong>Dual-Button Soft Reset</strong>
+                  <span>Holding both keys simultaneously triggers an instant register and display reset from any state — no hardware reset pin needed.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════
+             § ARCHITECTURE
+        ═══════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="architecture">System Architecture</h2>
+        <p>The top-level module <code>top_adder.v</code> coordinates the full hardware pipeline. The 200 MHz board differential clock is routed through an <code>IBUFDS</code> buffer and synthesized to 74.28 MHz by the MMCME2_BASE PLL. This clock drives all downstream logic simultaneously — debouncers, FSM, I²C driver, and UART transmitter all run as independent concurrent hardware blocks.</p>
+
+        <figure style="margin: 1.5rem auto; text-align: center;">
+          <img src="../assets/projects/fpga-adder/system_architecture.png"
+               alt="Hardware system architecture — module hierarchy from MMCM through debouncer, FSM, I²C driver, and UART transmitter"
+               style="max-width: 65%; border-radius: 8px; border: 1px solid var(--border);" />
+          <figcaption style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-top: 0.5rem;">
+            RTL system architecture — all modules share the 74.28 MHz MMCM output and operate concurrently.
+          </figcaption>
+        </figure>
+
+        <!-- ═══════════════════════════════════════════
+             § VERILOG FSM
+        ═══════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="state-machine">Verilog State Machine</h2>
+        <p>A single synchronous <code>always @(posedge clk_pix)</code> block drives all three states. ASCII conversions for the LCD character map are computed <em>combinatorially</em> as wire assignments, so the display buffer always reflects the current register values with zero latency.</p>
+
+        <figure style="margin: 1.5rem auto; text-align: center;">
+          <img src="../assets/projects/fpga-adder/fsm_flowchart.png"
+               alt="FSM state transition flowchart for the 3-state FPGA adder"
+               style="max-width: 65%; border-radius: 8px; border: 1px solid var(--border);" />
+          <figcaption style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-top: 0.5rem;">
+            FSM state transition flowchart — three primary states with a soft-reset path reachable from any state by simultaneously pressing both buttons.
+          </figcaption>
+        </figure>
+
+        <pre><code style="font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.85; display: block; padding: 1.25rem; background: #0d1117; border: 1px solid var(--border); border-radius: 8px; overflow-x: auto; color: #e2e8f0;">// ── Soft-reset: hold both buttons simultaneously ───────────
+wire soft_reset = (key1 == 1'b0) &amp;&amp; (key2 == 1'b0);
+wire sys_rst    = !pll_locked || !sys_rst_n || soft_reset;
+
+// ── 3-State accumulator FSM ─────────────────────────────────
+always @(posedge clk_pix) begin
+  if (sys_rst) begin
+    current_state &lt;= 0;
+    num1 &lt;= 0;  num2 &lt;= 0;  result &lt;= 0;
+    trigger_update &lt;= 0;
+  end else begin
+    trigger_update &lt;= 0;
+    trigger_log    &lt;= 0;
+
+    case (current_state)
+      // State 0: Enter Num 1
+      0: begin
+        if (key1_pressed) begin
+          num1           &lt;= num1 + 1;
+          trigger_update &lt;= 1;
+          trigger_log    &lt;= 1;    // UART: "Num 1: X\r\n"
+        end
+        if (key2_pressed) begin
+          current_state  &lt;= 1;
+          num2           &lt;= 0;
+          trigger_update &lt;= 1;
+        end
+      end
+
+      // State 1: Enter Num 2
+      1: begin
+        if (key1_pressed) begin
+          num2           &lt;= num2 + 1;
+          trigger_update &lt;= 1;
+          trigger_log    &lt;= 1;    // UART: "Num 2: Y\r\n"
+        end
+        if (key2_pressed) begin
+          current_state  &lt;= 2;
+          result         &lt;= num1 + num2;
+          trigger_update &lt;= 1;
+        end
+      end
+
+      // State 2: Show result, wait for reset
+      2: begin
+        if (key2_pressed) begin
+          current_state  &lt;= 0;
+          num1 &lt;= 0;  num2 &lt;= 0;  result &lt;= 0;
+          trigger_update &lt;= 1;
+        end
+      end
+    endcase
+  end
+end</code></pre>
+
+        <!-- ═══════════════════════════════════════════
+             § HARDWARE RESULTS
+        ═══════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="hardware">Hardware &amp; Results</h2>
+        <p>The design maps cleanly to the Artix-7 fabric. Vivado's timing analyzer confirms complete timing closure with <strong>WNS = +8.365 ns</strong> against the 74.28 MHz system clock — a comfortable margin. The UART telemetry FSM runs a parallel 29-state sequencer that formats register values, I²C debug data, and acknowledgment bits into human-readable strings logged over the serial console.</p>
+
+        <figure style="margin: 1.5rem auto; text-align: center;">
+          <img src="../assets/projects/fpga-adder/hardware_setup.jpeg"
+               alt="PA-StarLite FPGA board connected to the I2C LCD module via jumper wires"
+               style="max-width: 65%; border-radius: 8px; border: 1px solid var(--border);" />
+          <figcaption style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-top: 0.5rem;">
+            Physical setup — PA-StarLite (Artix-7 XC7A200T) driving a 16×2 character LCD via a custom Verilog I²C master.
+          </figcaption>
+        </figure>
+
+        <figure style="margin: 1.5rem auto; text-align: center;">
+          <img src="../assets/projects/fpga-adder/fpga_connection_diagram.png"
+               alt="FPGA board connection diagram for I2C LCD" loading="lazy"
+               style="max-width: 65%; border-radius: 8px; border: 1px solid var(--border);" />
+          <figcaption style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-top: 0.5rem;">
+            Board connection diagram — PA-StarLite header pin mapping to the I²C LCD module (SCL, SDA, VCC, GND).
+          </figcaption>
+        </figure>
+
+        <h3 style="margin-top: 2rem;">Implementation Summary</h3>
+        <table class="spec-table">
+          <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>System Clock</td><td>74.28 MHz — synthesized via MMCME2_BASE, timing closure achieved</td></tr>
+            <tr><td>Worst Negative Slack</td><td>WNS = <strong>+8.365 ns</strong> — no violations</td></tr>
+            <tr><td>Display Protocol</td><td>Custom Verilog I²C master, dynamic 32-character frame writes</td></tr>
+            <tr><td>UART Sequencer</td><td>29-state parallel FSM — formats and transmits human-readable log strings</td></tr>
+            <tr><td>Reset Architecture</td><td>Hardware reset pin + simultaneous dual-key soft-reset from any state</td></tr>
+            <tr><td>Bitstream</td><td><code>top_adder.bit</code> — generated by Vivado 2025.2, loaded via TCL script</td></tr>
+          </tbody>
+        </table>
+
+      </div><!-- /prose -->
+
+      <div style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap;">
+        <a href="../domains/dom-fpga.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem;">
+          <span>← Domain</span>
+          <span style="color: var(--text-heading); font-weight: 600;">FPGA &amp; Reconfigurable Computing</span>
+        </a>
+        <a href="cnn-digit-detector.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem; text-align: right;">
+          <span>Related →</span>
+          <span style="color: var(--text-heading); font-weight: 600;">CNN Digit Detector</span>
+        </a>
+      </div>
+    </main>
+  </div><!-- /subpage-layout -->
+
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2026 Al Hossain Shawn &nbsp;·&nbsp; <a href="../index.html">Portfolio</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+
+  <script src="../interactive.js" defer></script>
+</body>
+</html>
