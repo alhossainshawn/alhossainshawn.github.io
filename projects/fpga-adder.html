@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Interactive FPGA Adder — Al Hossain Shawn</title>
-  <meta name="description" content="An interactive hardware 4-bit accumulator on Artix-7 FPGA with debounced inputs, a custom dynamic I2C LCD driver, and real-time UART telemetry — implemented in pure Verilog HDL." />
+  <title>Interactive FPGA Adder | Al Hossain Shawn</title>
+  <meta name="description" content="An interactive hardware 4-bit accumulator on Artix-7 FPGA with debounced inputs, a custom dynamic I2C LCD driver, and real-time UART telemetry implemented in pure Verilog HDL." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -298,7 +298,7 @@
           <tr><td>Toolchain</td><td>AMD Vivado 2025.2 (Verilog HDL)</td></tr>
           <tr><td>Clock System</td><td>200 MHz differential input → <strong>74.28 MHz</strong> via MMCME2_BASE PLL</td></tr>
           <tr><td>Display Interface</td><td>Custom Verilog I²C master → 16×2 character LCD (dynamic frame driver)</td></tr>
-          <tr><td>Telemetry Output</td><td>UART TX at 115,200 baud — formatted keypress and bus-event log</td></tr>
+          <tr><td>Telemetry Output</td><td>UART TX at 115,200 baud with a formatted keypress and bus-event log</td></tr>
           <tr><td>Reset Modes</td><td>Active-low hardware reset pin + simultaneous dual-button soft-reset</td></tr>
           <tr><td>Operand / Result Width</td><td>4-bit inputs (0–15), 8-bit result (0–30)</td></tr>
         </table>
@@ -321,7 +321,7 @@
           </div>
           <div class="demo-wrap__desc">
             <h3>Three-State Operation</h3>
-            <p>Hardware FSM cycles through three states triggered entirely by physical button presses — no software, no CPU:</p>
+            <p>The hardware FSM cycles through three states triggered entirely by physical button presses, requiring no software or CPU.</p>
             <div class="op-steps">
               <div class="op-step">
                 <div class="op-badge s0">S0</div>
@@ -348,7 +348,7 @@
                 <div class="op-badge sr">RST</div>
                 <div class="op-content">
                   <strong>Dual-Button Soft Reset</strong>
-                  <span>Holding both keys simultaneously triggers an instant register and display reset from any state — no hardware reset pin needed.</span>
+                  <span>Holding both keys simultaneously triggers an instant register and display reset from any state, removing the need for a hardware reset pin.</span>
                 </div>
               </div>
             </div>
@@ -360,14 +360,14 @@
         ═══════════════════════════════════════════ -->
         <hr class="section-divider" />
         <h2 id="architecture">System Architecture</h2>
-        <p>The top-level module <code>top_adder.v</code> coordinates the full hardware pipeline. The 200 MHz board differential clock is routed through an <code>IBUFDS</code> buffer and synthesized to 74.28 MHz by the MMCME2_BASE PLL. This clock drives all downstream logic simultaneously — debouncers, FSM, I²C driver, and UART transmitter all run as independent concurrent hardware blocks.</p>
+        <p>The top-level module <code>top_adder.v</code> coordinates the full hardware pipeline. The 200 MHz board differential clock is routed through an <code>IBUFDS</code> buffer and synthesized to 74.28 MHz by the MMCME2_BASE PLL. This clock drives all downstream logic simultaneously: the debouncers, FSM, I²C driver, and UART transmitter all run as independent concurrent hardware blocks.</p>
 
         <figure style="margin: 1.5rem auto; text-align: center;">
           <img src="../assets/projects/fpga-adder/system_architecture.png"
-               alt="Hardware system architecture — module hierarchy from MMCM through debouncer, FSM, I²C driver, and UART transmitter"
+               alt="Hardware system architecture showing the module hierarchy from MMCM through debouncer, FSM, I²C driver, and UART transmitter"
                style="max-width: 65%; border-radius: 8px; border: 1px solid var(--border);" />
           <figcaption style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-top: 0.5rem;">
-            RTL system architecture — all modules share the 74.28 MHz MMCM output and operate concurrently.
+            RTL system architecture where all modules share the 74.28 MHz MMCM output and operate concurrently.
           </figcaption>
         </figure>
 
@@ -383,7 +383,7 @@
                alt="FSM state transition flowchart for the 3-state FPGA adder"
                style="max-width: 65%; border-radius: 8px; border: 1px solid var(--border);" />
           <figcaption style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-top: 0.5rem;">
-            FSM state transition flowchart — three primary states with a soft-reset path reachable from any state by simultaneously pressing both buttons.
+            FSM state transition flowchart showing the three primary states with a soft-reset path reachable from any state by simultaneously pressing both buttons.
           </figcaption>
         </figure>
 
@@ -447,14 +447,14 @@ end</code></pre>
         ═══════════════════════════════════════════ -->
         <hr class="section-divider" />
         <h2 id="hardware">Hardware &amp; Results</h2>
-        <p>The design maps cleanly to the Artix-7 fabric. Vivado's timing analyzer confirms complete timing closure with <strong>WNS = +8.365 ns</strong> against the 74.28 MHz system clock — a comfortable margin. The UART telemetry FSM runs a parallel 29-state sequencer that formats register values, I²C debug data, and acknowledgment bits into human-readable strings logged over the serial console.</p>
+        <p>The design maps cleanly to the Artix-7 fabric. Vivado's timing analyzer confirms complete timing closure with <strong>WNS = +8.365 ns</strong> against the 74.28 MHz system clock, providing a comfortable margin. The UART telemetry FSM runs a parallel 29-state sequencer that formats register values, I²C debug data, and acknowledgment bits into human-readable strings logged over the serial console.</p>
 
         <figure style="margin: 1.5rem auto; text-align: center;">
           <img src="../assets/projects/fpga-adder/hardware_setup.jpeg"
                alt="PA-StarLite FPGA board connected to the I2C LCD module via jumper wires"
                style="max-width: 65%; border-radius: 8px; border: 1px solid var(--border);" />
           <figcaption style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-top: 0.5rem;">
-            Physical setup — PA-StarLite (Artix-7 XC7A200T) driving a 16×2 character LCD via a custom Verilog I²C master.
+            Physical setup: PA-StarLite (Artix-7 XC7A200T) driving a 16×2 character LCD via a custom Verilog I²C master.
           </figcaption>
         </figure>
 
@@ -463,7 +463,7 @@ end</code></pre>
                alt="FPGA board connection diagram for I2C LCD" loading="lazy"
                style="max-width: 65%; border-radius: 8px; border: 1px solid var(--border);" />
           <figcaption style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-top: 0.5rem;">
-            Board connection diagram — PA-StarLite header pin mapping to the I²C LCD module (SCL, SDA, VCC, GND).
+            Board connection diagram showing the PA-StarLite header pin mapping to the I²C LCD module (SCL, SDA, VCC, GND).
           </figcaption>
         </figure>
 
@@ -471,34 +471,34 @@ end</code></pre>
         <table class="spec-table">
           <thead><tr><th>Metric</th><th>Value</th></tr></thead>
           <tbody>
-            <tr><td>System Clock</td><td>74.28 MHz — synthesized via MMCME2_BASE, timing closure achieved</td></tr>
-            <tr><td>Worst Negative Slack</td><td>WNS = <strong>+8.365 ns</strong> — no violations</td></tr>
+            <tr><td>System Clock</td><td>74.28 MHz (synthesized via MMCME2_BASE, timing closure achieved)</td></tr>
+            <tr><td>Worst Negative Slack</td><td>WNS = <strong>+8.365 ns</strong> (no violations)</td></tr>
             <tr><td>Display Protocol</td><td>Custom Verilog I²C master, dynamic 32-character frame writes</td></tr>
-            <tr><td>UART Sequencer</td><td>29-state parallel FSM — formats and transmits human-readable log strings</td></tr>
+            <tr><td>UART Sequencer</td><td>29-state parallel FSM that formats and transmits human-readable log strings</td></tr>
             <tr><td>Reset Architecture</td><td>Hardware reset pin + simultaneous dual-key soft-reset from any state</td></tr>
-            <tr><td>Bitstream</td><td><code>top_adder.bit</code> — generated by Vivado 2025.2, loaded via TCL script</td></tr>
+            <tr><td>Bitstream</td><td><code>top_adder.bit</code> generated by Vivado 2025.2 and loaded via a TCL script</td></tr>
           </tbody>
         </table>
 
         <hr class="section-divider" />
         <h2 id="synthesis">Synthesis Results</h2>
-        <p>Post-synthesis outputs from AMD Vivado 2025.2 — RTL schematic, on-chip power breakdown, and FPGA floor plan layout for the top-level <code>top_adder</code> design on the Artix-7 XC7A200T.</p>
+        <p>Post-synthesis outputs from AMD Vivado 2025.2 show the RTL schematic, on-chip power breakdown, and FPGA floor plan layout for the top-level <code>top_adder</code> design on the Artix-7 XC7A200T.</p>
 
         <!-- Schematic -->
         <h3>RTL Schematic</h3>
-        <p>Vivado-generated post-synthesis schematic showing the full netlist — LUT primitives, carry chains, flip-flops, and I/O buffers mapped from the Verilog source hierarchy.</p>
+        <p>The Vivado-generated post-synthesis schematic shows the full netlist, including LUT primitives, carry chains, flip-flops, and I/O buffers mapped from the Verilog source hierarchy.</p>
         <figure style="margin: 1rem auto; text-align: center;">
           <img src="../assets/projects/fpga-adder/schematic.png"
                alt="Post-synthesis RTL schematic from AMD Vivado"
                style="max-width: 60%; border-radius: 8px; border: 1px solid var(--border);" />
           <figcaption style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-top: 0.5rem;">
-            Post-synthesis RTL schematic — LUT4/6 primitives and carry-chain routing as mapped by Vivado.
+            Post-synthesis RTL schematic showing the LUT4/6 primitives and carry-chain routing mapped by Vivado.
           </figcaption>
         </figure>
 
         <!-- Power -->
         <h3>On-Chip Power Consumption</h3>
-        <p>Total estimated on-chip power is <strong>0.291 W</strong>. The MMCM dominates dynamic power at 95% (0.144 W) — expected since the PLL is always active. Logic, signals, and clocks combined consume under 5 mW, confirming the design is extremely resource-efficient.</p>
+        <p>Total estimated on-chip power is <strong>0.291 W</strong>. The MMCM dominates dynamic power at 95% (0.144 W), which is expected since the PLL is always active. Logic, signals, and clocks combined consume under 5 mW, confirming the design is extremely resource-efficient.</p>
         <figure style="margin: 1rem auto; text-align: center;">
           <img src="../assets/projects/fpga-adder/power_consumption.png"
                alt="On-chip power consumption breakdown from Vivado Power Analysis"
@@ -510,17 +510,17 @@ end</code></pre>
 
         <!-- Layout -->
         <h3>FPGA Floor Plan Layout</h3>
-        <p>Vivado device floor plan showing the physical placement of synthesized logic across the Artix-7 fabric. The design occupies a compact cluster in the upper-left CLB columns — highlighting how few resources the accumulator actually consumes relative to the 215K LUT capacity of the XC7A200T.</p>
+        <p>The Vivado device floor plan shows the physical placement of synthesized logic across the Artix-7 fabric. The design occupies a compact cluster in the upper-left CLB columns, highlighting how few resources the accumulator actually consumes relative to the 215K LUT capacity of the XC7A200T.</p>
         <figure style="margin: 1rem auto; text-align: center;">
           <img src="../assets/projects/fpga-adder/layout_utilization.png"
                alt="FPGA floor plan layout showing physical placement on Artix-7 fabric"
                style="max-width: 60%; border-radius: 8px; border: 1px solid var(--border);" />
           <figcaption style="font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-top: 0.5rem;">
-            Physical floor plan — placed logic clusters (cyan/green) occupy a small region of the Artix-7 device.
+            Physical floor plan, where placed logic clusters (cyan/green) occupy a small region of the Artix-7 device.
           </figcaption>
         </figure>
 
-        <!-- LUT Utilization — table only -->
+        <!-- LUT Utilization table only -->
         <h3>Resource Utilization</h3>
         <table class="spec-table">
           <thead><tr><th>Resource</th><th>Used</th><th>Available (XC7A200T)</th><th>Utilization</th></tr></thead>
