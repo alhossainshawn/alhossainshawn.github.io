@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sobel Video Co-Processor | Al Hossain Shawn</title>
+  <meta name="description" content="A real-time 3×3 convolution video co-processor (Sobel, sharpen, blur, emboss, threshold) built in Vitis HLS and streamed at II=1 into a flat-Verilog 720p HDMI pipeline on an Artix-7 FPGA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css?v=3.0" />
+  <div id="icon-defs" hidden></div>
+  <script>fetch('../icons.svg').then(r=>r.text()).then(svg=>{const el=document.getElementById('icon-defs');if(el)el.innerHTML=svg;});</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    /* ── Shared dark palette: diagrams always sit on #111827 card ── */
+    const MERMAID_THEME_VARS = {
+      primaryColor:        '#4a5d8c',
+      primaryTextColor:    '#ffffff',
+      primaryBorderColor:  '#303e66',
+      lineColor:           '#8b9dc3',      /* visible on dark bg */
+      secondaryColor:      '#1e5f74',
+      tertiaryColor:       '#1a4731',
+      background:          '#111827',
+      mainBkg:             '#1e2a45',
+      nodeBorder:          '#4a5d8c',
+      clusterBkg:          '#1a2030',      /* dark cluster so titles are visible */
+      clusterBorder:       '#4a5d8c',
+      titleColor:          '#c7d8f0',      /* light text for subgraph titles */
+      edgeLabelBackground: '#1e2a45',      /* dark bg so white edge labels show */
+      fontFamily:          'Inter, system-ui, sans-serif',
+      fontSize:            '13px'
+    };
+
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: MERMAID_THEME_VARS
+    });
+
+    /* ── Re-initialise when site theme toggles (keep same palette) ── */
+    document.addEventListener('DOMContentLoaded', () => {
+      /* Store original Mermaid source before first render */
+      document.querySelectorAll('.mermaid').forEach(el => {
+        el.setAttribute('data-source', el.textContent.trim());
+      });
+
+      const obs = new MutationObserver(() => {
+        /* Always use the same dark palette regardless of site mode */
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: 'base',
+          themeVariables: MERMAID_THEME_VARS
+        });
+        /* Re-render all diagrams from stored source */
+        document.querySelectorAll('.mermaid[data-processed]').forEach(el => {
+          el.removeAttribute('data-processed');
+          el.textContent = el.getAttribute('data-source') || '';
+        });
+        mermaid.run();
+      });
+      obs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    });
+  </script>
+
+  <style>
+    /* ── Mermaid diagram containers ──────────────────── */
+    .diagram-block {
+      /* Always dark so node colors (white text on dark fills) remain readable
+         regardless of whether the site is in light or dark mode */
+      background: #111827;
+      border: 1px solid #2d3a5a;
+      border-radius: 10px;
+      padding: 1.25rem 1rem 1rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+    .diagram-block .mermaid {
+      display: flex;
+      justify-content: center;
+    }
+    .diagram-block svg {
+      max-width: 100%;
+      height: auto;
+    }
+    .diagram-caption {
+      text-align: center;
+      font-size: 0.8rem;
+      /* Fixed light color, always readable against the dark block */
+      color: #94a3b8;
+      font-style: italic;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid #2d3a5a;
+    }
+    .diagram-label {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      /* Slightly tinted pill on the dark background */
+      background: rgba(74, 93, 140, 0.35);
+      color: #93c5fd;
+      border: 1px solid #4a5d8c;
+      border-radius: 4px;
+      padding: 0.15em 0.6em;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── Full-width media ────────────────────────────── */
+    .media-full {
+      margin: 1.5rem 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #000;
+    }
+    .media-full img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .media-full video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .media-full figcaption {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding: 0.5rem 0.75rem;
+      font-style: italic;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Two-col media grid ──────────────────────────── */
+    .media-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .media-pair figure {
+      margin: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg-section-alt);
+    }
+    .media-pair figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .media-pair figcaption {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding: 0.5rem 0.75rem;
+      font-style: italic;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Six-filter gallery (3 across) ───────────────── */
+    .filter-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .filter-grid figure {
+      margin: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg-section-alt);
+    }
+    .filter-grid figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .filter-grid figcaption {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      padding: 0.45rem 0.7rem;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+    }
+    .filter-grid figcaption strong {
+      color: var(--text-heading);
+    }
+    @media (max-width: 640px) {
+      .filter-grid { grid-template-columns: 1fr 1fr; }
+      .media-pair  { grid-template-columns: 1fr; }
+    }
+
+    /* ── Portrait demo video, side-by-side with description ── */
+    .demo-wrap {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.5rem;
+      align-items: flex-start;
+      margin: 1.5rem 0;
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .demo-wrap__video {
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .demo-wrap__video video {
+      max-height: 480px;
+      width: auto;
+      max-width: 300px;
+      display: block;
+    }
+    .demo-wrap__caption {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-style: italic;
+      padding: 0.5rem 0.75rem;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+      width: 100%;
+      text-align: center;
+    }
+    .demo-wrap__desc {
+      padding: 1.25rem 1.25rem 1.25rem 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .demo-wrap__desc h3 {
+      margin-top: 0;
+      margin-bottom: 0.6rem;
+      font-size: 1rem;
+      color: var(--text-heading);
+    }
+    .demo-wrap__desc p {
+      font-size: 0.88rem;
+      color: var(--text-body);
+      line-height: 1.7;
+      margin: 0 0 0.8rem 0;
+    }
+    .demo-wrap__desc ul {
+      font-size: 0.86rem;
+      color: var(--text-body);
+      padding-left: 1.1rem;
+      margin: 0;
+      line-height: 1.8;
+    }
+    @media (max-width: 640px) {
+      .demo-wrap { grid-template-columns: 1fr; }
+      .demo-wrap__video video { max-width: 100%; max-height: 380px; }
+      .demo-wrap__desc { padding: 1rem; }
+    }
+
+    /* ── Hardware-report figures: cap width so tables stay readable
+         and small square reports are never upscaled/blurred ── */
+    .report-figure {
+      margin: 1.5rem auto;
+    }
+
+    /* ── Section divider ─────────────────────────────── */
+    .section-divider {
+      margin: 2.5rem 0 2rem;
+      border: none;
+      border-top: 2px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#expertise" class="active">Research</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav__drawer">
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <div class="mobile-nav__title">Al Hossain Shawn</div>
+      <hr class="mobile-nav__divider" />
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#expertise">Research</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#publications">Publications</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+
+  <div class="subpage-layout">
+    <aside class="subpage-sidebar">
+      <a class="back-link" href="../domains/dom-fpga.html">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        FPGA &amp; Reconfigurable Computing
+      </a>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">On this page</div>
+      <nav class="subpage-nav">
+        <a href="#overview">Overview</a>
+        <a href="#demo">Live Demonstration</a>
+        <a href="#filters">The Six Filters</a>
+        <a href="#streaming">Streaming at II=1</a>
+        <a href="#architecture">System &amp; Toolflow</a>
+        <a href="#hardware">Hardware &amp; Results</a>
+        <a href="#notes">Design Notes</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="sidebar__section-title">Project</div>
+      <div class="sidebar__tags">
+        <span class="sidebar__tag">P-06</span>
+        <span class="sidebar__tag">Vitis HLS</span>
+        <span class="sidebar__tag">Vivado</span>
+        <span class="sidebar__tag">Artix-7</span>
+        <span class="sidebar__tag">II=1</span>
+        <span class="sidebar__tag">HDMI</span>
+        <span class="sidebar__tag">Verilog</span>
+      </div>
+    </aside>
+
+    <main class="subpage-content" id="main-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="../domains/dom-fpga.html">FPGA &amp; Reconfigurable Computing</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>Sobel Video Co-Processor</span>
+      </div>
+
+      <div class="subpage-header">
+        <div class="tags-row" style="margin-bottom: 0.75rem;">
+          <span class="badge badge--blue">Completed</span>
+          <span class="tag">P-06</span>
+          <span class="tag">FPGA</span>
+          <span class="tag">Vitis HLS</span>
+        </div>
+        <h1>Real-time Sobel <em>Video Co-Processor</em></h1>
+        <div class="subpage-meta">
+          <span>Streaming Vision Accelerator</span>
+          <span>PA200T-StarLite · Artix-7 XC7A200T</span>
+          <span>Vitis HLS · Vivado · Verilog</span>
+        </div>
+      </div>
+
+      <div class="prose" id="overview">
+        <p>A <strong>3×3 convolution video co-processor</strong> that runs a live image filter in silicon: Sobel edge detection, plus sharpen, blur, emboss and threshold, applied to a <strong>720p HDMI</strong> stream and shown as a <strong>split-screen RAW │ FILTERED</strong> view on a real monitor. The kernel is written in <em>Vitis HLS</em> and pipelined to <strong>II=1</strong> (one pixel in and one pixel out every clock), then dropped straight into a hand-written Verilog HDMI pipeline with <strong>no soft-CPU and no AXI interconnect</strong>. Two buttons switch the source image and the filter live.</p>
+
+        <table class="spec-table">
+          <tr><td>Target Device</td><td>Puzhi PA200T-StarLite · Artix-7 XC7A200T (<code>xc7a200tfbg484-2</code>) · 134,600 LUTs · 740 DSPs · 365 BRAM tiles</td></tr>
+          <tr><td>Toolchain</td><td>AMD Vitis HLS 2025.2 · AMD Vivado 2025.2 · g++ host validation</td></tr>
+          <tr><td>Kernel</td><td>Line-buffer 3×3 streaming convolution, <code>sobel_filter()</code>, one 128×128 frame per <code>ap_start</code></td></tr>
+          <tr><td>Interfaces</td><td>src / dst = AXI4-Stream · mode / threshold = <code>ap_none</code> · block control = <code>ap_ctrl_hs</code></td></tr>
+          <tr><td>Filters</td><td>PASS · SOBEL · SHARPEN · BLUR · EMBOSS · THRESHOLD (run-time selectable)</td></tr>
+          <tr><td>Arithmetic</td><td>8-bit integer (<code>ap_uint&lt;8&gt;</code>), shift-add operators, saturated to [0,255], with <strong>zero multipliers</strong></td></tr>
+          <tr><td>Clock</td><td>Pixel 75.0 MHz / serial 375 MHz (MMCME2, Fvco 750 MHz, 5× TMDS ratio)</td></tr>
+          <tr><td>Throughput</td><td>II = 1 · 74.3 Mpix/s · ~4,400 fps at 128×128 (kernel closes ≈140 MHz)</td></tr>
+          <tr><td>On-chip Power</td><td>≈ 0.44 W (0.297 W dynamic · 0.141 W static)</td></tr>
+        </table>
+
+        <!-- ═══════════════════════════════════════════════
+             LIVE DEMO VIDEO
+        ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="demo">Live Demonstration</h2>
+        <p>The clip below is the design running on hardware. The <strong>left half is the original image</strong>, the <strong>right half is the filtered output</strong>, live. <strong>KEY0</strong> cycles the source image (six are stored on-chip) and <strong>KEY1</strong> cycles the filter, and the right half redraws each time a button is pressed.</p>
+
+        <div class="demo-wrap">
+          <div class="demo-wrap__video">
+            <video autoplay loop muted playsinline controls
+                   poster="../assets/projects/sobel-video-coprocessor/img2_sobel.jpeg">
+              <source src="../assets/projects/sobel-video-coprocessor/demo_video.mp4" type="video/mp4" />
+              Your browser does not support HTML5 video.
+            </video>
+            <div class="demo-wrap__caption">Live on the PA200T-StarLite · Artix-7 XC7A200T · 720p HDMI</div>
+          </div>
+          <div class="demo-wrap__desc">
+            <h3>What you are seeing</h3>
+            <p>The filter runs directly on FPGA hardware. Six grayscale images are stored on-chip, and two buttons drive the demo:</p>
+            <ul>
+              <li><strong>KEY0</strong> cycles the source image (1–6), fetched from block RAM.</li>
+              <li><strong>KEY1</strong> cycles the filter: PASS, SOBEL, SHARPEN, BLUR, EMBOSS, THRESHOLD.</li>
+              <li>The selected image streams through the II=1 kernel and lands in a second buffer.</li>
+              <li>The HDMI path paints RAW (left) │ FILTERED (right) with the yellow on-screen label, updating in real time.</li>
+            </ul>
+            <p style="margin-top: 0.4rem; font-size: 0.82rem; color: var(--text-muted);">Video is muted and loops; use the controls to pause or scrub.</p>
+          </div>
+        </div>
+
+        <p>Because the kernel sustains one pixel per clock, the filtered half keeps up with the video with no frame drops. The Sobel mode below pulls the puppy's outline, eyes and individual bits of fur out of the raw photo:</p>
+
+        <figure class="media-full">
+          <img src="../assets/projects/sobel-video-coprocessor/img2_sobel.jpeg" alt="Split-screen HDMI output: a black Labrador puppy raw on the left, its Sobel edge map on the right, with a yellow IMG 2/6 MODE:SOBEL overlay" />
+          <figcaption>Sobel edge detection on a photo. Left: raw 128×128 grayscale input. Right: gradient magnitude <code>|Gx| + |Gy|</code> rendered as white edges. The yellow <code>IMG n/6 MODE:NAME</code> label is drawn in fabric from a generated 8×16 ASCII font.</figcaption>
+        </figure>
+
+        <figure class="media-full">
+          <img src="../assets/projects/sobel-video-coprocessor/setup.jpeg" alt="Puzhi PA200T-StarLite Artix-7 development board with HDMI, UART and JTAG cables connected" />
+          <figcaption>The board: Puzhi PA200T-StarLite (Artix-7 XC7A200T), HDMI out, labelled USB-UART and JTAG. The whole system (clocking, buffers, kernel and HDMI serializers) fits in the fabric with room to spare.</figcaption>
+        </figure>
+
+        <!-- ═══════════════════════════════════════════════
+             THE SIX FILTERS
+        ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="filters">The Six Filters</h2>
+        <p>KEY1 walks through six modes on whatever image is loaded: nothing reloads, the kernel simply re-runs with a different <code>mode</code> value. Each mode is a fixed 3×3 operator built entirely from <strong>shifts and adds</strong>: no multiplies anywhere, which is exactly why the DSP count reads zero. The same puppy through all six modes (left = raw, right = filtered):</p>
+
+        <div class="filter-grid">
+          <figure>
+            <img src="../assets/projects/sobel-video-coprocessor/img2_pass.jpeg" alt="Pass-through mode: both halves identical" />
+            <figcaption><strong>Pass</strong>: baseline, both halves identical (center pixel).</figcaption>
+          </figure>
+          <figure>
+            <img src="../assets/projects/sobel-video-coprocessor/img2_sobel.jpeg" alt="Sobel mode: edges as white outlines" />
+            <figcaption><strong>Sobel</strong>: gradient magnitude <code>|Gx|+|Gy|</code>, edges as white outlines.</figcaption>
+          </figure>
+          <figure>
+            <img src="../assets/projects/sobel-video-coprocessor/img2_sharpen.jpeg" alt="Sharpen mode: crisper fur and whiskers" />
+            <figcaption><strong>Sharpen</strong>: high-pass <code>5·c − 4-neighbours</code>, crisper detail.</figcaption>
+          </figure>
+          <figure>
+            <img src="../assets/projects/sobel-video-coprocessor/img2_blur.jpeg" alt="Blur mode: softened image" />
+            <figcaption><strong>Blur</strong>: 1-2-1 Gaussian ÷16 low-pass, softened.</figcaption>
+          </figure>
+          <figure>
+            <img src="../assets/projects/sobel-video-coprocessor/img2_emboss.jpeg" alt="Emboss mode: grey 3-D relief" />
+            <figcaption><strong>Emboss</strong>: directional gradient + 128 bias, grey 3-D relief.</figcaption>
+          </figure>
+          <figure>
+            <img src="../assets/projects/sobel-video-coprocessor/img2_threshold.jpeg" alt="Threshold mode: hard black and white" />
+            <figcaption><strong>Threshold</strong>: hard black/white at the mid-grey threshold.</figcaption>
+          </figure>
+        </div>
+
+        <figure class="media-full">
+          <img src="../assets/projects/sobel-video-coprocessor/sobel_fjord.jpeg" alt="Split-screen HDMI output: a fjord landscape raw on the left, its Sobel edge map on the right" />
+          <figcaption>The same Sobel operator on a landscape: ridgelines and the water's edge turn into clean white outlines, one pixel per clock, keeping up with the pixel stream.</figcaption>
+        </figure>
+
+        <!-- ═══════════════════════════════════════════════
+             STREAMING AT II=1
+        ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="streaming">Streaming at II=1</h2>
+        <p>The naive convolution re-reads all nine neighbours for every output pixel, so it stalls on memory and never keeps up with the pixel clock. The fix is the classic <strong>line-buffer stencil</strong>: keep the previous two rows on-chip so all nine taps are already present the moment a new pixel streams in.</p>
+
+        <div class="diagram-block">
+          <span class="diagram-label">Line-Buffer 3×3 Stencil · II=1</span>
+          <div class="mermaid">
+flowchart LR
+    classDef io fill:#1a2744,stroke:#303e66,stroke-width:2px,color:#fff,font-weight:bold
+    classDef buf fill:#1a4731,stroke:#28a262,stroke-width:2px,color:#fff
+    classDef win fill:#1e5f74,stroke:#2d8da8,stroke-width:2px,color:#fff
+    classDef op fill:#7a4100,stroke:#c06000,stroke-width:2px,color:#fff
+    classDef out fill:#4a1942,stroke:#9333ea,stroke-width:2px,color:#fff
+
+    IN(["Pixel stream in\n1 pixel / clock"]):::io
+    LB0[("line0\nrow r-1 · 128×8")]:::buf
+    LB1[("line1\nrow r-2 · 128×8")]:::buf
+    WIN["3×3 window\n9 registers\nARRAY_PARTITION complete"]:::win
+    OP["3×3 operator\nSobel · sharpen · blur…\nshift-add · PIPELINE II=1 · 0 DSP"]:::op
+    OUT(["Pixel stream out\n1 pixel / clock"]):::out
+
+    IN -->|"new pixel"| WIN
+    IN --> LB0
+    IN --> LB1
+    LB0 -->|"row r-1 tap"| WIN
+    LB1 -->|"row r-2 tap"| WIN
+    WIN -->|"9 taps"| OP
+    OP --> OUT
+          </div>
+          <p class="diagram-caption">Two line buffers hold rows r-1 and r-2; each new pixel slides into a fully-partitioned 3×3 register window, so all nine taps are available in the same cycle. <code>dependence type=inter false</code> tells the scheduler the line-buffer reads and writes don't collide, which is what lets the initiation interval drop to 1.</p>
+        </div>
+
+        <ul>
+          <li><strong>Two line buffers</strong> hold the previous two rows (r-1, r-2). Nothing is read from memory twice.</li>
+          <li><code>#pragma HLS ARRAY_PARTITION type=complete</code> on the window, so all nine taps are readable in one cycle.</li>
+          <li><code>#pragma HLS PIPELINE II=1</code> with <code>#pragma HLS dependence variable=line0/line1 type=inter false</code>; the false-dependence pragma is what drops the initiation interval to 1.</li>
+          <li>Borders are <strong>zero-padded</strong>; the loop runs (H+1)×(W+1) so the extra row and column flush the last output, since the window trails the input by one row and one column.</li>
+        </ul>
+
+        <pre><code>void sobel_filter(hls::stream&lt;pix_t&gt; &amp;src, hls::stream&lt;pix_t&gt; &amp;dst,
+                  ap_uint&lt;3&gt; mode, pix_t threshold) {
+#pragma HLS INTERFACE mode=axis       port=src
+#pragma HLS INTERFACE mode=axis       port=dst
+#pragma HLS INTERFACE mode=ap_ctrl_hs port=return
+
+    pix_t line0[IMG_W];   // row r-1  ─┐ two line buffers hold
+    pix_t line1[IMG_W];   // row r-2  ─┘ the previous two rows
+    int   win[3][3];      // 3×3 window, all 9 taps in registers
+#pragma HLS ARRAY_PARTITION variable=win type=complete dim=0
+
+  COL: for (int c = 0; c &lt; IMG_W + 1; c++) {
+#pragma HLS PIPELINE II=1
+#pragma HLS dependence variable=line0 type=inter false
+#pragma HLS dependence variable=line1 type=inter false
+      bot = (r &lt; IMG_H) ? (int)src.read() : 0;  // one pixel in ...
+      mid = line0[c];  top = line1[c];          // read the two rows above
+      line1[c] = mid;  line0[c] = bot;          // shift columns down one row
+      // ... slide the 3×3 window left, insert the new right-hand column ...
+      if (r &gt;= 1 &amp;&amp; c &gt;= 1)
+          dst.write(apply_op(win, mode, thr));  // ... one pixel out
+  }
+}</code></pre>
+
+        <p>The result is a fixed one-line-plus-a-few-cycles latency and full video-rate throughput. It was checked twice before it went near the board: a self-checking testbench compares every mode bit-exact against an independent 2-D reference, and the same C was compiled with g++ (plus shim headers) to eyeball the outputs on a laptop before Vitis was even involved.</p>
+
+        <!-- ═══════════════════════════════════════════════
+             SYSTEM & TOOLFLOW
+        ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="architecture">System &amp; Toolflow</h2>
+        <p>The board has no hard CPU and the vendor demos ship no MicroBlaze/AXI base, so the exported HLS IP is wired into a <strong>flat-Verilog</strong> HDMI pipeline by hand. Six grayscale images are baked into one block RAM (<code>$readmemh</code>); a small FSM (<code>filter_driver</code>) pulls the selected image out, streams it through the kernel over AXI4-Stream, and writes it into a second buffer. The HDMI read path composites the divider, the RAW tile, the FILTERED tile and the yellow text label before the TMDS serializers.</p>
+
+        <figure class="media-full">
+          <img src="../assets/projects/sobel-video-coprocessor/system_architecture.png" alt="System architecture: MMCM clocking, 6-image source BRAM, filter_driver FSM, Vitis HLS kernel, destination BRAM, and HDMI split-screen mux through TMDS and OSERDES" />
+          <figcaption>On-board system. MMCM makes the 75 MHz pixel / 375 MHz serial clocks; <code>filter_driver</code> streams <code>src_buffer → sobel_filter → dst_buffer</code> once per change; the HDMI path muxes RAW │ FILTERED plus the text label into the TMDS/OSERDES output. Flat Verilog, no MicroBlaze, no AXI interconnect.</figcaption>
+        </figure>
+
+        <p>The kernel itself was taken from C to bitstream through the standard Vitis HLS steps in order: C sim, synthesis, C/RTL co-sim (the step that actually catches scheduling mistakes), then IP export, before entering Vivado as plain RTL:</p>
+
+        <figure class="media-full">
+          <img src="../assets/projects/sobel-video-coprocessor/hls_flow.png" alt="Vitis HLS to Vivado design flow: C source, C simulation, C synthesis, C/RTL co-simulation, export IP, then Vivado synth/impl/bitstream to the Artix-7" />
+          <figcaption>C++ source → C-sim → C-synthesis (II=1, 0 DSP, 7.16 ns) → C/RTL co-sim (PASS) → export IP in Vitis HLS, then synth / impl / bitstream in Vivado onto the Artix-7.</figcaption>
+        </figure>
+
+        <h3>HLS Synthesis (Vitis HLS 2025.2 · xc7a200t-fbg484-2)</h3>
+        <table class="spec-table">
+          <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Target clock</td><td>10.00 ns (uncertainty 2.70 ns)</td></tr>
+            <tr><td>Estimated clock</td><td>7.162 ns ⇒ Fmax ≈ 139.6 MHz (~1.9× above the 74.28 MHz pixel clock)</td></tr>
+            <tr><td>Pixel-loop II</td><td>1 (one pixel in / one pixel out per clock)</td></tr>
+            <tr><td>Frame latency</td><td>16,779 cycles ≈ 0.23 ms/frame @ 74.28 MHz (~4,400 fps at 128×128)</td></tr>
+            <tr><td>DSP48E1</td><td>0 (shift-add operators, no multipliers)</td></tr>
+            <tr><td>BRAM18K</td><td>2 (line0, line1 line buffers)</td></tr>
+            <tr><td>FF / LUT (kernel)</td><td>447 / 1,429 (~1% of the device)</td></tr>
+            <tr><td>C/RTL cosim</td><td>PASS (Verilog / xsim)</td></tr>
+          </tbody>
+        </table>
+
+        <!-- ═══════════════════════════════════════════════
+             HARDWARE & RESULTS
+        ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="hardware">Hardware &amp; Results</h2>
+        <p>Placed and routed, the full design (kernel, FSM, both frame buffers, HDMI serializers and font overlay) barely registers on a part this big. Timing closes with margin on all three checks, and the whole chip draws under half a watt.</p>
+
+        <figure class="media-full report-figure" style="max-width: 1000px;">
+          <img src="../assets/projects/sobel-video-coprocessor/schematic.png" alt="Vivado synthesized schematic of the top_sobel design" />
+          <figcaption>Vivado synthesized schematic of <code>top_sobel</code>: source BRAM, <code>filter_driver</code>, the HLS kernel, destination BRAM, the split-screen mux and the TMDS/OSERDES HDMI output.</figcaption>
+        </figure>
+
+        <figure class="media-full report-figure" style="max-width: 1180px;">
+          <img src="../assets/projects/sobel-video-coprocessor/resource_utilization.png" alt="Vivado utilization table showing 1,016 LUTs, 697 registers, 29 BRAM tiles, 0 DSP" />
+          <figcaption>Post-implementation utilization: 1,016 LUTs (&lt;1%), 697 registers, 29 block-RAM tiles, 0 DSP, 1 MMCM, broken down per module (<code>filter_driver</code>, buffers, label, HDMI sync).</figcaption>
+        </figure>
+
+        <div class="media-pair" style="max-width: 720px; margin: 1.5rem auto;">
+          <figure>
+            <img src="../assets/projects/sobel-video-coprocessor/layout_utilization.png" alt="Vivado implemented device layout, logic concentrated in the lower-left clock regions" />
+            <figcaption>Where it lands on the die: the logic is a speck in the lower-left clock regions (X0Y1–X0Y2) of the XC7A200T fabric.</figcaption>
+          </figure>
+          <figure>
+            <img src="../assets/projects/sobel-video-coprocessor/power.png" alt="Vivado on-chip power report, 0.44 W total" />
+            <figcaption>On-chip power ≈ 0.44 W (0.297 W dynamic + 0.141 W static). The logic is a few mW; the MMCM (0.106 W) and HDMI I/O (0.135 W) dominate.</figcaption>
+          </figure>
+        </div>
+
+        <figure class="media-full report-figure" style="max-width: 900px;">
+          <img src="../assets/projects/sobel-video-coprocessor/timing.png" alt="Vivado design timing summary, all constraints met" />
+          <figcaption>Design timing summary: <strong>all constraints met</strong>: WNS +1.663 ns, WHS +0.099 ns, WPWS +1.074 ns, 0 failing endpoints.</figcaption>
+        </figure>
+
+        <h3>Implementation Summary</h3>
+        <table class="spec-table">
+          <thead><tr><th>Resource / Metric</th><th>Used / Device</th></tr></thead>
+          <tbody>
+            <tr><td>Slice LUTs</td><td>1,016 / 134,600 (~0.75%)</td></tr>
+            <tr><td>Slice Registers</td><td>697 / 269,200 (~0.26%)</td></tr>
+            <tr><td>Block RAM tiles</td><td>29 / 365 (~7.9%) · 24 source (6 images) · 4 destination · 1 kernel</td></tr>
+            <tr><td>DSP48E1</td><td>0 / 740 (0%)</td></tr>
+            <tr><td>MMCM / BUFG</td><td>1 / 2</td></tr>
+            <tr><td>Timing</td><td>All met · WNS +1.663 ns · WHS +0.099 ns · WPWS +1.074 ns · 0 failing (2,426 endpoints)</td></tr>
+            <tr><td>On-chip Power</td><td>≈ 0.44 W (0.297 W dynamic · 0.141 W static)</td></tr>
+          </tbody>
+        </table>
+
+        <!-- ═══════════════════════════════════════════════
+             DESIGN NOTES
+        ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="notes">Design Notes</h2>
+
+        <h3>The clocking fix</h3>
+        <p>The pulse-width slack did not come for free. The first build clocked the TMDS serializer at <strong>650 MHz</strong>, which was wrong on two counts: it broke the BUFG minimum-period on the -2 part, and it is simply not the right number: for 10:1 DDR the serial clock has to be exactly <strong>5× the pixel clock</strong>. One MMCME2 now does the whole thing: 200 MHz in, 750 MHz VCO, ÷10 for the 75.0 MHz pixel clock and ÷2 for the 375 MHz serial clock. Getting the ratio right closed timing cleanly <em>and</em> killed an HDMI flicker the original design had been fighting.</p>
+
+        <h3>Honest limitations</h3>
+        <p>The images are <strong>preloaded 128×128 tiles</strong>, upscaled on the 720p output, so this is real-time <em>filtering of stored frames</em>, not a live camera. Loading images over UART proved unreliable on this CH340 setup (bytes arrived corrupted, even for a flat test pattern), so the six images are baked into block RAM with <code>$readmemh</code> and a 2-FF synchronizer is left on the RX line to revisit live-load later. The HLS kernel is resolution-parameterised, so full-screen is mostly a question of hanging a DDR3 frame buffer off it; that, plus a MIPI camera on the front (the board has dual OV5640), is where it goes next.</p>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap;">
+        <a href="../domains/dom-fpga.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem;">
+          <span>← Domain</span>
+          <span style="color: var(--text-heading); font-weight: 600;">FPGA &amp; Reconfigurable Computing</span>
+        </a>
+        <a href="cnn-digit-detector.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem; text-align: right;">
+          <span>Related →</span>
+          <span style="color: var(--text-heading); font-weight: 600;">CNN Digit Detector</span>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2026 Al Hossain Shawn &nbsp;·&nbsp; <a href="../index.html">Portfolio</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+
+  <script src="../interactive.js" defer></script>
+</body>
+</html>

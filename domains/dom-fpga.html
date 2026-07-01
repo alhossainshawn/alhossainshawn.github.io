@@ -79,7 +79,7 @@
       <div class="breadcrumb">
         <a href="../index.html">Home</a>
         <span class="breadcrumb__sep">›</span>
-        <a href="../index.html#interests">Research Interests</a>
+        <a href="../index.html#expertise">Research Interests</a>
         <span class="breadcrumb__sep">›</span>
         <span>FPGA &amp; Reconfigurable Computing</span>
       </div>
@@ -139,6 +139,33 @@
                 <span class="tag">LNS</span>
                 <span class="tag">Edge AI</span>
                 <span class="tag">AXI4</span>
+              </div>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__link">Read more &rarr;</span>
+            </div>
+          </a>
+
+          <a class="proj-card" href="../projects/sobel-video-coprocessor.html">
+            <img class="proj-card__img" src="../assets/projects/sobel-video-coprocessor/img2_sobel.jpeg" alt="Split-screen HDMI output: a photo raw on the left, live Sobel edge detection on the right" />
+            <div class="proj-card__body">
+              <div class="proj-card__meta">
+                <span class="proj-card__id">P-06 &nbsp;·&nbsp; Jun 2026</span>
+                <span class="badge badge--blue">Completed</span>
+              </div>
+              <h3>Sobel Video <em>Co-Processor</em></h3>
+              <p class="proj-card__desc">Real-time 3×3 convolution video filter (Sobel, sharpen, blur, emboss, threshold) built in Vitis HLS and dropped into a flat-Verilog 720p HDMI pipeline, shown live as a split-screen RAW │ FILTERED view.</p>
+              <ul class="res-card__bullets" style="margin: 0.4rem 0 0.8rem 0; padding-left: 1.1rem;">
+                <li>II=1 line-buffer streaming kernel: one pixel in / one pixel out per clock.</li>
+                <li>Shift-add operators only, so 0 DSP slices, 2 BRAMs, and ~1% of the fabric.</li>
+                <li>Timing closed with margin; ~0.44 W on-chip, no soft-CPU and no AXI.</li>
+              </ul>
+              <div class="tags-row">
+                <span class="tag">Vitis HLS</span>
+                <span class="tag">Artix-7</span>
+                <span class="tag">II=1</span>
+                <span class="tag">HDMI</span>
+                <span class="tag">Verilog</span>
               </div>
             </div>
             <div class="proj-card__footer">
