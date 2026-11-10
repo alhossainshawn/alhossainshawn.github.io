@@ -23,17 +23,12 @@
 
   <link rel="stylesheet" href="styles.css?v=3.0" />
 
-  <!-- SVG icon library -->
-  <div id="icon-defs" hidden></div>
-  <script>
-    fetch('icons.svg').then(r => r.text()).then(svg => {
-      const el = document.getElementById('icon-defs');
-      if (el) el.innerHTML = svg;
-    });
-  </script>
 </head>
 
 <body>
+  <script>try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.body.classList.add('dark-mode');}catch(e){}</script>
+  <div id="icon-defs" hidden></div>
+  <script>fetch('icons.svg').then(r=>r.text()).then(svg=>{const el=document.getElementById('icon-defs');if(el)el.innerHTML=svg;}).catch(()=>{});</script>
 
   <!-- ============================================================
        SITE HEADER

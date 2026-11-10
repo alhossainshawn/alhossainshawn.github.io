@@ -5,6 +5,7 @@
  *   2. Active nav link on scroll
  *   3. Fade-in reveal on scroll (IntersectionObserver)
  *   4. Smooth anchor scrolling
+ *   5. Dark mode toggle
  */
 
 (function () {
@@ -56,6 +57,8 @@
   const navLinks  = Array.from(document.querySelectorAll('.site-nav a'));
 
   function updateActiveNav() {
+    // Subpages have no sections and keep their hard-coded active link
+    if (sections.length === 0) return;
     let current = '';
     const scrollY = window.scrollY + 100;
 
@@ -66,8 +69,9 @@
     });
 
     navLinks.forEach(function (link) {
-      link.classList.remove('active');
       const href = link.getAttribute('href');
+      if (!href || href.charAt(0) !== '#') return;
+      link.classList.remove('active');
       if (href && (href === '#' + current || (href === '#expertise' && current === 'research'))) {
         link.classList.add('active');
       }
@@ -103,20 +107,21 @@
       const target   = document.getElementById(targetId);
       if (!target) return;
       e.preventDefault();
-      const headerH = 70; // site-header height
+      const header = document.querySelector('.site-header');
+      const headerH = header ? header.offsetHeight : 70;
       const top = target.getBoundingClientRect().top + window.scrollY - headerH;
       window.scrollTo({ top: top, behavior: 'smooth' });
     });
   });
 
   /* ── 5. Dark Mode Toggle ────────────────────────────── */
-  const savedTheme = localStorage.getItem('theme');
+  // The inline script at the top of <body> applies the theme before first paint;
+  // this only re-syncs in case it didn't run.
+  let savedTheme = null;
+  try { savedTheme = localStorage.getItem('theme'); } catch (e) { /* storage blocked */ }
   const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const isDark = savedTheme === 'dark' || (!savedTheme && systemPrefersDark);
-
-  if (isDark) {
-    document.body.classList.add('dark-mode');
-  }
+  document.body.classList.toggle('dark-mode', isDark);
 
   function updateThemeButton(btn, isDark) {
     if (!btn) return;
@@ -136,7 +141,7 @@
 
     toggleBtn.addEventListener('click', function () {
       const currentlyDark = document.body.classList.toggle('dark-mode');
-      localStorage.setItem('theme', currentlyDark ? 'dark' : 'light');
+      try { localStorage.setItem('theme', currentlyDark ? 'dark' : 'light'); } catch (e) { /* storage blocked */ }
       updateThemeButton(toggleBtn, currentlyDark);
     });
 

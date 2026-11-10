@@ -9,10 +9,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css?v=3.0" />
-  <div id="icon-defs" hidden></div>
-  <script>fetch('../icons.svg').then(r=>r.text()).then(svg=>{const el=document.getElementById('icon-defs');if(el)el.innerHTML=svg;});</script>
 </head>
 <body>
+  <script>try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.body.classList.add('dark-mode');}catch(e){}</script>
+  <div id="icon-defs" hidden></div>
+  <script>fetch('../icons.svg').then(r=>r.text()).then(svg=>{const el=document.getElementById('icon-defs');if(el)el.innerHTML=svg;}).catch(()=>{});</script>
 
   <header class="site-header" role="banner">
     <div class="site-header__inner">
