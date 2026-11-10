@@ -8,7 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=3.0" />
+  <link rel="stylesheet" href="../styles.css?v=3.1" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
   <script>try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.body.classList.add('dark-mode');}catch(e){}</script>
@@ -202,16 +203,16 @@
         </table>
       </div>
 
-      <div style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap;">
-        <a href="dom-vlsi.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem;">
+      <nav class="page-pager" aria-label="Domain navigation">
+        <a href="dom-vlsi.html" class="page-pager__link">
           <span>← Previous Domain</span>
-          <span style="color: var(--text-heading); font-weight: 600;">VLSI &amp; IC Design</span>
+          <span class="page-pager__title">VLSI &amp; IC Design</span>
         </a>
-        <a href="../index.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem; text-align: right;">
+        <a href="../index.html" class="page-pager__link page-pager__link--next">
           <span>Back to →</span>
-          <span style="color: var(--text-heading); font-weight: 600;">Portfolio Index</span>
+          <span class="page-pager__title">Portfolio Index</span>
         </a>
-      </div>
+      </nav>
     </main>
   </div>
 

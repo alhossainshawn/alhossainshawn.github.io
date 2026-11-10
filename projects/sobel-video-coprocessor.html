@@ -8,7 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=3.0" />
+  <link rel="stylesheet" href="../styles.css?v=3.1" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
   <script>
@@ -618,16 +619,16 @@ flowchart LR
         <p>The images are <strong>preloaded 128×128 tiles</strong>, upscaled on the 720p output, so this is real-time <em>filtering of stored frames</em>, not a live camera. Loading images over UART proved unreliable on this CH340 setup (bytes arrived corrupted, even for a flat test pattern), so the six images are baked into block RAM with <code>$readmemh</code> and a 2-FF synchronizer is left on the RX line to revisit live-load later. The HLS kernel is resolution-parameterised, so full-screen is mostly a question of hanging a DDR3 frame buffer off it; that, plus a MIPI camera on the front (the board has dual OV5640), is where it goes next.</p>
       </div>
 
-      <div style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap;">
-        <a href="../domains/dom-fpga.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem;">
-          <span>← Domain</span>
-          <span style="color: var(--text-heading); font-weight: 600;">FPGA &amp; Reconfigurable Computing</span>
+      <nav class="page-pager" aria-label="Project navigation">
+        <a class="page-pager__link" href="fpga-adder.html">
+          <span>← Previous</span>
+          <span class="page-pager__title">Interactive FPGA Adder</span>
         </a>
-        <a href="cnn-digit-detector.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem; text-align: right;">
-          <span>Related →</span>
-          <span style="color: var(--text-heading); font-weight: 600;">CNN Digit Detector</span>
+        <a class="page-pager__link page-pager__link--next" href="aerial-survey.html">
+          <span>Next →</span>
+          <span class="page-pager__title">Aerial Survey Platform</span>
         </a>
-      </div>
+      </nav>
     </main>
   </div>
 

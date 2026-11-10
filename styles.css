@@ -1753,3 +1753,27 @@ body.dark-mode pre {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
+/* ── Prev / next page pager (subpages) ─────────────────────── */
+.page-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.page-pager__link,
+.page-pager__link:hover {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  text-decoration: none;
+}
+.page-pager__link--next { text-align: right; }
+.page-pager__title {
+  color: var(--text-heading);
+  font-weight: 600;
+}

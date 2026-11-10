@@ -1,107 +1,94 @@
-# Al Hossain Shawn — Portfolio
+# Al Hossain Shawn: Portfolio
 
-A static portfolio website. Built as a "dark schematic" — drawing-frame
-chrome, monospace technical labels, serif headlines, deep blue-black
-background with a warm terracotta accent.
+Personal research portfolio, live at **<https://alhossainshawn.github.io/>**.
+
+A static site (plain HTML, CSS and a little JavaScript) with no build step. It uses a clean academic layout: a profile sidebar beside the main content, Lora headings, Inter body text, a slate-blue accent, and a light/dark theme toggle.
 
 ```
-├── index.html                       — landing page
-├── styles.css                       — shared styles for every page
+├── index.html                  landing page (all main sections)
+├── styles.css                  shared styles for every page
+├── interactive.js              mobile nav, scroll-spy, reveal, smooth scroll, theme toggle
+├── icons.svg                   SVG icon sprite (<use href="#i-...">)
 ├── assets/
-│   └── portrait.jpg                 — hero portrait
-└── projects/
-    ├── hybrid-neural-accelerator.html
-    ├── mbcfet.html
-    ├── cubesat.html
-    ├── aerial-survey.html
-    └── birds-x.html
+│   ├── portrait.jpg            sidebar portrait (also the link-preview image)
+│   ├── favicon.svg             browser-tab icon
+│   ├── tools/                  logos for "Tools in Rotation"
+│   └── projects/<project>/     images and demo videos per project
+├── domains/                    one page per research domain
+│   ├── dom-fpga.html           DOM-01 FPGA & Reconfigurable Computing
+│   ├── dom-device-physics.html DOM-02 Semiconductor Device Physics
+│   ├── dom-vlsi.html           DOM-03 VLSI & IC Design
+│   └── dom-embedded.html       DOM-04 Embedded Systems & Robotics
+└── projects/                   one page per project
+    ├── hybrid-neural-accelerator.html  R-01
+    ├── mbcfet.html                     R-02
+    ├── cnn-digit-detector.html         P-04
+    ├── fpga-adder.html                 P-05
+    ├── sobel-video-coprocessor.html    P-06
+    ├── aerial-survey.html              P-01
+    ├── cubesat.html                    P-02
+    └── birds-x.html                    P-03
 ```
-
-## Publishing to GitHub Pages
-
-This site is pure static HTML/CSS — no build step, no server runtime.
-Deploying is three steps.
-
-### 1. Create the repository
-
-If you want the site to live at `https://<your-username>.github.io/`,
-name the repo exactly `<your-username>.github.io`. For any other URL
-(`https://<your-username>.github.io/<repo-name>/`), use any name.
-
-### 2. Push the files
-
-From the project folder:
-
-```bash
-git init
-git branch -M main
-git add .
-git commit -m "Initial portfolio"
-git remote add origin https://github.com/<your-username>/<repo-name>.git
-git push -u origin main
-```
-
-### 3. Turn on GitHub Pages
-
-1. Open the repo on github.com → **Settings** → **Pages**
-2. Under **Source**, pick **Deploy from a branch**
-3. Branch: **main**, folder: **/ (root)**
-4. **Save**
-
-Wait ~30 seconds. Your site is live at the URL GitHub shows on that page.
 
 ## Editing the content
 
-Everything is plain HTML — open `index.html` or any file under
-`projects/` and edit the text directly. There's no build step or
-preview command needed; just refresh the browser.
-
-Common things to change:
+Everything is plain HTML: edit the text and refresh the browser.
 
 | What | Where |
 |---|---|
-| Hero name / tagline | `index.html` → `<section class="hero">` |
-| Status (e.g. "Open to collabs") | `index.html` → `.metabar` block |
-| Research interests (the 4 cards) | `index.html` → `<div class="interests">` |
-| Active research (2 large cards) | `index.html` → `<div class="research-grid">` |
-| Project rows | `index.html` → `<div class="projects">` |
-| Publications | `index.html` → `<div class="pubs">` |
-| Experience / timeline | `index.html` → `<div class="exp">` |
-| Skills (5 columns) | `index.html` → `<div class="skills">` |
-| Achievements / education | `index.html` → `<div class="twocol">` |
-| Contact info | `index.html` → `<footer class="foot">` |
-| Portrait photo | replace `assets/portrait.jpg` |
+| Name, role, contact links, expertise tags | `index.html` → `<aside class="sidebar">` |
+| Hero headline and tagline | `index.html` → `<section class="hero">` |
+| Bio and education | `index.html` → `#about` (`.about__bio`, `.edu-timeline`) |
+| Current and past roles | `index.html` → `#roles` (`.current-role-card`, `.timeline`) |
+| The 4 research domain cards | `index.html` → `#expertise` (`.interests-grid`) |
+| Active research (2 cards) | `index.html` → `#research` (`.research-grid`) |
+| Project cards | `index.html` → `#projects` (`.proj-grid`) |
+| Publications | `index.html` → `#publications` (`.pub-list`) |
+| Tools | `index.html` → `#stack` (`.tools-section__grid`) |
+| Awards, licences, training | `index.html` → `#awards`, `#licences`, `#training` (`.simple-list`) |
+| Contact block | `index.html` → `#contact` (`.contact-grid`) |
 
-To add a new project page, copy any file in `projects/` to a new name
-inside the same folder, edit the content, then add a matching row in
-`index.html`'s `.projects` block linking to the new file.
+### Adding a project
+
+1. Copy an existing file in `projects/` and edit it. Put its images in `assets/projects/<name>/`.
+2. Add a matching `.proj-card` to `#projects` in `index.html`, and to the relevant domain page if it belongs to one.
+3. Update the `.page-pager` (Previous / Next) links on the new page and its neighbours. The chain follows the order of the cards on the homepage.
+
+Publication status badges use `.pub-status--accepted` or `.pub-status--published`.
 
 ## Theming
 
-The whole palette lives at the top of `styles.css` as CSS variables.
-Change `--bg`, `--accent`, etc. once and the whole site picks it up.
+The palette is defined as CSS variables at the top of `styles.css`. Dark mode overrides them under `body.dark-mode`.
 
 ```css
 :root {
-  --bg: #0b0d11;          /* page background */
-  --paper: #13161c;       /* card background */
-  --ink: #eef0f2;         /* body text */
-  --accent: #d97757;      /* warm terracotta */
-  --accent-2: #5eb8a3;    /* "online / ok" green */
+  --bg:           #f5f5f7;   /* page background */
+  --bg-white:     #ffffff;   /* cards, sidebar */
+  --bg-hero:      #1a2744;   /* hero splash */
+  --text:         #3d4144;
+  --text-heading: #1a1a2e;
+  --accent:       #4a5d8c;   /* slate blue */
   ...
 }
 ```
 
+The theme toggle saves the choice in `localStorage`. A short inline script at the top of each page's `<body>` applies it before first paint. Keep that script on any new page.
+
 ## Local preview
 
-You don't need any tooling, but for a clean preview that mimics
-GitHub Pages routing, run a one-liner from the project folder:
+Serve the folder over HTTP. The icon sprite is loaded with `fetch()`, so icons don't render when a page is opened straight from disk.
 
 ```bash
-python3 -m http.server 8000
+python -m http.server 8000
 ```
 
 Then open `http://localhost:8000/`.
+
+## Publishing
+
+The repo is `alhossainshawn.github.io`, served by GitHub Pages from `main` (root). Pushing to `main` publishes the site.
+
+After changing `styles.css`, bump the `?v=` query on its `<link>` tags so browsers fetch the new version.
 
 ---
 

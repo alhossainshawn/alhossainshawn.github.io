@@ -8,7 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=3.0" />
+  <link rel="stylesheet" href="../styles.css?v=3.1" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
   <script>try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.body.classList.add('dark-mode');}catch(e){}</script>
@@ -116,16 +117,16 @@
         <p>The Phase 1 win validated the design choices, which included a focused theme, a clean hardware stack, and an operations plan rooted in real orbit numbers. It also primed the larger CubeSat work that followed (Project P-02) by giving the team a working language across four engineering disciplines simultaneously.</p>
       </div>
 
-      <div style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap;">
-        <a href="aerial-survey.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem;">
+      <nav class="page-pager" aria-label="Project navigation">
+        <a class="page-pager__link" href="cubesat.html">
           <span>← Previous</span>
-          <span style="color: var(--text-heading); font-weight: 600;">Aerial Survey Platform</span>
+          <span class="page-pager__title">APSCO CubeSat</span>
         </a>
-        <a href="../index.html#projects" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem; text-align: right;">
+        <a class="page-pager__link page-pager__link--next" href="../index.html#projects">
           <span>Back to →</span>
-          <span style="color: var(--text-heading); font-weight: 600;">All Projects</span>
+          <span class="page-pager__title">All Projects</span>
         </a>
-      </div>
+      </nav>
     </main>
   </div>
 

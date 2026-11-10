@@ -8,7 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=3.0" />
+  <link rel="stylesheet" href="../styles.css?v=3.1" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
   <script>try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.body.classList.add('dark-mode');}catch(e){}</script>
@@ -208,22 +209,22 @@ void hybrid_mac_unit(
         <h2 id="status">Current Status</h2>
         <ul>
           <li><strong>HLS Primitive Validation</strong>: Completed bit-accurate software model validation. The HLS core yields zero mismatch against the PyTorch quantization compiler outputs.</li>
-          <li><strong>Timing Closure</strong>: Achieved complete timing closure at 225 MHz on the Artix-7 fabric. The worst negative slack (WNS) is positive at +0.42ns.</li>
+          <li><strong>Timing Closure</strong>: Timing met at the 200 MHz target on the Artix-7 fabric with positive worst negative slack (WNS +0.42 ns); the design reaches an Fmax of 225 MHz.</li>
           <li><strong>DMA System Integration</strong>: Memory subsystem successfully integrated and verified with Xilinx AXI Central DMA (CDMA) on the testbench.</li>
           <li><strong>Conference Submission</strong>: Accepted for publication at the <strong>2026 Great Lakes Symposium on VLSI (GLSVLSI)</strong> in the Late Breaking Session.</li>
         </ul>
       </div>
 
-      <div style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); gap: 1rem; flex-wrap: wrap;">
-        <a href="../index.html#expertise" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem;">
-          <span>← Back</span>
-          <span style="color: var(--text-heading); font-weight: 600;">All Research</span>
+      <nav class="page-pager" aria-label="Project navigation">
+        <a class="page-pager__link" href="../index.html#projects">
+          <span>← Back to</span>
+          <span class="page-pager__title">All Projects</span>
         </a>
-        <a href="mbcfet.html" style="display: flex; flex-direction: column; gap: 0.2rem; text-decoration: none; color: var(--text-muted); font-size: 0.84rem; text-align: right;">
+        <a class="page-pager__link page-pager__link--next" href="mbcfet.html">
           <span>Next →</span>
-          <span style="color: var(--text-heading); font-weight: 600;">MBCFET Modeling</span>
+          <span class="page-pager__title">MBCFET Modeling</span>
         </a>
-      </div>
+      </nav>
     </main>
   </div>
 
