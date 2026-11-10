@@ -172,7 +172,7 @@
           <tr><td>Project Type</td><td>Final Year Design Project (FYDP)</td></tr>
           <tr><td>Target Application</td><td>Infrastructure inspection, disaster response, environmental monitoring</td></tr>
           <tr><td>Primary Hardware</td><td>Raspberry Pi 4B · ESP32 · Pixhawk 2.4.8 · Sony IMX219 (NoIR/RGB)</td></tr>
-          <tr><td>Software Ecosystem</td><td>Python · OpenCV · TensorFlow · Ultralytics YOLO · TileServer GL</td></tr>
+          <tr><td>Software Ecosystem</td><td>Python · C++ · ROS · PX4 · OpenCV · TensorFlow · Ultralytics YOLO · TileServer GL</td></tr>
           <tr><td>Budget Profile</td><td>~53,500 BDT (highly optimized vs. proprietary platforms)</td></tr>
         </table>
 
@@ -183,7 +183,7 @@
           <li><strong>Design Approach 1 (Self-Contained Edge Inference):</strong> Integrates data capture and deep learning inference directly on the drone’s embedded system (Broadcom BCM2711 SoC, CPU inference). As the drone navigates a preloaded path, real-time object detection model crops the image buffers. When a fault is detected with high confidence, the coordinates are fetched from the GPS and appended to a local CSV file. Post-flight, the drone connects to a secure landing-pad LAN to offload only the light text-based telemetry digest.
             <ul>
               <li><em>Advantages:</em> Real-time localization, zero network-connectivity dependence in flight, high data privacy (OPSEC).</li>
-              <li><em>Disadvantages:</em> Elevated on-board power draw (~15W compute), requires active heatsink cooling.</li>
+              <li><em>Disadvantages:</em> Elevated on-board power draw (~15W measured), requires active heatsink cooling.</li>
             </ul>
           </li>
           <li><strong>Design Approach 2 (Base-Station Offloading):</strong> The drone acts solely as a data acquisition node, capturing sRGB and Near-IR streams to local high-speed storage. Upon landing, the drone establishes an opportunistic Wi-Fi tunnel to a localized ground station server (which runs advanced GPU-accelerated networks) to offload the raw data for processing and buffer wiping.
@@ -276,7 +276,7 @@
               <tr>
                 <td data-label="Component"><strong>Compute Platform</strong></td>
                 <td data-label="Model Selection">Raspberry Pi 4 Model B</td>
-                <td data-label="Key Specifications">Broadcom BCM2711, Quad-core Cortex-A72 @ 1.5GHz, 4GB LPDDR4, 15W TDP, 28nm CMOS</td>
+                <td data-label="Key Specifications">Broadcom BCM2711, Quad-core Cortex-A72 @ 1.8GHz, 4GB LPDDR4, ~15W measured on-board draw, 28nm CMOS</td>
               </tr>
               <tr>
                 <td data-label="Component"><strong>Flight Controller</strong></td>
@@ -353,7 +353,7 @@
 
         <p>$$\text{CPU Quota } \% = \frac{F_p}{F_H} \times 100\% = 50\%$$</p>
 
-        <p>Where $F_p$ is the target processor speed ($1.8\text{ GHz}$) and $F_H$ is the host clock speed ($3.6\text{ GHz}$). Additionally, memory bounds were constrained to $8\text{ GB}$ per VM with dynamic memory ballooning drivers to limit host overhead. The overall performance normalization factor was calculated as:</p>
+        <p>Where $F_p$ is the target processor speed ($1.8\text{ GHz}$) and $F_H$ is the host clock speed ($3.6\text{ GHz}$). Additionally, memory bounds were constrained to $16\text{ GB}$ per VM with dynamic memory ballooning drivers to limit host overhead. The overall performance normalization factor was calculated as:</p>
 
         <p>$$\text{Performance Factor } \% = \frac{F_p}{F_H} \times \frac{\text{VM Memory Bandwidth}}{\text{Host Memory Bandwidth}} \times 100\% = 0.5 \times 0.5 \times 100\% = 25\%$$</p>
 

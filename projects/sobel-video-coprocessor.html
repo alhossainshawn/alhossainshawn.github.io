@@ -372,7 +372,7 @@
           <tr><td>Filters</td><td>PASS · SOBEL · SHARPEN · BLUR · EMBOSS · THRESHOLD (run-time selectable)</td></tr>
           <tr><td>Arithmetic</td><td>8-bit integer (<code>ap_uint&lt;8&gt;</code>), shift-add operators, saturated to [0,255], with <strong>zero multipliers</strong></td></tr>
           <tr><td>Clock</td><td>Pixel 75.0 MHz / serial 375 MHz (MMCME2, Fvco 750 MHz, 5× TMDS ratio)</td></tr>
-          <tr><td>Throughput</td><td>II = 1 · 74.3 Mpix/s · ~4,400 fps at 128×128 (kernel closes ≈140 MHz)</td></tr>
+          <tr><td>Throughput</td><td>II = 1 · 75 Mpix/s · ~4,470 fps at 128×128 (kernel closes ≈140 MHz)</td></tr>
           <tr><td>On-chip Power</td><td>≈ 0.44 W (0.297 W dynamic · 0.141 W static)</td></tr>
         </table>
 
@@ -548,9 +548,9 @@ flowchart LR
           <thead><tr><th>Metric</th><th>Value</th></tr></thead>
           <tbody>
             <tr><td>Target clock</td><td>10.00 ns (uncertainty 2.70 ns)</td></tr>
-            <tr><td>Estimated clock</td><td>7.162 ns ⇒ Fmax ≈ 139.6 MHz (~1.9× above the 74.28 MHz pixel clock)</td></tr>
+            <tr><td>Estimated clock</td><td>7.162 ns ⇒ Fmax ≈ 139.6 MHz (~1.9× above the 75.0 MHz pixel clock)</td></tr>
             <tr><td>Pixel-loop II</td><td>1 (one pixel in / one pixel out per clock)</td></tr>
-            <tr><td>Frame latency</td><td>16,779 cycles ≈ 0.23 ms/frame @ 74.28 MHz (~4,400 fps at 128×128)</td></tr>
+            <tr><td>Frame latency</td><td>16,779 cycles ≈ 0.22 ms/frame @ 75.0 MHz (~4,470 fps at 128×128)</td></tr>
             <tr><td>DSP48E1</td><td>0 (shift-add operators, no multipliers)</td></tr>
             <tr><td>BRAM18K</td><td>2 (line0, line1 line buffers)</td></tr>
             <tr><td>FF / LUT (kernel)</td><td>447 / 1,429 (~1% of the device)</td></tr>

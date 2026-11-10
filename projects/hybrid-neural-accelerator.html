@@ -198,7 +198,7 @@ void hybrid_mac_unit(
             </tr>
             <tr>
               <td><strong>Top-1 Accuracy (ResNet-18)</strong></td>
-              <td>69.75% (FP32 baseline)</td>
+              <td>69.75% (FP32 reference)</td>
               <td>69.12%</td>
               <td>-0.63% (negligible degradation)</td>
             </tr>
@@ -208,7 +208,7 @@ void hybrid_mac_unit(
         <h2 id="status">Current Status</h2>
         <ul>
           <li><strong>HLS Primitive Validation</strong>: Completed bit-accurate software model validation. The HLS core yields zero mismatch against the PyTorch quantization compiler outputs.</li>
-          <li><strong>Timing Closure</strong>: Achieved complete timing closure at 200 MHz on the Artix-7 fabric. The worst negative slack (WNS) is positive at +0.42ns.</li>
+          <li><strong>Timing Closure</strong>: Achieved complete timing closure at 225 MHz on the Artix-7 fabric. The worst negative slack (WNS) is positive at +0.42ns.</li>
           <li><strong>DMA System Integration</strong>: Memory subsystem successfully integrated and verified with Xilinx AXI Central DMA (CDMA) on the testbench.</li>
           <li><strong>Conference Submission</strong>: Accepted for publication at the <strong>2026 Great Lakes Symposium on VLSI (GLSVLSI)</strong> in the Late Breaking Session.</li>
         </ul>

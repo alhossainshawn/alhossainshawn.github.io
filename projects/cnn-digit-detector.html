@@ -308,7 +308,7 @@
         <h1>CNN Digit <em>Detector</em></h1>
         <div class="subpage-meta">
           <span>Hardware ML Project</span>
-          <span>PA-StarLite · Artix-7 XC7A200T</span>
+          <span>PA200T-StarLite · Artix-7 XC7A200T</span>
           <span>Vitis HLS · Vivado · PyTorch</span>
         </div>
       </div>
@@ -317,7 +317,7 @@
         <p>A complete end-to-end pipeline that trains a 2D Convolutional Neural Network in <em>PyTorch</em>, exports its weights as fixed-point C++ constants, synthesises the network logic into hardware via <strong>Vitis HLS</strong>, and deploys the resulting bitstream to an Artix-7 FPGA, displaying <strong>live digit recognition over HDMI</strong>.</p>
 
         <table class="spec-table">
-          <tr><td>Target Device</td><td>PA-StarLite · Artix-7 XC7A200T (134,600 LUTs · 740 DSPs · 13 Mb BRAM)</td></tr>
+          <tr><td>Target Device</td><td>Puzhi PA200T-StarLite · Artix-7 XC7A200T (134,600 LUTs · 740 DSPs · 13 Mb BRAM)</td></tr>
           <tr><td>Toolchain</td><td>Vitis HLS · AMD Vivado · PyTorch · Python (sklearn)</td></tr>
           <tr><td>Dataset</td><td>scikit-learn Digits containing 1,797 handwritten images (8×8 px, classes 0–9)</td></tr>
           <tr><td>Interface</td><td>Push-buttons · UART debug · HDMI live display (TMDS · 200 MHz diff. clock)</td></tr>
@@ -340,7 +340,7 @@
               <source src="../assets/projects/cnn-digit-detector/demo_video.mp4" type="video/mp4" />
               Your browser does not support HTML5 video.
             </video>
-            <div class="demo-wrap__caption">Live on PA-StarLite · Artix-7 XC7A200T · 200 MHz</div>
+            <div class="demo-wrap__caption">Live on PA200T-StarLite · Artix-7 XC7A200T · 200 MHz</div>
           </div>
           <div class="demo-wrap__desc">
             <h3>What you are seeing</h3>
@@ -359,8 +359,8 @@
              FPGA SETUP
         ═══════════════════════════════════════════════ -->
         <figure class="media-full">
-          <img src="../assets/projects/cnn-digit-detector/fpga_setup.jpeg" alt="PA-StarLite FPGA board running the CNN digit detector" />
-          <figcaption>PA-StarLite development board (Artix-7 XC7A200T) with HDMI and UART cables connected, running the synthesised CNN bitstream.</figcaption>
+          <img src="../assets/projects/cnn-digit-detector/fpga_setup.jpeg" alt="PA200T-StarLite FPGA board running the CNN digit detector" />
+          <figcaption>PA200T-StarLite development board (Artix-7 XC7A200T) with HDMI and UART cables connected, running the synthesised CNN bitstream.</figcaption>
         </figure>
 
         <!-- ═══════════════════════════════════════════════
@@ -416,7 +416,7 @@ flowchart LR
     CPP["cnn.cpp + cnn.h\nHLS C++ description"]:::hls
     PRAGS["HLS Pragmas\nUNROLL · PIPELINE II=1\nARRAY_PARTITION dim=1"]:::pragma
     VLG["cnn.v RTL\nDSP48 · BRAM · ROMs"]:::hw
-    BIT["Bitstream\nPA-StarLite 200 MHz"]:::fpga
+    BIT["Bitstream\nPA200T-StarLite 200 MHz"]:::fpga
 
     PY -->|"export"| WH
     WH --> CPP
