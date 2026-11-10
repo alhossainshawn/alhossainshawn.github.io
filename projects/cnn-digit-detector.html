@@ -279,7 +279,7 @@
       <hr class="sidebar__divider" />
       <div class="sidebar__section-title">Project</div>
       <div class="sidebar__tags">
-        <span class="sidebar__tag">P-CNN</span>
+        <span class="sidebar__tag">P-04</span>
         <span class="sidebar__tag">Vitis HLS</span>
         <span class="sidebar__tag">Vivado</span>
         <span class="sidebar__tag">Artix-7</span>
@@ -301,7 +301,7 @@
       <div class="subpage-header">
         <div class="tags-row" style="margin-bottom: 0.75rem;">
           <span class="badge badge--blue">Completed</span>
-          <span class="tag">P-CNN</span>
+          <span class="tag">P-04</span>
           <span class="tag">FPGA</span>
           <span class="tag">Vitis HLS</span>
         </div>
@@ -317,7 +317,7 @@
         <p>A complete end-to-end pipeline that trains a 2D Convolutional Neural Network in <em>PyTorch</em>, exports its weights as fixed-point C++ constants, synthesises the network logic into hardware via <strong>Vitis HLS</strong>, and deploys the resulting bitstream to an Artix-7 FPGA, displaying <strong>live digit recognition over HDMI</strong>.</p>
 
         <table class="spec-table">
-          <tr><td>Target Device</td><td>PA-StarLite · Artix-7 XC7A200T (215 K LUTs · 740 DSPs · 13 Mb BRAM)</td></tr>
+          <tr><td>Target Device</td><td>PA-StarLite · Artix-7 XC7A200T (134,600 LUTs · 740 DSPs · 13 Mb BRAM)</td></tr>
           <tr><td>Toolchain</td><td>Vitis HLS · AMD Vivado · PyTorch · Python (sklearn)</td></tr>
           <tr><td>Dataset</td><td>scikit-learn Digits containing 1,797 handwritten images (8×8 px, classes 0–9)</td></tr>
           <tr><td>Interface</td><td>Push-buttons · UART debug · HDMI live display (TMDS · 200 MHz diff. clock)</td></tr>
@@ -347,9 +347,9 @@
             <p>The CNN bitstream is running directly on FPGA hardware. Physical <strong>push-buttons</strong> cycle through 1,797 stored digit images. For each button press:</p>
             <ul>
               <li>The selected 8×8 pixel image is fetched from on-chip <strong>BRAM</strong> and fed to the CNN accelerator.</li>
-              <li>The hardware completes a full forward pass (Conv → ReLU → MaxPool → FC) in a <strong>single clock burst</strong> at 200 MHz.</li>
+              <li>The hardware completes a full forward pass (Conv → ReLU → MaxPool → FC) as one pipelined hardware pass at 200 MHz, with no software in the loop.</li>
               <li>The HDMI output renders the <strong>pixel grid</strong> (left panel) and a <strong>10-class logit bar chart</strong> side-by-side on the monitor.</li>
-              <li>The tallest bar identifies the predicted digit class in real time, with no CPU involved after the AXI handshake.</li>
+              <li>The tallest bar identifies the predicted digit class in real time. There is no CPU in the design: the whole path runs in fabric.</li>
             </ul>
             <p style="margin-top: 0.8rem; font-size: 0.82rem; color: var(--text-muted);">Video is muted and loops automatically. Use the controls to pause or scrub.</p>
           </div>

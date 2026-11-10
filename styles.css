@@ -1226,7 +1226,7 @@ body.dark-mode pre {
   white-space: nowrap;
   align-self: start;
 }
-.pub-status--approved { background: var(--status-green-bg); color: var(--status-green); }
+.pub-status--accepted { background: var(--status-green-bg); color: var(--status-green); }
 .pub-status--published { background: var(--status-blue-bg); color: var(--status-blue); }
 
 /* ── 18. Tools Grid ──────────────────────────────────────── */

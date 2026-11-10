@@ -180,7 +180,7 @@
         <p>To identify the optimal trade-off between power, weight, data security, and latency, the technical team evaluated two complementary system architectures under identical simulated mission envelopes:</p>
 
         <ul>
-          <li><strong>Design Approach 1 (Self-Contained Edge Inference):</strong> Integrates data capture and deep learning inference directly on the drone’s embedded system (Broadcom SoC/NPU). As the drone navigates a preloaded path, real-time object detection model crops the image buffers. When a fault is detected with high confidence, the coordinates are fetched from the GPS and appended to a local CSV file. Post-flight, the drone connects to a secure landing-pad LAN to offload only the light text-based telemetry digest.
+          <li><strong>Design Approach 1 (Self-Contained Edge Inference):</strong> Integrates data capture and deep learning inference directly on the drone’s embedded system (Broadcom BCM2711 SoC, CPU inference). As the drone navigates a preloaded path, real-time object detection model crops the image buffers. When a fault is detected with high confidence, the coordinates are fetched from the GPS and appended to a local CSV file. Post-flight, the drone connects to a secure landing-pad LAN to offload only the light text-based telemetry digest.
             <ul>
               <li><em>Advantages:</em> Real-time localization, zero network-connectivity dependence in flight, high data privacy (OPSEC).</li>
               <li><em>Disadvantages:</em> Elevated on-board power draw (~15W compute), requires active heatsink cooling.</li>
@@ -217,7 +217,7 @@
             <tbody>
               <tr>
                 <td data-label="Differentiating Criteria"><strong>Processing Location</strong></td>
-                <td data-label="Design Approach 1">Embedded SoC/NPU on drone</td>
+                <td data-label="Design Approach 1">Embedded SoC (BCM2711 CPU) on drone</td>
                 <td data-label="Design Approach 2">Local Ground Station Server (x86_64)</td>
               </tr>
               <tr>
