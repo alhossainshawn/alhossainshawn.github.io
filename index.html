@@ -204,13 +204,8 @@
             <span class="res-card__short">SQA-Arc ASIC</span>
             <h3>SQA-Arc Accelerator ASIC Chip and Its <em>Versions</em></h3>
             <p class="res-card__summary">
-              Five 45 nm chip designs built around the SQA-Arc accelerator, taken from RTL to signed-off layout in Cadence tools (not fabricated).
+              Five 45&nbsp;nm chips built around the SQA-Arc accelerator, signed off to GDSII in Cadence. Not fabricated.
             </p>
-            <ul class="res-card__bullets">
-              <li>Accelerator core, three accelerator chips, a RISC-V controller.</li>
-              <li>DRC / LVS clean, 0 timing violators, IR and EM signed off.</li>
-              <li>My own SRAM macro models and a Spectre-simulated SRAM column.</li>
-            </ul>
             <div class="tags-row">
               <span class="tag">ASIC</span>
               <span class="tag">GPDK045</span>
@@ -228,13 +223,8 @@
             <span class="res-card__short">SQA-Arc</span>
             <h3>Sensitivity-Driven Quantized FPGA <em>Accelerator</em></h3>
             <p class="res-card__summary">
-              Sensitivity-driven quantization into ternary and 4-bit engines, built as an FPGA accelerator that runs ten networks from one bitstream.
+              Gives each network layer ternary or 4-bit weights; one Artix-7 bitstream runs ten networks.
             </p>
-            <ul class="res-card__bullets">
-              <li>Fisher-information sensitivity assigns each layer to a ternary or a 4-bit engine.</li>
-              <li>100 MHz in 15.58% of an Artix-7 XC7A200T; no DSP block computes a weight-activation product.</li>
-              <li>EfficientNet-B0 runs on the board with a live HDMI dashboard.</li>
-            </ul>
             <div class="tags-row">
               <span class="tag">FPGA</span>
               <span class="tag">Quantization</span>
@@ -252,13 +242,8 @@
             <span class="res-card__short">MOSAIC</span>
             <h3>Multimodal Edge-AI <em>SoC</em></h3>
             <p class="res-card__summary">
-              A RISC-V host and a ternary / int4 accelerator that detects coughs from audio and motion.
+              A RISC-V SoC with a ternary / int4 accelerator that detects coughs from audio and motion.
             </p>
-            <ul class="res-card__bullets">
-              <li>9.73 ms per inference on 9 hardware multipliers.</li>
-              <li>93.08% accuracy, bit-exact to the reference model.</li>
-              <li>All 90 KiB of weights in on-chip ROM.</li>
-            </ul>
             <div class="tags-row">
               <span class="tag">SoC</span>
               <span class="tag">RISC-V</span>
@@ -275,13 +260,8 @@
             <span class="res-card__short">MBCFeFET</span>
             <h3>Ferroelectric Nanosheet Transistor for <em>In-Memory Computing</em></h3>
             <p class="res-card__summary">
-              A ferroelectric nanosheet transistor concept that stores 3 bits and computes a three-input weighted sum inside one transistor (TCAD simulation).
+              One ferroelectric nanosheet transistor that stores 3 bits and computes a weighted sum (TCAD simulation).
             </p>
-            <ul class="res-card__bullets">
-              <li>Eight ordered read levels: 3 bits from one transistor.</li>
-              <li>Each bit can be written on its own.</li>
-              <li>Multiply and add inside the transistor.</li>
-            </ul>
             <div class="tags-row">
               <span class="tag">FeFET</span>
               <span class="tag">Multi-level memory</span>
@@ -298,13 +278,8 @@
             <span class="res-card__short">Vertical GaN FinFET</span>
             <h3>Space-Hardened GaN <em>Transistor</em></h3>
             <p class="res-card__summary">
-              Designing a kilovolt-class vertical GaN transistor that can survive heavy-ion strikes in satellite power systems.
+              A kilovolt-class vertical GaN transistor designed to survive heavy-ion strikes in satellite power systems.
             </p>
-            <ul class="res-card__bullets">
-              <li>A buried, source-connected p-type shield inside a vertical GaN fin transistor.</li>
-              <li>Calibrated device simulation in Silvaco TCAD.</li>
-              <li>Heavy-ion, total-dose and temperature stress.</li>
-            </ul>
             <div class="tags-row">
               <span class="tag">GaN</span>
               <span class="tag">Power devices</span>
@@ -321,13 +296,8 @@
             <span class="res-card__short">MBCFET</span>
             <h3>Gate-All-Around Nanosheet Transistor <em>Modeling</em></h3>
             <p class="res-card__summary">
-              GAA Multi-Bridge-Channel FET simulation in Silvaco TCAD, targeting sub-5&nbsp;nm technology nodes.
+              Gate-all-around nanosheet FETs simulated in Silvaco TCAD for sub-5&nbsp;nm logic.
             </p>
-            <ul class="res-card__bullets">
-              <li>Analysis of short-channel effects, DIBL and subthreshold behaviour.</li>
-              <li>Nanosheet dimension optimisation to maximise Ion/Ioff ratios.</li>
-              <li>Electrostatic design-space sweeps across stack geometries.</li>
-            </ul>
             <div class="tags-row">
               <span class="tag">TCAD</span>
               <span class="tag">MBCFET</span>
@@ -345,13 +315,8 @@
             <span class="res-card__short">LUT / Log Engine</span>
             <h3>Hybrid Neural <em>Accelerator</em></h3>
             <p class="res-card__summary">
-              A reconfigurable LUT / logarithmic compute engine for AI inference on the Artix-7 XC7A200T. Upgraded into SQA-Arc in April 2026.
+              A LUT / logarithmic compute engine on the Artix-7. Upgraded into SQA-Arc in April 2026.
             </p>
-            <ul class="res-card__bullets">
-              <li>Vitis HLS compute engine optimised for PPA across mixed precisions.</li>
-              <li>RTL prototype with timing closure and resource mapping on XC7A200T.</li>
-              <li>AXI4-based co-design between custom IP and ARM cores.</li>
-            </ul>
             <div class="tags-row">
               <span class="tag">FPGA</span>
               <span class="tag">HLS</span>
