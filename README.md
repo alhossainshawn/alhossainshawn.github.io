@@ -43,7 +43,8 @@ Everything is plain HTML: edit the text and refresh the browser.
 |---|---|
 | Name, role, contact links, expertise tags | `index.html` → `<aside class="sidebar">` |
 | Hero headline and tagline | `index.html` → `<section class="hero">` |
-| Bio and education | `index.html` → `#about` (`.about__bio`, `.edu-timeline`) |
+| Bio | `index.html` → `#about` (`.about__bio`, `.about__list`) |
+| Education | `index.html` → `#education` (`.edu-timeline`), after Tools |
 | Current and past roles | `index.html` → `#roles` (`.current-role-card`, `.timeline`) |
 | The 4 research domain cards | `index.html` → `#expertise` (`.interests-grid`) |
 | Active research (2 cards) | `index.html` → `#research` (`.research-grid`) |
