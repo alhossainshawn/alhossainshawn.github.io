@@ -1783,3 +1783,10 @@ body.dark-mode pre {
   color: var(--text-heading);
   font-weight: 600;
 }
+
+/* ── Display maths (KaTeX) scrolls instead of widening the page ── */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25rem 0;
+}

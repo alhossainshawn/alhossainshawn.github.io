@@ -158,7 +158,8 @@ void hybrid_mac_unit(
         <h2 id="telemetry">Hardware Telemetry &amp; PPA Synthesis Results</h2>
         <p>The design was synthesized, placed, and routed using Vivado Design Suite for the Artix-7 XC7A200T FPGA. Below is the comparative telemetry against a standard, multiplier-bound INT8 baseline accelerator at a target clock frequency of 200 MHz.</p>
 
-        <table class="spec-table">
+        <div style="overflow-x: auto; margin: 1.5rem 0;">
+        <table class="spec-table" style="margin: 0;">
           <thead>
             <tr>
               <th>Metric</th>
@@ -206,6 +207,7 @@ void hybrid_mac_unit(
             </tr>
           </tbody>
         </table>
+        </div>
 
         <h2 id="status">Current Status</h2>
         <ul>
