@@ -2125,7 +2125,7 @@ body.dark-mode .arch {
 .sidebar__tag { font-size: clamp(0.6rem, 1.1vh, 0.74rem); padding: 0.15em 0.6em; }
 
 /* ── About text a little smaller ── */
-.about__bio, .about__list { font-size: 0.92rem; }
+.about__bio, .about__list { font-size: 0.88rem; line-height: 1.65; }
 @media (max-height: 700px) and (min-width: 1025px) {
   .sidebar { gap: 0.4rem; }
   .sidebar__photo { height: 96px; }

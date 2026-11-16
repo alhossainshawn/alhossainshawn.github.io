@@ -25,7 +25,7 @@
   <meta property="og:image:alt" content="Portrait of Al Hossain Shawn" />
   <meta name="twitter:card" content="summary" />
 
-  <link rel="stylesheet" href="styles.css?v=3.15" />
+  <link rel="stylesheet" href="styles.css?v=3.16" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 
 </head>
@@ -164,19 +164,21 @@
           <h2 id="h-about">About</h2>
         </div>
         <p class="about__bio">
-          I am a Research Assistant in the Department of EEE at BRAC University, Dhaka, supervised by Dr. Twisha Titirsha. I completed my B.Sc. in Electrical and Electronic Engineering in the same department in 2026.
+          I am a Research Assistant in EEE at BRAC University, Dhaka, supervised by Dr. Twisha Titirsha (B.Sc. in EEE, 2026).
         </p>
         <p class="about__bio">
-          A neural network is mostly multiply and add. I work on making that operation cheap in three places:
+          A neural network is mostly multiply and add. I make that operation cheaper at three levels:
         </p>
         <ul class="about__list">
-          <li><strong>In 45 nm layout.</strong> <a href="projects/asic.html">Five chip designs</a> built around the SQA-Arc accelerator, taken from RTL through the full tape-out sign-off flow in Cadence (DRC, LVS, SI timing, IR and EM) to GDSII, up to a full SoC with a RISC-V CPU, the accelerator and 4 MB of on-chip SRAM. Academic designs on a generic 45 nm PDK, not fabricated.</li>
-          <li><strong>In FPGA logic.</strong> <a href="projects/sqa-arc.html">SQA-Arc</a> is my main project: it gives each layer of a network ternary or 4-bit weights according to its sensitivity, one FPGA bitstream runs ten networks, and it is the same accelerator I took through the 45 nm GDSII flow above. It grew out of my <a href="projects/hybrid-neural-accelerator.html">Hybrid Neural Accelerator</a>. <a href="projects/mosaic.html">MOSAIC</a> runs a 15.2 M-MAC cough-detection network on 9 hardware multipliers, with all 90 KiB of weights in on-chip ROM: 9.73 ms per inference in simulation, 93.08 % accuracy. Earlier FPGA projects include a <a href="projects/cnn-digit-detector.html">CNN digit detector</a>, a <a href="projects/sobel-video-coprocessor.html">Sobel video co-processor</a> and an <a href="projects/fpga-adder.html">interactive FPGA adder</a>.</li>
-          <li><strong>In one transistor.</strong> A <a href="projects/mbcfet-fefet.html">ferroelectric nanosheet transistor</a> that multiplies three inputs by stored weights and adds them in a single read, with the sum within 0.2 % in TCAD simulation.</li>
+          <li><strong>45 nm chips.</strong> <a href="projects/asic.html">Five chip designs</a> built around my SQA-Arc accelerator, taken from RTL to GDSII through full sign-off in Cadence (DRC, LVS, SI timing, IR, EM). Academic designs, not fabricated.</li>
+          <li><strong>FPGA.</strong> <a href="projects/sqa-arc.html">SQA-Arc</a>, my main project, gives each network layer ternary or 4-bit weights; one bitstream runs ten networks. <a href="projects/mosaic.html">MOSAIC</a> detects coughs from audio and motion in 9.73 ms per inference (simulated) on 9 multipliers. Earlier work: <a href="projects/hybrid-neural-accelerator.html">Hybrid Neural Accelerator</a>, <a href="projects/cnn-digit-detector.html">CNN digit detector</a>, <a href="projects/sobel-video-coprocessor.html">Sobel co-processor</a>, <a href="projects/fpga-adder.html">FPGA adder</a>.</li>
+          <li><strong>One transistor.</strong> A <a href="projects/mbcfet-fefet.html">ferroelectric nanosheet transistor</a> that stores 3 bits and computes a weighted sum in a single read (TCAD simulation).</li>
         </ul>
-        <p class="about__bio">My device work is transistor modeling in Silvaco Atlas, in 2D and 3D: <a href="projects/mbcfet.html">gate-all-around nanosheet FETs</a> for sub-5&nbsp;nm logic, the ferroelectric nanosheet transistor above, and a <a href="projects/gan-power-transistor.html">space-hardened vertical GaN power transistor</a> for spacecraft power converters, simulated under heavy-ion strikes, total dose and temperature (submitted to IEEE EDTM 2027). The ferroelectric and GaN models are calibrated against published measured devices.</p>
         <p class="about__bio">
-          I started in aerospace and embedded systems. I led the BD-BRACU Mavericks team on a <a href="projects/cubesat.html">3U CubeSat</a> (2nd Runner-Up, APSCO Satellite Expedition Contest 2024), was a payload engineer on the <a href="projects/birds-x.html">BIRDS-X APRS payload</a> (Phase 1 winner, 2023), and built an <a href="projects/aerial-survey.html">autonomous aerial survey drone</a> as my final-year design project. In 2025 I chaired the IEEE Aerospace and Electronic Systems Society branch at BRAC University. I also hold an amateur radio licence, and I completed an industrial attachment at Neural Semiconductor working with the Cadence tools.
+          I model transistors in Silvaco Atlas, in 2D and 3D: <a href="projects/mbcfet.html">gate-all-around nanosheet FETs</a>, the ferroelectric transistor above, and a <a href="projects/gan-power-transistor.html">space-hardened vertical GaN power transistor</a> (submitted to IEEE EDTM 2027). The ferroelectric and GaN models are calibrated to published measured devices.
+        </p>
+        <p class="about__bio">
+          Before this I worked on spacecraft and drones: <a href="projects/cubesat.html">3U CubeSat</a> team lead (2nd Runner-Up, APSCO 2024), <a href="projects/birds-x.html">BIRDS-X payload</a> engineer (Phase 1 winner, 2023), an <a href="projects/aerial-survey.html">autonomous survey drone</a> for my final-year project, and IEEE AESS branch chair at BRAC University (2025).
         </p>
         <p class="about__bio">
           I am open to PhD positions in hardware for AI, emerging memory devices and neuromorphic computing.
