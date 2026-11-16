@@ -2186,3 +2186,5 @@ body.dark-mode .arch {
 .pub-group-title { font-size: 1.05rem; color: var(--text-heading); margin: 0 0 0.6rem; }
 .pub-list + .pub-group-title { margin-top: 1.8rem; }
 .pub-status--prep { background: var(--bg-section-alt); color: var(--text-muted); border: 1px solid var(--border); }
+.pub-pending-note { font-style: italic; font-weight: 600; color: var(--accent) !important; }
+.pub-group-title + .pub-pending-note { font-size: 0.86rem; margin: -0.3rem 0 0.4rem; }
