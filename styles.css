@@ -2006,19 +2006,15 @@ body.dark-mode .arch {
   .result-fig--wide img { min-width: 620px; }
 }
 
-/* ── Result cards: one horizontal row on desktop, stacked on phones ── */
+/* ── Result cards: wrap onto new lines, no scrolling ── */
 .result-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: 1rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding: 0.25rem 0.1rem 0.75rem;
-  margin: 1.25rem 0 0.25rem;
+  margin: 1.25rem 0 1.5rem;
 }
 .result-card {
-  flex: 0 0 270px;
   margin: 0;
-  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
@@ -2030,7 +2026,7 @@ body.dark-mode .arch {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 210px;
+  height: 200px;
   padding: 0.6rem;
   background: #ffffff;
 }
@@ -2043,10 +2039,6 @@ body.dark-mode .arch {
   border-top: 1px solid var(--border);
   line-height: 1.5;
 }
-.result-hint { font-size: 0.78rem; color: var(--text-muted); margin: 0 0 1.25rem; }
 @media (max-width: 640px) {
-  .result-row { flex-direction: column; overflow-x: visible; scroll-snap-type: none; }
-  .result-card { flex: none; }
   .result-card a { height: auto; }
-  .result-hint { display: none; }
 }
