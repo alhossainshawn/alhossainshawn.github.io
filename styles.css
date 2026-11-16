@@ -2185,3 +2185,4 @@ body.dark-mode .arch {
 /* ── Publications: grouped by type ── */
 .pub-group-title { font-size: 1.05rem; color: var(--text-heading); margin: 0 0 0.6rem; }
 .pub-list + .pub-group-title { margin-top: 1.8rem; }
+.pub-status--prep { background: var(--bg-section-alt); color: var(--text-muted); border: 1px solid var(--border); }
