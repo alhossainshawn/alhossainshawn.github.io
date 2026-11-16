@@ -2005,3 +2005,48 @@ body.dark-mode .arch {
   .result-fig--wide a { overflow-x: auto; }
   .result-fig--wide img { min-width: 620px; }
 }
+
+/* ── Result cards: one horizontal row on desktop, stacked on phones ── */
+.result-row {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0.25rem 0.1rem 0.75rem;
+  margin: 1.25rem 0 0.25rem;
+}
+.result-card {
+  flex: 0 0 270px;
+  margin: 0;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg-white);
+}
+.result-card a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 210px;
+  padding: 0.6rem;
+  background: #ffffff;
+}
+.result-card img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; }
+.result-card figcaption {
+  flex: 1;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  padding: 0.55rem 0.75rem;
+  border-top: 1px solid var(--border);
+  line-height: 1.5;
+}
+.result-hint { font-size: 0.78rem; color: var(--text-muted); margin: 0 0 1.25rem; }
+@media (max-width: 640px) {
+  .result-row { flex-direction: column; overflow-x: visible; scroll-snap-type: none; }
+  .result-card { flex: none; }
+  .result-card a { height: auto; }
+  .result-hint { display: none; }
+}

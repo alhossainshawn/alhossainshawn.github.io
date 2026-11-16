@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=3.8" />
+  <link rel="stylesheet" href="../styles.css?v=3.9" />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
@@ -117,12 +117,15 @@
 
         <h2 id="results">Selected Results</h2>
         <p>A selection of the simulation results (Silvaco TCAD). The full set is in the submitted paper.</p>
-        <figure class="result-fig result-fig--wide"><a href="../assets/projects/gan/02_transfer_and_output.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/02_transfer_and_output.webp" alt="Transfer characteristic on a log scale and output characteristics of the shielded GaN fin transistor" loading="lazy" /></a><figcaption>Transfer (left) and output (right) characteristics of the shielded device: a sharp turn-on and clean saturation.</figcaption></figure>
-        <div class="result-pair">
-          <figure class="result-fig"><a href="../assets/projects/gan/03_on_resistance.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/03_on_resistance.webp" alt="Specific on-resistance falling as the gate voltage increases" loading="lazy" /></a><figcaption>Specific on-resistance against gate voltage: it falls with stronger gate drive and levels off.</figcaption></figure>
-          <figure class="result-fig"><a href="../assets/projects/gan/04_hole_charge_split.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/04_hole_charge_split.webp" alt="Hole charge collected over time by the source and the shield, compared with the source of the reference device" loading="lazy" /></a><figcaption>After a heavy-ion strike, the shield takes up a large share of the hole charge, so far less reaches the source than in the reference device.</figcaption></figure>
+        <div class="result-row" tabindex="0" aria-label="Selected results, scroll sideways for more">
+          <figure class="result-card"><a href="../assets/projects/gan/02b_transfer.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/02b_transfer.webp" alt="Transfer characteristic of the shielded GaN fin transistor on a log scale" loading="lazy" /></a><figcaption>Transfer characteristic: a sharp turn-on from off to on.</figcaption></figure>
+          <figure class="result-card"><a href="../assets/projects/gan/02c_output.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/02c_output.webp" alt="Output characteristics of the shielded GaN fin transistor" loading="lazy" /></a><figcaption>Output characteristics: clean current saturation.</figcaption></figure>
+          <figure class="result-card"><a href="../assets/projects/gan/03_on_resistance.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/03_on_resistance.webp" alt="Specific on-resistance falling as the gate voltage increases" loading="lazy" /></a><figcaption>Specific on-resistance against gate voltage: it falls with stronger gate drive and levels off.</figcaption></figure>
+          <figure class="result-card"><a href="../assets/projects/gan/04_hole_charge_split.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/04_hole_charge_split.webp" alt="Hole charge collected over time by the source and the shield, compared with the source of the reference device" loading="lazy" /></a><figcaption>After a heavy-ion strike, the shield takes up a large share of the hole charge, so far less reaches the source than in the reference device.</figcaption></figure>
+          <figure class="result-card"><a href="../assets/projects/gan/06a_vth_gm_temperature.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/06a_vth_gm_temperature.webp" alt="Threshold voltage and peak transconductance across temperature" loading="lazy" /></a><figcaption>Threshold voltage and peak transconductance across temperature; the shaded band marks the military temperature range.</figcaption></figure>
+          <figure class="result-card"><a href="../assets/projects/gan/06b_ss_current_temperature.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/06b_ss_current_temperature.webp" alt="Subthreshold swing and current across temperature" loading="lazy" /></a><figcaption>Subthreshold swing and current across temperature.</figcaption></figure>
         </div>
-        <figure class="result-fig result-fig--wide"><a href="../assets/projects/gan/06_temperature_133_473K.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/06_temperature_133_473K.webp" alt="Threshold voltage, transconductance, subthreshold swing and current across temperature" loading="lazy" /></a><figcaption>Temperature sweep of threshold voltage, transconductance, subthreshold swing and current; the shaded band marks the military temperature range.</figcaption></figure>
+        <p class="result-hint">Scroll sideways for more results →</p>
 
         <p class="asic-note"><strong>Status:</strong> Ongoing. Conference paper submitted (IEEE EDTM 2027); journal article in preparation. More results will be added after publication.</p>
 
