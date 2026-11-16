@@ -29,7 +29,68 @@
       background: var(--bg-white);
       border-top: 1px solid var(--border);
     }
-    .media-narrow { max-width: 680px; margin-left: auto; margin-right: auto; }
+    /* ── Architecture diagram (inline SVG, follows the site theme) ── */
+    .arch-fig {
+      margin: 1.75rem 0;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--bg-white);
+    }
+    .arch-scroll { overflow-x: auto; padding: 1.25rem 1rem 0.75rem; }
+    .arch-fig figcaption {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding: 0.5rem 0.75rem;
+      font-style: italic;
+      border-top: 1px solid var(--border);
+    }
+    .arch {
+      display: block;
+      width: 100%;
+      min-width: 560px;
+      max-width: 740px;
+      height: auto;
+      margin: 0 auto;
+      font-family: var(--font-body);
+      --io-f: #fdf4e3;  --io-s: #d6a24a;  --io-t: #6b4a12;
+      --mem-f: #eef1f8; --mem-s: #a3afcf; --mem-t: #1a1a2e;
+      --seq-f: #303e66; --seq-s: #303e66; --seq-t: #ffffff;
+      --a-f: #e6eefa;   --a-s: #4a77b4;
+      --b-f: #fbece2;   --b-s: #c4703c;
+      --x-f: #e7f3ea;   --x-s: #4c8a5c;
+      --eng-t: #1a1a2e;
+      --rq-f: #3d4252;  --rq-s: #3d4252;  --rq-t: #f8fafc;
+      --ln: #8a93a8;    --lbl: #6c757d;   --frame: #b0b5c8;
+    }
+    body.dark-mode .arch {
+      --io-f: #2e2615;  --io-s: #b98a3a;  --io-t: #f3d9a6;
+      --mem-f: #1e2740; --mem-s: #4a5d8c; --mem-t: #e2e8f0;
+      --seq-f: #4a5d8c; --seq-s: #748dbf; --seq-t: #ffffff;
+      --a-f: #1c2b44;   --a-s: #5b8bd0;
+      --b-f: #3a2519;   --b-s: #d08050;
+      --x-f: #1b3324;   --x-s: #5aa36d;
+      --eng-t: #f1f5f9;
+      --rq-f: #2b3245;  --rq-s: #4b5675;  --rq-t: #e2e8f0;
+      --ln: #6b7690;    --lbl: #94a3b8;   --frame: #333d5c;
+    }
+    .arch rect { stroke-width: 1.5; }
+    .arch .t { font-size: 14px; font-weight: 600; text-anchor: middle; }
+    .arch .s { font-size: 11px; text-anchor: middle; font-family: var(--font-mono); opacity: 0.8; }
+    .arch .io rect  { fill: var(--io-f);  stroke: var(--io-s); }   .arch .io text  { fill: var(--io-t); }
+    .arch .mem rect { fill: var(--mem-f); stroke: var(--mem-s); }  .arch .mem text { fill: var(--mem-t); }
+    .arch .seq rect { fill: var(--seq-f); stroke: var(--seq-s); }  .arch .seq text { fill: var(--seq-t); }
+    .arch .eng-a rect { fill: var(--a-f); stroke: var(--a-s); }
+    .arch .eng-b rect { fill: var(--b-f); stroke: var(--b-s); }
+    .arch .eng-x rect { fill: var(--x-f); stroke: var(--x-s); }
+    .arch .eng-a text, .arch .eng-b text, .arch .eng-x text { fill: var(--eng-t); }
+    .arch .rq rect  { fill: var(--rq-f);  stroke: var(--rq-s); }   .arch .rq text  { fill: var(--rq-t); }
+    .arch .ln { fill: none; stroke: var(--ln); stroke-width: 1.5; }
+    .arch .dash { stroke-dasharray: 5 4; }
+    .arch .arch-head { fill: var(--ln); }
+    .arch .lbl { font-size: 11px; font-style: italic; fill: var(--lbl); font-family: var(--font-mono); }
+    .arch .frame { fill: none; stroke: var(--frame); stroke-width: 1.2; stroke-dasharray: 6 5; }
+    .arch .frame-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; fill: var(--lbl); font-family: var(--font-mono); }
 
     /* ── Key numbers ─────────────────────────────────── */
     .stat-strip {
@@ -188,16 +249,83 @@
       <div class="prose">
         <p class="lede">A framework that compresses deep neural networks into ternary and 4-bit engines chosen by layer sensitivity, built as a working FPGA accelerator that runs ten networks from one bitstream.</p>
 
-        <figure class="media-full media-narrow">
-          <img src="../assets/projects/sqa-arc/architecture_block_diagram.png" alt="SQA-Core block diagram. Keys, SD card and a FAT32 loader send the program to a sequencer and the parameters to 1 GB of DDR3. In the datapath, a memory arbiter feeds DMA gather, a parameter router and linear readers into Engine A, Engine B and an auxiliary max-pool engine, followed by a requantization and activation table and DMA scatter, which writes back for the next operator. The sequencer also drives an HDMI dashboard." />
-          <figcaption>Block diagram of the SQA-Core FPGA overlay: boot and I/O (yellow), memory and data movement (light blue), the descriptor sequencer (navy), and the ternary, 4-bit and auxiliary engines.</figcaption>
-        </figure>
-
         <!-- ═══════════════════════════════════════════════ -->
         <h2 id="overview">Overview</h2>
         <p>Most quantization research is evaluated only in software, so its hardware cost stays unknown. SQA-Arc closes that gap in two stages.</p>
         <p><strong>Software framework.</strong> SQA-Arc measures how sensitive each layer is with a Fisher information trace. Less sensitive layers go to Engine A, which uses ternary weights {−α, 0, +α} and replaces multiplication with addition and subtraction. More sensitive layers go to Engine B, which uses 4-bit weights. Training also prunes each ternary neuron to at most 12 inputs, so the hardware can process it in a short, fixed loop. The framework was evaluated on 12 network architectures and two image datasets.</p>
         <p><strong>Hardware.</strong> SQA-Core is a fixed-function overlay on an AMD Artix-7 FPGA. A compiler turns each network into a program of 256-bit descriptors, which a hardware sequencer executes. Ten networks, from MCUNet-style to ResNet-18, are stored on one SD card and run on the same bitstream. No DSP block computes a weight-activation product. EfficientNet-B0 has run on the physical board and shows its results on a live HDMI dashboard.</p>
+
+        <figure class="arch-fig">
+          <div class="arch-scroll">
+            <svg class="arch" viewBox="0 0 760 565" role="img" aria-labelledby="arch-title arch-desc">
+              <title id="arch-title">SQA-Core block diagram</title>
+              <desc id="arch-desc">Keys select a network on the SD card. A FAT32 loader sends the program to the sequencer and the parameters to 1 GB of DDR3. The sequencer drives the HDMI dashboard and issues descriptors to the datapath. In the datapath, a memory arbiter connected to DDR3 feeds DMA gather, a parameter router and linear readers, which share a bus into Engine A, Engine B and an auxiliary max-pool engine. Their results pass through a requantization and activation table to DMA scatter, which writes back through the memory arbiter for the next operator.</desc>
+              <defs>
+                <marker id="arch-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M0,0 L10,5 L0,10 z" class="arch-head" />
+                </marker>
+              </defs>
+
+              <!-- Boot, I/O and control -->
+              <g class="io"><rect x="20" y="20" width="200" height="44" rx="8" /><text class="t" x="120" y="47">Keys</text></g>
+              <g class="io"><rect x="280" y="20" width="200" height="44" rx="8" /><text class="t" x="380" y="47">SD card</text></g>
+              <g class="io"><rect x="540" y="20" width="200" height="44" rx="8" /><text class="t" x="640" y="47">FAT32 loader</text></g>
+              <g class="io"><rect x="20" y="110" width="200" height="44" rx="8" /><text class="t" x="120" y="137">HDMI dashboard</text></g>
+              <g class="seq"><rect x="280" y="110" width="200" height="44" rx="8" /><text class="t" x="380" y="137">Sequencer</text></g>
+              <g class="mem"><rect x="540" y="110" width="200" height="44" rx="8" /><text class="t" x="640" y="137">DDR3, 1 GB</text></g>
+
+              <path class="ln dash" d="M220,42 H278" marker-end="url(#arch-ah)" />
+              <path class="ln" d="M480,42 H538" marker-end="url(#arch-ah)" />
+              <path class="ln" d="M600,64 V86 H430 V108" marker-end="url(#arch-ah)" />
+              <text class="lbl" x="515" y="80" text-anchor="middle">program</text>
+              <path class="ln" d="M700,64 V108" marker-end="url(#arch-ah)" />
+              <text class="lbl" x="692" y="92" text-anchor="end">parameters</text>
+              <path class="ln dash" d="M280,132 H222" marker-end="url(#arch-ah)" />
+
+              <!-- Datapath -->
+              <rect class="frame" x="8" y="185" width="744" height="367" rx="12" />
+              <text class="frame-label" x="24" y="207">DATAPATH</text>
+
+              <path class="ln dash" d="M380,154 V216" marker-end="url(#arch-ah)" />
+              <text class="lbl" x="390" y="174">descriptor</text>
+              <path class="ln" d="M630,154 V216" marker-end="url(#arch-ah)" />
+              <path class="ln" d="M690,218 V156" marker-end="url(#arch-ah)" />
+
+              <g class="mem"><rect x="60" y="218" width="670" height="40" rx="8" /><text class="t" x="395" y="243">Memory arbiter</text></g>
+
+              <path class="ln" d="M165,258 V286" marker-end="url(#arch-ah)" />
+              <path class="ln" d="M395,258 V286" marker-end="url(#arch-ah)" />
+              <path class="ln" d="M625,258 V286" marker-end="url(#arch-ah)" />
+
+              <g class="mem"><rect x="60" y="288" width="210" height="40" rx="8" /><text class="t" x="165" y="313">DMA gather</text></g>
+              <g class="mem"><rect x="290" y="288" width="210" height="40" rx="8" /><text class="t" x="395" y="313">Param. router</text></g>
+              <g class="mem"><rect x="520" y="288" width="210" height="40" rx="8" /><text class="t" x="625" y="313">Linear readers</text></g>
+
+              <!-- Shared bus into the engines -->
+              <path class="ln" d="M165,328 V346 M395,328 V346 M625,328 V346 M165,346 H625" />
+              <path class="ln" d="M165,346 V368" marker-end="url(#arch-ah)" />
+              <path class="ln" d="M395,346 V368" marker-end="url(#arch-ah)" />
+              <path class="ln" d="M625,346 V368" marker-end="url(#arch-ah)" />
+
+              <g class="eng-a"><rect x="60" y="370" width="210" height="52" rx="8" /><text class="t" x="165" y="393">Engine A</text><text class="s" x="165" y="411">ternary · add / subtract</text></g>
+              <g class="eng-b"><rect x="290" y="370" width="210" height="52" rx="8" /><text class="t" x="395" y="393">Engine B</text><text class="s" x="395" y="411">4-bit weights</text></g>
+              <g class="eng-x"><rect x="520" y="370" width="210" height="52" rx="8" /><text class="t" x="625" y="393">AUX + max pool</text><text class="s" x="625" y="411">auxiliary operators</text></g>
+
+              <path class="ln" d="M165,422 V442" marker-end="url(#arch-ah)" />
+              <path class="ln" d="M395,422 V442" marker-end="url(#arch-ah)" />
+              <path class="ln" d="M625,422 V442" marker-end="url(#arch-ah)" />
+
+              <g class="rq"><rect x="60" y="444" width="670" height="36" rx="8" /><text class="t" x="395" y="467">Requantization and activation table</text></g>
+              <path class="ln" d="M395,480 V498" marker-end="url(#arch-ah)" />
+              <g class="mem"><rect x="60" y="500" width="670" height="36" rx="8" /><text class="t" x="395" y="523">DMA scatter</text></g>
+
+              <!-- Write back for the next operator -->
+              <path class="ln dash" d="M60,518 H34 V238 H58" marker-end="url(#arch-ah)" />
+              <text class="lbl" x="24" y="378" text-anchor="middle" transform="rotate(-90 24 378)">write back · next operator</text>
+            </svg>
+          </div>
+          <figcaption>SQA-Core block diagram: boot and I/O (amber), memory and data movement (blue), the descriptor sequencer (navy), Engine A (ternary), Engine B (4-bit), the auxiliary engine, and the requantization table (slate).</figcaption>
+        </figure>
 
         <div class="phase-note">
           SQA-Arc grows out of the earlier <a href="hybrid-neural-accelerator.html">R-01 Hybrid Neural Accelerator</a>, which explored mode-switching low-precision arithmetic on the same FPGA.
