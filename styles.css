@@ -1989,3 +1989,19 @@ body.dark-mode .arch {
 .result-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
 .result-pair .result-fig { margin: 0; }
 @media (max-width: 640px) { .result-pair { grid-template-columns: 1fr; } }
+/* matched pair: equal-height cards, same plot area, captions aligned */
+.result-pair { align-items: stretch; }
+.result-pair .result-fig { display: flex; flex-direction: column; }
+.result-pair .result-fig a {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.result-pair .result-fig img { width: auto; max-width: 100%; max-height: 100%; }
+.result-pair .result-fig figcaption { flex: 1; }
+@media (max-width: 640px) { .result-pair .result-fig a { height: 260px; } }
+@media (max-width: 640px) {
+  .result-fig--wide a { overflow-x: auto; }
+  .result-fig--wide img { min-width: 620px; }
+}
