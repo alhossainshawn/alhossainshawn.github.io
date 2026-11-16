@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SQA ASIC Chips | Al Hossain Shawn</title>
+  <meta name="description" content="Five 45 nm chip designs built around the SQA accelerator, taken from RTL to signed-off layout in Cadence tools: an accelerator core, three accelerator chips, a RISC-V controller, and my own SRAM macro models." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css?v=3.5" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <script>try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.body.classList.add('dark-mode');}catch(e){}</script>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#expertise" class="active">Research</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav__drawer">
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <div class="mobile-nav__title">Al Hossain Shawn</div>
+      <hr class="mobile-nav__divider" />
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#expertise">Research</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#publications">Publications</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+
+  <div class="subpage-layout">
+    <aside class="subpage-sidebar">
+      <a class="back-link" href="../domains/dom-vlsi.html">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        VLSI &amp; IC Design
+      </a>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">On this page</div>
+      <nav class="subpage-nav">
+        <a href="#overview">Overview</a>
+        <a href="#designs">The Designs</a>
+        <a href="#compare">Chips Compared</a>
+        <a href="#flow">Sign-off Flow</a>
+        <a href="#lessons">Key Design Points</a>
+        <a href="#current">Current Work</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">ASIC designs</div>
+      <nav class="subpage-nav">
+        <a href="asic-accelerator.html">AI Accelerator Core</a>
+        <a href="asic-sqa-v1.html">SQA V1 Chip</a>
+        <a href="asic-sqa-v2.html">SQA V2 Chip</a>
+        <a href="asic-sqa-v3.html">SQA V3 Chip</a>
+        <a href="asic-riscv-mcu.html">RISC-V Controller Chip</a>
+        <a href="asic-memories.html">Memory Design</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="sidebar__section-title">Project</div>
+      <div class="sidebar__tags">
+        <span class="sidebar__tag">R-05</span>
+        <span class="sidebar__tag">ASIC</span>
+        <span class="sidebar__tag">GPDK045</span>
+        <span class="sidebar__tag">Genus</span>
+        <span class="sidebar__tag">Innovus</span>
+        <span class="sidebar__tag">Tempus</span>
+        <span class="sidebar__tag">Voltus</span>
+        <span class="sidebar__tag">Pegasus</span>
+      </div>
+    </aside>
+
+    <main class="subpage-content" id="main-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="../domains/dom-vlsi.html">VLSI &amp; IC Design</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>SQA ASIC Chips</span>
+      </div>
+
+      <div class="subpage-header">
+        <div class="tags-row" style="margin-bottom: 0.75rem;">
+          <span class="badge badge--green">Ongoing</span>
+          <span class="tag">R-05</span>
+          <span class="tag">ASIC</span>
+          <span class="tag">GPDK045 · 45 nm</span>
+        </div>
+        <h1>SQA ASIC <em>Chips</em></h1>
+        <div class="subpage-meta">
+          <span>Lead Designer</span>
+          <span>Cadence Genus · Innovus · Pegasus · Tempus · Voltus · Xcelium</span>
+          <span>2026 – Present</span>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p class="asic-lede" id="overview">Five chip designs built around the <a href="sqa-arc.html">SQA-Arc</a> accelerator, each taken from RTL to a signed-off 45 nm layout: the accelerator core, three accelerator chips that differ only in where their memory lives, and a RISC-V controller chip, plus my own SRAM macro models.</p>
+        <p>All five are <strong>academic practice designs</strong> on Cadence's generic <strong>GPDK045 (45 nm)</strong> PDK. They went through synthesis, place and route, physical verification, sign-off timing, power and rail analysis and gate-level simulation in Cadence tools, but <strong>they have not been fabricated</strong>. The SRAM macros are my own placeholder models, because the generic PDK has no memory compiler.</p>
+        <div class="asic-stats">
+          <div class="asic-stat"><div class="asic-stat__val">5</div><div class="asic-stat__label">Signed-off designs</div></div>
+          <div class="asic-stat"><div class="asic-stat__val">100 MHz</div><div class="asic-stat__label">Core clock, all chips</div></div>
+          <div class="asic-stat"><div class="asic-stat__val">0</div><div class="asic-stat__label">Timing violators (Tempus, SI)</div></div>
+          <div class="asic-stat"><div class="asic-stat__val">13</div><div class="asic-stat__label">SRAM macro types modelled</div></div>
+        </div>
+
+        <hr class="section-divider" />
+        <h2 id="designs">The Designs</h2>
+        <div class="proj-grid asic-cards">
+          <a class="proj-card" href="asic-accelerator.html">
+            <img class="proj-card__img" src="../assets/projects/asic/accelerator/accel_layout_full.jpg" alt="AI Accelerator Core" loading="lazy" />
+            <div class="proj-card__body">
+              <h3>AI Accelerator Core</h3>
+              <p class="proj-card__desc">A neural-network inference core taken from verified FPGA RTL to a routed, timing-signed-off 45 nm layout.</p>
+              <dl class="asic-card-stats"><div><dt>Clock</dt><dd>100 MHz</dd></div><div><dt>Cells (synthesis)</dt><dd>72,806</dd></div><div><dt>Core</dt><dd>1.65 × 1.30 mm</dd></div><div><dt>Power (real activity)</dt><dd>4.28 mW</dd></div></dl>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__period">Signed off · GPDK045</span>
+              <span class="proj-card__link">Open →</span>
+            </div>
+          </a>
+          <a class="proj-card" href="asic-sqa-v1.html">
+            <img class="proj-card__img" src="../assets/projects/asic/sqa-v1/v1_layout_full.jpg" alt="SQA V1 Chip" loading="lazy" />
+            <div class="proj-card__body">
+              <h3>SQA V1 Chip</h3>
+              <p class="proj-card__desc">The accelerator as a pad-limited chip: every engine buffer lives in external SRAM, with 280 pads on a 4.68 mm die.</p>
+              <dl class="asic-card-stats"><div><dt>Die</dt><dd>4.68 × 4.68 mm</dd></div><div><dt>Pads</dt><dd>280</dd></div><div><dt>Std cells</dt><dd>106,723</dd></div><div><dt>Timing</dt><dd>+0.062 ns, 0 violators</dd></div></dl>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__period">Signed off · GPDK045</span>
+              <span class="proj-card__link">Open →</span>
+            </div>
+          </a>
+          <a class="proj-card" href="asic-sqa-v2.html">
+            <img class="proj-card__img" src="../assets/projects/asic/sqa-v2/v2_layout_full.jpg" alt="SQA V2 Chip" loading="lazy" />
+            <div class="proj-card__body">
+              <h3>SQA V2 Chip</h3>
+              <p class="proj-card__desc">The smallest accelerator chip: the hot engine buffers moved on-chip as SRAM macros and the weights streamed from SDRAM.</p>
+              <dl class="asic-card-stats"><div><dt>Die</dt><dd>2.4 × 2.4 mm</dd></div><div><dt>Pads</dt><dd>126</dd></div><div><dt>SRAM macros</dt><dd>6</dd></div><div><dt>Timing</dt><dd>+0.076 ns, 0 violators</dd></div></dl>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__period">Signed off · GPDK045</span>
+              <span class="proj-card__link">Open →</span>
+            </div>
+          </a>
+          <a class="proj-card" href="asic-sqa-v3.html">
+            <img class="proj-card__img" src="../assets/projects/asic/sqa-v3/v3_layout_full.jpg" alt="SQA V3 Chip" loading="lazy" />
+            <div class="proj-card__body">
+              <h3>SQA V3 Chip</h3>
+              <p class="proj-card__desc">The whole system on one die: RISC-V CPU, accelerator, 4 MB on-chip SRAM, peripherals and a 1080p display controller.</p>
+              <dl class="asic-card-stats"><div><dt>Die</dt><dd>6.12 × 6.12 mm</dd></div><div><dt>SRAM macros</dt><dd>74 (4 MB + 128 KB)</dd></div><div><dt>Cells</dt><dd>149,935</dd></div><div><dt>Timing</dt><dd>+0.006 ns, 0 violators</dd></div></dl>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__period">Signed off · GPDK045</span>
+              <span class="proj-card__link">Open →</span>
+            </div>
+          </a>
+          <a class="proj-card" href="asic-riscv-mcu.html">
+            <img class="proj-card__img" src="../assets/projects/asic/riscv-mcu/mcu_layout_full.jpg" alt="RISC-V Controller Chip" loading="lazy" />
+            <div class="proj-card__body">
+              <h3>RISC-V Controller Chip</h3>
+              <p class="proj-card__desc">A small RISC-V microcontroller ASIC with my own peripherals and C firmware: the companion chip that drives V1 and V2.</p>
+              <dl class="asic-card-stats"><div><dt>Die</dt><dd>1.5 × 1.5 mm</dd></div><div><dt>Pads</dt><dd>52</dd></div><div><dt>Timing</dt><dd>+1.094 ns at 100 MHz</dd></div><div><dt>Power</dt><dd>1.15 mW</dd></div></dl>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__period">Signed off · GPDK045</span>
+              <span class="proj-card__link">Open →</span>
+            </div>
+          </a>
+          <a class="proj-card" href="asic-memories.html">
+            <img class="proj-card__img" src="../assets/projects/asic/memories/mem_sram_column.png" alt="Memory Design" loading="lazy" />
+            <div class="proj-card__body">
+              <h3>Memory Design</h3>
+              <p class="proj-card__desc">SRAM macro models for every chip, plus a transistor-level SRAM column simulated in Spectre.</p>
+              <dl class="asic-card-stats"><div><dt>Macro types</dt><dd>13</dd></div><div><dt>Largest on-chip</dt><dd>4 MB (V3)</dd></div><div><dt>Flop vs macro</dt><dd>~10 vs ~0.55 µm²/bit</dd></div></dl>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__period">Shared study</span>
+              <span class="proj-card__link">Open →</span>
+            </div>
+          </a>
+        </div>
+
+        <hr class="section-divider" />
+        <h2 id="compare">Chips Compared</h2>
+        <p>One accelerator core, three chips: V1, V2 and V3 reuse the same updated core and change only the memory around it, so the same tests pass bit-exact in every version. Memory decides the chip.</p>
+        <div class="asic-table-scroll asic-compare">
+          <table class="spec-table">
+            <thead><tr><th>Chip</th><th>Die</th><th>Pads</th><th>SRAM macros</th><th>Std cells (P&amp;R)</th><th>Setup slack (SI)</th><th>Power (real activity)</th><th>Board parts</th></tr></thead>
+            <tbody>
+              <tr><td><a href="asic-sqa-v1.html">SQA V1</a></td><td>4.68 × 4.68 mm</td><td>280</td><td>1</td><td>106,723</td><td>+0.062 ns</td><td>5.85 mW</td><td>7</td></tr>
+              <tr><td><a href="asic-sqa-v2.html">SQA V2</a></td><td>2.4 × 2.4 mm</td><td>126</td><td>6</td><td>114,718</td><td>+0.076 ns</td><td>6.16 mW</td><td>4</td></tr>
+              <tr><td><a href="asic-sqa-v3.html">SQA V3</a></td><td>6.12 × 6.12 mm</td><td>80</td><td>74</td><td>149,935*</td><td>+0.006 ns</td><td>8.85 mW</td><td>2</td></tr>
+              <tr><td><a href="asic-riscv-mcu.html">RISC-V MCU</a></td><td>1.5 × 1.5 mm</td><td>52</td><td>4</td><td>23,667</td><td>+1.094 ns</td><td>1.15 mW</td><td>with V1 / V2</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="asic-note">*Instances after place and route. All chips signed off at 0.9 V / 125 °C (setup) and 1.1 V / 0 °C (hold), with 0 violators of every check type.</p>
+        <ul>
+          <li><strong>V1</strong> keeps every engine buffer in external SRAM: it needs 280 pads and a 4.68 mm die that is mostly empty.</li>
+          <li><strong>V2</strong> moves the hot buffers on chip and streams the weights from SDRAM: the smallest die, at 2.4 mm.</li>
+          <li><strong>V3</strong> puts 4 MB of SRAM, a RISC-V CPU and the accelerator on one die: it grows to 6.12 mm, needs only a flash beside it, and runs the test operator fastest.</li>
+        </ul>
+
+        <hr class="section-divider" />
+        <h2 id="flow">Sign-off Flow</h2>
+        <ol>
+          <li><strong>RTL design</strong>: Verilog RTL; the neural-network engines generated with Vitis HLS from C++ and checked bit-exact against a Python golden model.</li>
+          <li><strong>RTL simulation</strong>: Xcelium with my own board models (SDRAM, sync SRAM, QSPI flash, UART, SD card, I2C, display capture).</li>
+          <li><strong>Synthesis</strong>: Cadence Genus to the gsclib045 standard cells, 100 MHz core clock, slow corner.</li>
+          <li><strong>Place and route</strong>: Cadence Innovus: pad ring, floorplan, power grid, placement, clock-tree synthesis, routing and post-route optimisation.</li>
+          <li><strong>Physical verification</strong>: Cadence Pegasus DRC with the full GPDK045 rule deck, and Pegasus LVS.</li>
+          <li><strong>Static timing</strong>: Cadence Tempus, SI-aware, with extracted parasitics, in the slow and fast corners.</li>
+          <li><strong>Power and rail analysis</strong>: Cadence Voltus: power with real gate-level activity, static and dynamic IR drop, and electromigration.</li>
+          <li><strong>Gate-level sign-off simulation</strong>: the routed netlist simulated again in Xcelium, with and without the routed delays (SDF).</li>
+        </ol>
+
+        <hr class="section-divider" />
+        <h2 id="lessons">Key Design Points</h2>
+        <ul>
+          <li><strong>Full sign-off on all four chips.</strong> Pegasus DRC clean with the full GPDK045 deck (V3: only 61 accepted slivers on placeholder SRAM pins), LVS MATCH, Tempus SI timing with 0 violators, static and dynamic IR drop inside the 45 mV budget, electromigration clean, and gate-level simulation of the routed netlists with and without SDF delays: all PASS.</li>
+          <li><strong>Problems found by sign-off, not by simulation.</strong> LVS found 19 floating bond pads, a real bug that simulation could not see; electromigration found overloaded power wires on V2 and V3 although their IR drop was tiny; Tempus found a forwarded-clock constraint error on V1 and a die-wide read path on V3. All were fixed and the full sign-off repeated.</li>
+          <li><strong>My own memories.</strong> A placeholder SRAM macro generator (13 macro types), a flop-versus-macro cost study (about 10 vs 0.55 µm² per bit), and a transistor-level SRAM column simulated in Spectre.</li>
+          <li><strong>Hardware plus software.</strong> The RISC-V controller runs C firmware built with RISC-V GCC; in V3 the firmware boots from flash, runs a network operator on the accelerator and prints the result over UART, also on the routed gate-level netlist.</li>
+        </ul>
+
+        <hr class="section-divider" />
+        <h2 id="current">Current Work</h2>
+        <p>V1 is being redone with an <strong>organised floorplan</strong>: a placement fence for each block, planned placement blockages, and a power grid designed from the current numbers instead of patched afterwards. On top of that, a <strong>staggered double pad ring</strong> with <strong>circuit-under-pad</strong> pads from a self-made pad variation library shrinks the die from <strong>4.68 mm to 2.86 mm per side</strong> (about 63% less area). Place and route and sign-off of this version are in progress, so there are no final numbers yet.</p>
+      </div>
+
+      <nav class="page-pager" aria-label="Project navigation">
+        <a class="page-pager__link" href="../index.html#projects">
+          <span>← Back to</span>
+          <span class="page-pager__title">All Projects</span>
+        </a>
+        <a class="page-pager__link page-pager__link--next" href="mosaic.html">
+          <span>Next →</span>
+          <span class="page-pager__title">MOSAIC</span>
+        </a>
+      </nav>
+    </main>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2026 Al Hossain Shawn &nbsp;·&nbsp; <a href="../index.html">Portfolio</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+  <script src="../interactive.js" defer></script>
+</body>
+</html>

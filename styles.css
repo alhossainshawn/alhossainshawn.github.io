@@ -1856,3 +1856,93 @@ body.dark-mode .arch {
 .arch-thumb .s { font-size: 16px; }
 .arch-thumb .lbl, .arch-thumb .frame-label { font-size: 15px; }
 .arch-thumb .ln { stroke-width: 2; }
+
+/* ── ASIC chip pages (projects/asic*.html) ─────────────────── */
+.section-divider {
+  margin: 2.5rem 0 2rem;
+  border: none;
+  border-top: 2px solid var(--border);
+}
+.asic-lede { font-size: 1.05rem; color: var(--text-heading); margin-top: 0.5rem; }
+.asic-note { font-size: 0.8rem; color: var(--text-muted); }
+.asic-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  margin: 1.25rem 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg-section-alt);
+}
+.asic-stat {
+  padding: 1rem 0.9rem;
+  text-align: center;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin: 0 -1px -1px 0;
+}
+.asic-stat__val {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1.25;
+  margin-bottom: 0.3rem;
+}
+.asic-stat__label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.asic-table-scroll { overflow-x: auto; margin: 1.25rem 0; }
+.asic-table-scroll .spec-table { margin: 0; min-width: 640px; }
+.asic-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.asic-gallery figure {
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg-white);
+  display: flex;
+  flex-direction: column;
+}
+.asic-gallery figure a { display: block; background: #0b0d12; }
+.asic-gallery figure img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: contain;
+  display: block;
+  transition: opacity 0.2s;
+}
+.asic-gallery figure a:hover img { opacity: 0.85; }
+.asic-gallery figcaption {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  padding: 0.55rem 0.75rem;
+  border-top: 1px solid var(--border);
+  line-height: 1.5;
+}
+.asic-cards { margin-top: 1.2rem; }
+.asic-cards .proj-card__img { background: #0b0d12; object-fit: contain; }
+.asic-card-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 0.8rem;
+  margin: 0.5rem 0 0;
+}
+.asic-card-stats dt { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.asic-card-stats dd { margin: 0; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; color: var(--text-heading); }
+.proj-card__img--chip { object-fit: contain; background: #0b0d12; }
+.research-grid > .res-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (max-width: 640px) {
+  .spec-table td:first-child { white-space: normal; width: auto; }
+  .spec-table td { overflow-wrap: anywhere; padding: 0.55rem 0.6rem; }
+}
+.asic-compare .spec-table td { white-space: nowrap; }
+.asic-compare .spec-table td:first-child { width: auto; }

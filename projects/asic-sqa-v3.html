@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SQA V3 Chip | Al Hossain Shawn</title>
+  <meta name="description" content="The whole system on one die: RISC-V CPU, accelerator, 4 MB on-chip SRAM, peripherals and a 1080p display controller." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css?v=3.5" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <script>try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.body.classList.add('dark-mode');}catch(e){}</script>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#expertise" class="active">Research</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav__drawer">
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <div class="mobile-nav__title">Al Hossain Shawn</div>
+      <hr class="mobile-nav__divider" />
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#expertise">Research</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#publications">Publications</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+
+  <div class="subpage-layout">
+    <aside class="subpage-sidebar">
+      <a class="back-link" href="asic.html">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        SQA ASIC Chips
+      </a>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">On this page</div>
+      <nav class="subpage-nav">
+        <a href="#overview">Overview</a>
+        <a href="#headline-numbers">Headline numbers</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#key-specifications">Key specifications</a>
+        <a href="#design-flow">Design flow</a>
+        <a href="#results">Results</a>
+        <a href="#problems-solved">Problems solved</a>
+        <a href="#screenshot-proofs">Screenshot proofs</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">ASIC designs</div>
+      <nav class="subpage-nav">
+        <a href="asic-accelerator.html">AI Accelerator Core</a>
+        <a href="asic-sqa-v1.html">SQA V1 Chip</a>
+        <a href="asic-sqa-v2.html">SQA V2 Chip</a>
+        <a href="asic-sqa-v3.html" class="active">SQA V3 Chip</a>
+        <a href="asic-riscv-mcu.html">RISC-V Controller Chip</a>
+        <a href="asic-memories.html">Memory Design</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="sidebar__section-title">Design</div>
+      <div class="sidebar__tags">
+        <span class="sidebar__tag">SoC</span>
+        <span class="sidebar__tag">RISC-V + accelerator</span>
+        <span class="sidebar__tag">74 SRAM macros</span>
+        <span class="sidebar__tag">Electromigration fix</span>
+        <span class="sidebar__tag">GPDK045</span>
+      </div>
+    </aside>
+
+    <main class="subpage-content" id="main-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="../domains/dom-vlsi.html">VLSI &amp; IC Design</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="asic.html">SQA ASIC Chips</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>SQA V3 Chip</span>
+      </div>
+
+      <div class="subpage-header">
+        <div class="tags-row" style="margin-bottom: 0.75rem;">
+          <span class="badge badge--blue">Signed off</span><span class="tag">Not fabricated</span>
+          <span class="tag">R-05</span>
+          <span class="tag">GPDK045 · 45 nm</span>
+        </div>
+        <h1>SQA V3 chip: <em>complete AI SoC</em></h1>
+        <p class="asic-lede">The whole system on one die: RISC-V CPU, accelerator, 4 MB on-chip SRAM, peripherals and a 1080p display controller.</p>
+      </div>
+
+      <div class="prose">
+        <h2 id="overview">Overview</h2>
+        <p>V3 puts everything on one chip: the PicoRV32 RISC-V controller with its peripherals, the accelerator core, a 4 MB main SRAM built from 64 SRAM macros, and the 1080p display controller. The CPU runs C firmware that copies a network from QSPI flash into the on-chip SRAM, starts the accelerator and reports the result over UART. No SDRAM and no host link are needed: the board holds only V3 and a flash.</p>
+        <p>Because the data is on chip, V3 runs the test operator fastest of the three versions (60,589 cycles against 66,143 for V2). The 4 MB of SRAM makes it core-limited: 96 % of its macro area is the main memory.</p>
+        <p>This is an academic practice design on Cadence's generic GPDK045 45 nm PDK. It is fully signed off in the Cadence tools but it has not been fabricated. The SRAM macros are my own placeholder models (behaviour, estimated timing / area / power, outline and pins), because the generic PDK has no memory compiler.</p>
+        <p>The 64-tile 4 MB main SRAM and the other macros are explained in <a href="asic-memories.html">Memory design</a>.</p>
+        <hr class="section-divider" />
+<h2 id="headline-numbers">Headline numbers</h2>
+        <div class="asic-stats"><div class="asic-stat"><div class="asic-stat__val">6.12 × 6.12 mm</div><div class="asic-stat__label">Die</div></div><div class="asic-stat"><div class="asic-stat__val">74 (4 MB + 128 KB)</div><div class="asic-stat__label">SRAM macros</div></div><div class="asic-stat"><div class="asic-stat__val">149,935</div><div class="asic-stat__label">Cells</div></div><div class="asic-stat"><div class="asic-stat__val">+0.006 ns, 0 violators</div><div class="asic-stat__label">Timing</div></div></div>
+        <hr class="section-divider" />
+<h2 id="architecture">Architecture</h2>
+        <table class="spec-table">
+<thead><tr><th>Block</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>RISC-V controller subsystem</td><td>PicoRV32 (RV32IMC), 8 KB boot ROM, 128 KB SRAM (4 macros), Wishbone bus</td></tr>
+<tr><td>Peripherals</td><td>UART, SPI SD card, I2C, 16 GPIO, timer, interrupt controller, QSPI flash with read cache</td></tr>
+<tr><td>Accelerator core</td><td>the same core as V2 (Engines A / B / AUX, shared tables, weight-stream DMA, program fetch), reached through a register block</td></tr>
+<tr><td>4 MB main SRAM</td><td>64 × 8192 × 64 SRAM macros behind an SDRAM-compatible adapter, so the core's memory port is unchanged</td></tr>
+<tr><td>Engine / table macros</td><td>6 SRAM macros as in V2</td></tr>
+<tr><td>Display controller</td><td>1080p60 output with text overlay, pixel clock 148.5 MHz</td></tr>
+</tbody></table>
+        <hr class="section-divider" />
+<h2 id="key-specifications">Key specifications</h2>
+        <table class="spec-table">
+<thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Technology</td><td>GPDK045 (Cadence generic 45 nm PDK), gsclib045 standard cells, giolib045 I/O pads</td></tr>
+<tr><td>Die size</td><td>6.12 × 6.12 mm (core-limited by the 74 SRAM macros)</td></tr>
+<tr><td>Pads</td><td>80 = 64 signal + 16 power</td></tr>
+<tr><td>Signal pins by interface</td><td>video 28, GPIO 16, QSPI flash 6, SPI SD 5, clocks + reset 3, UART 2, I2C 2, test 2</td></tr>
+<tr><td>Cells</td><td>118,307 after synthesis; 149,935 instances after P&amp;R</td></tr>
+<tr><td>Synthesis area</td><td>20.73 mm², of which the 4 MB main SRAM is 18.5 mm²</td></tr>
+<tr><td>Memories inside</td><td>74 SRAM macros: 64 × 8192×64 (4 MB main), 4 × 8192×32 (128 KB CPU), 6 engine / table macros</td></tr>
+<tr><td>CPU</td><td>PicoRV32 RV32IMC (open source) with my own peripherals; firmware in C (RISC-V GCC)</td></tr>
+<tr><td>Clocks</td><td>core 100 MHz, pixel 148.5 MHz</td></tr>
+<tr><td>Supply / corners</td><td>1.0 V nominal core library; signed off at 0.9 V / 125 C (slow, setup) and 1.1 V / 0 C (fast, hold)</td></tr>
+<tr><td>Parts on the board</td><td>2: V3 + flash</td></tr>
+<tr><td>Test network run (synbk3, RTL)</td><td>60,589 cycles (fastest of the three versions)</td></tr>
+</tbody></table>
+        <hr class="section-divider" />
+<h2 id="design-flow">Design flow</h2>
+        <p>All steps use Cadence tools on a university server; HLS and firmware builds ran on a PC.</p>
+        <ol><li><strong>RTL design</strong>: Verilog RTL; the neural-network engines were generated with Vitis HLS from C++ and checked bit-exact against a Python golden model.</li><li><strong>RTL simulation</strong>: Xcelium (and Vivado xsim on the PC) with my own board models: SDRAM, sync SRAM, QSPI flash, UART, SD card, I2C, display capture.</li><li><strong>Synthesis</strong>: Cadence Genus to the gsclib045 standard cells, 100 MHz core clock, slow corner.</li><li><strong>Place and route</strong>: Cadence Innovus: pad ring, floorplan, power grid, placement, clock-tree synthesis, routing, post-route optimisation.</li><li><strong>Physical verification</strong>: Cadence Pegasus DRC with the full GPDK045 rule deck, and Pegasus LVS (layout against netlist).</li><li><strong>Static timing</strong>: Cadence Tempus, SI-aware, with extracted parasitics: setup in the slow corner, hold in the fast and slow corners, plus every design-rule check type (slew, capacitance).</li><li><strong>Power and rail analysis</strong>: Cadence Voltus: power with real gate-level activity, static IR drop, electromigration (EM) and dynamic IR drop.</li><li><strong>Gate-level sign-off simulation</strong>: The routed netlist simulated again in Xcelium, with and without the routed delays (SDF back-annotation, all timing checks on).</li></ol>
+        <hr class="section-divider" />
+<h2 id="results">Results</h2>
+        <table class="spec-table">
+<thead><tr><th>Check</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>Pegasus DRC (full GPDK045 deck)</td><td>clean except 61 accepted Metal4 width slivers where wires end on the placeholder (black-box) SRAM pins; 266 foundry-deck hits on the first run, all others fixed</td></tr>
+<tr><td>Pegasus LVS</td><td>MATCH (67 pins, 391,600 nets)</td></tr>
+<tr><td>Tempus sign-off timing (SI on)</td><td>setup WNS +0.006 ns, hold WNS +0.048 ns, TNS 0, 0 violators of every check type; 459 slew violators after the DRC rounds, repaired to 0</td></tr>
+<tr><td>Power (Voltus, real activity, slow corner)</td><td>8.85 mW</td></tr>
+<tr><td>Static IR drop (budget 45 mV)</td><td>VDD ~8 mV (0.892 V minimum), VSS 5.4 mV: 5x margin (before the EM fix ~11 / 8.5 mV)</td></tr>
+<tr><td>Electromigration (Voltus)</td><td>PASS after the fix: 91 power-wire pieces were over the limit (worst 2.80x); after five ECO steps worst J / Jmax 0.764 (VDD), 0.756 (VSS), 0 over</td></tr>
+<tr><td>Dynamic IR drop (budget 45 mV)</td><td>PASS: worst VDD drop ~26 mV, VSS bounce 22.4 mV (was ~29 / 26.3 mV before the EM fix)</td></tr>
+<tr><td>Post-route gate-level simulation</td><td>PASS: C firmware boots from flash, runs the synbk3 operator on the accelerator and prints 43 / 43 UART bytes with the correct checksum</td></tr>
+<tr><td>Gate-level simulation with routed delays (SDF)</td><td>PASS: 43 / 43 UART bytes, 0 errors; 100 % of path delays and 99.3 % of timing checks annotated</td></tr>
+</tbody></table>
+        <hr class="section-divider" />
+<h2 id="problems-solved">Problems solved</h2>
+        <p><strong>Electromigration at the supply pads.</strong> The final candidate had 91 power-wire pieces over the EM limit (worst 2.80x) at all 8 supply pads. Three causes: each supply pad has two core-side pins but only one had been wired; the top-level Metal8 straps stopped at the core edge and never touched the ring, so the current climbed thin Metal4 stripes; at the side pads the nearest strap was 25-35 µm away. Fixed in five ECO steps: second pad wires, Metal8 stubs over the ring, Metal7 straps at the side pads, and missing Metal2-Metal8 vias (the stripe command does not drop vias on pad wires). Result: 0 pieces over the limit, and the static IR drop also fell from ~11 to ~8 mV.</p>
+        <p><strong>A die-wide read path.</strong> Tempus found -0.159 ns on the main-SRAM read: bank select -&gt; a 512-bit read mux across the 6 mm die -&gt; output register, about 50 buffer stages, which Innovus had called +0.001 ns. A finishing run with a +0.25 ns setup target upsized the chain. Lesson for a real tapeout: pipeline wide read muxes instead of buffering across the die.</p>
+        <p><strong>266 foundry DRC hits.</strong> Mostly tall via stacks. Rerouting around them only moved them; what worked was capping the few nets at that spot at Metal5 so no tall stack could form. 459 slew violators left by 18 reroute rounds were brought to 0 by DRV optimisation, targeted driver upsizing, and moving the last clock net to the low-resistance upper metals.</p>
+        <hr class="section-divider" />
+<h2 id="screenshot-proofs">Screenshot proofs</h2>
+        <p>The Innovus, Tempus, Virtuoso and IR-drop pictures come from the layout just before the EM fix (the fix only added power wires at the 8 supply pads); the 'after' EM map is the final layout.</p>
+        <div class="asic-gallery"><figure><a href="../assets/projects/asic/sqa-v3/v3_layout_full.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_layout_full.jpg" alt="Full V3 layout: the 64-macro main-SRAM array, the CPU / accelerator logic band, the power grid and the 80-pad ring." loading="lazy" /></a><figcaption>Full V3 layout: the 64-macro main-SRAM array, the CPU / accelerator logic band, the power grid and the 80-pad ring.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_sram_macro_zoom.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_sram_macro_zoom.jpg" alt="Zoom on an SRAM macro: pins along its edge and power stripes crossing it." loading="lazy" /></a><figcaption>Zoom on an SRAM macro: pins along its edge and power stripes crossing it.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_tempus_setup.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_tempus_setup.jpg" alt="Tempus sign-off with SI: 2000 worst setup paths, 0 failing." loading="lazy" /></a><figcaption>Tempus sign-off with SI: 2000 worst setup paths, 0 failing.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_em_vdd_before_fix.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_em_vdd_before_fix.jpg" alt="EM before the fix: VDD wires over the current limit (red) at the supply pads." loading="lazy" /></a><figcaption>EM before the fix: VDD wires over the current limit (red) at the supply pads.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_em_vdd_after_fix.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_em_vdd_after_fix.jpg" alt="EM after the five-step fix (final layout): no power wire over the limit." loading="lazy" /></a><figcaption>EM after the five-step fix (final layout): no power wire over the limit.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_ir_drop_vdd.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_ir_drop_vdd.jpg" alt="Static IR-drop map of VDD with real activity: worst drop well inside the 45 mV budget." loading="lazy" /></a><figcaption>Static IR-drop map of VDD with real activity: worst drop well inside the 45 mV budget.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_gl_sim_waveform.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_gl_sim_waveform.jpg" alt="Gate-level simulation of the routed V3: firmware boots from flash, runs the accelerator and prints the result." loading="lazy" /></a><figcaption>Gate-level simulation of the routed V3: firmware boots from flash, runs the accelerator and prints the result.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_gds_full.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_gds_full.jpg" alt="The V3 GDS in Virtuoso (SRAM macros as empty outlines: placeholder models)." loading="lazy" /></a><figcaption>The V3 GDS in Virtuoso (SRAM macros as empty outlines: placeholder models).</figcaption></figure></div>
+      </div>
+
+      <nav class="page-pager" aria-label="Project navigation">
+        <a class="page-pager__link" href="asic-sqa-v2.html">
+          <span>← Previous</span>
+          <span class="page-pager__title">SQA V2 Chip</span>
+        </a>
+        <a class="page-pager__link page-pager__link--next" href="asic-riscv-mcu.html">
+          <span>Next →</span>
+          <span class="page-pager__title">RISC-V Controller Chip</span>
+        </a>
+      </nav>
+    </main>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2026 Al Hossain Shawn &nbsp;·&nbsp; <a href="../index.html">Portfolio</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+  <script src="../interactive.js" defer></script>
+</body>
+</html>

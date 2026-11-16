@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Accelerator Core | Al Hossain Shawn</title>
+  <meta name="description" content="A neural-network inference core taken from verified FPGA RTL to a routed, timing-signed-off 45 nm layout." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css?v=3.5" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <script>try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.body.classList.add('dark-mode');}catch(e){}</script>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#expertise" class="active">Research</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav__drawer">
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <div class="mobile-nav__title">Al Hossain Shawn</div>
+      <hr class="mobile-nav__divider" />
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#expertise">Research</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#publications">Publications</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+
+  <div class="subpage-layout">
+    <aside class="subpage-sidebar">
+      <a class="back-link" href="asic.html">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        SQA ASIC Chips
+      </a>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">On this page</div>
+      <nav class="subpage-nav">
+        <a href="#overview">Overview</a>
+        <a href="#headline-numbers">Headline numbers</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#key-specifications">Key specifications</a>
+        <a href="#design-flow">Design flow</a>
+        <a href="#results">Results</a>
+        <a href="#problems-solved">Problems solved</a>
+        <a href="#screenshot-proofs">Screenshot proofs</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">ASIC designs</div>
+      <nav class="subpage-nav">
+        <a href="asic-accelerator.html" class="active">AI Accelerator Core</a>
+        <a href="asic-sqa-v1.html">SQA V1 Chip</a>
+        <a href="asic-sqa-v2.html">SQA V2 Chip</a>
+        <a href="asic-sqa-v3.html">SQA V3 Chip</a>
+        <a href="asic-riscv-mcu.html">RISC-V Controller Chip</a>
+        <a href="asic-memories.html">Memory Design</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="sidebar__section-title">Design</div>
+      <div class="sidebar__tags">
+        <span class="sidebar__tag">ASIC</span>
+        <span class="sidebar__tag">AI accelerator</span>
+        <span class="sidebar__tag">Vitis HLS</span>
+        <span class="sidebar__tag">Genus / Innovus / Tempus / Voltus</span>
+        <span class="sidebar__tag">GPDK045</span>
+      </div>
+    </aside>
+
+    <main class="subpage-content" id="main-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="../domains/dom-vlsi.html">VLSI &amp; IC Design</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="asic.html">SQA ASIC Chips</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>AI Accelerator Core</span>
+      </div>
+
+      <div class="subpage-header">
+        <div class="tags-row" style="margin-bottom: 0.75rem;">
+          <span class="badge badge--blue">Signed off</span><span class="tag">Not fabricated</span>
+          <span class="tag">R-05</span>
+          <span class="tag">GPDK045 · 45 nm</span>
+        </div>
+        <h1>AI accelerator ASIC <em>(accel_core)</em></h1>
+        <p class="asic-lede">A neural-network inference core taken from verified FPGA RTL to a routed, timing-signed-off 45 nm layout.</p>
+      </div>
+
+      <div class="prose">
+        <h2 id="overview">Overview</h2>
+        <p>accel_core is the inference core of the SQA accelerator: it runs whole quantised neural networks (ternary and 4-bit weights) operator by operator from a descriptor program in external memory. The same RTL had already been verified on an AMD Artix-7 FPGA (XC7A200T) at 100 MHz.</p>
+        <p>This project took that RTL to an ASIC layout in the GPDK045 generic 45 nm technology: memory planning, synthesis, place and route of the core (no pad ring: core-only block), sign-off timing with signal integrity, and power analysis with real simulation activity. Every verification step matched the expected results bit for bit and cycle for cycle.</p>
+        <p>It became the reference design for the three SQA chip versions (V1, V2, V3), which all reuse an updated copy of this core.</p>
+        <p>The 15 large on-chip buffers are placeholder SRAM macros; see <a href="asic-memories.html">Memory design</a>.</p>
+        <hr class="section-divider" />
+<h2 id="headline-numbers">Headline numbers</h2>
+        <div class="asic-stats"><div class="asic-stat"><div class="asic-stat__val">100 MHz</div><div class="asic-stat__label">Clock</div></div><div class="asic-stat"><div class="asic-stat__val">72,806</div><div class="asic-stat__label">Cells (synthesis)</div></div><div class="asic-stat"><div class="asic-stat__val">1.65 × 1.30 mm</div><div class="asic-stat__label">Core</div></div><div class="asic-stat"><div class="asic-stat__val">4.28 mW</div><div class="asic-stat__label">Power (real activity)</div></div></div>
+        <hr class="section-divider" />
+<h2 id="architecture">Architecture</h2>
+        <table class="spec-table">
+<thead><tr><th>Block</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>Engine A</td><td>ternary-weight convolution engine (Vitis HLS)</td></tr>
+<tr><td>Engine B</td><td>int4-weight convolution / dense engine (Vitis HLS)</td></tr>
+<tr><td>AUX engine</td><td>requantisation, pooling, element-wise add, activation, argmax, copy (Vitis HLS)</td></tr>
+<tr><td>seq_ctrl + desc_decode + slot_table</td><td>hand-written sequencer that fetches and decodes the operator program, one operator at a time</td></tr>
+<tr><td>DMA blocks</td><td>dma_gather, dma_scatter, dma_linear_rd x2, param_router: move activations and parameters</td></tr>
+<tr><td>mem_arb</td><td>arbiter onto one DDR-style external memory port</td></tr>
+<tr><td>On-chip buffers</td><td>15 large arrays as SRAM macros (weight tile, windows, line buffer, requant tables, tap index), 7 small ones as flip-flops</td></tr>
+</tbody></table>
+        <hr class="section-divider" />
+<h2 id="key-specifications">Key specifications</h2>
+        <table class="spec-table">
+<thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Technology</td><td>GPDK045 (Cadence generic 45 nm PDK), gsclib045 standard cells</td></tr>
+<tr><td>Block size</td><td>1650 × 1300 µm (2.145 mm²), core-only layout (no pad ring)</td></tr>
+<tr><td>Signal pins</td><td>1,023 (block pins, no pads)</td></tr>
+<tr><td>Clock</td><td>100 MHz (10 ns)</td></tr>
+<tr><td>Supply / corners</td><td>1.0 V nominal core library; signed off at 0.9 V / 125 C (slow, setup) and 1.1 V / 0 C (fast, hold)</td></tr>
+<tr><td>Cells after synthesis</td><td>72,806 (16,081 flip-flops)</td></tr>
+<tr><td>Synthesis area</td><td>1,407,518 µm², of which SRAM macros 1,203,010 µm² (85.5 %)</td></tr>
+<tr><td>Instances after P&amp;R</td><td>204,007 incl. fillers; standard cells 222,162 µm²; standard-cell density 27 %</td></tr>
+<tr><td>Memories</td><td>15 SRAM macros (placeholder models, 1-port and 2-port) + 7 arrays of up to 2 Kbit as flip-flops (8.3 Kbit); largest = 4 × 294,912 weight tile</td></tr>
+<tr><td>Networks</td><td>10 networks (resnet8, mcunet, shiftnet, ghostnet, squeezenet, deepshift, efficientnet, resnet18, bnn_xnor, shufflenetv2)</td></tr>
+<tr><td>FPGA reference (same RTL)</td><td>Artix-7 XC7A200T at 100 MHz: core alone about 11,690 LUT; whole FPGA design 20,845 LUT, 15,743 FF, 75 BRAM tiles, 22 DSP</td></tr>
+</tbody></table>
+        <hr class="section-divider" />
+<h2 id="design-flow">Design flow</h2>
+        <p>All steps use Cadence tools on a university server; HLS and firmware builds ran on a PC.</p>
+        <ol><li><strong>RTL design</strong>: Verilog RTL; the neural-network engines were generated with Vitis HLS from C++ and checked bit-exact against a Python golden model.</li><li><strong>RTL simulation</strong>: Xcelium (and Vivado xsim on the PC) with my own board models: SDRAM, sync SRAM, QSPI flash, UART, SD card, I2C, display capture.</li><li><strong>Synthesis</strong>: Cadence Genus to the gsclib045 standard cells, 100 MHz core clock, slow corner.</li><li><strong>Place and route</strong>: Cadence Innovus: pad ring, floorplan, power grid, placement, clock-tree synthesis, routing, post-route optimisation.</li><li><strong>Physical verification</strong>: Cadence Pegasus DRC with the full GPDK045 rule deck, and Pegasus LVS (layout against netlist).</li><li><strong>Static timing</strong>: Cadence Tempus, SI-aware, with extracted parasitics: setup in the slow corner, hold in the fast and slow corners, plus every design-rule check type (slew, capacitance).</li><li><strong>Power and rail analysis</strong>: Cadence Voltus: power with real gate-level activity, static IR drop, electromigration (EM) and dynamic IR drop.</li><li><strong>Gate-level sign-off simulation</strong>: The routed netlist simulated again in Xcelium, with and without the routed delays (SDF back-annotation, all timing checks on).</li></ol>
+        <hr class="section-divider" />
+<h2 id="results">Results</h2>
+        <table class="spec-table">
+<thead><tr><th>Check</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>Synthesis timing (Genus)</td><td>setup slack +0.894 ns at 10 ns</td></tr>
+<tr><td>Sign-off timing (Tempus, SI-aware)</td><td>setup WNS +0.020 ns, TNS 0; hold +0.001 ns (fast) / +0.155 ns (slow); 0 violators</td></tr>
+<tr><td>Physical checks (Innovus)</td><td>DRC 0, process antenna 0, 0 open nets</td></tr>
+<tr><td>Power (Voltus, slow corner)</td><td>4.28 mW with real activity (synbk3 test, 100 % of nets annotated); 8.88 mW vectorless; clock tree 1.34 mW</td></tr>
+<tr><td>Power by block (real activity)</td><td>Engine A 1.05 / Engine B 1.04 / AUX 0.84 / rest 1.36 mW</td></tr>
+<tr><td>RTL and ASIC-RTL simulation</td><td>32 / 32 tests exact (errors 0 and exact cycle counts), incl. a full mcunet network of 50.9 M cycles</td></tr>
+<tr><td>Gate-level simulation</td><td>post-synthesis 19 / 19, post-route 19 / 19, post-route with SDF delays 3 / 3 with 0 timing-check violations</td></tr>
+<tr><td>Not done on this block</td><td>Pegasus DRC / LVS (the placeholder macros have no layout); these were done later on the SQA chips</td></tr>
+</tbody></table>
+        <hr class="section-divider" />
+<h2 id="problems-solved">Problems solved</h2>
+        <p><strong>Memories without a memory compiler.</strong> The generic PDK has no SRAM compiler, and 1.48 Mbit of flip-flops would have meant millions of cells. I wrote a generator for placeholder SRAM macros (behaviour model, estimated timing / power library, outline and pins) and kept only arrays of up to 2 Kbit as flip-flops.</p>
+        <p><strong>HLS initial values do not exist on an ASIC.</strong> 135 registers in the HLS engines relied on FPGA power-up values. Gate-level simulation hung from X-pessimism. I proved that no non-reset register affects the result by passing every test from both all-0 and all-1 start states; all state machines and valid flags are reset.</p>
+        <p><strong>Signal integrity decides the margin.</strong> Timing without SI was pessimistic (-0.326 ns); SI-aware Tempus is the sign-off number (+0.020 ns). The critical paths are 48-bit address subtractions generated by HLS in all three engines: the place to pipeline for a faster clock.</p>
+        <hr class="section-divider" />
+<h2 id="screenshot-proofs">Screenshot proofs</h2>
+        <p>The layout pictures come from the routed database one run before the final one (the final run only re-spread the block pins along the edges to remove edge shorts and gained 0.03 ns of setup slack).</p>
+        <div class="asic-gallery"><figure><a href="../assets/projects/asic/accelerator/accel_layout_full.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_layout_full.jpg" alt="The routed core in Innovus: SRAM macros (large blocks), standard-cell logic, power grid and routing." loading="lazy" /></a><figcaption>The routed core in Innovus: SRAM macros (large blocks), standard-cell logic, power grid and routing.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_layout_modules.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_layout_modules.jpg" alt="Module view: where Engine A, Engine B, the AUX engine and the control logic were placed." loading="lazy" /></a><figcaption>Module view: where Engine A, Engine B, the AUX engine and the control logic were placed.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_power_grid.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_power_grid.jpg" alt="The power grid alone: core ring, stripes and the cell-row rails." loading="lazy" /></a><figcaption>The power grid alone: core ring, stripes and the cell-row rails.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_clock_tree.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_clock_tree.jpg" alt="The clock tree built by clock-tree synthesis, reaching every flip-flop." loading="lazy" /></a><figcaption>The clock tree built by clock-tree synthesis, reaching every flip-flop.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_sram_macro.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_sram_macro.jpg" alt="Zoom on the largest SRAM macro: its pins along the edge and the power stripes crossing it." loading="lazy" /></a><figcaption>Zoom on the largest SRAM macro: its pins along the edge and the power stripes crossing it.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_cells_10um.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_cells_10um.jpg" alt="A 10 µm window: single standard cells, Metal1 power rails and vias." loading="lazy" /></a><figcaption>A 10 µm window: single standard cells, Metal1 power rails and vias.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_sim_waveform.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_sim_waveform.jpg" alt="SimVision waveform of the updated accelerator core running a test operator (the version reused in the chips)." loading="lazy" /></a><figcaption>SimVision waveform of the updated accelerator core running a test operator (the version reused in the chips).</figcaption></figure></div>
+      </div>
+
+      <nav class="page-pager" aria-label="Project navigation">
+        <a class="page-pager__link" href="asic.html">
+          <span>← Back to</span>
+          <span class="page-pager__title">SQA ASIC Chips</span>
+        </a>
+        <a class="page-pager__link page-pager__link--next" href="asic-sqa-v1.html">
+          <span>Next →</span>
+          <span class="page-pager__title">SQA V1 Chip</span>
+        </a>
+      </nav>
+    </main>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2026 Al Hossain Shawn &nbsp;·&nbsp; <a href="../index.html">Portfolio</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+  <script src="../interactive.js" defer></script>
+</body>
+</html>

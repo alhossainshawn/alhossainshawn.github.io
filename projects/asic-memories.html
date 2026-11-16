@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Memory Design | Al Hossain Shawn</title>
+  <meta name="description" content="SRAM macro models for every chip, plus a transistor-level SRAM column simulated in Spectre." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css?v=3.5" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <script>try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.body.classList.add('dark-mode');}catch(e){}</script>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#expertise" class="active">Research</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav__drawer">
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <div class="mobile-nav__title">Al Hossain Shawn</div>
+      <hr class="mobile-nav__divider" />
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#expertise">Research</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#publications">Publications</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+
+  <div class="subpage-layout">
+    <aside class="subpage-sidebar">
+      <a class="back-link" href="asic.html">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        SQA ASIC Chips
+      </a>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">On this page</div>
+      <nav class="subpage-nav">
+        <a href="#overview">Overview</a>
+        <a href="#headline-numbers">Headline numbers</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#key-specifications">Key specifications</a>
+        <a href="#design-flow">Design flow</a>
+        <a href="#results-and-measurements">Results and measurements</a>
+        <a href="#problems-solved">Problems solved</a>
+        <a href="#screenshot-proofs">Screenshot proofs</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">ASIC designs</div>
+      <nav class="subpage-nav">
+        <a href="asic-accelerator.html">AI Accelerator Core</a>
+        <a href="asic-sqa-v1.html">SQA V1 Chip</a>
+        <a href="asic-sqa-v2.html">SQA V2 Chip</a>
+        <a href="asic-sqa-v3.html">SQA V3 Chip</a>
+        <a href="asic-riscv-mcu.html">RISC-V Controller Chip</a>
+        <a href="asic-memories.html" class="active">Memory Design</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="sidebar__section-title">Design</div>
+      <div class="sidebar__tags">
+        <span class="sidebar__tag">SRAM</span>
+        <span class="sidebar__tag">Memory architecture</span>
+        <span class="sidebar__tag">Spectre</span>
+        <span class="sidebar__tag">Flop vs macro study</span>
+      </div>
+    </aside>
+
+    <main class="subpage-content" id="main-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="../domains/dom-vlsi.html">VLSI &amp; IC Design</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="asic.html">SQA ASIC Chips</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>Memory Design</span>
+      </div>
+
+      <div class="subpage-header">
+        <div class="tags-row" style="margin-bottom: 0.75rem;">
+          <span class="badge badge--blue">Study</span>
+          <span class="tag">R-05</span>
+          <span class="tag">GPDK045 · 45 nm</span>
+        </div>
+        <h1>Memory <em>design</em></h1>
+        <p class="asic-lede">SRAM macro models for every chip, plus a transistor-level SRAM column simulated in Spectre.</p>
+      </div>
+
+      <div class="prose">
+        <h2 id="overview">Overview</h2>
+        <p>Large memories on a chip are SRAM macros: blocks of bit cells with their own address decoder, sense amplifiers and write drivers. The generic GPDK045 PDK has no memory compiler, so I designed my own placeholder macros: an exact behaviour model for simulation, estimated timing and power libraries for synthesis and timing, and an outline with pins for place and route. They are used in all four chips; in DRC / LVS they are black boxes. For a real tapeout the foundry's memory compiler would generate the actual layouts.</p>
+        <p>To understand what is inside such a macro, I also drew the read and write circuits at transistor level (6T and 8T bit cells, precharge, column mux, sense amplifier, write driver, word-line driver) and simulated one complete column with GPDK045 transistors in Spectre.</p>
+        <p>Finally, a flip-flop-versus-macro study measured when a memory should be built from flip-flops and when it must be a macro.</p>
+        <hr class="section-divider" />
+<h2 id="headline-numbers">Headline numbers</h2>
+        <div class="asic-stats"><div class="asic-stat"><div class="asic-stat__val">13</div><div class="asic-stat__label">Macro types</div></div><div class="asic-stat"><div class="asic-stat__val">4 MB (V3)</div><div class="asic-stat__label">Largest on-chip</div></div><div class="asic-stat"><div class="asic-stat__val">~10 vs ~0.55 µm²/bit</div><div class="asic-stat__label">Flop vs macro</div></div></div>
+        <hr class="section-divider" />
+<h2 id="architecture">Architecture</h2>
+        <table class="spec-table">
+<thead><tr><th>Block</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>1-port macros (1P)</td><td>one read or write per clock; 6T bit cell</td></tr>
+<tr><td>1-port with byte enables (1PBE)</td><td>the CPU and main SRAMs: write single bytes of a word</td></tr>
+<tr><td>2-port macros (2P)</td><td>one read port and one write port at the same time; 8T bit cell</td></tr>
+<tr><td>2-port, 2-clock (2P2C)</td><td>for clock-domain crossing FIFOs (cost study only)</td></tr>
+<tr><td>Tiling</td><td>big memories are tiled from one macro size: the 4 MB main SRAM = 64 tiles of 8192 × 64 with a registered bank select</td></tr>
+</tbody></table>
+        <hr class="section-divider" />
+<h2 id="key-specifications">Key specifications</h2>
+        <table class="spec-table">
+<thead><tr><th>Parameter</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Macro types modelled</td><td>13 (8 listed below are used in the chips or the reference core; the rest are test / cost-study sizes)</td></tr>
+<tr><td>Area model</td><td>bits x bit cell / 0.55 + periphery; bit cell 0.30 µm² (1P, 6T) or 0.45 µm² (2P, 8T); periphery 2,500 µm² (1P) or 3,500 µm² (2P)</td></tr>
+<tr><td>Timing model</td><td>clock-to-output (slow corner 0.9 V, 125 C) = 0.60 + 0.12 x log2(bits / 1024) ns; setup 0.20 ns; hold 0.05 ns; fast corner = 0.55 x slow</td></tr>
+<tr><td>Energy model</td><td>read energy 0.10 + 0.030 x width + 0.0010 x sqrt(bits) pJ; leakage 20 pW per bit at 125 C</td></tr>
+<tr><td>4 MB main SRAM (synthesised wrapper)</td><td>3,432 cells, 18.51 mm², +7.28 ns slack</td></tr>
+</tbody></table>
+        <h3>Every SRAM macro used</h3>
+        <div class="asic-table-scroll">
+<table class="spec-table">
+<thead><tr><th>Macro</th><th>Ports</th><th>Words x bits</th><th>Size (um)</th><th>Area µm² (est.)</th><th>Clock-to-Q slow (est.)</th><th>Used for</th><th>Chips</th></tr></thead>
+<tbody>
+<tr><td>SRAM1PBE_8192×64</td><td>1 port + byte enables</td><td>8,192 × 64</td><td>658.0 × 439.5</td><td>289,171</td><td>1.68 ns</td><td>V3 4 MB main SRAM (64 tiles)</td><td>V3 x64</td></tr>
+<tr><td>SRAM1PBE_8192×32</td><td>1 port + byte enables</td><td>8,192 × 32</td><td>467.2 × 312.9</td><td>146,201</td><td>1.56 ns</td><td>RISC-V controller 128 KB SRAM (4 tiles)</td><td>MCU x4, V3 x4</td></tr>
+<tr><td>SRAM1PBE_2048×24</td><td>1 port + byte enables</td><td>2,048 × 24</td><td>209.8 × 140.2</td><td>29,418</td><td>1.27 ns</td><td>shared requant table of the 3 engines</td><td>V2 x1, V3 x1</td></tr>
+<tr><td>SRAM2P_4608×8</td><td>1 read + 1 write port</td><td>4,608 × 8</td><td>224.8 × 150.5</td><td>33,828</td><td>1.22 ns</td><td>input window of Engine A and of Engine B</td><td>V2 x2, V3 x2</td></tr>
+<tr><td>SRAM2P_6400×8</td><td>1 read + 1 write port</td><td>6,400 × 8</td><td>261.0 × 174.4</td><td>45,524</td><td>1.28 ns</td><td>pooling line buffer</td><td>V1 x1, V2 x1, V3 x1</td></tr>
+<tr><td>SRAM1P_2048×8</td><td>1 port</td><td>2,048 × 8</td><td>131.0 × 88.9</td><td>11,649</td><td>1.08 ns</td><td>AUX engine gate codes</td><td>V2 x1, V3 x1</td></tr>
+<tr><td>SRAM1P_768×13</td><td>1 port</td><td>768 × 13</td><td>109.2 × 73.5</td><td>8,029</td><td>0.99 ns</td><td>Engine A tap index table</td><td>V2 x1, V3 x1</td></tr>
+<tr><td>SRAM2P_294912×4</td><td>1 read + 1 write port</td><td>294,912 × 4</td><td>1205.6 × 803.7</td><td>968,941</td><td>1.82 ns</td><td>original accelerator weight tile (1.18 Mbit); replaced by weight streaming in V2 / V3</td><td>reference core only</td></tr>
+</tbody></table>
+</div>
+        <h3>Memory on each chip (macros only, estimated area)</h3>
+        <div class="asic-table-scroll">
+<table class="spec-table">
+<thead><tr><th>Chip</th><th>Macros</th><th>Bits</th><th>Macro area</th></tr></thead>
+<tbody>
+<tr><td>RISC-V controller</td><td>4</td><td>1,048,576 bits (128.0 KB)</td><td>0.58 mm²</td></tr>
+<tr><td>V1</td><td>1</td><td>51,200 bits (6.2 KB)</td><td>0.05 mm²</td></tr>
+<tr><td>V2</td><td>6</td><td>200,448 bits (24.5 KB)</td><td>0.16 mm²</td></tr>
+<tr><td>V3</td><td>74</td><td>34,803,456 bits (4,248.5 KB)</td><td>19.25 mm²</td></tr>
+</tbody></table>
+</div>
+        <hr class="section-divider" />
+<h2 id="design-flow">Design flow</h2>
+        <p>All steps use Cadence tools on a university server; HLS and firmware builds ran on a PC.</p>
+        <ol><li><strong>Macro models</strong>: my own generator writes the behaviour model, timing / power library (slow and fast corners) and the outline with pins.</li><li><strong>Use in the chips</strong>: wrappers select macro or flip-flop builds; Genus, Innovus, Tempus and Voltus read the models.</li><li><strong>Circuit study</strong>: bit cells and read / write circuits drawn at transistor level; one column simulated in Spectre with GPDK045 transistors.</li></ol>
+        <hr class="section-divider" />
+<h2 id="results-and-measurements">Results and measurements</h2>
+        <table class="spec-table">
+<thead><tr><th>Check</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td>Flip-flop memory cost</td><td>about 9.5-10 µm² per bit (flop + write mux + share of the read mux)</td></tr>
+<tr><td>Macro cost</td><td>about 0.55 µm² per bit + 2,500-3,500 µm² fixed periphery</td></tr>
+<tr><td>Break-even size</td><td>about 260 bits (1-port) / 380 bits (2-port): below that, flip-flops win</td></tr>
+<tr><td>4 KB as flip-flops</td><td>synthesis did not finish in about 2 hours: about 16x the macro area (estimate)</td></tr>
+<tr><td>Spectre: write</td><td>the cell flips 22.5 ps (to 0) and 32.1 ps (to 1) after the word line rises</td></tr>
+<tr><td>Spectre: read</td><td>bit lines differ by 284.5 mV (read 0) / 283.8 mV (read 1) after 450 ps of word line; the sense amp resolves in 37.2 / 39.8 ps; Q = 0.0 V / 1.0 V: both values read back correctly</td></tr>
+<tr><td>Spectre set-up</td><td>GPDK045 typical transistor models, VDD 1.0 V, 60 fF per bit line (a 256-cell column)</td></tr>
+</tbody></table>
+        <hr class="section-divider" />
+<h2 id="problems-solved">Problems solved</h2>
+        <p><strong>Choosing what goes on chip.</strong> The original accelerator kept a 1.18 Mbit weight tile on chip (0.97 mm²). Analysing the access pattern showed the weights are read sequentially, so V2 / V3 re-stream them from SDRAM with a prefetching DMA and drop the macro entirely.</p>
+        <p><strong>Small FIFOs stay flip-flops.</strong> At 576-4,096 bits a macro is only 1.4-4.7x smaller, costs a hard block to place, and a flop FIFO gives dual-clock behaviour for free, so the small FIFOs were kept as flip-flops.</p>
+        <p><strong>Area follows memory.</strong> V3 is about 6.5x the area of V2 almost only because of its 4 MB SRAM: memory size is the first decision in a chip plan.</p>
+        <hr class="section-divider" />
+<h2 id="screenshot-proofs">Screenshot proofs</h2>
+        <p>The circuit drawings are generic textbook circuits drawn for learning; the chips use the placeholder macro models described above, not these transistors.</p>
+        <div class="asic-gallery"><figure><a href="../assets/projects/asic/memories/mem_sram_column.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_sram_column.png" alt="Spectre simulation of one SRAM column with GPDK045 transistors: write 0, read 0, write 1, read 1, all correct." loading="lazy" /></a><figcaption>Spectre simulation of one SRAM column with GPDK045 transistors: write 0, read 0, write 1, read 1, all correct.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_one_column_schematic.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_one_column_schematic.png" alt="One complete column at transistor level: precharge, 6T cell, word-line driver, column mux, sense amp and write driver." loading="lazy" /></a><figcaption>One complete column at transistor level: precharge, 6T cell, word-line driver, column mux, sense amp and write driver.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_bitcell_6t.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_bitcell_6t.png" alt="The 6T bit cell used by the single-port macros." loading="lazy" /></a><figcaption>The 6T bit cell used by the single-port macros.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_bitcell_8t.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_bitcell_8t.png" alt="The 8T bit cell with a separate read port, used by the two-port macros." loading="lazy" /></a><figcaption>The 8T bit cell with a separate read port, used by the two-port macros.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_sense_amp.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_sense_amp.png" alt="Latch-type sense amplifier that turns a small bit-line difference into a full logic level." loading="lazy" /></a><figcaption>Latch-type sense amplifier that turns a small bit-line difference into a full logic level.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_write_driver.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_write_driver.png" alt="Write driver with write-enable and byte-enable gating." loading="lazy" /></a><figcaption>Write driver with write-enable and byte-enable gating.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_sram_8192x64_organisation.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_sram_8192x64_organisation.png" alt="Typical organisation of the 8192 × 64 main-SRAM tile: 512 rows x 1024 columns, 16:1 column mux." loading="lazy" /></a><figcaption>Typical organisation of the 8192 × 64 main-SRAM tile: 512 rows x 1024 columns, 16:1 column mux.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_macro_in_layout.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_macro_in_layout.jpg" alt="An SRAM macro placed in the V3 layout, with its pins and the power stripes crossing it." loading="lazy" /></a><figcaption>An SRAM macro placed in the V3 layout, with its pins and the power stripes crossing it.</figcaption></figure></div>
+      </div>
+
+      <nav class="page-pager" aria-label="Project navigation">
+        <a class="page-pager__link" href="asic-riscv-mcu.html">
+          <span>← Previous</span>
+          <span class="page-pager__title">RISC-V Controller Chip</span>
+        </a>
+        <a class="page-pager__link page-pager__link--next" href="asic.html">
+          <span>Back to →</span>
+          <span class="page-pager__title">SQA ASIC Chips</span>
+        </a>
+      </nav>
+    </main>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2026 Al Hossain Shawn &nbsp;·&nbsp; <a href="../index.html">Portfolio</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+  <script src="../interactive.js" defer></script>
+</body>
+</html>

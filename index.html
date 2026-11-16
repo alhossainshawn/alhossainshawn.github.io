@@ -25,7 +25,7 @@
   <meta property="og:image:alt" content="Portrait of Al Hossain Shawn" />
   <meta name="twitter:card" content="summary" />
 
-  <link rel="stylesheet" href="styles.css?v=3.4" />
+  <link rel="stylesheet" href="styles.css?v=3.5" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 
 </head>
@@ -216,9 +216,9 @@
             <h3 class="cr-title">Research Assistant</h3>
             <div class="cr-org">BRAC University, Dept. of Electrical and Electronics Engineering</div>
             <p class="cr-detail">
-              Leading four ongoing research projects: MOSAIC, a multimodal edge-AI SoC with a RISC-V host; SQA-Arc, a
-              sensitivity-driven quantization framework and FPGA overlay; the Hybrid Neural Accelerator on the AMD Artix-7;
-              and MBCFET device modeling in Silvaco TCAD.
+              Leading five ongoing research projects: SQA ASIC chips, five 45 nm designs signed off in Cadence; MOSAIC, a
+              multimodal edge-AI SoC with a RISC-V host; SQA-Arc, a sensitivity-driven quantization framework and FPGA overlay;
+              the Hybrid Neural Accelerator on the AMD Artix-7; and MBCFET device modeling in Silvaco TCAD.
             </p>
             <div class="tags-row">
               <span class="tag">FPGA</span>
@@ -329,10 +329,33 @@
       <section class="section reveal" id="research" aria-labelledby="h-research">
         <div class="section-header">
           <h2 id="h-research">Active <em>Research</em></h2>
-          <p>Four open threads: a multimodal edge-AI SoC, a quantization framework and FPGA accelerator for edge AI,
-            a hybrid LUT / logarithmic neural accelerator, and a TCAD study of multi-bridge-channel devices for sub-5&nbsp;nm logic.</p>
+          <p>Five open threads: 45 nm ASIC chips signed off in Cadence, a multimodal edge-AI SoC, a quantization framework
+            and FPGA accelerator for edge AI, a hybrid LUT / logarithmic neural accelerator, and a TCAD study of multi-bridge-channel devices for sub-5&nbsp;nm logic.</p>
         </div>
         <div class="research-grid">
+          <a class="res-card" href="projects/asic.html">
+            <div class="res-card__meta">
+              <span class="res-card__id">R-05 · 2026 – Present</span>
+              <span class="badge badge--green">Ongoing</span>
+            </div>
+            <h3>SQA ASIC <em>Chips</em></h3>
+            <p class="res-card__summary">
+              Five 45 nm chip designs built around the SQA accelerator, taken from RTL to signed-off layout in Cadence tools (not fabricated).
+            </p>
+            <ul class="res-card__bullets">
+              <li>Accelerator core, three accelerator chips, a RISC-V controller.</li>
+              <li>DRC / LVS clean, 0 timing violators, IR and EM signed off.</li>
+              <li>My own SRAM macro models and a Spectre-simulated SRAM column.</li>
+            </ul>
+            <div class="tags-row">
+              <span class="tag">ASIC</span>
+              <span class="tag">GPDK045</span>
+              <span class="tag">Innovus</span>
+              <span class="tag">Tempus</span>
+            </div>
+            <span class="res-card__link">Read more →</span>
+          </a>
+
           <a class="res-card" href="projects/mosaic.html">
             <div class="res-card__meta">
               <span class="res-card__id">R-04 · 2026 – Present</span>
@@ -436,6 +459,30 @@
             integration.</p>
         </div>
         <div class="proj-grid">
+          <!-- R-05 -->
+          <a class="proj-card" href="projects/asic.html">
+            <img class="proj-card__img proj-card__img--chip" src="assets/projects/asic/sqa-v3/v3_layout_full.jpg" alt="Routed layout of the SQA V3 chip: the 64-macro SRAM array, logic band, power grid and pad ring" loading="lazy" />
+            <div class="proj-card__body">
+              <div class="proj-card__meta">
+                <span class="proj-card__id">R-05</span>
+                <span class="badge badge--green">Ongoing</span>
+              </div>
+              <h3>SQA ASIC <em>Chips</em></h3>
+              <div class="proj-card__role">Lead Designer</div>
+              <p class="proj-card__desc">Five 45 nm designs (GPDK045) from RTL to signed-off layout in Cadence: an accelerator core, three accelerator chips and a RISC-V controller. Not fabricated.</p>
+              <div class="tags-row">
+                <span class="tag">ASIC</span>
+                <span class="tag">Genus</span>
+                <span class="tag">Innovus</span>
+                <span class="tag">Voltus</span>
+              </div>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__period">2026 – Present</span>
+              <span class="proj-card__link">Open →</span>
+            </div>
+          </a>
+
           <!-- R-04 -->
           <a class="proj-card" href="projects/mosaic.html">
             <div class="proj-card__img proj-card__img--diagram">
