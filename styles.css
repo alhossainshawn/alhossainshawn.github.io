@@ -2181,3 +2181,7 @@ body.dark-mode .arch {
 .current-role-card--compact .cr-badge { margin: 0; }
 .current-role-card--compact .cr-detail { font-size: 0.86rem; line-height: 1.55; margin: 0.4rem 0 0.55rem; }
 .current-role-card--compact .cr-foot { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
+
+/* ── Publications: grouped by type ── */
+.pub-group-title { font-size: 1.05rem; color: var(--text-heading); margin: 0 0 0.6rem; }
+.pub-list + .pub-group-title { margin-top: 1.8rem; }
