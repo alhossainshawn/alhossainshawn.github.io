@@ -1980,3 +1980,12 @@ body.dark-mode .arch {
 .ganx .x-dk { fill: #1a1a2e; }
 .proj-card__img--sketch .ganx { max-width: none; width: 100%; height: 100%; }
 .ganx-thumb .x-th { font-size: 52px; font-weight: 700; }
+
+/* ── Result plots (white paper figures on cards) ── */
+.result-fig { margin: 1.25rem 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--bg-white); }
+.result-fig a { display: block; background: #ffffff; padding: 0.75rem; }
+.result-fig img { width: 100%; height: auto; display: block; }
+.result-fig figcaption { font-size: 0.8rem; color: var(--text-muted); padding: 0.55rem 0.8rem; border-top: 1px solid var(--border); line-height: 1.5; }
+.result-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+.result-pair .result-fig { margin: 0; }
+@media (max-width: 640px) { .result-pair { grid-template-columns: 1fr; } }
