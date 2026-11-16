@@ -2108,3 +2108,5 @@ body.dark-mode .arch {
 .about__list { margin: 0 0 1rem; padding-left: 1.2rem; line-height: 1.7; }
 .about__list li { margin-bottom: 0.4rem; }
 .about__list strong { color: var(--text-heading); }
+/* hero text runs the full width of the card */
+.hero .hero__name, .hero .hero__lede { max-width: none; }
