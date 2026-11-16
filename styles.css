@@ -2160,11 +2160,15 @@ body.dark-mode .arch {
 .research-grid .res-card__id { white-space: nowrap; font-size: 0.66rem; letter-spacing: -0.03em; }
 .research-grid .res-card__meta .badge { font-size: 0.62rem; padding: 0.15em 0.55em; flex-shrink: 0; }
 
-/* ── Active Research: thumbnail in the bottom-right corner ── */
-.res-card__foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 0.75rem; margin-top: auto; padding-top: 0.4rem; }
-.res-card__foot .res-card__link { margin-top: 0; }
-.res-card__thumb { width: 136px; aspect-ratio: 16 / 9; flex-shrink: 0; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: var(--bg-section-alt); }
+/* ── Active Research: description and tags beside a thumbnail ── */
+.res-card__row { display: grid; grid-template-columns: minmax(0, 1fr) 104px; gap: 0.75rem; align-items: start; }
+.res-card__text { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+.res-card__thumb { width: 100%; aspect-ratio: 1 / 1; margin-top: 0.2rem; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: var(--bg-section-alt); display: flex; align-items: center; justify-content: center; }
 .res-card__thumb svg { display: block; width: 100%; height: 100%; max-width: none; min-width: 0; }
 .res-card__thumb-img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .res-card__thumb-img--chip { object-fit: contain; background: #0b0d12; }
 .res-card__thumb-img--white { object-fit: contain; background: #ffffff; }
+.research-grid .res-card .res-card__link { margin-top: auto; padding-top: 0.3rem; }
+@media (max-width: 600px) { .res-card__row { grid-template-columns: minmax(0, 1fr) 120px; } }
+.research-grid .tags-row { gap: 0.3rem; }
+.research-grid .tag { font-size: 0.64rem; padding: 0.12em 0.45em; }
