@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=3.5" />
+  <link rel="stylesheet" href="../styles.css?v=3.6" />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
@@ -96,6 +96,67 @@
       <div class="prose">
         <h2 id="active">Active Research</h2>
         <div class="proj-grid" style="margin-top: 1.2rem;">
+          <a class="proj-card" href="../projects/gan-power-transistor.html">
+            <div class="proj-card__img proj-card__img--sketch">
+              <svg class="gan" viewBox="0 0 560 528" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              
+              <defs>
+                <marker id="gan-dom-ion" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="g-ion-head" /></marker>
+                <marker id="gan-dom-h" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="g-hole-head" /></marker>
+                <marker id="gan-dom-x" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="g-exit-head" /></marker>
+              </defs>
+              <rect class="g-top" x="60" y="81" width="436" height="144" />
+              <rect class="g-drift" x="60" y="244" width="436" height="173" />
+              <rect class="g-sub" x="60" y="417" width="436" height="65" />
+              <rect class="g-fin" x="240" y="81" width="76" height="163" />
+              <rect class="g-ox" x="220" y="108" width="20" height="109" />
+              <rect class="g-ox" x="316" y="108" width="19" height="109" />
+              <rect class="g-gate" x="147" y="108" width="73" height="109" rx="2" />
+              <rect class="g-gate" x="335" y="108" width="74" height="109" rx="2" />
+              <rect class="g-shield" x="60" y="225" width="180" height="19" />
+              <rect class="g-shield" x="316" y="225" width="180" height="19" />
+              <line class="g-tie" x1="68" y1="86" x2="68" y2="225" />
+              <rect class="g-metal" x="60" y="49" width="436" height="32" rx="2" />
+              <rect class="g-metal" x="60" y="482" width="436" height="33" rx="2" />
+              <text class="g-contact" x="148" y="71">Source</text>
+              <text class="g-contact" x="278" y="505" text-anchor="middle">Drain</text>
+              <text class="g-t" x="270" y="104" style="font-size:15px">fin</text>
+              <text class="g-t" x="190" y="163" text-anchor="middle" transform="rotate(-90 190 163)" dominant-baseline="middle">Gate</text>
+              <text class="g-t" x="372" y="163" text-anchor="middle" transform="rotate(-90 372 163)" dominant-baseline="middle">Gate</text>
+              <text class="g-t" x="164" y="361" text-anchor="middle">GaN drift region</text>
+              <text class="g-t g-small" x="164" y="381" text-anchor="middle">(blocks the high voltage)</text>
+              <text class="g-t" x="169" y="455" text-anchor="middle">GaN substrate</text>
+              <line class="g-hole" x1="259" y1="305" x2="259" y2="112" marker-end="url(#gan-dom-h)" />
+              <path class="g-exit" d="M312,306 Q350,246 428,245" marker-end="url(#gan-dom-x)" />
+              <text class="g-label" x="390" y="306">second exit</text>
+              <text class="g-label" x="390" y="325">for the charge</text>
+              <line class="g-lead" x1="131" y1="237" x2="131" y2="258" />
+              <text class="g-label g-bold" x="14" y="276">Buried p-type shield</text>
+              <text class="g-label g-bold" x="14" y="296">(connected to the source)</text>
+              <line class="g-ion" x1="297" y1="13" x2="297" y2="398" marker-end="url(#gan-dom-ion)" />
+              <text class="g-ion-t" x="306" y="30">heavy ion</text>
+              
+            </svg>
+            </div>
+            <div class="proj-card__body">
+              <div class="proj-card__meta">
+                <span class="proj-card__id">R-06</span>
+                <span class="badge badge--green">Ongoing</span>
+              </div>
+              <h3>Space-Hardened GaN <em>Transistor</em></h3>
+              <div class="proj-card__role">Lead Researcher</div>
+              <p class="proj-card__desc">Designing a kilovolt-class vertical GaN transistor that can survive heavy-ion strikes in spacecraft power systems.</p>
+              <div class="tags-row">
+                <span class="tag">GaN</span>
+                <span class="tag">Radiation hardening</span>
+                <span class="tag">Silvaco TCAD</span>
+              </div>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__period">Ongoing</span>
+              <span class="proj-card__link">Open →</span>
+            </div>
+          </a>
           <a class="proj-card" href="../projects/mbcfet.html">
             <img class="proj-card__img" src="../assets/projects/mbcfet/device_stucture_3d.png" alt="MBCFET 3D Device Structure" />
             <div class="proj-card__body">

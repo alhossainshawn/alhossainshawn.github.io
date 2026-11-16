@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Space-Hardened Vertical GaN Power Transistor | Al Hossain Shawn</title>
+  <meta name="description" content="Designing a kilovolt-class vertical GaN transistor that can survive heavy-ion strikes in spacecraft power systems." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css?v=3.6" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <script>try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.body.classList.add('dark-mode');}catch(e){}</script>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#expertise" class="active">Research</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav__drawer">
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <div class="mobile-nav__title">Al Hossain Shawn</div>
+      <hr class="mobile-nav__divider" />
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#expertise">Research</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#publications">Publications</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+
+  <div class="subpage-layout">
+    <aside class="subpage-sidebar">
+      <a class="back-link" href="../domains/dom-device-physics.html">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        Semiconductor Device Physics
+      </a>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">On this page</div>
+      <nav class="subpage-nav">
+        <a href="#concept">Concept</a>
+        <a href="#overview">Overview</a>
+        <a href="#scope">What It Covers</a>
+        <a href="#publications">Publications</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="sidebar__section-title">Project</div>
+      <div class="sidebar__tags">
+        <span class="sidebar__tag">R-06</span>
+        <span class="sidebar__tag">GaN</span>
+        <span class="sidebar__tag">Power devices</span>
+        <span class="sidebar__tag">Radiation hardening</span>
+        <span class="sidebar__tag">Space electronics</span>
+        <span class="sidebar__tag">Silvaco TCAD</span>
+      </div>
+    </aside>
+
+    <main class="subpage-content" id="main-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="../domains/dom-device-physics.html">Semiconductor Device Physics</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>Space-Hardened GaN Transistor</span>
+      </div>
+
+      <div class="subpage-header">
+        <div class="tags-row" style="margin-bottom: 0.75rem;">
+          <span class="badge badge--green">Ongoing</span>
+          <span class="tag">R-06</span>
+          <span class="tag">GaN</span>
+          <span class="tag">Radiation hardening</span>
+        </div>
+        <h1>Space-Hardened Vertical GaN <em>Power Transistor</em></h1>
+        <div class="subpage-meta">
+          <span>Lead Researcher</span>
+          <span>BRAC University, Dhaka</span>
+          <span>Silvaco TCAD</span>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p class="asic-lede">Designing a kilovolt-class vertical GaN transistor that can survive heavy-ion strikes in spacecraft power systems.</p>
+
+        <figure class="gan-figure" id="concept">
+          <div class="gan-figure__body">
+            <svg class="gan" viewBox="0 0 560 528" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="gan-page-t gan-page-d">
+              <title id="gan-page-t">Concept sketch of the space-hardened vertical GaN transistor</title><desc id="gan-page-d">Simplified cross-section of a vertical GaN fin transistor with gates on both sides of the fin, a buried p-type shield below the gates, and an arrow showing a heavy-ion track with charge flowing into the shield.</desc>
+              <defs>
+                <marker id="gan-page-ion" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="g-ion-head" /></marker>
+                <marker id="gan-page-h" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="g-hole-head" /></marker>
+                <marker id="gan-page-x" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="g-exit-head" /></marker>
+              </defs>
+              <rect class="g-top" x="60" y="81" width="436" height="144" />
+              <rect class="g-drift" x="60" y="244" width="436" height="173" />
+              <rect class="g-sub" x="60" y="417" width="436" height="65" />
+              <rect class="g-fin" x="240" y="81" width="76" height="163" />
+              <rect class="g-ox" x="220" y="108" width="20" height="109" />
+              <rect class="g-ox" x="316" y="108" width="19" height="109" />
+              <rect class="g-gate" x="147" y="108" width="73" height="109" rx="2" />
+              <rect class="g-gate" x="335" y="108" width="74" height="109" rx="2" />
+              <rect class="g-shield" x="60" y="225" width="180" height="19" />
+              <rect class="g-shield" x="316" y="225" width="180" height="19" />
+              <line class="g-tie" x1="68" y1="86" x2="68" y2="225" />
+              <rect class="g-metal" x="60" y="49" width="436" height="32" rx="2" />
+              <rect class="g-metal" x="60" y="482" width="436" height="33" rx="2" />
+              <text class="g-contact" x="148" y="71">Source</text>
+              <text class="g-contact" x="278" y="505" text-anchor="middle">Drain</text>
+              <text class="g-t" x="270" y="104" style="font-size:15px">fin</text>
+              <text class="g-t" x="190" y="163" text-anchor="middle" transform="rotate(-90 190 163)" dominant-baseline="middle">Gate</text>
+              <text class="g-t" x="372" y="163" text-anchor="middle" transform="rotate(-90 372 163)" dominant-baseline="middle">Gate</text>
+              <text class="g-t" x="164" y="361" text-anchor="middle">GaN drift region</text>
+              <text class="g-t g-small" x="164" y="381" text-anchor="middle">(blocks the high voltage)</text>
+              <text class="g-t" x="169" y="455" text-anchor="middle">GaN substrate</text>
+              <line class="g-hole" x1="259" y1="305" x2="259" y2="112" marker-end="url(#gan-page-h)" />
+              <path class="g-exit" d="M312,306 Q350,246 428,245" marker-end="url(#gan-page-x)" />
+              <text class="g-label" x="390" y="306">second exit</text>
+              <text class="g-label" x="390" y="325">for the charge</text>
+              <line class="g-lead" x1="131" y1="237" x2="131" y2="258" />
+              <text class="g-label g-bold" x="14" y="276">Buried p-type shield</text>
+              <text class="g-label g-bold" x="14" y="296">(connected to the source)</text>
+              <line class="g-ion" x1="297" y1="13" x2="297" y2="398" marker-end="url(#gan-page-ion)" />
+              <text class="g-ion-t" x="306" y="30">heavy ion</text>
+            </svg>
+          </div>
+          <figcaption>Concept: a buried p-type shield, connected to the source, gives charge created by a heavy ion a second exit. Conceptual sketch, not to scale.</figcaption>
+        </figure>
+
+        <h2 id="overview">Overview</h2>
+        <p>Power converters in orbit need high-voltage transistors that survive cosmic-ray heavy ions, accumulated radiation dose and extreme temperatures. Gallium nitride (GaN) offers excellent power performance, but high-voltage GaN devices remain vulnerable to destructive single-event burnout. In this project I am designing a vertical GaN fin transistor with a buried p-type shield that gives ion-generated charge a second exit, and evaluating it with calibrated device simulation (Silvaco TCAD) under heavy-ion, total-dose and temperature conditions.</p>
+
+        <h2 id="scope">What It Covers</h2>
+        <ul>
+          <li>A new device concept: a buried, source-connected p-type shield inside a vertical GaN fin transistor.</li>
+          <li>Simulation calibrated against a fabricated kilovolt-class GaN transistor and published heavy-ion burnout data.</li>
+          <li>Evaluation under the three space stresses: heavy-ion strikes, total ionizing dose and wide temperature range.</li>
+          <li>Results submitted to IEEE EDTM 2027; a full journal article is in preparation.</li>
+        </ul>
+
+        <p class="asic-note"><strong>Status:</strong> Ongoing. Conference paper submitted (IEEE EDTM 2027); journal article in preparation. Detailed results will be added after publication.</p>
+
+        <h2 id="publications">Publications</h2>
+        <ol>
+          <li>A. H. Shawn and T. Titirsha. Conference paper on a space-hardened vertical GaN fin transistor, <em>IEEE Electron Devices Technology and Manufacturing Conference (EDTM 2027)</em>. <strong>Submitted, October 2026.</strong></li>
+          <li>A. H. Shawn et al. Journal article on the same device. <strong>In preparation.</strong></li>
+        </ol>
+      </div>
+
+      <nav class="page-pager" aria-label="Project navigation">
+        <a class="page-pager__link" href="../index.html#projects">
+          <span>← Back to</span>
+          <span class="page-pager__title">All Projects</span>
+        </a>
+        <a class="page-pager__link page-pager__link--next" href="asic.html">
+          <span>Next →</span>
+          <span class="page-pager__title">SQA ASIC Chips</span>
+        </a>
+      </nav>
+    </main>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2026 Al Hossain Shawn &nbsp;·&nbsp; <a href="../index.html">Portfolio</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+  <script src="../interactive.js" defer></script>
+</body>
+</html>
