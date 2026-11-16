@@ -55,7 +55,6 @@
       <div class="subpage-nav-title">On this page</div>
       <nav class="subpage-nav">
         <a href="#overview">Overview</a>
-        <a href="#subareas">Sub-areas</a>
         <a href="#asic">ASIC Designs</a>
         <a href="#active">Active Threads</a>
         <a href="#toolchain">Toolchain</a>
@@ -100,21 +99,11 @@
       </div>
 
       <div class="prose">
-        <p>Turning compute architectures into <em>silicon</em> through RTL design, functional verification, and PPA-driven exploration across the full Cadence, Vivado, and Synopsys flow.</p>
 
         <h2 id="overview">Overview</h2>
         <p>A clean compute idea is only worth as much as the chip it ends up on. VLSI is the discipline of dragging a high-level architecture through every stage, including RTL, simulation, synthesis, and place-and-route, without losing what made it interesting in the first place.</p>
         <p>The work here treats <em>power</em>, <em>performance</em>, and <em>area</em> as design variables, not afterthoughts: arithmetic units reshaped to match precision budgets, datapaths balanced for timing, and every micro-architectural choice justified against the PPA frontier.</p>
 
-        <h2 id="subareas">Sub-areas</h2>
-        <ul>
-          <li><strong>RTL Design (SUB-01)</strong>: Synthesizable Verilog / SystemVerilog for arithmetic blocks, pipelines, and control state machines.</li>
-          <li><strong>Functional Verification (SUB-02)</strong>: Directed and constrained-random testbenches, golden-reference comparisons, and assertion-based checks.</li>
-          <li><strong>Architecture Optimisation (SUB-03)</strong>: PPA-driven trade studies across pipeline depth, parallelism, and precision to find the right operating point per workload.</li>
-          <li><strong>Low-Power Design (SUB-04)</strong>: Clock-gating, operand isolation, and precision-adaptive datapaths for energy-constrained inference.</li>
-          <li><strong>Flow Integration (SUB-05)</strong>: End-to-end Cadence / Vivado / Synopsys flow from RTL through synthesis to gate-level signoff.</li>
-          <li><strong>Arithmetic Units (SUB-06)</strong>: Custom adders, multipliers, and approximate primitives, which are the building blocks behind every accelerator.</li>
-        </ul>
 
         <h2 id="asic">ASIC Designs</h2>
         <p>Five chips built around the SQA-Arc accelerator and taken from RTL to signed-off layout on the GPDK045 45 nm PDK in Cadence tools (academic practice designs, not fabricated). See the <a href="../projects/asic.html">SQA-Arc ASIC Chips</a> overview.</p>
