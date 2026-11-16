@@ -25,7 +25,7 @@
   <meta property="og:image:alt" content="Portrait of Al Hossain Shawn" />
   <meta name="twitter:card" content="summary" />
 
-  <link rel="stylesheet" href="styles.css?v=3.11" />
+  <link rel="stylesheet" href="styles.css?v=3.12" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 
 </head>
@@ -141,14 +141,11 @@
            ================================================ -->
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero__content">
-          <h1 class="hero__name" id="hero-title" style="font-size: 2.2rem; font-family: var(--font-heading); font-weight: 600;">
-            Semiconductor Device Physics &amp; Reconfigurable Hardware Systems
-          </h1>
-          <p class="hero__tagline" style="margin-top: 1rem; max-width: 700px;">
-            Simulating the transistors that don't exist yet, and building with the ones that do.
-          </p>
-          <div class="hero__ctas" style="margin-top: 1.5rem;">
-            <a href="#expertise" class="btn btn--primary">Explore Research</a>
+          <h1 class="hero__name" id="hero-title">Neuromorphic and Edge AI Hardware, from Transistors to Systems</h1>
+          <p class="hero__lede">45 nm ASICs taken through the full tape-out sign-off flow to GDSII, accelerators that run on FPGA, and transistor modeling in TCAD.</p>
+          <div class="hero__ctas">
+            <a href="#research" class="btn btn--primary">Active Research</a>
+            <a href="#expertise" class="btn btn--outline-white">Research &amp; Engineering Domains</a>
             <a href="#projects" class="btn btn--outline-white">Engineered Artifacts</a>
           </div>
         </div>
@@ -162,10 +159,22 @@
           <h2 id="h-about">About</h2>
         </div>
         <p class="about__bio">
-          I am a researcher at <em>BRAC University</em> working at the intersection of semiconductor device physics and hardware-efficient compute architectures. My current research focuses on simulating sub-5&nbsp;nm multi-bridge-channel transistors (MBCFETs) using Silvaco TCAD, alongside designing reconfigurable, hardware-efficient neural accelerators on FPGA fabric using Vitis HLS.
+          I am a Research Assistant in the Department of EEE at BRAC University, Dhaka, supervised by Dr. Twisha Titirsha. I completed my B.Sc. in Electrical and Electronic Engineering in the same department in 2026.
         </p>
         <p class="about__bio">
-          In addition to device modeling and digital design, I have a strong foundation in aerospace and embedded systems, having previously led the avionics and ground station engineering for a 3U CubeSat mission and developed locomotion and autonomy pipelines for robotic platforms.
+          A neural network is mostly multiply and add. I work on making that operation cheap in three places:
+        </p>
+        <ul class="about__list">
+          <li><strong>In 45 nm layout.</strong> <a href="projects/asic.html">Five chip designs</a> taken from RTL through the full tape-out sign-off flow in Cadence (DRC, LVS, SI timing, IR and EM) to GDSII, up to a full SoC with a RISC-V CPU, the accelerator and 4 MB of on-chip SRAM. Academic designs on a generic 45 nm PDK, not fabricated.</li>
+          <li><strong>In FPGA logic.</strong> <a href="projects/mosaic.html">MOSAIC</a> runs a 15.2 M-MAC cough-detection network on 9 hardware multipliers, with all 90 KiB of weights in on-chip ROM: 9.73 ms per inference in simulation, 93.08 % accuracy.</li>
+          <li><strong>In one transistor.</strong> A <a href="projects/mbcfet-fefet.html">ferroelectric nanosheet transistor</a> that multiplies three inputs by stored weights and adds them in a single read, with the sum within 0.2 % in TCAD simulation.</li>
+        </ul>
+        <p class="about__bio">My device work is transistor modeling in Silvaco Atlas, in 2D and 3D: <a href="projects/mbcfet.html">gate-all-around nanosheet FETs</a> for sub-5&nbsp;nm logic, the ferroelectric nanosheet transistor above, and a <a href="projects/gan-power-transistor.html">space-hardened vertical GaN power transistor</a> for spacecraft power converters, simulated under heavy-ion strikes, total dose and temperature (submitted to IEEE EDTM 2027). The ferroelectric and GaN models are calibrated against published measured devices.</p>
+        <p class="about__bio">
+          I started in aerospace and embedded systems. I led the BD-BRACU Mavericks team on a <a href="projects/cubesat.html">3U CubeSat</a> (2nd Runner-Up, APSCO Satellite Expedition Contest 2024), was a payload engineer on the <a href="projects/birds-x.html">BIRDS-X APRS payload</a> (Phase 1 winner, 2023), and built an <a href="projects/aerial-survey.html">autonomous aerial survey drone</a> as my final-year design project. In 2025 I chaired the IEEE Aerospace and Electronic Systems Society branch at BRAC University. I also hold an amateur radio licence, and I completed an industrial attachment at Neural Semiconductor working with the Cadence tools.
+        </p>
+        <p class="about__bio">
+          I am open to PhD positions in hardware for AI, emerging memory devices and neuromorphic computing.
         </p>
 
         <div style="margin-top: 2rem;">
@@ -176,7 +185,7 @@
             <div class="edu-item">
               <div class="edu-year">2022–2026</div>
               <div>
-                <div class="edu-degree">B.Sc. in Electrical and Electronics Engineering</div>
+                <div class="edu-degree">Bachelor of Science in Electrical and Electronic Engineering</div>
                 <div class="edu-institute">BRAC University, Dhaka</div>
               </div>
             </div>
@@ -214,7 +223,7 @@
           <div>
             <div class="cr-badge">Currently Active</div>
             <h3 class="cr-title">Research Assistant</h3>
-            <div class="cr-org">BRAC University, Dept. of Electrical and Electronics Engineering</div>
+            <div class="cr-org">BRAC University, Dept. of Electrical and Electronic Engineering</div>
             <p class="cr-detail">
               Leading seven ongoing research projects: MBCFET-FeFET, a ferroelectric nanosheet transistor for multi-bit memory and
               in-memory computing; a space-hardened vertical GaN power transistor in Silvaco TCAD; SQA ASIC
