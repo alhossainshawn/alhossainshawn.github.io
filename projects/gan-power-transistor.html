@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=3.25" />
+  <link rel="stylesheet" href="../styles.css?v=3.26" />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
@@ -54,10 +54,9 @@
       <hr class="sidebar__divider" />
       <div class="subpage-nav-title">On this page</div>
       <nav class="subpage-nav">
-        <a href="#concept">Device Structure</a>
         <a href="#overview">Overview</a>
         <a href="#scope">What It Covers</a>
-        <a href="#results">Selected Results</a>
+        <a href="#results">Device and Results</a>
         <a href="#publications">Publications</a>
       </nav>
       <hr class="sidebar__divider" />
@@ -100,40 +99,38 @@
       <div class="prose">
         <p class="asic-lede">Designing a kilovolt-class vertical GaN transistor that can survive heavy-ion strikes in satellite power systems.</p>
 
-        <figure class="gan-figure" id="concept">
-          <div class="gan-figure__body">
-            <svg class="ganx" viewBox="40 165 1120 1560" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="gan-page-t gan-page-d"><title id="gan-page-t">Cross-section of the space-hardened vertical GaN fin transistor</title><desc id="gan-page-d">A vertical GaN fin with an n-plus cap at the top, wrapped on both sides by the gate and gate dielectric inside a passivation layer, under the source contact. Below the gates, a buried p-GaN shield, tied to the source at the cell edges, leaves an aperture under the fin. Below are the n-minus drift region (shown broken), an n-GaN layer, the n-plus substrate and the drain. Not to scale.</desc><defs><marker id="gan-page-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="x-aperture-head" /></marker></defs><rect class="x-pass" x="66" y="215" width="1068" height="647" /><polygon class="x-diel" points="375,297 450,297 450,755 350,755 350,835 66,835 66,792 294,792 294,712 375,712" /><polygon class="x-diel" points="825,297 750,297 750,755 850,755 850,835 1134,835 1134,792 906,792 906,712 825,712" /><polygon class="x-gate" points="270,377 375,377 375,712 294,712 294,792 66,792 66,728 204,728 204,647 270,647" /><polygon class="x-gate" points="930,377 825,377 825,712 906,712 906,792 1134,792 1134,728 996,728 996,647 930,647" /><polygon class="x-metal" points="105,215 450,215 450,297 160,297 160,565 66,565 66,522 105,522" /><polygon class="x-metal" points="1095,215 750,215 750,297 1040,297 1040,565 1134,565 1134,522 1095,522" /><rect class="x-metal" x="450" y="190" width="300" height="25" /><rect class="x-cap" x="450" y="215" width="300" height="162" /><rect class="x-fin" x="450" y="377" width="300" height="478" /><rect class="x-drift" x="66" y="855" width="1068" height="300" /><rect class="x-shield" x="66" y="862" width="346" height="52" /><rect class="x-shield" x="788" y="862" width="346" height="52" /><rect class="x-tie" x="66" y="870" width="28" height="38" /><rect class="x-tie" x="1106" y="870" width="28" height="38" /><rect class="x-break" x="50" y="1155" width="1100" height="50" /><path class="x-zig" d="M66,1154 L86.0,1178 L106.0,1154 L126.0,1178 L146.0,1154 L166.0,1178 L186.0,1154 L206.0,1178 L226.0,1154 L246.0,1178 L266.0,1154 L286.0,1178 L306.0,1154 L326.0,1178 L346.0,1154 L366.0,1178 L386.0,1154 L406.0,1178 L426.0,1154 L446.0,1178 L466.0,1154 L486.0,1178 L506.0,1154 L526.0,1178 L546.0,1154 L566.0,1178 L586.0,1154 L606.0,1178 L626.0,1154 L646.0,1178 L666.0,1154 L686.0,1178 L706.0,1154 L726.0,1178 L746.0,1154 L766.0,1178 L786.0,1154 L806.0,1178 L826.0,1154 L846.0,1178 L866.0,1154 L886.0,1178 L906.0,1154 L926.0,1178 L946.0,1154 L966.0,1178 L986.0,1154 L1006.0,1178 L1026.0,1154 L1046.0,1178 L1066.0,1154 L1086.0,1178 L1106.0,1154 L1126.0,1178" /><path class="x-zig" d="M66,1182 L86.0,1206 L106.0,1182 L126.0,1206 L146.0,1182 L166.0,1206 L186.0,1182 L206.0,1206 L226.0,1182 L246.0,1206 L266.0,1182 L286.0,1206 L306.0,1182 L326.0,1206 L346.0,1182 L366.0,1206 L386.0,1182 L406.0,1206 L426.0,1182 L446.0,1206 L466.0,1182 L486.0,1206 L506.0,1182 L526.0,1206 L546.0,1182 L566.0,1206 L586.0,1182 L606.0,1206 L626.0,1182 L646.0,1206 L666.0,1182 L686.0,1206 L706.0,1182 L726.0,1206 L746.0,1182 L766.0,1206 L786.0,1182 L806.0,1206 L826.0,1182 L846.0,1206 L866.0,1182 L886.0,1206 L906.0,1182 L926.0,1206 L946.0,1182 L966.0,1206 L986.0,1182 L1006.0,1206 L1026.0,1182 L1046.0,1206 L1066.0,1182 L1086.0,1206 L1106.0,1182 L1126.0,1206" /><rect class="x-drift" x="66" y="1205" width="1068" height="160" /><rect class="x-ngan" x="66" y="1365" width="1068" height="132" /><rect class="x-cap" x="66" y="1497" width="1068" height="133" /><rect class="x-metal" x="66" y="1630" width="1068" height="75" /><line class="x-aperture" x1="424" y1="886" x2="776" y2="886" marker-start="url(#gan-page-a)" marker-end="url(#gan-page-a)" /><text class="x-lt" x="130" y="268">Source</text><text class="x-lt" x="600" y="306" text-anchor="middle">n⁺ cap</text><text class="x-dk" x="600" y="620" text-anchor="middle" transform="rotate(-90 600 620)" dominant-baseline="middle">n⁻ GaN fin</text><text class="x-dk x-sm" x="322" y="545" text-anchor="middle" transform="rotate(-90 322 545)" dominant-baseline="middle">Gate</text><text class="x-lt x-xs" x="412" y="525" text-anchor="middle" transform="rotate(-90 412 525)" dominant-baseline="middle">Gate dielectric</text><text class="x-lt x-sm" x="215" y="460" text-anchor="middle" transform="rotate(-90 215 460)" dominant-baseline="middle">Passivation</text><text class="x-dk" x="600" y="985" text-anchor="middle">p-GaN shield (source-tied)</text><text class="x-dk x-sm" x="600" y="1040" text-anchor="middle">aperture under the fin</text><text class="x-dk" x="600" y="1300" text-anchor="middle">n⁻ drift region</text><text class="x-dk" x="600" y="1446" text-anchor="middle">n-GaN</text><text class="x-lt" x="600" y="1578" text-anchor="middle">n⁺ substrate</text><text class="x-dk" x="600" y="1682" text-anchor="middle">Drain</text></svg>
-          </div>
-          <figcaption>Cross-section of the vertical GaN fin transistor: a buried p-GaN shield, tied to the source, sits below the gates and leaves an aperture under the fin. Not to scale; dimensions and doping are withheld until publication.</figcaption>
-        </figure>
 
         <h2 id="overview">Overview</h2>
-        <p>Power converters in orbit need high-voltage transistors that survive cosmic-ray heavy ions, accumulated radiation dose and extreme temperatures. Gallium nitride (GaN) offers excellent power performance, but high-voltage GaN devices remain vulnerable to destructive single-event burnout. In this project I am designing a vertical GaN fin transistor with a buried p-type shield that gives ion-generated charge a second exit, and evaluating it with calibrated device simulation (Silvaco TCAD) under heavy-ion, total-dose and temperature conditions.</p>
+        <p>Power converters in orbit need high-voltage transistors that survive cosmic-ray heavy ions, accumulated radiation dose and extreme temperatures. Gallium nitride (GaN) offers excellent power performance, but high-voltage GaN devices remain vulnerable to destructive single-event burnout. In this project I am designing a vertical GaN power transistor with a new radiation-hardening structure against single-event burnout, and evaluating it with calibrated device simulation (Silvaco TCAD) under heavy-ion, total-dose and temperature conditions.</p>
 
         <h2 id="scope">What It Covers</h2>
         <ul>
-          <li>A new device concept: a buried, source-connected p-type shield inside a vertical GaN fin transistor.</li>
+          <li>A new radiation-hardening structure for vertical GaN power transistors (details withheld until publication).</li>
           <li>Simulation calibrated against a fabricated kilovolt-class GaN transistor and published heavy-ion burnout data.</li>
           <li>Evaluation under the three space stresses: heavy-ion strikes, total ionizing dose and wide temperature range.</li>
           <li>Results submitted to IEEE EDTM 2027; a full journal article is in preparation.</li>
         </ul>
 
-        <h2 id="results">Selected Results</h2>
-        <p>A selection of the simulation results (Silvaco TCAD). The full set is in the submitted paper.</p>
-        <div class="result-row">
-          <figure class="result-card"><a href="../assets/projects/gan/02b_transfer.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/02b_transfer.webp" alt="Transfer characteristic of the shielded GaN fin transistor on a log scale" loading="lazy" /></a><figcaption>Transfer characteristic: a sharp turn-on from off to on.</figcaption></figure>
-          <figure class="result-card"><a href="../assets/projects/gan/02c_output.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/02c_output.webp" alt="Output characteristics of the shielded GaN fin transistor" loading="lazy" /></a><figcaption>Output characteristics: clean current saturation.</figcaption></figure>
-          <figure class="result-card"><a href="../assets/projects/gan/03_on_resistance.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/03_on_resistance.webp" alt="Specific on-resistance falling as the gate voltage increases" loading="lazy" /></a><figcaption>Specific on-resistance against gate voltage: it falls with stronger gate drive and levels off.</figcaption></figure>
-          <figure class="result-card"><a href="../assets/projects/gan/04_hole_charge_split.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/04_hole_charge_split.webp" alt="Hole charge collected over time by the source and the shield, compared with the source of the reference device" loading="lazy" /></a><figcaption>After a heavy-ion strike, the shield takes up a large share of the hole charge, so far less reaches the source than in the reference device.</figcaption></figure>
-          <figure class="result-card"><a href="../assets/projects/gan/06a_vth_gm_temperature.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/06a_vth_gm_temperature.webp" alt="Threshold voltage and peak transconductance across temperature" loading="lazy" /></a><figcaption>Threshold voltage and peak transconductance across temperature; the shaded band marks the military temperature range.</figcaption></figure>
-          <figure class="result-card"><a href="../assets/projects/gan/06b_ss_current_temperature.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/06b_ss_current_temperature.webp" alt="Subthreshold swing and current across temperature" loading="lazy" /></a><figcaption>Subthreshold swing and current across temperature.</figcaption></figure>
+        <h2 id="results">Device and Selected Results</h2>
+        <div class="gan-split">
+          <figure class="gan-figure" id="concept">
+            <div class="gan-figure__body">
+              <svg class="ganx" viewBox="20 20 1160 1120" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="gan-page-t gan-page-d"><title id="gan-page-t">Generic cross-section of the vertical GaN power transistor</title><desc id="gan-page-d">Source on top, gates on both sides of the channel, a radiation-hardening region whose design is withheld until publication, then the n-minus GaN drift region, the n-plus GaN substrate and the drain at the bottom. Not to scale.</desc><defs><pattern id="gan-hatch-page" width="36" height="36" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="36" height="36" fill="#1c2a52" /><rect width="14" height="36" fill="#2f5bd3" /></pattern></defs><rect class="x-metal" x="60" y="40" width="1080" height="90" /><rect class="x-gate" x="60" y="130" width="330" height="150" /><rect class="x-drift" x="390" y="130" width="420" height="150" /><rect class="x-gate" x="810" y="130" width="330" height="150" /><rect x="60" y="280" width="1080" height="250" fill="url(#gan-hatch-page)" /><rect class="x-hide-edge" x="60" y="280" width="1080" height="250" /><rect class="x-drift" x="60" y="530" width="1080" height="330" /><rect class="x-cap" x="60" y="860" width="1080" height="170" /><rect class="x-metal" x="60" y="1030" width="1080" height="90" /><text class="x-dk" x="600" y="100" text-anchor="middle">Source</text><text class="x-dk" x="225" y="220" text-anchor="middle">Gate</text><text class="x-dk x-sm" x="600" y="218" text-anchor="middle">Channel</text><text class="x-dk" x="975" y="220" text-anchor="middle">Gate</text><text class="x-lt x-box" x="600" y="395" text-anchor="middle">Radiation-hardening structure</text><text class="x-lt x-box x-sm" x="600" y="455" text-anchor="middle">(withheld until publication)</text><text class="x-dk" x="600" y="710" text-anchor="middle">n⁻ GaN drift region</text><text class="x-lt" x="600" y="960" text-anchor="middle">n⁺ GaN substrate</text><text class="x-dk" x="600" y="1090" text-anchor="middle">Drain</text></svg>
+            </div>
+            <figcaption>Generic cross-section of the vertical GaN power transistor. The radiation-hardening structure, dimensions and doping are withheld until publication. Not to scale.</figcaption>
+          </figure>
+          <div class="gan-split__results">
+            <figure class="result-card"><a href="../assets/projects/gan/02b_transfer.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/02b_transfer.webp" alt="Transfer characteristic of the GaN power transistor on a log scale" loading="lazy" /></a><figcaption>Transfer characteristic (I–V): a sharp turn-on from off to on.</figcaption></figure>
+            <figure class="result-card"><a href="../assets/projects/gan/06a_vth_gm_temperature.webp" target="_blank" rel="noopener"><img src="../assets/projects/gan/06a_vth_gm_temperature.webp" alt="Threshold voltage and peak transconductance across temperature" loading="lazy" /></a><figcaption>Threshold voltage and peak transconductance across temperature; the shaded band marks the military temperature range.</figcaption></figure>
+          </div>
         </div>
+        <p>Simulation results from Silvaco TCAD. The full set is in the submitted paper.</p>
 
         <p class="asic-note"><strong>Status:</strong> Ongoing. Conference paper submitted (IEEE EDTM 2027); journal article in preparation. More results will be added after publication.</p>
 
         <h2 id="publications">Publications</h2>
         <ol>
-          <li>A. H. Shawn and T. Titirsha. Conference paper on a space-hardened vertical GaN fin transistor, <em>IEEE Electron Devices Technology and Manufacturing Conference (EDTM 2027)</em>. <strong>Submitted, October 2026.</strong></li>
+          <li>A. H. Shawn and T. Titirsha. Conference paper on a space-hardened vertical GaN power transistor, <em>IEEE Electron Devices Technology and Manufacturing Conference (EDTM 2027)</em>. <strong>Submitted, October 2026.</strong></li>
           <li>A. H. Shawn et al. Journal article on the same device. <strong>In preparation.</strong></li>
         </ol>
       </div>
