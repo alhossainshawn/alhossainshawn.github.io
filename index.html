@@ -25,7 +25,7 @@
   <meta property="og:image:alt" content="Portrait of Al Hossain Shawn" />
   <meta name="twitter:card" content="summary" />
 
-  <link rel="stylesheet" href="styles.css?v=3.18" />
+  <link rel="stylesheet" href="styles.css?v=3.19" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 
 </head>
@@ -193,16 +193,87 @@
       <section class="section reveal" id="research" aria-labelledby="h-research">
         <div class="section-header">
           <h2 id="h-research">Active <em>Research</em></h2>
-          <p>Seven open threads: a ferroelectric nanosheet transistor for multi-bit memory and in-memory computing, a space-hardened vertical GaN power transistor, 45 nm ASIC chips signed off in Cadence, a multimodal edge-AI SoC, a quantization framework
-            and FPGA accelerator for edge AI, a hybrid LUT / logarithmic neural accelerator, and a TCAD study of multi-bridge-channel devices for sub-5&nbsp;nm logic.</p>
+          <p>Six ongoing projects, from 45&nbsp;nm chips and FPGA accelerators to new transistors, and one earlier accelerator that grew into SQA-Arc.</p>
         </div>
         <div class="research-grid">
-          <a class="res-card" href="projects/mbcfet-fefet.html">
+          <a class="res-card" href="projects/asic.html">
             <div class="res-card__meta">
-              <span class="res-card__id">R-07 · 2026</span>
+              <span class="res-card__id">R-05 · Oct 2026 – Present</span>
               <span class="badge badge--green">Ongoing</span>
             </div>
-            <h3>MBCFET-<em>FeFET</em></h3>
+            <span class="res-card__short">SQA-Arc ASIC</span>
+            <h3>SQA-Arc Accelerator ASIC Chip and Its <em>Versions</em></h3>
+            <p class="res-card__summary">
+              Five 45 nm chip designs built around the SQA-Arc accelerator, taken from RTL to signed-off layout in Cadence tools (not fabricated).
+            </p>
+            <ul class="res-card__bullets">
+              <li>Accelerator core, three accelerator chips, a RISC-V controller.</li>
+              <li>DRC / LVS clean, 0 timing violators, IR and EM signed off.</li>
+              <li>My own SRAM macro models and a Spectre-simulated SRAM column.</li>
+            </ul>
+            <div class="tags-row">
+              <span class="tag">ASIC</span>
+              <span class="tag">GPDK045</span>
+              <span class="tag">Innovus</span>
+              <span class="tag">Tempus</span>
+            </div>
+            <span class="res-card__link">Read more →</span>
+          </a>
+
+          <a class="res-card" href="projects/sqa-arc.html">
+            <div class="res-card__meta">
+              <span class="res-card__id">R-03 · Apr 2026 – Present</span>
+              <span class="badge badge--green">Ongoing</span>
+            </div>
+            <span class="res-card__short">SQA-Arc</span>
+            <h3>Sensitivity-Driven Quantized FPGA <em>Accelerator</em></h3>
+            <p class="res-card__summary">
+              Sensitivity-driven quantization into ternary and 4-bit engines, built as an FPGA accelerator that runs ten networks from one bitstream.
+            </p>
+            <ul class="res-card__bullets">
+              <li>Fisher-information sensitivity assigns each layer to a ternary or a 4-bit engine.</li>
+              <li>100 MHz in 15.58% of an Artix-7 XC7A200T; no DSP block computes a weight-activation product.</li>
+              <li>EfficientNet-B0 runs on the board with a live HDMI dashboard.</li>
+            </ul>
+            <div class="tags-row">
+              <span class="tag">FPGA</span>
+              <span class="tag">Quantization</span>
+              <span class="tag">Ternary</span>
+              <span class="tag">Edge AI</span>
+            </div>
+            <span class="res-card__link">Read more →</span>
+          </a>
+
+          <a class="res-card" href="projects/mosaic.html">
+            <div class="res-card__meta">
+              <span class="res-card__id">R-04 · Aug 2026 – Present</span>
+              <span class="badge badge--green">Ongoing</span>
+            </div>
+            <span class="res-card__short">MOSAIC</span>
+            <h3>Multimodal Edge-AI <em>SoC</em></h3>
+            <p class="res-card__summary">
+              A RISC-V host and a ternary / int4 accelerator that detects coughs from audio and motion.
+            </p>
+            <ul class="res-card__bullets">
+              <li>9.73 ms per inference on 9 hardware multipliers.</li>
+              <li>93.08% accuracy, bit-exact to the reference model.</li>
+              <li>All 90 KiB of weights in on-chip ROM.</li>
+            </ul>
+            <div class="tags-row">
+              <span class="tag">SoC</span>
+              <span class="tag">RISC-V</span>
+              <span class="tag">Multimodal</span>
+            </div>
+            <span class="res-card__link">Read more →</span>
+          </a>
+
+          <a class="res-card" href="projects/mbcfet-fefet.html">
+            <div class="res-card__meta">
+              <span class="res-card__id">R-07 · Sep 2026 – Present</span>
+              <span class="badge badge--green">Ongoing</span>
+            </div>
+            <span class="res-card__short">MBCFeFET</span>
+            <h3>Ferroelectric Nanosheet Transistor for <em>In-Memory Computing</em></h3>
             <p class="res-card__summary">
               A ferroelectric nanosheet transistor concept that stores 3 bits and computes a three-input weighted sum inside one transistor (TCAD simulation).
             </p>
@@ -221,9 +292,10 @@
 
           <a class="res-card" href="projects/gan-power-transistor.html">
             <div class="res-card__meta">
-              <span class="res-card__id">R-06 · Ongoing</span>
+              <span class="res-card__id">R-06 · Jul 2026 – Present</span>
               <span class="badge badge--green">Ongoing</span>
             </div>
+            <span class="res-card__short">Vertical GaN FinFET</span>
             <h3>Space-Hardened GaN <em>Transistor</em></h3>
             <p class="res-card__summary">
               Designing a kilovolt-class vertical GaN transistor that can survive heavy-ion strikes in satellite power systems.
@@ -241,80 +313,13 @@
             <span class="res-card__link">Read more →</span>
           </a>
 
-          <a class="res-card" href="projects/asic.html">
-            <div class="res-card__meta">
-              <span class="res-card__id">R-05 · 2026 – Present</span>
-              <span class="badge badge--green">Ongoing</span>
-            </div>
-            <h3>SQA ASIC <em>Chips</em></h3>
-            <p class="res-card__summary">
-              Five 45 nm chip designs built around the SQA accelerator, taken from RTL to signed-off layout in Cadence tools (not fabricated).
-            </p>
-            <ul class="res-card__bullets">
-              <li>Accelerator core, three accelerator chips, a RISC-V controller.</li>
-              <li>DRC / LVS clean, 0 timing violators, IR and EM signed off.</li>
-              <li>My own SRAM macro models and a Spectre-simulated SRAM column.</li>
-            </ul>
-            <div class="tags-row">
-              <span class="tag">ASIC</span>
-              <span class="tag">GPDK045</span>
-              <span class="tag">Innovus</span>
-              <span class="tag">Tempus</span>
-            </div>
-            <span class="res-card__link">Read more →</span>
-          </a>
-
-          <a class="res-card" href="projects/mosaic.html">
-            <div class="res-card__meta">
-              <span class="res-card__id">R-04 · 2026 – Present</span>
-              <span class="badge badge--green">Ongoing</span>
-            </div>
-            <h3><em>MOSAIC</em></h3>
-            <p class="res-card__summary">
-              A multimodal edge-AI SoC: a RISC-V host and a ternary / int4 accelerator that detects coughs from audio and motion.
-            </p>
-            <ul class="res-card__bullets">
-              <li>9.73 ms per inference on 9 hardware multipliers.</li>
-              <li>93.08% accuracy, bit-exact to the reference model.</li>
-              <li>All 90 KiB of weights in on-chip ROM.</li>
-            </ul>
-            <div class="tags-row">
-              <span class="tag">SoC</span>
-              <span class="tag">RISC-V</span>
-              <span class="tag">Multimodal</span>
-            </div>
-            <span class="res-card__link">Read more →</span>
-          </a>
-
-          <a class="res-card" href="projects/sqa-arc.html">
-            <div class="res-card__meta">
-              <span class="res-card__id">R-03 · 2026 – Present</span>
-              <span class="badge badge--green">Ongoing</span>
-            </div>
-            <h3>SQA-<em>Arc</em></h3>
-            <p class="res-card__summary">
-              Sensitivity-driven quantization into ternary and 4-bit engines, built as an FPGA accelerator that runs ten networks from one bitstream.
-            </p>
-            <ul class="res-card__bullets">
-              <li>Fisher-information sensitivity assigns each layer to a ternary or a 4-bit engine.</li>
-              <li>100 MHz in 15.58% of an Artix-7 XC7A200T; no DSP block computes a weight-activation product.</li>
-              <li>EfficientNet-B0 runs on the board with a live HDMI dashboard.</li>
-            </ul>
-            <div class="tags-row">
-              <span class="tag">FPGA</span>
-              <span class="tag">Quantization</span>
-              <span class="tag">Ternary</span>
-              <span class="tag">Edge AI</span>
-            </div>
-            <span class="res-card__link">Read more →</span>
-          </a>
-
           <a class="res-card" href="projects/mbcfet.html">
             <div class="res-card__meta">
-              <span class="res-card__id">R-02 · Oct 2025 – Present</span>
+              <span class="res-card__id">R-02 · Oct 2026 – Present</span>
               <span class="badge badge--green">Ongoing</span>
             </div>
-            <h3>MBCFET <em>Modeling</em></h3>
+            <span class="res-card__short">MBCFET</span>
+            <h3>Gate-All-Around Nanosheet Transistor <em>Modeling</em></h3>
             <p class="res-card__summary">
               GAA Multi-Bridge-Channel FET simulation in Silvaco TCAD, targeting sub-5&nbsp;nm technology nodes.
             </p>
@@ -334,12 +339,13 @@
 
           <a class="res-card" href="projects/hybrid-neural-accelerator.html">
             <div class="res-card__meta">
-              <span class="res-card__id">R-01 · Feb 2026 – Present</span>
-              <span class="badge badge--green">Ongoing</span>
+              <span class="res-card__id">R-01 · Feb 2026 – Apr 2026</span>
+              <span class="badge badge--blue">Upgraded</span>
             </div>
+            <span class="res-card__short">LUT / Log Engine</span>
             <h3>Hybrid Neural <em>Accelerator</em></h3>
             <p class="res-card__summary">
-              A reconfigurable LUT / logarithmic compute engine for AI inference, prototyped on the Artix-7 XC7A200T.
+              A reconfigurable LUT / logarithmic compute engine for AI inference on the Artix-7 XC7A200T. Upgraded into SQA-Arc in April 2026.
             </p>
             <ul class="res-card__bullets">
               <li>Vitis HLS compute engine optimised for PPA across mixed precisions.</li>
@@ -375,11 +381,10 @@
             <h3 class="cr-title">Research Assistant</h3>
             <div class="cr-org">BRAC University, Dept. of Electrical and Electronic Engineering</div>
             <p class="cr-detail">
-              Leading seven ongoing research projects: MBCFET-FeFET, a ferroelectric nanosheet transistor for multi-bit memory and
-              in-memory computing; a space-hardened vertical GaN power transistor in Silvaco TCAD; SQA ASIC
-              chips, five 45 nm designs signed off in Cadence; MOSAIC, a multimodal edge-AI SoC with a RISC-V host; SQA-Arc, a
-              sensitivity-driven quantization framework and FPGA overlay; the Hybrid Neural Accelerator on the AMD Artix-7; and
-              MBCFET device modeling in Silvaco TCAD.
+              Leading six ongoing research projects: the SQA-Arc ASIC chips, five 45 nm designs signed off in Cadence; SQA-Arc, a
+              sensitivity-driven quantization framework and FPGA accelerator; MOSAIC, a multimodal edge-AI SoC with a RISC-V host;
+              MBCFeFET, a ferroelectric nanosheet transistor for multi-bit memory and in-memory computing; a space-hardened
+              vertical GaN power transistor; and MBCFET device modeling in Silvaco TCAD.
             </p>
             <div class="tags-row">
               <span class="tag">FPGA</span>
@@ -485,7 +490,7 @@
                 <span class="proj-card__id">R-07</span>
                 <span class="badge badge--green">Ongoing</span>
               </div>
-              <h3>MBCFET-<em>FeFET</em></h3>
+              <h3>MBC<em>FeFET</em></h3>
               <div class="proj-card__role">Lead Researcher</div>
               <p class="proj-card__desc">A ferroelectric nanosheet transistor concept that stores 3 bits and computes a three-input weighted sum inside one transistor (TCAD simulation).</p>
               <div class="tags-row">
@@ -495,7 +500,7 @@
               </div>
             </div>
             <div class="proj-card__footer">
-              <span class="proj-card__period">2026</span>
+              <span class="proj-card__period">Sep 2026 – Present</span>
               <span class="proj-card__link">Open →</span>
             </div>
           </a>
@@ -520,7 +525,7 @@
               </div>
             </div>
             <div class="proj-card__footer">
-              <span class="proj-card__period">Ongoing</span>
+              <span class="proj-card__period">Jul 2026 – Present</span>
               <span class="proj-card__link">Open →</span>
             </div>
           </a>
@@ -533,7 +538,7 @@
                 <span class="proj-card__id">R-05</span>
                 <span class="badge badge--green">Ongoing</span>
               </div>
-              <h3>SQA ASIC <em>Chips</em></h3>
+              <h3>SQA-Arc ASIC <em>Chips</em></h3>
               <div class="proj-card__role">Lead Designer</div>
               <p class="proj-card__desc">Five 45 nm designs (GPDK045) from RTL to signed-off layout in Cadence: an accelerator core, three accelerator chips and a RISC-V controller. Not fabricated.</p>
               <div class="tags-row">
@@ -544,7 +549,7 @@
               </div>
             </div>
             <div class="proj-card__footer">
-              <span class="proj-card__period">2026 – Present</span>
+              <span class="proj-card__period">Oct 2026 – Present</span>
               <span class="proj-card__link">Open →</span>
             </div>
           </a>
@@ -590,7 +595,7 @@
               </div>
             </div>
             <div class="proj-card__footer">
-              <span class="proj-card__period">2026 – Present</span>
+              <span class="proj-card__period">Aug 2026 – Present</span>
               <span class="proj-card__link">Open →</span>
             </div>
           </a>
@@ -614,7 +619,7 @@
               </div>
             </div>
             <div class="proj-card__footer">
-              <span class="proj-card__period">2026 – Present</span>
+              <span class="proj-card__period">Apr 2026 – Present</span>
               <span class="proj-card__link">Open →</span>
             </div>
           </a>
@@ -627,10 +632,10 @@
             <div class="proj-card__body">
               <div class="proj-card__meta">
                 <span class="proj-card__id">R-01</span>
-                <span class="badge badge--green">Ongoing</span>
+                <span class="badge badge--blue">Upgraded</span>
               </div>
               <h3>Hybrid Neural <em>Accelerator</em></h3>
-              <div class="proj-card__role">Research Assistant · Earlier phase of SQA-Arc</div>
+              <div class="proj-card__role">Research Assistant · Upgraded into SQA-Arc</div>
               <p class="proj-card__desc">Reconfigurable compute engine for AI inference, featuring mode-switching LNS/INT arithmetic prototyped on Artix-7.</p>
               <div class="tags-row">
                 <span class="tag">FPGA</span>
@@ -640,7 +645,7 @@
               </div>
             </div>
             <div class="proj-card__footer">
-              <span class="proj-card__period">Feb 2026 – Present</span>
+              <span class="proj-card__period">Feb 2026 – Apr 2026</span>
               <span class="proj-card__link">Open →</span>
             </div>
           </a>
@@ -664,7 +669,7 @@
               </div>
             </div>
             <div class="proj-card__footer">
-              <span class="proj-card__period">Oct 2025 – Present</span>
+              <span class="proj-card__period">Oct 2026 – Present</span>
               <span class="proj-card__link">Open →</span>
             </div>
           </a>

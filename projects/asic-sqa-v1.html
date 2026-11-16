@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=3.18" />
+  <link rel="stylesheet" href="../styles.css?v=3.19" />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
@@ -47,7 +47,7 @@
     <aside class="subpage-sidebar">
       <a class="back-link" href="asic.html">
         <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-        SQA ASIC Chips
+        SQA-Arc ASIC Chips
       </a>
       <hr class="sidebar__divider" />
       <div class="subpage-nav-title">On this page</div>
@@ -88,7 +88,7 @@
         <span class="breadcrumb__sep">›</span>
         <a href="../domains/dom-vlsi.html">ASIC Design and VLSI</a>
         <span class="breadcrumb__sep">›</span>
-        <a href="asic.html">SQA ASIC Chips</a>
+        <a href="asic.html">SQA-Arc ASIC Chips</a>
         <span class="breadcrumb__sep">›</span>
         <span>SQA V1 Chip</span>
       </div>
@@ -109,7 +109,7 @@
         <div class="asic-gallery"><figure><a href="../assets/projects/asic/sqa-v1/v1_layout_full.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v1/v1_layout_full.jpg" alt="Full V1 layout in Innovus: the 280-pad ring around a large core, the power grid and the small logic area in the middle." loading="lazy" /></a><figcaption>Full V1 layout in Innovus: the 280-pad ring around a large core, the power grid and the small logic area in the middle.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v1/v1_layout_modules.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v1/v1_layout_modules.jpg" alt="Module view: the whole design occupies a small part of the pad-limited core." loading="lazy" /></a><figcaption>Module view: the whole design occupies a small part of the pad-limited core.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v1/v1_clock_tree.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v1/v1_clock_tree.jpg" alt="Clock nets highlighted: the clock tree from the clock pad to every flip-flop." loading="lazy" /></a><figcaption>Clock nets highlighted: the clock tree from the clock pad to every flip-flop.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v1/v1_tempus_setup.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v1/v1_tempus_setup.jpg" alt="Tempus sign-off, slow corner with SI: the 2000 worst setup paths, 0 failing." loading="lazy" /></a><figcaption>Tempus sign-off, slow corner with SI: the 2000 worst setup paths, 0 failing.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v1/v1_ir_drop_vdd.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v1/v1_ir_drop_vdd.jpg" alt="Voltus static IR-drop map of VDD with real activity: worst drop about 3 mV against a 45 mV budget." loading="lazy" /></a><figcaption>Voltus static IR-drop map of VDD with real activity: worst drop about 3 mV against a 45 mV budget.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v1/v1_em_vdd.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v1/v1_em_vdd.jpg" alt="Electromigration map of the VDD grid: every wire inside the foundry current limit." loading="lazy" /></a><figcaption>Electromigration map of the VDD grid: every wire inside the foundry current limit.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v1/v1_gl_sim_waveform.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v1/v1_gl_sim_waveform.jpg" alt="Gate-level simulation of the routed netlist in SimVision: SSRAM, SDRAM and flash traffic; the result is bit-exact." loading="lazy" /></a><figcaption>Gate-level simulation of the routed netlist in SimVision: SSRAM, SDRAM and flash traffic; the result is bit-exact.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v1/v1_gds_transistors.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v1/v1_gds_transistors.jpg" alt="The final GDS in Virtuoso, 3 µm window: standard cells down to their transistor layers." loading="lazy" /></a><figcaption>The final GDS in Virtuoso, 3 µm window: standard cells down to their transistor layers.</figcaption></figure></div>
         <hr class="section-divider" />
 <h2 id="overview">Overview</h2>
-        <p>V1 is the first of three versions of the SQA accelerator chip. It keeps almost no memory inside: the engine buffers go to three external synchronous SRAM chips, network data and results to a 32 MB SDRAM, and the boot image to a QSPI flash. A separate RISC-V controller chip (see the MCU page) sends it commands over a host link, and it drives a 1080p60 display.</p>
+        <p>V1 is the first of three versions of the SQA-Arc accelerator chip. It keeps almost no memory inside: the engine buffers go to three external synchronous SRAM chips, network data and results to a 32 MB SDRAM, and the boot image to a QSPI flash. A separate RISC-V controller chip (see the MCU page) sends it commands over a host link, and it drives a 1080p60 display.</p>
         <p>The point of V1 is to learn what an off-chip memory architecture really costs: 232 signal pins, forwarded clocks for the SRAM banks, and a die whose size is set by the pad ring, not by the logic (the logic uses under 2 % of the core).</p>
         <p>This is an academic practice design on Cadence's generic GPDK045 45 nm PDK. It is fully signed off in the Cadence tools but it has not been fabricated. The SRAM macros are my own placeholder models (behaviour, estimated timing / area / power, outline and pins), because the generic PDK has no memory compiler.</p>
         <p>V1 keeps only one SRAM macro on chip (the pooling line buffer); see <a href="asic-memories.html">Memory design</a>.</p>
