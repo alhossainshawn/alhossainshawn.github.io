@@ -57,7 +57,6 @@
       <div class="subpage-nav-title">On this page</div>
       <nav class="subpage-nav">
         <a href="#overview">Overview</a>
-        <a href="#subareas">Sub-areas</a>
         <a href="#active">Active Projects</a>
         <a href="#toolchain">Toolchain</a>
       </nav>
@@ -102,21 +101,11 @@
       </div>
 
       <div class="prose">
-        <p>Programmable hardware as a <em>compute substrate</em>, turning Python-trained neural networks into custom IP blocks that run on Artix-7 silicon through HLS, RTL refinement, and SoC integration.</p>
 
         <h2 id="overview">Overview</h2>
         <p>Reconfigurable computing sits in a useful gap. ASICs give peak efficiency but commit silicon to one workload; CPUs and GPUs are flexible but pay in joules per inference. <em>FPGAs</em> let you trade between the two, re-fabricating the datapath to match the model in front of you.</p>
         <p>The work here is about how to actually close that gap in practice: choosing the right compute primitive (LUT, log-domain, approximate), wrapping it in a clean AXI4 SoC, and pushing it through Vivado without losing timing.</p>
 
-        <h2 id="subareas">Sub-areas</h2>
-        <ul>
-          <li><strong>High-Level Synthesis (SUB-01)</strong>: Algorithmic descriptions in C/C++ compiled to RTL via Vitis HLS, with pragma-driven optimisation of pipelines, dataflow, and memory partitioning.</li>
-          <li><strong>RTL Architecture (SUB-02)</strong>: Hand-tuned Verilog where HLS is insufficient, including clock-domain crossings, FIFO sizing, and pipelined arithmetic for predictable timing.</li>
-          <li><strong>AXI4 SoC Integration (SUB-03)</strong>: Memory-mapped AXI4 between custom accelerator IP and embedded ARM cores, featuring DMA-driven activations and bitstream-baked metadata.</li>
-          <li><strong>PPA Optimisation (SUB-04)</strong>: Power, performance, and area as first-class design knobs, with Vivado reports parsed into sweep dashboards for repeatable exploration.</li>
-          <li><strong>Quantisation &amp; Approximate Compute (SUB-05)</strong>: Sensitivity-driven quantisation pipelines that pick precision per layer.</li>
-          <li><strong>Verification (SUB-06)</strong>: Bit-accurate C++ models paired with cocotb testbenches, providing coverage-driven regression on representative DNN slices.</li>
-        </ul>
 
         <h2 id="active">Active Projects</h2>
         <div class="proj-grid" style="margin-top: 1.2rem;">
