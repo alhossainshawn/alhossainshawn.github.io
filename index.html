@@ -25,7 +25,7 @@
   <meta property="og:image:alt" content="Portrait of Al Hossain Shawn" />
   <meta name="twitter:card" content="summary" />
 
-  <link rel="stylesheet" href="styles.css?v=3.2" />
+  <link rel="stylesheet" href="styles.css?v=3.3" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 
 </head>
@@ -216,8 +216,8 @@
             <h3 class="cr-title">Research Assistant</h3>
             <div class="cr-org">BRAC University, Dept. of Electrical and Electronics Engineering</div>
             <p class="cr-detail">
-              Leading SQA-Arc, a sensitivity-driven quantization framework, and its FPGA overlay, SQA-Core, which runs ten
-              neural networks from one bitstream on an AMD Artix-7.
+              Leading SQA-Arc, a sensitivity-driven quantization framework and its FPGA overlay, and its second generation,
+              MOSAIC, a multimodal edge-AI SoC with a RISC-V host and a ternary / int4 accelerator on an AMD Artix-7.
             </p>
             <div class="tags-row">
               <span class="tag">FPGA</span>
@@ -327,10 +327,32 @@
       <section class="section reveal" id="research" aria-labelledby="h-research">
         <div class="section-header">
           <h2 id="h-research">Active <em>Research</em></h2>
-          <p>Two open threads: a quantization framework and FPGA accelerator for edge AI, and a TCAD study of
-            multi-bridge-channel devices for sub-5&nbsp;nm logic.</p>
+          <p>Three open threads: a multimodal edge-AI SoC, the quantization framework and FPGA accelerator behind it,
+            and a TCAD study of multi-bridge-channel devices for sub-5&nbsp;nm logic.</p>
         </div>
         <div class="research-grid">
+          <a class="res-card" href="projects/mosaic.html">
+            <div class="res-card__meta">
+              <span class="res-card__id">R-04 · 2026 – Present</span>
+              <span class="badge badge--green">Ongoing</span>
+            </div>
+            <h3><em>MOSAIC</em></h3>
+            <p class="res-card__summary">
+              A multimodal edge-AI SoC: a RISC-V host and a ternary / int4 accelerator that detects coughs from audio and motion.
+            </p>
+            <ul class="res-card__bullets">
+              <li>9.73 ms per inference on 9 hardware multipliers.</li>
+              <li>93.08% accuracy, bit-exact to the reference model.</li>
+              <li>All 90 KiB of weights in on-chip ROM.</li>
+            </ul>
+            <div class="tags-row">
+              <span class="tag">SoC</span>
+              <span class="tag">RISC-V</span>
+              <span class="tag">Multimodal</span>
+            </div>
+            <span class="res-card__link">Read more →</span>
+          </a>
+
           <a class="res-card" href="projects/sqa-arc.html">
             <div class="res-card__meta">
               <span class="res-card__id">R-03 · 2026 – Present</span>
@@ -389,6 +411,32 @@
             integration.</p>
         </div>
         <div class="proj-grid">
+          <!-- R-04 -->
+          <a class="proj-card" href="projects/mosaic.html">
+            <div class="proj-card__img--placeholder">
+              <svg viewBox="0 0 24 24"><use href="#i-chip"/></svg>
+            </div>
+            <div class="proj-card__body">
+              <div class="proj-card__meta">
+                <span class="proj-card__id">R-04</span>
+                <span class="badge badge--green">Ongoing</span>
+              </div>
+              <h3><em>MOSAIC</em></h3>
+              <div class="proj-card__role">Lead Researcher · Second generation of SQA-Arc</div>
+              <p class="proj-card__desc">Multimodal cough-detection SoC with a RISC-V host and a layer-partitioned ternary / int4 accelerator, bit-exact to its reference model.</p>
+              <div class="tags-row">
+                <span class="tag">SoC</span>
+                <span class="tag">RISC-V</span>
+                <span class="tag">HLS</span>
+                <span class="tag">Edge AI</span>
+              </div>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__period">2026 – Present</span>
+              <span class="proj-card__link">Open →</span>
+            </div>
+          </a>
+
           <!-- R-03 -->
           <a class="proj-card" href="projects/sqa-arc.html">
             <img class="proj-card__img" src="assets/projects/sqa-arc/board_photo_fpga_and_dashboard.jpeg" alt="FPGA board in front of the HDMI dashboard showing an EfficientNet-B0 classification" loading="lazy" />
@@ -618,6 +666,15 @@
           <h2 id="h-pubs">Publications</h2>
         </div>
         <div class="pub-list">
+          <div class="pub-item">
+            <div class="pub-year">2027</div>
+            <div>
+              <div class="pub-authors">A. H. Shawn, T. Titirsha</div>
+              <div class="pub-title">Conference paper on the MOSAIC multimodal SoC</div>
+              <div class="pub-venue">IEEE Electron Devices Technology and Manufacturing Conference (EDTM 2027)</div>
+            </div>
+            <span class="pub-status pub-status--pending">Submitted</span>
+          </div>
           <div class="pub-item">
             <div class="pub-year">2027</div>
             <div>

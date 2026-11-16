@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MOSAIC | Al Hossain Shawn</title>
+  <meta name="description" content="MOSAIC is a multimodal edge-AI SoC on an AMD Artix-7 FPGA: a RISC-V host and a layer-partitioned ternary / int4 accelerator that detects coughs from audio and motion in 9.73 ms, bit-exact to its reference model." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css?v=3.3" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+
+  <style>
+    .lede { font-size: 1.05rem; color: var(--text-heading); }
+    .phase-note {
+      margin: 1.25rem 0;
+      padding: 0.85rem 1rem;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-light);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+    .section-divider { margin: 2.5rem 0 2rem; border: none; border-top: 2px solid var(--border); }
+
+    /* ── Key numbers ─────────────────────────────────── */
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin: 1.5rem 0 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--bg-section-alt);
+    }
+    .stat-strip + .stat-strip { margin-top: 0; border-top: none; border-radius: 0 0 10px 10px; }
+    .stat-strip:has(+ .stat-strip) { border-radius: 10px 10px 0 0; margin-bottom: 0; }
+    .stat-cell { padding: 1.1rem 0.75rem; border-right: 1px solid var(--border); text-align: center; }
+    .stat-cell:last-child { border-right: none; }
+    .stat-cell__val { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 0.35rem; }
+    .stat-cell__label { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .stat-note { font-size: 0.78rem; color: var(--text-muted); margin: 0.6rem 0 1.5rem; }
+
+    /* ── Figure cards ────────────────────────────────── */
+    .fig-card { margin: 1.75rem 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--bg-white); }
+    .fig-card__body { overflow-x: auto; padding: 1.25rem 1rem 0.75rem; }
+    .fig-card figcaption { font-size: 0.78rem; color: var(--text-muted); padding: 0.5rem 0.75rem; font-style: italic; border-top: 1px solid var(--border); }
+
+    /* ── Architecture diagram ────────────────────────── */
+    .arch {
+      display: block; width: 100%; min-width: 560px; max-width: 740px; height: auto; margin: 0 auto;
+      font-family: var(--font-body);
+      --io-f: #fdf4e3;  --io-s: #d6a24a;  --io-t: #6b4a12;
+      --mem-f: #eef1f8; --mem-s: #a3afcf; --mem-t: #1a1a2e;
+      --seq-f: #303e66; --seq-s: #303e66; --seq-t: #ffffff;
+      --a-f: #e6eefa;   --a-s: #4a77b4;
+      --b-f: #fbece2;   --b-s: #c4703c;
+      --x-f: #e7f3ea;   --x-s: #4c8a5c;
+      --eng-t: #1a1a2e;
+      --rq-f: #3d4252;  --rq-s: #3d4252;  --rq-t: #f8fafc;
+      --ln: #8a93a8;    --lbl: #6c757d;   --frame: #b0b5c8;
+    }
+    body.dark-mode .arch {
+      --io-f: #2e2615;  --io-s: #b98a3a;  --io-t: #f3d9a6;
+      --mem-f: #1e2740; --mem-s: #4a5d8c; --mem-t: #e2e8f0;
+      --seq-f: #4a5d8c; --seq-s: #748dbf; --seq-t: #ffffff;
+      --a-f: #1c2b44;   --a-s: #5b8bd0;
+      --b-f: #3a2519;   --b-s: #d08050;
+      --x-f: #1b3324;   --x-s: #5aa36d;
+      --eng-t: #f1f5f9;
+      --rq-f: #2b3245;  --rq-s: #4b5675;  --rq-t: #e2e8f0;
+      --ln: #6b7690;    --lbl: #94a3b8;   --frame: #333d5c;
+    }
+    .arch rect { stroke-width: 1.5; }
+    .arch .t { font-size: 14px; font-weight: 600; text-anchor: middle; }
+    .arch .s { font-size: 11px; text-anchor: middle; font-family: var(--font-mono); opacity: 0.8; }
+    .arch .io rect  { fill: var(--io-f);  stroke: var(--io-s); }   .arch .io text  { fill: var(--io-t); }
+    .arch .mem rect { fill: var(--mem-f); stroke: var(--mem-s); }  .arch .mem text { fill: var(--mem-t); }
+    .arch .seq rect { fill: var(--seq-f); stroke: var(--seq-s); }  .arch .seq text { fill: var(--seq-t); }
+    .arch .eng-a rect { fill: var(--a-f); stroke: var(--a-s); }
+    .arch .eng-b rect { fill: var(--b-f); stroke: var(--b-s); }
+    .arch .eng-x rect { fill: var(--x-f); stroke: var(--x-s); }
+    .arch .eng-a text, .arch .eng-b text, .arch .eng-x text { fill: var(--eng-t); }
+    .arch .rq rect  { fill: var(--rq-f);  stroke: var(--rq-s); }   .arch .rq text  { fill: var(--rq-t); }
+    .arch .ln { fill: none; stroke: var(--ln); stroke-width: 1.5; }
+    .arch .dash { stroke-dasharray: 5 4; }
+    .arch .arch-head { fill: var(--ln); }
+    .arch .lbl { font-size: 11px; font-style: italic; fill: var(--lbl); font-family: var(--font-mono); }
+    .arch .frame { fill: none; stroke: var(--frame); stroke-width: 1.2; stroke-dasharray: 6 5; }
+    .arch .frame-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; fill: var(--lbl); font-family: var(--font-mono); }
+
+    /* ── Fan-in chart ────────────────────────────────── */
+    .fc { display: block; width: 100%; min-width: 460px; max-width: 640px; height: auto; margin: 0 auto; font-family: var(--font-body); }
+    .fc-grid { stroke: var(--border); stroke-width: 1; }
+    .fc-axis { stroke: var(--border-hover); stroke-width: 1.2; }
+    .fc-tick { font-size: 12px; fill: var(--text-muted); }
+    .fc-x { font-size: 13px; font-weight: 600; fill: var(--text-heading); }
+    .fc-xs { font-size: 11px; fill: var(--text-muted); font-family: var(--font-mono); }
+    .fc-fold { fill: none; stroke: var(--text-light); stroke-width: 1; opacity: 0.55; }
+    .fc-mean { fill: none; stroke: var(--accent); stroke-width: 3; }
+    .fc-dot { fill: var(--accent); stroke: var(--bg-white); stroke-width: 2; }
+    .fc-val { font-size: 13px; font-weight: 700; fill: var(--accent-dark); font-family: var(--font-mono); paint-order: stroke; stroke: var(--bg-white); stroke-width: 5px; stroke-linejoin: round; }
+    body.dark-mode .fc-fold { stroke: #64748b; }
+
+    /* ── UART stream panel ───────────────────────────── */
+    .uart { margin: 1.5rem 0 0.5rem; border: 1px solid var(--border-hover); border-radius: 10px; overflow: hidden; background: #0d1117; color: #c9d1d9; font-family: var(--font-mono); font-size: 0.8rem; }
+    .uart-bar { display: flex; align-items: center; gap: 0.75rem; padding: 0.55rem 0.9rem; background: #161b22; border-bottom: 1px solid #30363d; }
+    .uart-dots i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; background: #484f58; }
+    .uart-dots i:nth-child(1) { background: #f85149; } .uart-dots i:nth-child(2) { background: #d29922; } .uart-dots i:nth-child(3) { background: #3fb950; }
+    .uart-title { color: #e6edf3; font-weight: 500; font-size: 0.78rem; }
+    .uart-cols { display: grid; grid-template-columns: 1fr 1fr; }
+    .uart-col { display: flex; flex-direction: column; }
+    .uart-col + .uart-col { border-left: 1px solid #30363d; }
+    .uart-head { padding: 0.55rem 0.9rem; color: #e6edf3; font-weight: 500; border-bottom: 1px solid #30363d; background: #11161d; }
+    .uart-body { padding: 0.4rem 0.9rem 0.8rem; flex: 1; }
+    .uart-sec { color: #79c0ff; font-weight: 500; margin: 0.6rem 0 0.15rem; letter-spacing: 0.04em; }
+    .uart-line { white-space: pre; line-height: 1.55; }
+    .uart-gap { color: #6e7681; }
+    .uart-result { margin: 0 0.9rem 0.9rem; padding: 0.45rem; text-align: center; border-radius: 6px; font-weight: 500; letter-spacing: 0.04em; }
+    .uart-result.is-cough { background: rgba(248, 81, 73, 0.12); color: #ff7b72; border: 1px solid rgba(248, 81, 73, 0.4); }
+    .uart-result.is-noncough { background: rgba(63, 185, 80, 0.12); color: #56d364; border: 1px solid rgba(63, 185, 80, 0.4); }
+    .uart-caption { font-size: 0.78rem; color: var(--text-muted); font-style: italic; margin: 0 0 1.5rem; }
+
+    /* ── Tables ──────────────────────────────────────── */
+    .table-scroll { overflow-x: auto; margin: 1.25rem 0; }
+    .table-scroll .spec-table { margin: 0; min-width: 520px; }
+    .pass { color: var(--status-green); font-weight: 600; white-space: nowrap; }
+    body.dark-mode .pass { color: #4ade80; }
+
+    .paper-list { padding-left: 1.2rem; }
+    .paper-list li { margin-bottom: 0.9rem; }
+    .paper-status { font-weight: 600; color: var(--text-heading); }
+
+    @media (max-width: 640px) {
+      .stat-strip { grid-template-columns: 1fr 1fr; }
+      .stat-cell:nth-child(2) { border-right: none; }
+      .stat-cell:nth-child(1), .stat-cell:nth-child(2) { border-bottom: 1px solid var(--border); }
+      .uart-cols { grid-template-columns: 1fr; }
+      .uart-col + .uart-col { border-left: none; border-top: 1px solid #30363d; }
+    }
+  </style>
+</head>
+<body>
+  <script>try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.body.classList.add('dark-mode');}catch(e){}</script>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#expertise" class="active">Research</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav__drawer">
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <div class="mobile-nav__title">Al Hossain Shawn</div>
+      <hr class="mobile-nav__divider" />
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#expertise">Research</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#publications">Publications</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+
+  <div class="subpage-layout">
+    <aside class="subpage-sidebar">
+      <a class="back-link" href="../domains/dom-fpga.html">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        FPGA &amp; Reconfigurable Computing
+      </a>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">On this page</div>
+      <nav class="subpage-nav">
+        <a href="#overview">Overview</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#board">On the Board</a>
+        <a href="#results">Results</a>
+        <a href="#verification">Verification</a>
+        <a href="#qat">Compression Study</a>
+        <a href="#publications">Publications</a>
+        <a href="#tools">Tools &amp; Supervision</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="sidebar__section-title">Project</div>
+      <div class="sidebar__tags">
+        <span class="sidebar__tag">R-04</span>
+        <span class="sidebar__tag">SoC</span>
+        <span class="sidebar__tag">RISC-V</span>
+        <span class="sidebar__tag">Multimodal</span>
+        <span class="sidebar__tag">Ternary / Int4</span>
+        <span class="sidebar__tag">Vitis HLS</span>
+      </div>
+    </aside>
+
+    <main class="subpage-content" id="main-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="../domains/dom-fpga.html">FPGA &amp; Reconfigurable Computing</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>MOSAIC</span>
+      </div>
+
+      <div class="subpage-header">
+        <div class="tags-row" style="margin-bottom: 0.75rem;">
+          <span class="badge badge--green">Ongoing</span>
+          <span class="tag">R-04</span>
+          <span class="tag">FPGA</span>
+          <span class="tag">RISC-V</span>
+          <span class="tag">Edge AI</span>
+        </div>
+        <h1><em>MOSAIC</em>: A Multimodal Edge-AI SoC</h1>
+        <div class="subpage-meta">
+          <span>Lead Researcher</span>
+          <span>BRAC University, Dhaka</span>
+          <span>2026 – Present</span>
+          <span>AMD Artix-7 XC7A200T</span>
+        </div>
+      </div>
+
+      <div class="prose" id="overview">
+        <p class="lede">A custom system-on-chip that detects coughs from two wearable sensors at once, a microphone and a 6-axis motion sensor, using a RISC-V host and a layer-partitioned ternary / int4 neural accelerator, implemented on an AMD Artix-7 FPGA.</p>
+
+        <div class="stat-strip">
+          <div class="stat-cell"><div class="stat-cell__val">9.73 ms</div><div class="stat-cell__label">Per inference at 100 MHz</div></div>
+          <div class="stat-cell"><div class="stat-cell__val">93.08%</div><div class="stat-cell__label">Accuracy, 15-fold LOSO</div></div>
+          <div class="stat-cell"><div class="stat-cell__val">9</div><div class="stat-cell__label">Hardware multipliers</div></div>
+          <div class="stat-cell"><div class="stat-cell__val">90 KiB</div><div class="stat-cell__label">All weights on-chip</div></div>
+        </div>
+        <div class="stat-strip">
+          <div class="stat-cell"><div class="stat-cell__val">3.39 mJ</div><div class="stat-cell__label">Per inference (est.)</div></div>
+          <div class="stat-cell"><div class="stat-cell__val">0.348 W</div><div class="stat-cell__label">On-chip power (est.)</div></div>
+          <div class="stat-cell"><div class="stat-cell__val">6 / 6</div><div class="stat-cell__label">Bit-exact checks</div></div>
+          <div class="stat-cell"><div class="stat-cell__val">+0.398 ns</div><div class="stat-cell__label">Worst slack, 100 MHz</div></div>
+        </div>
+        <p class="stat-note">Accuracy is hardware-exact over 15-fold leave-one-subject-out cross-validation (floating-point model: 93.16%). Power and energy are Vivado vector-less estimates.</p>
+
+        <h2>Overview</h2>
+        <p>Continuous monitoring of respiratory symptoms, such as counting coughs in chronic disease, has to run on a wearable: low power, predictable latency and no cloud. Typical accelerators either hard-wire one network into logic with no processor, or keep weights in external DRAM and need many multipliers. MOSAIC set out to be a <strong>complete, host-integrated, DRAM-free and bit-exact</strong> SoC on a mid-size FPGA.</p>
+        <p>A two-branch network fuses an audio temporal-convolutional network (on MFCC features) with a 1-D CNN on the motion signal. The network is compressed so that its widest layers use ternary weights {−1, 0, +1} and the rest use 4-bit integers. It is compiled to hardware with Vitis HLS, all 90 KiB of weights sit in on-chip ROM, and a small RISC-V processor runs the system. The whole 15.2-million-MAC network runs on <strong>9 hardware multipliers</strong> and stays within 0.08 percentage points of the floating-point accuracy.</p>
+
+        <div class="phase-note">
+          MOSAIC is the second generation of <a href="sqa-arc.html">R-03 SQA-Arc</a>: it takes the same sensitivity-driven ternary / int4 partitioning from image networks to multimodal sensing, and adds a RISC-V host.
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="architecture">Architecture</h2>
+        <p>The RISC-V core is the only external interface. It boots from the SD card, copies each input window into the accelerator over memory-mapped I/O, starts the network and reports the result over UART. Inside the accelerator, a layer sequencer sends each layer to the ternary engine, the int4 engine or an auxiliary kernel, all sharing one adder tree, accumulator and rescale path.</p>
+        <figure class="fig-card">
+          <div class="fig-card__body">
+            <svg class="arch" viewBox="0 0 760 615" role="img" aria-labelledby="mz-t mz-d">
+              <title id="mz-t">MOSAIC architecture</title>
+              <desc id="mz-d">A RISC-V core is the only external interface. It connects to instruction memory, data memory, SD-card boot, the audio and IMU input and the UART verdict output, and drives the accelerator over memory-mapped I/O. Inside the accelerator, a layer sequencer dispatches each layer to Engine A (ternary), Engine B (int4) or other kernels, which share an adder tree, accumulator and rescale path; the result loops back for the next layer and goes to the output registers after the last layer.</desc>
+              <defs><marker id="mz-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="arch-head" /></marker></defs>
+              <g class="mem"><rect x="40" y="20" width="180" height="40" rx="8" /><text class="t" x="130" y="45">IMEM</text></g>
+              <g class="io"><rect x="290" y="20" width="180" height="40" rx="8" /><text class="t" x="380" y="45">SD-card boot</text></g>
+              <g class="mem"><rect x="540" y="20" width="180" height="40" rx="8" /><text class="t" x="630" y="45">DMEM</text></g>
+              <g class="io"><rect x="20" y="100" width="200" height="56" rx="8" /><text class="t" x="120" y="124">Input</text><text class="s" x="120" y="143">audio MFCC + IMU</text></g>
+              <g class="seq"><rect x="290" y="100" width="180" height="56" rx="8" /><text class="t" x="380" y="124">RISC-V core</text><text class="s" x="380" y="143">RV32I + Zicsr</text></g>
+              <g class="io"><rect x="540" y="100" width="200" height="56" rx="8" /><text class="t" x="640" y="124">Output</text><text class="s" x="640" y="143">UART verdict</text></g>
+              <path class="ln" d="M130,62 V80 H320 V98" marker-start="url(#mz-ah)" marker-end="url(#mz-ah)" />
+              <path class="ln" d="M380,60 V98" marker-end="url(#mz-ah)" />
+              <path class="ln" d="M630,62 V80 H440 V98" marker-start="url(#mz-ah)" marker-end="url(#mz-ah)" />
+              <path class="ln" d="M222,128 H288" marker-start="url(#mz-ah)" marker-end="url(#mz-ah)" />
+              <path class="ln" d="M472,128 H538" marker-start="url(#mz-ah)" marker-end="url(#mz-ah)" />
+              <rect class="frame" x="8" y="190" width="744" height="412" rx="12" />
+              <text class="frame-label" x="24" y="212">ACCELERATOR</text>
+              <path class="ln" d="M380,158 V218" marker-start="url(#mz-ah)" marker-end="url(#mz-ah)" />
+              <text class="lbl" x="390" y="182">MMIO</text>
+              <g class="mem"><rect x="60" y="220" width="670" height="40" rx="8" /><text class="t" x="395" y="245">Layer sequencer</text></g>
+              <path class="ln" d="M165,260 V288" marker-end="url(#mz-ah)" /><path class="ln" d="M395,260 V288" marker-end="url(#mz-ah)" /><path class="ln" d="M625,260 V288" marker-end="url(#mz-ah)" />
+              <g class="eng-a"><rect x="60" y="290" width="210" height="52" rx="8" /><text class="t" x="165" y="313">Engine A</text><text class="s" x="165" y="331">ternary · multiplier-free</text></g>
+              <g class="eng-b"><rect x="290" y="290" width="210" height="52" rx="8" /><text class="t" x="395" y="313">Engine B</text><text class="s" x="395" y="331">int4 · int8 × int4</text></g>
+              <g class="eng-x"><rect x="520" y="290" width="210" height="52" rx="8" /><text class="t" x="625" y="313">Other kernels</text><text class="s" x="625" y="331">auxiliary layers</text></g>
+              <path class="ln" d="M165,342 V360 M625,342 V360 M165,360 H625 M395,342 V378" marker-end="url(#mz-ah)" />
+              <g class="mem"><rect x="60" y="380" width="670" height="36" rx="8" /><text class="t" x="395" y="403">Adder tree</text></g>
+              <path class="ln" d="M395,416 V434" marker-end="url(#mz-ah)" />
+              <g class="mem"><rect x="60" y="436" width="670" height="36" rx="8" /><text class="t" x="395" y="459">Accumulator</text></g>
+              <path class="ln" d="M395,472 V490" marker-end="url(#mz-ah)" />
+              <g class="rq"><rect x="60" y="492" width="670" height="36" rx="8" /><text class="t" x="395" y="515">Shared rescale</text></g>
+              <path class="ln" d="M395,528 V546" marker-end="url(#mz-ah)" />
+              <text class="lbl" x="405" y="542">last layer</text>
+              <g class="mem"><rect x="60" y="548" width="670" height="36" rx="8" /><text class="t" x="395" y="571">Output registers</text></g>
+              <path class="ln dash" d="M60,510 H34 V240 H58" marker-end="url(#mz-ah)" />
+              <text class="lbl" x="24" y="375" text-anchor="middle" transform="rotate(-90 24 375)">next layer</text>
+            </svg>
+          </div>
+          <figcaption>MOSAIC architecture: the RISC-V hub (navy) with its memories and I/O, and the accelerator's internal dataflow. Engine A is multiplier-free (ternary); Engine B forms real int8 × int4 products.</figcaption>
+        </figure>
+        <table class="spec-table">
+          <tr><td>Network</td><td>28 layers, 238,400 weights, 15.2 M MAC per inference</td></tr>
+          <tr><td>Precision</td><td>7 layers ternary (178,176 weights), 10 layers int4</td></tr>
+          <tr><td>Datapath</td><td>16-lane MAC, 99.2% lane utilization, shift-only requantization</td></tr>
+          <tr><td>Host</td><td>RV32I + Zicsr multi-cycle core (1,791 LUTs): SD-card boot, input feed, UART report</td></tr>
+          <tr><td>Clock</td><td>100 MHz, single clock domain</td></tr>
+        </table>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="board">On the Board</h2>
+        <p>MOSAIC has run on the FPGA board. For every input, the RISC-V host prints a report over UART: a checksum for each layer of the audio branch, the motion branch and the fusion head, followed by the verdict.</p>
+        <div class="uart" role="img" aria-label="UART verification stream at 115200 8N1 for two test inputs. IN03, a cough test, ends with RESULT: COUGH; IN00, a non-cough test, ends with RESULT: NON-COUGH."><div class="uart-bar"><span class="uart-dots"><i></i><i></i><i></i></span><span class="uart-title">MOSAIC UART verification stream · 115200 8N1</span></div><div class="uart-cols"><div class="uart-col"><div class="uart-head">IN03 · cough test</div><div class="uart-body"><div class="uart-sec">AUDIO TCN</div><div class="uart-line">00  02A8 CB66</div><div class="uart-line">01  05CA 02A8</div><div class="uart-line">02  BDD0 CB66</div><div class="uart-line uart-gap">…</div><div class="uart-line">0F  0100 43E0</div><div class="uart-sec">IMU 1D-CNN</div><div class="uart-line">10  B1E2 B1E2</div><div class="uart-line">11  0336 B1E2</div><div class="uart-line uart-gap">…</div><div class="uart-line">16  002D 0391</div><div class="uart-sec">FUSION</div><div class="uart-line">17  012D 012D</div><div class="uart-line">18  0142 012D</div><div class="uart-line">19  016F 0142</div><div class="uart-line">1A  0015 016F</div><div class="uart-line">1B  0016 0015</div><div class="uart-line">C1  L00 15</div></div><div class="uart-result is-cough">RESULT: COUGH</div></div><div class="uart-col"><div class="uart-head">IN00 · non-cough test</div><div class="uart-body"><div class="uart-sec">AUDIO TCN</div><div class="uart-line">00  0338 D6B3</div><div class="uart-line">01  05BC 0338</div><div class="uart-line">02  D2C2 D6B3</div><div class="uart-line uart-gap">…</div><div class="uart-line">0F  00C6 3459</div><div class="uart-sec">IMU 1D-CNN</div><div class="uart-line">10  08A8 08A8</div><div class="uart-line">11  0309 08A8</div><div class="uart-line uart-gap">…</div><div class="uart-line">16  003D 0450</div><div class="uart-sec">FUSION</div><div class="uart-line">17  0103 0103</div><div class="uart-line">18  00FD 0103</div><div class="uart-line">19  0124 00FD</div><div class="uart-line">1A  00FF 0124</div><div class="uart-line">1B  00FF 00FF</div><div class="uart-line">C0  L00 FF</div></div><div class="uart-result is-noncough">RESULT: NON-COUGH</div></div></div></div>
+        <p class="uart-caption">UART verification stream at 115200 8N1 for a cough test input (IN03) and a non-cough test input (IN00): per-layer checksums for each branch, then the class and verdict.</p>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="results">Results</h2>
+        <table class="spec-table">
+          <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Inference latency</td><td>9.73 ms (973,246 cycles at 100 MHz, identical for every input)</td></tr>
+            <tr><td>System latency</td><td>10.15 ms including the RISC-V host</td></tr>
+            <tr><td>Throughput</td><td>102.75 inferences per second</td></tr>
+            <tr><td>Accuracy</td><td>93.08% hardware-exact vs 93.16% floating point (15-fold leave-one-subject-out)</td></tr>
+            <tr><td>Resources</td><td>12,299 LUTs · 8,835 FFs · 68 BRAM tiles · 17 DSPs (9 in the network, 8 in the SD-card loader)</td></tr>
+            <tr><td>Timing</td><td>WNS +0.398 ns, WHS +0.057 ns, 0 of 23,337 endpoints failing</td></tr>
+            <tr><td>Power (estimated)</td><td>0.348 W (0.205 W dynamic + 0.143 W static)</td></tr>
+            <tr><td>Energy (estimated)</td><td>3.39 mJ per inference · 8.98 GOP/J · 3.13 GOP/s</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Accuracy against fan-in budget</h3>
+        <p>Training limits how many inputs (taps) each ternary neuron may use. Keeping all 64 taps holds accuracy at 93.08%; cutting the budget to 32 or 24 taps costs 9 to 16 points.</p>
+        <figure class="fig-card">
+          <div class="fig-card__body">
+            <svg class="fc" viewBox="0 0 640 340" role="img" aria-labelledby="fc-t fc-d">
+              <title id="fc-t">Accuracy versus ternary fan-in budget</title>
+              <desc id="fc-d">Mean hardware-exact accuracy over 15 leave-one-subject-out folds falls from 93.08% at 64 taps to 84.20% at 32 taps and 77.32% at 24 taps. Thin lines show each fold.</desc>
+              <line class="fc-grid" x1="70" x2="610" y1="280.0" y2="280.0" /><text class="fc-tick" x="60" y="284.0" text-anchor="end">70%</text><line class="fc-grid" x1="70" x2="610" y1="238.3" y2="238.3" /><text class="fc-tick" x="60" y="242.3" text-anchor="end">75%</text><line class="fc-grid" x1="70" x2="610" y1="196.7" y2="196.7" /><text class="fc-tick" x="60" y="200.7" text-anchor="end">80%</text><line class="fc-grid" x1="70" x2="610" y1="155.0" y2="155.0" /><text class="fc-tick" x="60" y="159.0" text-anchor="end">85%</text><line class="fc-grid" x1="70" x2="610" y1="113.3" y2="113.3" /><text class="fc-tick" x="60" y="117.3" text-anchor="end">90%</text><line class="fc-grid" x1="70" x2="610" y1="71.7" y2="71.7" /><text class="fc-tick" x="60" y="75.7" text-anchor="end">95%</text><line class="fc-grid" x1="70" x2="610" y1="30.0" y2="30.0" /><text class="fc-tick" x="60" y="34.0" text-anchor="end">100%</text>
+              <line class="fc-axis" x1="70" x2="70" y1="30" y2="280" />
+              <polyline class="fc-fold" points="110.0,50.8 340.0,60.2 570.0,189.3" /><polyline class="fc-fold" points="110.0,90.1 340.0,199.6 570.0,238.3" /><polyline class="fc-fold" points="110.0,151.5 340.0,218.9 570.0,238.3" /><polyline class="fc-fold" points="110.0,101.1 340.0,198.4 570.0,237.1" /><polyline class="fc-fold" points="110.0,102.4 340.0,203.8 570.0,238.3" /><polyline class="fc-fold" points="110.0,104.8 340.0,173.2 570.0,235.8" /><polyline class="fc-fold" points="110.0,37.1 340.0,137.5 570.0,237.9" /><polyline class="fc-fold" points="110.0,46.5 340.0,49.0 570.0,116.2" /><polyline class="fc-fold" points="110.0,105.3 340.0,226.6 570.0,240.3" /><polyline class="fc-fold" points="110.0,135.4 340.0,158.8 570.0,221.6" /><polyline class="fc-fold" points="110.0,59.0 340.0,99.2 570.0,226.4" /><polyline class="fc-fold" points="110.0,103.3 340.0,204.0 570.0,237.6" /><polyline class="fc-fold" points="110.0,47.9 340.0,69.0 570.0,151.7" /><polyline class="fc-fold" points="110.0,59.7 340.0,208.6 570.0,238.3" /><polyline class="fc-fold" points="110.0,120.1 340.0,217.9 570.0,238.3" /><polyline class="fc-mean" points="110.0,87.7 340.0,161.7 570.0,219.0" /><circle class="fc-dot" cx="110.0" cy="87.7" r="5.5" /><text class="fc-val" x="110.0" y="73.7" text-anchor="middle">93.08%</text><circle class="fc-dot" cx="340.0" cy="161.7" r="5.5" /><text class="fc-val" x="340.0" y="147.7" text-anchor="middle">84.20%</text><circle class="fc-dot" cx="570.0" cy="219.0" r="5.5" /><text class="fc-val" x="570.0" y="205.0" text-anchor="middle">77.32%</text><text class="fc-x" x="110.0" y="304" text-anchor="middle">64 taps</text><text class="fc-xs" x="110.0" y="322" text-anchor="middle">all / baseline</text><text class="fc-x" x="340.0" y="304" text-anchor="middle">32 taps</text><text class="fc-xs" x="340.0" y="322" text-anchor="middle">pruned</text><text class="fc-x" x="570.0" y="304" text-anchor="middle">24 taps</text><text class="fc-xs" x="570.0" y="322" text-anchor="middle">aggressive</text>
+              <g class="fc-legend" transform="translate(420,34)">
+                <line class="fc-mean" x1="0" x2="22" y1="8" y2="8" /><circle class="fc-dot" cx="11" cy="8" r="4" />
+                <text class="fc-tick" x="30" y="12">Mean of 15 folds</text>
+                <line class="fc-fold" x1="0" x2="22" y1="28" y2="28" style="opacity:1" />
+                <text class="fc-tick" x="30" y="32">Individual folds</text>
+              </g>
+            </svg>
+          </div>
+          <figcaption>Hardware-exact accuracy against the ternary fan-in budget, over 15 leave-one-subject-out folds.</figcaption>
+        </figure>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="verification">Verification</h2>
+        <p>The synthesized SoC is <strong>bit-exact to the reference integer model</strong>: six independent checks give the same class, logits and per-layer checksums, and an independent review refuted none of them.</p>
+        <div class="table-scroll">
+          <table class="spec-table">
+            <thead><tr><th>Check</th><th>What was compared</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td>C simulation</td><td>25 test inputs: class, logits and 28 layer checksums</td><td class="pass">25 / 25 exact</td></tr>
+              <tr><td>C/RTL co-simulation</td><td>Synthesized RTL against C, both classes</td><td class="pass">Pass</td></tr>
+              <tr><td>Full-SoC RTL simulation</td><td>RISC-V host + accelerator, 25 inputs, UART output</td><td class="pass">25 / 25 byte-identical</td></tr>
+              <tr><td>Processor regression</td><td>86 RISC-V tests against an instruction-set simulator</td><td class="pass">79 pass · 0 fail</td></tr>
+              <tr><td>Lint / methodology</td><td>Single clock, latches, clock-domain crossings</td><td class="pass">Clean</td></tr>
+              <tr><td>Implementation</td><td>DRC, methodology and timing on the XC7A200T</td><td class="pass">Clean · WNS +0.398 ns</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="qat">Compression Study</h2>
+        <p>Before the hardware, the branch-aware mixed-precision quantization was tested on three multimodal datasets with different encoders and fusion methods, to see whether a method first shown on image networks carries over.</p>
+        <div class="table-scroll">
+          <table class="spec-table">
+            <thead><tr><th>Dataset</th><th>Task</th><th>Encoders + fusion</th><th>Float → compressed</th></tr></thead>
+            <tbody>
+              <tr><td>EPFL Cough</td><td>Cough vs non-cough</td><td>TCN + CNN, concatenation</td><td>94.32% → 93.16%</td></tr>
+              <tr><td>MHEALTH</td><td>12 activities</td><td>CNN + CNN, compact bilinear</td><td>87.60% → 90.11%</td></tr>
+              <tr><td>Nonastreda</td><td>Tool-wear state</td><td>Spiking CNN ×2 + LSTM, multiplication</td><td>65.14% → 60.07%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>On MHEALTH the compressed network beats the floating-point one. On Nonastreda, quantized LSTM branches collapsed to 0% in 8 of 10 folds; the cause was traced to NaN propagation through global gradient clipping and stale optimizer state, and a weight-normalization fix brought collapses to 0 of 10 with about 9× faster training.</p>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="publications">Publications</h2>
+        <ol class="paper-list">
+          <li>A. H. Shawn and T. Titirsha. Conference paper on the MOSAIC SoC, <em>IEEE Electron Devices Technology and Manufacturing Conference (EDTM 2027)</em>. <span class="paper-status">Submitted.</span></li>
+          <li>Journal paper on cross-architecture branch-aware quantization for multimodal edge AI. <span class="paper-status">In preparation.</span></li>
+        </ol>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="tools">Tools &amp; Supervision</h2>
+        <table class="spec-table">
+          <tr><td>Tools</td><td>Vitis HLS 2025.2 · Vivado 2025.2 · Verilog · RISC-V RV32I + Zicsr · PyTorch (quantization-aware training) · Python</td></tr>
+          <tr><td>Supervisor</td><td>Dr. Twisha Titirsha, Department of EEE, BRAC University</td></tr>
+        </table>
+
+        <h2>Next Steps</h2>
+        <ul>
+          <li>On-board measurement of latency and supply power, to replace the simulation and tool estimates.</li>
+          <li>A journal paper on cross-architecture branch-aware quantization.</li>
+        </ul>
+      </div>
+
+      <nav class="page-pager" aria-label="Project navigation">
+        <a class="page-pager__link" href="../index.html#projects">
+          <span>← Back to</span>
+          <span class="page-pager__title">All Projects</span>
+        </a>
+        <a class="page-pager__link page-pager__link--next" href="sqa-arc.html">
+          <span>Next →</span>
+          <span class="page-pager__title">SQA-Arc</span>
+        </a>
+      </nav>
+    </main>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2026 Al Hossain Shawn &nbsp;·&nbsp; <a href="../index.html">Portfolio</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+  <script src="../interactive.js" defer></script>
+</body>
+</html>

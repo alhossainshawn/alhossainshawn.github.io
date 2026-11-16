@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=3.2" />
+  <link rel="stylesheet" href="../styles.css?v=3.3" />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
@@ -118,6 +118,33 @@
 
         <h2 id="active">Active Projects</h2>
         <div class="proj-grid" style="margin-top: 1.2rem;">
+          <a class="proj-card" href="../projects/mosaic.html">
+            <div class="proj-card__img--placeholder">
+              <svg viewBox="0 0 24 24"><use href="#i-chip"/></svg>
+            </div>
+            <div class="proj-card__body">
+              <div class="proj-card__meta">
+                <span class="proj-card__id">R-04 &nbsp;·&nbsp; 2026 – Present</span>
+                <span class="badge badge--green">Ongoing</span>
+              </div>
+              <h3><em>MOSAIC</em></h3>
+              <p class="proj-card__desc">Multimodal edge-AI SoC: a RISC-V host and a layer-partitioned ternary / int4 accelerator that detects coughs from audio and motion.</p>
+              <ul class="res-card__bullets" style="margin: 0.4rem 0 0.8rem 0; padding-left: 1.1rem;">
+                <li>9.73 ms per inference on 9 hardware multipliers.</li>
+                <li>All weights (90 KiB) in on-chip ROM; no DRAM.</li>
+                <li>Bit-exact to the reference model across six checks.</li>
+              </ul>
+              <div class="tags-row">
+                <span class="tag">SoC</span>
+                <span class="tag">RISC-V</span>
+                <span class="tag">Vitis HLS</span>
+                <span class="tag">Multimodal</span>
+              </div>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__link">Read more &rarr;</span>
+            </div>
+          </a>
           <a class="proj-card" href="../projects/sqa-arc.html">
             <img class="proj-card__img" src="../assets/projects/sqa-arc/board_photo_fpga_and_dashboard.jpeg" alt="FPGA board in front of the HDMI dashboard showing an EfficientNet-B0 classification" />
             <div class="proj-card__body">
