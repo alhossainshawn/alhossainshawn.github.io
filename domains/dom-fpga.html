@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=3.3" />
+  <link rel="stylesheet" href="../styles.css?v=3.4" />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
@@ -119,8 +119,28 @@
         <h2 id="active">Active Projects</h2>
         <div class="proj-grid" style="margin-top: 1.2rem;">
           <a class="proj-card" href="../projects/mosaic.html">
-            <div class="proj-card__img--placeholder">
-              <svg viewBox="0 0 24 24"><use href="#i-chip"/></svg>
+            <div class="proj-card__img proj-card__img--diagram">
+              <svg class="arch arch-thumb" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid meet" role="img" aria-label="MOSAIC architecture: a RISC-V core with audio and IMU input and a UART verdict output drives an accelerator in which a layer sequencer feeds Engine A (ternary), Engine B (int4) and other kernels, followed by an adder tree, accumulator and shared rescale.">
+                <defs><marker id="mz-thumb-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="arch-head" /></marker></defs>
+                <g class="io"><rect x="30" y="40" width="200" height="70" rx="10" /><text class="t" x="130" y="84">Audio + IMU</text></g>
+                <g class="seq"><rect x="30" y="170" width="200" height="110" rx="10" /><text class="t" x="130" y="220">RISC-V</text><text class="s" x="130" y="248">host core</text></g>
+                <g class="io"><rect x="30" y="340" width="200" height="70" rx="10" /><text class="t" x="130" y="384">UART verdict</text></g>
+                <path class="ln" d="M130,110 V166" marker-end="url(#mz-thumb-ah)" />
+                <path class="ln" d="M130,280 V336" marker-end="url(#mz-thumb-ah)" />
+                <path class="ln" d="M232,225 H288" marker-start="url(#mz-thumb-ah)" marker-end="url(#mz-thumb-ah)" />
+                <text class="lbl" x="260" y="212" text-anchor="middle">MMIO</text>
+                <rect class="frame" x="292" y="22" width="490" height="406" rx="14" />
+                <text class="frame-label" x="312" y="52">ACCELERATOR</text>
+                <g class="mem"><rect x="315" y="68" width="445" height="56" rx="10" /><text class="t" x="537" y="105">Layer sequencer</text></g>
+                <path class="ln" d="M387,124 V146 M537,124 V146 M687,124 V146" />
+                <g class="eng-a"><rect x="315" y="148" width="140" height="82" rx="10" /><text class="t" x="385" y="185">Engine A</text><text class="s" x="385" y="210">ternary</text></g>
+                <g class="eng-b"><rect x="465" y="148" width="140" height="82" rx="10" /><text class="t" x="535" y="185">Engine B</text><text class="s" x="535" y="210">int4</text></g>
+                <g class="eng-x"><rect x="615" y="148" width="145" height="82" rx="10" /><text class="t" x="687" y="185">Other</text><text class="s" x="687" y="210">kernels</text></g>
+                <path class="ln" d="M385,230 V244 M687,230 V244 M385,244 H687 M537,230 V252" marker-end="url(#mz-thumb-ah)" />
+                <g class="mem"><rect x="315" y="256" width="445" height="56" rx="10" /><text class="t" x="537" y="293">Adder tree · accumulator</text></g>
+                <path class="ln" d="M537,312 V334" marker-end="url(#mz-thumb-ah)" />
+                <g class="rq"><rect x="315" y="338" width="445" height="56" rx="10" /><text class="t" x="537" y="375">Shared rescale</text></g>
+              </svg>
             </div>
             <div class="proj-card__body">
               <div class="proj-card__meta">

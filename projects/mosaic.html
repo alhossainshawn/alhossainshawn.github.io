@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=3.3" />
+  <link rel="stylesheet" href="../styles.css?v=3.4" />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 
   <style>
@@ -38,48 +38,6 @@
     .fig-card__body { overflow-x: auto; padding: 1.25rem 1rem 0.75rem; }
     .fig-card figcaption { font-size: 0.78rem; color: var(--text-muted); padding: 0.5rem 0.75rem; font-style: italic; border-top: 1px solid var(--border); }
 
-    /* ── Architecture diagram ────────────────────────── */
-    .arch {
-      display: block; width: 100%; min-width: 560px; max-width: 740px; height: auto; margin: 0 auto;
-      font-family: var(--font-body);
-      --io-f: #fdf4e3;  --io-s: #d6a24a;  --io-t: #6b4a12;
-      --mem-f: #eef1f8; --mem-s: #a3afcf; --mem-t: #1a1a2e;
-      --seq-f: #303e66; --seq-s: #303e66; --seq-t: #ffffff;
-      --a-f: #e6eefa;   --a-s: #4a77b4;
-      --b-f: #fbece2;   --b-s: #c4703c;
-      --x-f: #e7f3ea;   --x-s: #4c8a5c;
-      --eng-t: #1a1a2e;
-      --rq-f: #3d4252;  --rq-s: #3d4252;  --rq-t: #f8fafc;
-      --ln: #8a93a8;    --lbl: #6c757d;   --frame: #b0b5c8;
-    }
-    body.dark-mode .arch {
-      --io-f: #2e2615;  --io-s: #b98a3a;  --io-t: #f3d9a6;
-      --mem-f: #1e2740; --mem-s: #4a5d8c; --mem-t: #e2e8f0;
-      --seq-f: #4a5d8c; --seq-s: #748dbf; --seq-t: #ffffff;
-      --a-f: #1c2b44;   --a-s: #5b8bd0;
-      --b-f: #3a2519;   --b-s: #d08050;
-      --x-f: #1b3324;   --x-s: #5aa36d;
-      --eng-t: #f1f5f9;
-      --rq-f: #2b3245;  --rq-s: #4b5675;  --rq-t: #e2e8f0;
-      --ln: #6b7690;    --lbl: #94a3b8;   --frame: #333d5c;
-    }
-    .arch rect { stroke-width: 1.5; }
-    .arch .t { font-size: 14px; font-weight: 600; text-anchor: middle; }
-    .arch .s { font-size: 11px; text-anchor: middle; font-family: var(--font-mono); opacity: 0.8; }
-    .arch .io rect  { fill: var(--io-f);  stroke: var(--io-s); }   .arch .io text  { fill: var(--io-t); }
-    .arch .mem rect { fill: var(--mem-f); stroke: var(--mem-s); }  .arch .mem text { fill: var(--mem-t); }
-    .arch .seq rect { fill: var(--seq-f); stroke: var(--seq-s); }  .arch .seq text { fill: var(--seq-t); }
-    .arch .eng-a rect { fill: var(--a-f); stroke: var(--a-s); }
-    .arch .eng-b rect { fill: var(--b-f); stroke: var(--b-s); }
-    .arch .eng-x rect { fill: var(--x-f); stroke: var(--x-s); }
-    .arch .eng-a text, .arch .eng-b text, .arch .eng-x text { fill: var(--eng-t); }
-    .arch .rq rect  { fill: var(--rq-f);  stroke: var(--rq-s); }   .arch .rq text  { fill: var(--rq-t); }
-    .arch .ln { fill: none; stroke: var(--ln); stroke-width: 1.5; }
-    .arch .dash { stroke-dasharray: 5 4; }
-    .arch .arch-head { fill: var(--ln); }
-    .arch .lbl { font-size: 11px; font-style: italic; fill: var(--lbl); font-family: var(--font-mono); }
-    .arch .frame { fill: none; stroke: var(--frame); stroke-width: 1.2; stroke-dasharray: 6 5; }
-    .arch .frame-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; fill: var(--lbl); font-family: var(--font-mono); }
 
     /* ── Fan-in chart ────────────────────────────────── */
     .fc { display: block; width: 100%; min-width: 460px; max-width: 640px; height: auto; margin: 0 auto; font-family: var(--font-body); }
