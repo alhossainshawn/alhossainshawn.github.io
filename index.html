@@ -25,7 +25,7 @@
   <meta property="og:image:alt" content="Portrait of Al Hossain Shawn" />
   <meta name="twitter:card" content="summary" />
 
-  <link rel="stylesheet" href="styles.css?v=3.19" />
+  <link rel="stylesheet" href="styles.css?v=3.20" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 
 </head>
@@ -212,7 +212,10 @@
               <span class="tag">Innovus</span>
               <span class="tag">Tempus</span>
             </div>
-            <span class="res-card__link">Read more →</span>
+            <div class="res-card__foot">
+              <span class="res-card__link">Read more →</span>
+              <div class="res-card__thumb"><img class="res-card__thumb-img res-card__thumb-img--chip" src="assets/projects/asic/sqa-v3/v3_layout_full.jpg" alt="Routed layout of the SQA V3 chip: the 64-macro SRAM array, logic band, power grid and pad ring" loading="lazy" /></div>
+            </div>
           </a>
 
           <a class="res-card" href="projects/sqa-arc.html">
@@ -231,7 +234,10 @@
               <span class="tag">Ternary</span>
               <span class="tag">Edge AI</span>
             </div>
-            <span class="res-card__link">Read more →</span>
+            <div class="res-card__foot">
+              <span class="res-card__link">Read more →</span>
+              <div class="res-card__thumb"><img class="res-card__thumb-img" src="assets/projects/sqa-arc/board_photo_fpga_and_dashboard.jpeg" alt="FPGA board in front of the HDMI dashboard showing an EfficientNet-B0 classification" loading="lazy" /></div>
+            </div>
           </a>
 
           <a class="res-card" href="projects/mosaic.html">
@@ -249,7 +255,30 @@
               <span class="tag">RISC-V</span>
               <span class="tag">Multimodal</span>
             </div>
-            <span class="res-card__link">Read more →</span>
+            <div class="res-card__foot">
+              <span class="res-card__link">Read more →</span>
+              <div class="res-card__thumb"><svg class="arch arch-thumb" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid meet" role="img" aria-label="MOSAIC architecture: a RISC-V core with audio and IMU input and a UART verdict output drives an accelerator in which a layer sequencer feeds Engine A (ternary), Engine B (int4) and other kernels, followed by an adder tree, accumulator and shared rescale.">
+                <defs><marker id="r-mz-thumb-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="arch-head" /></marker></defs>
+                <g class="io"><rect x="30" y="40" width="200" height="70" rx="10" /><text class="t" x="130" y="84">Audio + IMU</text></g>
+                <g class="seq"><rect x="30" y="170" width="200" height="110" rx="10" /><text class="t" x="130" y="220">RISC-V</text><text class="s" x="130" y="248">host core</text></g>
+                <g class="io"><rect x="30" y="340" width="200" height="70" rx="10" /><text class="t" x="130" y="384">UART verdict</text></g>
+                <path class="ln" d="M130,110 V166" marker-end="url(#r-mz-thumb-ah)" />
+                <path class="ln" d="M130,280 V336" marker-end="url(#r-mz-thumb-ah)" />
+                <path class="ln" d="M232,225 H288" marker-start="url(#r-mz-thumb-ah)" marker-end="url(#r-mz-thumb-ah)" />
+                <text class="lbl" x="260" y="212" text-anchor="middle">MMIO</text>
+                <rect class="frame" x="292" y="22" width="490" height="406" rx="14" />
+                <text class="frame-label" x="312" y="52">ACCELERATOR</text>
+                <g class="mem"><rect x="315" y="68" width="445" height="56" rx="10" /><text class="t" x="537" y="105">Layer sequencer</text></g>
+                <path class="ln" d="M387,124 V146 M537,124 V146 M687,124 V146" />
+                <g class="eng-a"><rect x="315" y="148" width="140" height="82" rx="10" /><text class="t" x="385" y="185">Engine A</text><text class="s" x="385" y="210">ternary</text></g>
+                <g class="eng-b"><rect x="465" y="148" width="140" height="82" rx="10" /><text class="t" x="535" y="185">Engine B</text><text class="s" x="535" y="210">int4</text></g>
+                <g class="eng-x"><rect x="615" y="148" width="145" height="82" rx="10" /><text class="t" x="687" y="185">Other</text><text class="s" x="687" y="210">kernels</text></g>
+                <path class="ln" d="M385,230 V244 M687,230 V244 M385,244 H687 M537,230 V252" marker-end="url(#r-mz-thumb-ah)" />
+                <g class="mem"><rect x="315" y="256" width="445" height="56" rx="10" /><text class="t" x="537" y="293">Adder tree · accumulator</text></g>
+                <path class="ln" d="M537,312 V334" marker-end="url(#r-mz-thumb-ah)" />
+                <g class="rq"><rect x="315" y="338" width="445" height="56" rx="10" /><text class="t" x="537" y="375">Shared rescale</text></g>
+              </svg></div>
+            </div>
           </a>
 
           <a class="res-card" href="projects/mbcfet-fefet.html">
@@ -267,7 +296,10 @@
               <span class="tag">Multi-level memory</span>
               <span class="tag">TCAD</span>
             </div>
-            <span class="res-card__link">Read more →</span>
+            <div class="res-card__foot">
+              <span class="res-card__link">Read more →</span>
+              <div class="res-card__thumb"><svg class="arch fe-fig arch-thumb fe-thumb" viewBox="0 0 760 300" aria-hidden="true"><g class="seq"><rect x="20" y="20" width="270" height="270" rx="12" /><text class="t" x="155" y="50">one shared gate</text></g><g class="mem"><rect x="48" y="74" width="214" height="48" rx="8" /></g><g class="io"><rect x="72" y="87" width="166" height="22" rx="5" /></g><text class="fe-lab" x="300" y="104">channel 3</text><g class="mem"><rect x="48" y="146" width="214" height="48" rx="8" /></g><g class="io"><rect x="72" y="159" width="166" height="22" rx="5" /></g><text class="fe-lab" x="300" y="176">channel 2</text><g class="mem"><rect x="48" y="218" width="214" height="48" rx="8" /></g><g class="io"><rect x="72" y="231" width="166" height="22" rx="5" /></g><text class="fe-lab" x="300" y="248">channel 1</text><g class="eng-a"><rect x="430" y="34" width="310" height="60" rx="8" /><text class="t fe-left" x="448" y="60">stores</text><text class="fe-sub" x="448" y="81">3 bits in one transistor footprint</text></g><g class="eng-a"><rect x="430" y="114" width="310" height="60" rx="8" /><text class="t fe-left" x="448" y="140">writes</text><text class="fe-sub" x="448" y="161">each bit individually</text></g><g class="eng-a"><rect x="430" y="194" width="310" height="60" rx="8" /><text class="t fe-left" x="448" y="220">computes</text><text class="fe-sub" x="448" y="241">a weighted sum of three inputs</text></g></svg></div>
+            </div>
           </a>
 
           <a class="res-card" href="projects/gan-power-transistor.html">
@@ -285,7 +317,10 @@
               <span class="tag">Power devices</span>
               <span class="tag">Space electronics</span>
             </div>
-            <span class="res-card__link">Read more →</span>
+            <div class="res-card__foot">
+              <span class="res-card__link">Read more →</span>
+              <div class="res-card__thumb res-card__thumb--sketch"><svg class="ganx ganx-thumb" viewBox="-40 175 1280 1045" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><rect class="x-pass" x="66" y="215" width="1068" height="647" /><polygon class="x-diel" points="375,297 450,297 450,755 350,755 350,835 66,835 66,792 294,792 294,712 375,712" /><polygon class="x-diel" points="825,297 750,297 750,755 850,755 850,835 1134,835 1134,792 906,792 906,712 825,712" /><polygon class="x-gate" points="270,377 375,377 375,712 294,712 294,792 66,792 66,728 204,728 204,647 270,647" /><polygon class="x-gate" points="930,377 825,377 825,712 906,712 906,792 1134,792 1134,728 996,728 996,647 930,647" /><polygon class="x-metal" points="105,215 450,215 450,297 160,297 160,565 66,565 66,522 105,522" /><polygon class="x-metal" points="1095,215 750,215 750,297 1040,297 1040,565 1134,565 1134,522 1095,522" /><rect class="x-metal" x="450" y="190" width="300" height="25" /><rect class="x-cap" x="450" y="215" width="300" height="162" /><rect class="x-fin" x="450" y="377" width="300" height="478" /><rect class="x-drift" x="66" y="855" width="1068" height="125" /><rect class="x-shield" x="66" y="862" width="346" height="52" /><rect class="x-shield" x="788" y="862" width="346" height="52" /><rect class="x-tie" x="66" y="870" width="28" height="38" /><rect class="x-tie" x="1106" y="870" width="28" height="38" /><rect class="x-break" x="50" y="980" width="1100" height="40" /><path class="x-zig" d="M66,980 L90.0,1000 L114.0,980 L138.0,1000 L162.0,980 L186.0,1000 L210.0,980 L234.0,1000 L258.0,980 L282.0,1000 L306.0,980 L330.0,1000 L354.0,980 L378.0,1000 L402.0,980 L426.0,1000 L450.0,980 L474.0,1000 L498.0,980 L522.0,1000 L546.0,980 L570.0,1000 L594.0,980 L618.0,1000 L642.0,980 L666.0,1000 L690.0,980 L714.0,1000 L738.0,980 L762.0,1000 L786.0,980 L810.0,1000 L834.0,980 L858.0,1000 L882.0,980 L906.0,1000 L930.0,980 L954.0,1000 L978.0,980 L1002.0,1000 L1026.0,980 L1050.0,1000 L1074.0,980 L1098.0,1000 L1122.0,980" /><path class="x-zig" d="M66,1000 L90.0,1020 L114.0,1000 L138.0,1020 L162.0,1000 L186.0,1020 L210.0,1000 L234.0,1020 L258.0,1000 L282.0,1020 L306.0,1000 L330.0,1020 L354.0,1000 L378.0,1020 L402.0,1000 L426.0,1020 L450.0,1000 L474.0,1020 L498.0,1000 L522.0,1020 L546.0,1000 L570.0,1020 L594.0,1000 L618.0,1020 L642.0,1000 L666.0,1020 L690.0,1000 L714.0,1020 L738.0,1000 L762.0,1020 L786.0,1000 L810.0,1020 L834.0,1000 L858.0,1020 L882.0,1000 L906.0,1020 L930.0,1000 L954.0,1020 L978.0,1000 L1002.0,1020 L1026.0,1000 L1050.0,1020 L1074.0,1000 L1098.0,1020 L1122.0,1000" /><rect class="x-drift" x="66" y="1020" width="1068" height="45" /><rect class="x-ngan" x="66" y="1065" width="1068" height="40" /><rect class="x-cap" x="66" y="1105" width="1068" height="42" /><rect class="x-metal" x="66" y="1147" width="1068" height="58" /><text class="x-lt x-th" x="140" y="270">Source</text><text class="x-dk x-th" x="600" y="615" text-anchor="middle" transform="rotate(-90 600 615)" dominant-baseline="middle">n⁻ GaN fin</text><text class="x-dk x-th" x="322" y="545" text-anchor="middle" transform="rotate(-90 322 545)" dominant-baseline="middle">Gate</text><text class="x-dk x-th" x="878" y="545" text-anchor="middle" transform="rotate(-90 878 545)" dominant-baseline="middle">Gate</text><text class="x-dk x-th" x="600" y="962" text-anchor="middle">p-GaN shield</text><text class="x-dk x-th" x="600" y="1193" text-anchor="middle">Drain</text></svg></div>
+            </div>
           </a>
 
           <a class="res-card" href="projects/mbcfet.html">
@@ -304,7 +339,10 @@
               <span class="tag">Sub-5nm</span>
               <span class="tag">Device Physics</span>
             </div>
-            <span class="res-card__link">Read more →</span>
+            <div class="res-card__foot">
+              <span class="res-card__link">Read more →</span>
+              <div class="res-card__thumb"><img class="res-card__thumb-img res-card__thumb-img--white" src="assets/projects/mbcfet/device_stucture_3d.png" alt="MBCFET 3D Device Structure" loading="lazy" /></div>
+            </div>
           </a>
 
           <a class="res-card" href="projects/hybrid-neural-accelerator.html">
@@ -323,7 +361,18 @@
               <span class="tag">AXI4</span>
               <span class="tag">AI Inference</span>
             </div>
-            <span class="res-card__link">Read more →</span>
+            <div class="res-card__foot">
+              <span class="res-card__link">Read more →</span>
+              <div class="res-card__thumb"><svg class="arch arch-thumb" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                <defs><marker id="hy-thumb-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="arch-head" /></marker></defs>
+                <g class="io"><rect x="30" y="170" width="170" height="110" rx="10" /><text class="t" x="115" y="221">Input</text><text class="s" x="115" y="247">activations</text></g>
+                <g class="eng-a"><rect x="280" y="50" width="250" height="140" rx="10" /><text class="t" x="405" y="115">LUT engine</text><text class="s" x="405" y="142">lookup products</text></g>
+                <g class="eng-b"><rect x="280" y="260" width="250" height="140" rx="10" /><text class="t" x="405" y="325">Log engine</text><text class="s" x="405" y="352">log-domain math</text></g>
+                <g class="mem"><rect x="600" y="160" width="170" height="130" rx="10" /><text class="t" x="685" y="221">Accumulate</text><text class="s" x="685" y="247">output</text></g>
+                <path class="ln" d="M200,225 H240 V120 H276 M240,225 V330 H276" marker-end="url(#hy-thumb-ah)" />
+                <path class="ln" d="M530,120 H565 V225 H596 M530,330 H565 V225" marker-end="url(#hy-thumb-ah)" />
+              </svg></div>
+            </div>
           </a>
         </div>
       </section>
