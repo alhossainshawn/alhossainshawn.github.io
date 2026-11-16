@@ -52,6 +52,7 @@
       <hr class="sidebar__divider" />
       <div class="subpage-nav-title">On this page</div>
       <nav class="subpage-nav">
+        <a href="#screenshot-proofs">Screenshot proofs</a>
         <a href="#overview">Overview</a>
         <a href="#headline-numbers">Headline numbers</a>
         <a href="#architecture">Architecture</a>
@@ -59,16 +60,15 @@
         <a href="#design-flow">Design flow</a>
         <a href="#results">Results</a>
         <a href="#problems-solved">Problems solved</a>
-        <a href="#screenshot-proofs">Screenshot proofs</a>
       </nav>
       <hr class="sidebar__divider" />
       <div class="subpage-nav-title">ASIC designs</div>
       <nav class="subpage-nav">
+        <a href="asic-riscv-mcu.html">RISC-V Controller Chip</a>
         <a href="asic-accelerator.html" class="active">AI Accelerator Core</a>
         <a href="asic-sqa-v1.html">SQA V1 Chip</a>
         <a href="asic-sqa-v2.html">SQA V2 Chip</a>
         <a href="asic-sqa-v3.html">SQA V3 Chip</a>
-        <a href="asic-riscv-mcu.html">RISC-V Controller Chip</a>
         <a href="asic-memories.html">Memory Design</a>
       </nav>
       <hr class="sidebar__divider" />
@@ -104,7 +104,11 @@
       </div>
 
       <div class="prose">
-        <h2 id="overview">Overview</h2>
+        <h2 id="screenshot-proofs">Screenshot proofs</h2>
+        <p>The layout pictures come from the routed database one run before the final one (the final run only re-spread the block pins along the edges to remove edge shorts and gained 0.03 ns of setup slack).</p>
+        <div class="asic-gallery"><figure><a href="../assets/projects/asic/accelerator/accel_layout_full.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_layout_full.jpg" alt="The routed core in Innovus: SRAM macros (large blocks), standard-cell logic, power grid and routing." loading="lazy" /></a><figcaption>The routed core in Innovus: SRAM macros (large blocks), standard-cell logic, power grid and routing.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_layout_modules.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_layout_modules.jpg" alt="Module view: where Engine A, Engine B, the AUX engine and the control logic were placed." loading="lazy" /></a><figcaption>Module view: where Engine A, Engine B, the AUX engine and the control logic were placed.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_power_grid.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_power_grid.jpg" alt="The power grid alone: core ring, stripes and the cell-row rails." loading="lazy" /></a><figcaption>The power grid alone: core ring, stripes and the cell-row rails.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_clock_tree.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_clock_tree.jpg" alt="The clock tree built by clock-tree synthesis, reaching every flip-flop." loading="lazy" /></a><figcaption>The clock tree built by clock-tree synthesis, reaching every flip-flop.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_sram_macro.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_sram_macro.jpg" alt="Zoom on the largest SRAM macro: its pins along the edge and the power stripes crossing it." loading="lazy" /></a><figcaption>Zoom on the largest SRAM macro: its pins along the edge and the power stripes crossing it.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_cells_10um.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_cells_10um.jpg" alt="A 10 µm window: single standard cells, Metal1 power rails and vias." loading="lazy" /></a><figcaption>A 10 µm window: single standard cells, Metal1 power rails and vias.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_sim_waveform.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_sim_waveform.jpg" alt="SimVision waveform of the updated accelerator core running a test operator (the version reused in the chips)." loading="lazy" /></a><figcaption>SimVision waveform of the updated accelerator core running a test operator (the version reused in the chips).</figcaption></figure></div>
+        <hr class="section-divider" />
+<h2 id="overview">Overview</h2>
         <p>accel_core is the inference core of the SQA accelerator: it runs whole quantised neural networks (ternary and 4-bit weights) operator by operator from a descriptor program in external memory. The same RTL had already been verified on an AMD Artix-7 FPGA (XC7A200T) at 100 MHz.</p>
         <p>This project took that RTL to an ASIC layout in the GPDK045 generic 45 nm technology: memory planning, synthesis, place and route of the core (no pad ring: core-only block), sign-off timing with signal integrity, and power analysis with real simulation activity. Every verification step matched the expected results bit for bit and cycle for cycle.</p>
         <p>It became the reference design for the three SQA chip versions (V1, V2, V3), which all reuse an updated copy of this core.</p>
@@ -165,16 +169,12 @@
         <p><strong>Memories without a memory compiler.</strong> The generic PDK has no SRAM compiler, and 1.48 Mbit of flip-flops would have meant millions of cells. I wrote a generator for placeholder SRAM macros (behaviour model, estimated timing / power library, outline and pins) and kept only arrays of up to 2 Kbit as flip-flops.</p>
         <p><strong>HLS initial values do not exist on an ASIC.</strong> 135 registers in the HLS engines relied on FPGA power-up values. Gate-level simulation hung from X-pessimism. I proved that no non-reset register affects the result by passing every test from both all-0 and all-1 start states; all state machines and valid flags are reset.</p>
         <p><strong>Signal integrity decides the margin.</strong> Timing without SI was pessimistic (-0.326 ns); SI-aware Tempus is the sign-off number (+0.020 ns). The critical paths are 48-bit address subtractions generated by HLS in all three engines: the place to pipeline for a faster clock.</p>
-        <hr class="section-divider" />
-<h2 id="screenshot-proofs">Screenshot proofs</h2>
-        <p>The layout pictures come from the routed database one run before the final one (the final run only re-spread the block pins along the edges to remove edge shorts and gained 0.03 ns of setup slack).</p>
-        <div class="asic-gallery"><figure><a href="../assets/projects/asic/accelerator/accel_layout_full.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_layout_full.jpg" alt="The routed core in Innovus: SRAM macros (large blocks), standard-cell logic, power grid and routing." loading="lazy" /></a><figcaption>The routed core in Innovus: SRAM macros (large blocks), standard-cell logic, power grid and routing.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_layout_modules.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_layout_modules.jpg" alt="Module view: where Engine A, Engine B, the AUX engine and the control logic were placed." loading="lazy" /></a><figcaption>Module view: where Engine A, Engine B, the AUX engine and the control logic were placed.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_power_grid.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_power_grid.jpg" alt="The power grid alone: core ring, stripes and the cell-row rails." loading="lazy" /></a><figcaption>The power grid alone: core ring, stripes and the cell-row rails.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_clock_tree.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_clock_tree.jpg" alt="The clock tree built by clock-tree synthesis, reaching every flip-flop." loading="lazy" /></a><figcaption>The clock tree built by clock-tree synthesis, reaching every flip-flop.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_sram_macro.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_sram_macro.jpg" alt="Zoom on the largest SRAM macro: its pins along the edge and the power stripes crossing it." loading="lazy" /></a><figcaption>Zoom on the largest SRAM macro: its pins along the edge and the power stripes crossing it.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_cells_10um.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_cells_10um.jpg" alt="A 10 µm window: single standard cells, Metal1 power rails and vias." loading="lazy" /></a><figcaption>A 10 µm window: single standard cells, Metal1 power rails and vias.</figcaption></figure><figure><a href="../assets/projects/asic/accelerator/accel_sim_waveform.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/accelerator/accel_sim_waveform.jpg" alt="SimVision waveform of the updated accelerator core running a test operator (the version reused in the chips)." loading="lazy" /></a><figcaption>SimVision waveform of the updated accelerator core running a test operator (the version reused in the chips).</figcaption></figure></div>
       </div>
 
       <nav class="page-pager" aria-label="Project navigation">
-        <a class="page-pager__link" href="asic.html">
-          <span>← Back to</span>
-          <span class="page-pager__title">SQA ASIC Chips</span>
+        <a class="page-pager__link" href="asic-riscv-mcu.html">
+          <span>← Previous</span>
+          <span class="page-pager__title">RISC-V Controller Chip</span>
         </a>
         <a class="page-pager__link page-pager__link--next" href="asic-sqa-v1.html">
           <span>Next →</span>

@@ -62,11 +62,11 @@
       <hr class="sidebar__divider" />
       <div class="subpage-nav-title">ASIC designs</div>
       <nav class="subpage-nav">
+        <a href="asic-riscv-mcu.html">RISC-V Controller Chip</a>
         <a href="asic-accelerator.html">AI Accelerator Core</a>
         <a href="asic-sqa-v1.html">SQA V1 Chip</a>
         <a href="asic-sqa-v2.html">SQA V2 Chip</a>
         <a href="asic-sqa-v3.html">SQA V3 Chip</a>
-        <a href="asic-riscv-mcu.html">RISC-V Controller Chip</a>
         <a href="asic-memories.html">Memory Design</a>
       </nav>
       <hr class="sidebar__divider" />
@@ -108,7 +108,7 @@
       </div>
 
       <div class="prose">
-        <p class="asic-lede" id="overview">Five chip designs built around the <a href="sqa-arc.html">SQA-Arc</a> accelerator, each taken from RTL to a signed-off 45 nm layout: the accelerator core, three accelerator chips that differ only in where their memory lives, and a RISC-V controller chip, plus my own SRAM macro models.</p>
+        <p class="asic-lede" id="overview">Five chip designs built around the <a href="sqa-arc.html">SQA-Arc</a> accelerator, each taken from RTL to a signed-off 45 nm layout: a RISC-V controller chip, the accelerator core, and three accelerator chips that differ only in where their memory lives, plus my own SRAM macro models.</p>
         <p>All five are <strong>academic practice designs</strong> on Cadence's generic <strong>GPDK045 (45 nm)</strong> PDK. They went through synthesis, place and route, physical verification, sign-off timing, power and rail analysis and gate-level simulation in Cadence tools, but <strong>they have not been fabricated</strong>. The SRAM macros are my own placeholder models, because the generic PDK has no memory compiler.</p>
         <div class="asic-stats">
           <div class="asic-stat"><div class="asic-stat__val">5</div><div class="asic-stat__label">Signed-off designs</div></div>
@@ -120,6 +120,18 @@
         <hr class="section-divider" />
         <h2 id="designs">The Designs</h2>
         <div class="proj-grid asic-cards">
+          <a class="proj-card" href="asic-riscv-mcu.html">
+            <img class="proj-card__img" src="../assets/projects/asic/riscv-mcu/mcu_layout_full.jpg" alt="RISC-V Controller Chip" loading="lazy" />
+            <div class="proj-card__body">
+              <h3>RISC-V Controller Chip</h3>
+              <p class="proj-card__desc">A small RISC-V microcontroller ASIC with my own peripherals and C firmware: the companion chip that drives V1 and V2.</p>
+              <dl class="asic-card-stats"><div><dt>Die</dt><dd>1.5 × 1.5 mm</dd></div><div><dt>Pads</dt><dd>52</dd></div><div><dt>Timing</dt><dd>+1.094 ns at 100 MHz</dd></div><div><dt>Power</dt><dd>1.15 mW</dd></div></dl>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__period">Signed off · GPDK045</span>
+              <span class="proj-card__link">Open →</span>
+            </div>
+          </a>
           <a class="proj-card" href="asic-accelerator.html">
             <img class="proj-card__img" src="../assets/projects/asic/accelerator/accel_layout_full.jpg" alt="AI Accelerator Core" loading="lazy" />
             <div class="proj-card__body">
@@ -168,18 +180,6 @@
               <span class="proj-card__link">Open →</span>
             </div>
           </a>
-          <a class="proj-card" href="asic-riscv-mcu.html">
-            <img class="proj-card__img" src="../assets/projects/asic/riscv-mcu/mcu_layout_full.jpg" alt="RISC-V Controller Chip" loading="lazy" />
-            <div class="proj-card__body">
-              <h3>RISC-V Controller Chip</h3>
-              <p class="proj-card__desc">A small RISC-V microcontroller ASIC with my own peripherals and C firmware: the companion chip that drives V1 and V2.</p>
-              <dl class="asic-card-stats"><div><dt>Die</dt><dd>1.5 × 1.5 mm</dd></div><div><dt>Pads</dt><dd>52</dd></div><div><dt>Timing</dt><dd>+1.094 ns at 100 MHz</dd></div><div><dt>Power</dt><dd>1.15 mW</dd></div></dl>
-            </div>
-            <div class="proj-card__footer">
-              <span class="proj-card__period">Signed off · GPDK045</span>
-              <span class="proj-card__link">Open →</span>
-            </div>
-          </a>
           <a class="proj-card" href="asic-memories.html">
             <img class="proj-card__img" src="../assets/projects/asic/memories/mem_sram_column.png" alt="Memory Design" loading="lazy" />
             <div class="proj-card__body">
@@ -201,10 +201,10 @@
           <table class="spec-table">
             <thead><tr><th>Chip</th><th>Die</th><th>Pads</th><th>SRAM macros</th><th>Std cells (P&amp;R)</th><th>Setup slack (SI)</th><th>Power (real activity)</th><th>Board parts</th></tr></thead>
             <tbody>
+              <tr><td><a href="asic-riscv-mcu.html">RISC-V MCU</a></td><td>1.5 × 1.5 mm</td><td>52</td><td>4</td><td>23,667</td><td>+1.094 ns</td><td>1.15 mW</td><td>with V1 / V2</td></tr>
               <tr><td><a href="asic-sqa-v1.html">SQA V1</a></td><td>4.68 × 4.68 mm</td><td>280</td><td>1</td><td>106,723</td><td>+0.062 ns</td><td>5.85 mW</td><td>7</td></tr>
               <tr><td><a href="asic-sqa-v2.html">SQA V2</a></td><td>2.4 × 2.4 mm</td><td>126</td><td>6</td><td>114,718</td><td>+0.076 ns</td><td>6.16 mW</td><td>4</td></tr>
               <tr><td><a href="asic-sqa-v3.html">SQA V3</a></td><td>6.12 × 6.12 mm</td><td>80</td><td>74</td><td>149,935*</td><td>+0.006 ns</td><td>8.85 mW</td><td>2</td></tr>
-              <tr><td><a href="asic-riscv-mcu.html">RISC-V MCU</a></td><td>1.5 × 1.5 mm</td><td>52</td><td>4</td><td>23,667</td><td>+1.094 ns</td><td>1.15 mW</td><td>with V1 / V2</td></tr>
             </tbody>
           </table>
         </div>

@@ -52,6 +52,7 @@
       <hr class="sidebar__divider" />
       <div class="subpage-nav-title">On this page</div>
       <nav class="subpage-nav">
+        <a href="#screenshot-proofs">Screenshot proofs</a>
         <a href="#overview">Overview</a>
         <a href="#headline-numbers">Headline numbers</a>
         <a href="#architecture">Architecture</a>
@@ -59,16 +60,15 @@
         <a href="#design-flow">Design flow</a>
         <a href="#results">Results</a>
         <a href="#problems-solved">Problems solved</a>
-        <a href="#screenshot-proofs">Screenshot proofs</a>
       </nav>
       <hr class="sidebar__divider" />
       <div class="subpage-nav-title">ASIC designs</div>
       <nav class="subpage-nav">
+        <a href="asic-riscv-mcu.html" class="active">RISC-V Controller Chip</a>
         <a href="asic-accelerator.html">AI Accelerator Core</a>
         <a href="asic-sqa-v1.html">SQA V1 Chip</a>
         <a href="asic-sqa-v2.html">SQA V2 Chip</a>
         <a href="asic-sqa-v3.html">SQA V3 Chip</a>
-        <a href="asic-riscv-mcu.html" class="active">RISC-V Controller Chip</a>
         <a href="asic-memories.html">Memory Design</a>
       </nav>
       <hr class="sidebar__divider" />
@@ -104,7 +104,11 @@
       </div>
 
       <div class="prose">
-        <h2 id="overview">Overview</h2>
+        <h2 id="screenshot-proofs">Screenshot proofs</h2>
+        <p>All pictures are of the final layout.</p>
+        <div class="asic-gallery"><figure><a href="../assets/projects/asic/riscv-mcu/mcu_layout_full.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/riscv-mcu/mcu_layout_full.jpg" alt="Full MCU layout in Innovus: 52-pad ring, four 32 KB SRAM macros (2 × 2) and the CPU / peripheral logic between them." loading="lazy" /></a><figcaption>Full MCU layout in Innovus: 52-pad ring, four 32 KB SRAM macros (2 × 2) and the CPU / peripheral logic between them.</figcaption></figure><figure><a href="../assets/projects/asic/riscv-mcu/mcu_layout_modules.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/riscv-mcu/mcu_layout_modules.jpg" alt="Module view: where the CPU and each peripheral were placed." loading="lazy" /></a><figcaption>Module view: where the CPU and each peripheral were placed.</figcaption></figure><figure><a href="../assets/projects/asic/riscv-mcu/mcu_tempus_setup.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/riscv-mcu/mcu_tempus_setup.jpg" alt="Tempus sign-off with SI: 2000 worst setup paths, all passing with about 1.1 ns to spare at 100 MHz." loading="lazy" /></a><figcaption>Tempus sign-off with SI: 2000 worst setup paths, all passing with about 1.1 ns to spare at 100 MHz.</figcaption></figure><figure><a href="../assets/projects/asic/riscv-mcu/mcu_clock_tree.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/riscv-mcu/mcu_clock_tree.jpg" alt="Clock nets highlighted in Innovus: the clock tree from the clock pad to every flip-flop." loading="lazy" /></a><figcaption>Clock nets highlighted in Innovus: the clock tree from the clock pad to every flip-flop.</figcaption></figure><figure><a href="../assets/projects/asic/riscv-mcu/mcu_ir_drop_vdd.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/riscv-mcu/mcu_ir_drop_vdd.jpg" alt="Static IR-drop map of VDD with real activity: worst drop about 1 mV (45 mV budget)." loading="lazy" /></a><figcaption>Static IR-drop map of VDD with real activity: worst drop about 1 mV (45 mV budget).</figcaption></figure><figure><a href="../assets/projects/asic/riscv-mcu/mcu_gl_sim_waveform.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/riscv-mcu/mcu_gl_sim_waveform.jpg" alt="Gate-level simulation of the routed MCU in SimVision: the C boot firmware running on the chip netlist." loading="lazy" /></a><figcaption>Gate-level simulation of the routed MCU in SimVision: the C boot firmware running on the chip netlist.</figcaption></figure><figure><a href="../assets/projects/asic/riscv-mcu/mcu_gds_cells.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/riscv-mcu/mcu_gds_cells.jpg" alt="The final GDS in Virtuoso, 3 µm window: individual standard cells and their wiring." loading="lazy" /></a><figcaption>The final GDS in Virtuoso, 3 µm window: individual standard cells and their wiring.</figcaption></figure></div>
+        <hr class="section-divider" />
+<h2 id="overview">Overview</h2>
         <p>The controller is a complete microcontroller chip built around the open-source PicoRV32 RISC-V core (RV32IMC with multiply / divide and interrupts). Everything around the CPU is my own RTL: the Wishbone bus, UART, SPI SD card, I2C, GPIO, timer, interrupt controller, a QSPI flash reader with a read cache and a host-link master that sends commands to the V1 / V2 accelerator chips.</p>
         <p>It boots from an 8 KB ROM, runs C firmware compiled with RISC-V GCC from a 128 KB on-chip SRAM, and was taken through the same full sign-off as the accelerator chips. The same subsystem is built into V3.</p>
         <p>This is an academic practice design on Cadence's generic GPDK045 45 nm PDK. It is fully signed off in the Cadence tools but it has not been fabricated. The SRAM macros are my own placeholder models (behaviour, estimated timing / area / power, outline and pins), because the generic PDK has no memory compiler.</p>
@@ -165,20 +169,16 @@
         <p><strong>Synthesis deleted the pads.</strong> Without a preserve setting Genus optimised 15 input / output pads away as plain buffers and removed the 10 power pads. Preserving the pad cells kept all 52.</p>
         <p><strong>An interrupt ran twice.</strong> PicoRV32's default latched-interrupt setting re-latched my level-sensitive interrupt lines during the handler, so the timer handler ran twice. Setting the latched mask only for the CPU-internal sources fixed it.</p>
         <p><strong>Simulation start-up with real delays.</strong> With SDF delays the clock net is unknown for the first 0.64 ns and corrupted the CPU register file, which has no reset. This is a simulation start-up effect, not a chip bug; the test initialises those flops before the first real clock edge.</p>
-        <hr class="section-divider" />
-<h2 id="screenshot-proofs">Screenshot proofs</h2>
-        <p>All pictures are of the final layout.</p>
-        <div class="asic-gallery"><figure><a href="../assets/projects/asic/riscv-mcu/mcu_layout_full.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/riscv-mcu/mcu_layout_full.jpg" alt="Full MCU layout in Innovus: 52-pad ring, four 32 KB SRAM macros (2 × 2) and the CPU / peripheral logic between them." loading="lazy" /></a><figcaption>Full MCU layout in Innovus: 52-pad ring, four 32 KB SRAM macros (2 × 2) and the CPU / peripheral logic between them.</figcaption></figure><figure><a href="../assets/projects/asic/riscv-mcu/mcu_layout_modules.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/riscv-mcu/mcu_layout_modules.jpg" alt="Module view: where the CPU and each peripheral were placed." loading="lazy" /></a><figcaption>Module view: where the CPU and each peripheral were placed.</figcaption></figure><figure><a href="../assets/projects/asic/riscv-mcu/mcu_tempus_setup.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/riscv-mcu/mcu_tempus_setup.jpg" alt="Tempus sign-off with SI: 2000 worst setup paths, all passing with about 1.1 ns to spare at 100 MHz." loading="lazy" /></a><figcaption>Tempus sign-off with SI: 2000 worst setup paths, all passing with about 1.1 ns to spare at 100 MHz.</figcaption></figure><figure><a href="../assets/projects/asic/riscv-mcu/mcu_clock_tree.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/riscv-mcu/mcu_clock_tree.jpg" alt="Clock nets highlighted in Innovus: the clock tree from the clock pad to every flip-flop." loading="lazy" /></a><figcaption>Clock nets highlighted in Innovus: the clock tree from the clock pad to every flip-flop.</figcaption></figure><figure><a href="../assets/projects/asic/riscv-mcu/mcu_ir_drop_vdd.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/riscv-mcu/mcu_ir_drop_vdd.jpg" alt="Static IR-drop map of VDD with real activity: worst drop about 1 mV (45 mV budget)." loading="lazy" /></a><figcaption>Static IR-drop map of VDD with real activity: worst drop about 1 mV (45 mV budget).</figcaption></figure><figure><a href="../assets/projects/asic/riscv-mcu/mcu_gl_sim_waveform.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/riscv-mcu/mcu_gl_sim_waveform.jpg" alt="Gate-level simulation of the routed MCU in SimVision: the C boot firmware running on the chip netlist." loading="lazy" /></a><figcaption>Gate-level simulation of the routed MCU in SimVision: the C boot firmware running on the chip netlist.</figcaption></figure><figure><a href="../assets/projects/asic/riscv-mcu/mcu_gds_cells.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/riscv-mcu/mcu_gds_cells.jpg" alt="The final GDS in Virtuoso, 3 µm window: individual standard cells and their wiring." loading="lazy" /></a><figcaption>The final GDS in Virtuoso, 3 µm window: individual standard cells and their wiring.</figcaption></figure></div>
       </div>
 
       <nav class="page-pager" aria-label="Project navigation">
-        <a class="page-pager__link" href="asic-sqa-v3.html">
-          <span>← Previous</span>
-          <span class="page-pager__title">SQA V3 Chip</span>
+        <a class="page-pager__link" href="asic.html">
+          <span>← Back to</span>
+          <span class="page-pager__title">SQA ASIC Chips</span>
         </a>
-        <a class="page-pager__link page-pager__link--next" href="asic-memories.html">
+        <a class="page-pager__link page-pager__link--next" href="asic-accelerator.html">
           <span>Next →</span>
-          <span class="page-pager__title">Memory Design</span>
+          <span class="page-pager__title">AI Accelerator Core</span>
         </a>
       </nav>
     </main>

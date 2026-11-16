@@ -52,6 +52,7 @@
       <hr class="sidebar__divider" />
       <div class="subpage-nav-title">On this page</div>
       <nav class="subpage-nav">
+        <a href="#screenshot-proofs">Screenshot proofs</a>
         <a href="#overview">Overview</a>
         <a href="#headline-numbers">Headline numbers</a>
         <a href="#architecture">Architecture</a>
@@ -59,16 +60,15 @@
         <a href="#design-flow">Design flow</a>
         <a href="#results">Results</a>
         <a href="#problems-solved">Problems solved</a>
-        <a href="#screenshot-proofs">Screenshot proofs</a>
       </nav>
       <hr class="sidebar__divider" />
       <div class="subpage-nav-title">ASIC designs</div>
       <nav class="subpage-nav">
+        <a href="asic-riscv-mcu.html">RISC-V Controller Chip</a>
         <a href="asic-accelerator.html">AI Accelerator Core</a>
         <a href="asic-sqa-v1.html">SQA V1 Chip</a>
         <a href="asic-sqa-v2.html">SQA V2 Chip</a>
         <a href="asic-sqa-v3.html" class="active">SQA V3 Chip</a>
-        <a href="asic-riscv-mcu.html">RISC-V Controller Chip</a>
         <a href="asic-memories.html">Memory Design</a>
       </nav>
       <hr class="sidebar__divider" />
@@ -104,7 +104,11 @@
       </div>
 
       <div class="prose">
-        <h2 id="overview">Overview</h2>
+        <h2 id="screenshot-proofs">Screenshot proofs</h2>
+        <p>The Innovus, Tempus, Virtuoso and IR-drop pictures come from the layout just before the EM fix (the fix only added power wires at the 8 supply pads); the 'after' EM map is the final layout.</p>
+        <div class="asic-gallery"><figure><a href="../assets/projects/asic/sqa-v3/v3_layout_full.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_layout_full.jpg" alt="Full V3 layout: the 64-macro main-SRAM array, the CPU / accelerator logic band, the power grid and the 80-pad ring." loading="lazy" /></a><figcaption>Full V3 layout: the 64-macro main-SRAM array, the CPU / accelerator logic band, the power grid and the 80-pad ring.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_sram_macro_zoom.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_sram_macro_zoom.jpg" alt="Zoom on an SRAM macro: pins along its edge and power stripes crossing it." loading="lazy" /></a><figcaption>Zoom on an SRAM macro: pins along its edge and power stripes crossing it.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_tempus_setup.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_tempus_setup.jpg" alt="Tempus sign-off with SI: 2000 worst setup paths, 0 failing." loading="lazy" /></a><figcaption>Tempus sign-off with SI: 2000 worst setup paths, 0 failing.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_em_vdd_before_fix.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_em_vdd_before_fix.jpg" alt="EM before the fix: VDD wires over the current limit (red) at the supply pads." loading="lazy" /></a><figcaption>EM before the fix: VDD wires over the current limit (red) at the supply pads.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_em_vdd_after_fix.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_em_vdd_after_fix.jpg" alt="EM after the five-step fix (final layout): no power wire over the limit." loading="lazy" /></a><figcaption>EM after the five-step fix (final layout): no power wire over the limit.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_ir_drop_vdd.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_ir_drop_vdd.jpg" alt="Static IR-drop map of VDD with real activity: worst drop well inside the 45 mV budget." loading="lazy" /></a><figcaption>Static IR-drop map of VDD with real activity: worst drop well inside the 45 mV budget.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_gl_sim_waveform.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_gl_sim_waveform.jpg" alt="Gate-level simulation of the routed V3: firmware boots from flash, runs the accelerator and prints the result." loading="lazy" /></a><figcaption>Gate-level simulation of the routed V3: firmware boots from flash, runs the accelerator and prints the result.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_gds_full.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_gds_full.jpg" alt="The V3 GDS in Virtuoso (SRAM macros as empty outlines: placeholder models)." loading="lazy" /></a><figcaption>The V3 GDS in Virtuoso (SRAM macros as empty outlines: placeholder models).</figcaption></figure></div>
+        <hr class="section-divider" />
+<h2 id="overview">Overview</h2>
         <p>V3 puts everything on one chip: the PicoRV32 RISC-V controller with its peripherals, the accelerator core, a 4 MB main SRAM built from 64 SRAM macros, and the 1080p display controller. The CPU runs C firmware that copies a network from QSPI flash into the on-chip SRAM, starts the accelerator and reports the result over UART. No SDRAM and no host link are needed: the board holds only V3 and a flash.</p>
         <p>Because the data is on chip, V3 runs the test operator fastest of the three versions (60,589 cycles against 66,143 for V2). The 4 MB of SRAM makes it core-limited: 96 % of its macro area is the main memory.</p>
         <p>This is an academic practice design on Cadence's generic GPDK045 45 nm PDK. It is fully signed off in the Cadence tools but it has not been fabricated. The SRAM macros are my own placeholder models (behaviour, estimated timing / area / power, outline and pins), because the generic PDK has no memory compiler.</p>
@@ -166,10 +170,6 @@
         <p><strong>Electromigration at the supply pads.</strong> The final candidate had 91 power-wire pieces over the EM limit (worst 2.80x) at all 8 supply pads. Three causes: each supply pad has two core-side pins but only one had been wired; the top-level Metal8 straps stopped at the core edge and never touched the ring, so the current climbed thin Metal4 stripes; at the side pads the nearest strap was 25-35 µm away. Fixed in five ECO steps: second pad wires, Metal8 stubs over the ring, Metal7 straps at the side pads, and missing Metal2-Metal8 vias (the stripe command does not drop vias on pad wires). Result: 0 pieces over the limit, and the static IR drop also fell from ~11 to ~8 mV.</p>
         <p><strong>A die-wide read path.</strong> Tempus found -0.159 ns on the main-SRAM read: bank select -&gt; a 512-bit read mux across the 6 mm die -&gt; output register, about 50 buffer stages, which Innovus had called +0.001 ns. A finishing run with a +0.25 ns setup target upsized the chain. Lesson for a real tapeout: pipeline wide read muxes instead of buffering across the die.</p>
         <p><strong>266 foundry DRC hits.</strong> Mostly tall via stacks. Rerouting around them only moved them; what worked was capping the few nets at that spot at Metal5 so no tall stack could form. 459 slew violators left by 18 reroute rounds were brought to 0 by DRV optimisation, targeted driver upsizing, and moving the last clock net to the low-resistance upper metals.</p>
-        <hr class="section-divider" />
-<h2 id="screenshot-proofs">Screenshot proofs</h2>
-        <p>The Innovus, Tempus, Virtuoso and IR-drop pictures come from the layout just before the EM fix (the fix only added power wires at the 8 supply pads); the 'after' EM map is the final layout.</p>
-        <div class="asic-gallery"><figure><a href="../assets/projects/asic/sqa-v3/v3_layout_full.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_layout_full.jpg" alt="Full V3 layout: the 64-macro main-SRAM array, the CPU / accelerator logic band, the power grid and the 80-pad ring." loading="lazy" /></a><figcaption>Full V3 layout: the 64-macro main-SRAM array, the CPU / accelerator logic band, the power grid and the 80-pad ring.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_sram_macro_zoom.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_sram_macro_zoom.jpg" alt="Zoom on an SRAM macro: pins along its edge and power stripes crossing it." loading="lazy" /></a><figcaption>Zoom on an SRAM macro: pins along its edge and power stripes crossing it.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_tempus_setup.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_tempus_setup.jpg" alt="Tempus sign-off with SI: 2000 worst setup paths, 0 failing." loading="lazy" /></a><figcaption>Tempus sign-off with SI: 2000 worst setup paths, 0 failing.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_em_vdd_before_fix.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_em_vdd_before_fix.jpg" alt="EM before the fix: VDD wires over the current limit (red) at the supply pads." loading="lazy" /></a><figcaption>EM before the fix: VDD wires over the current limit (red) at the supply pads.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_em_vdd_after_fix.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_em_vdd_after_fix.jpg" alt="EM after the five-step fix (final layout): no power wire over the limit." loading="lazy" /></a><figcaption>EM after the five-step fix (final layout): no power wire over the limit.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_ir_drop_vdd.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_ir_drop_vdd.jpg" alt="Static IR-drop map of VDD with real activity: worst drop well inside the 45 mV budget." loading="lazy" /></a><figcaption>Static IR-drop map of VDD with real activity: worst drop well inside the 45 mV budget.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_gl_sim_waveform.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_gl_sim_waveform.jpg" alt="Gate-level simulation of the routed V3: firmware boots from flash, runs the accelerator and prints the result." loading="lazy" /></a><figcaption>Gate-level simulation of the routed V3: firmware boots from flash, runs the accelerator and prints the result.</figcaption></figure><figure><a href="../assets/projects/asic/sqa-v3/v3_gds_full.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/sqa-v3/v3_gds_full.jpg" alt="The V3 GDS in Virtuoso (SRAM macros as empty outlines: placeholder models)." loading="lazy" /></a><figcaption>The V3 GDS in Virtuoso (SRAM macros as empty outlines: placeholder models).</figcaption></figure></div>
       </div>
 
       <nav class="page-pager" aria-label="Project navigation">
@@ -177,9 +177,9 @@
           <span>← Previous</span>
           <span class="page-pager__title">SQA V2 Chip</span>
         </a>
-        <a class="page-pager__link page-pager__link--next" href="asic-riscv-mcu.html">
+        <a class="page-pager__link page-pager__link--next" href="asic-memories.html">
           <span>Next →</span>
-          <span class="page-pager__title">RISC-V Controller Chip</span>
+          <span class="page-pager__title">Memory Design</span>
         </a>
       </nav>
     </main>

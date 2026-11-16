@@ -52,6 +52,7 @@
       <hr class="sidebar__divider" />
       <div class="subpage-nav-title">On this page</div>
       <nav class="subpage-nav">
+        <a href="#screenshot-proofs">Screenshot proofs</a>
         <a href="#overview">Overview</a>
         <a href="#headline-numbers">Headline numbers</a>
         <a href="#architecture">Architecture</a>
@@ -59,16 +60,15 @@
         <a href="#design-flow">Design flow</a>
         <a href="#results-and-measurements">Results and measurements</a>
         <a href="#problems-solved">Problems solved</a>
-        <a href="#screenshot-proofs">Screenshot proofs</a>
       </nav>
       <hr class="sidebar__divider" />
       <div class="subpage-nav-title">ASIC designs</div>
       <nav class="subpage-nav">
+        <a href="asic-riscv-mcu.html">RISC-V Controller Chip</a>
         <a href="asic-accelerator.html">AI Accelerator Core</a>
         <a href="asic-sqa-v1.html">SQA V1 Chip</a>
         <a href="asic-sqa-v2.html">SQA V2 Chip</a>
         <a href="asic-sqa-v3.html">SQA V3 Chip</a>
-        <a href="asic-riscv-mcu.html">RISC-V Controller Chip</a>
         <a href="asic-memories.html" class="active">Memory Design</a>
       </nav>
       <hr class="sidebar__divider" />
@@ -103,7 +103,11 @@
       </div>
 
       <div class="prose">
-        <h2 id="overview">Overview</h2>
+        <h2 id="screenshot-proofs">Screenshot proofs</h2>
+        <p>The circuit drawings are generic textbook circuits drawn for learning; the chips use the placeholder macro models described above, not these transistors.</p>
+        <div class="asic-gallery"><figure><a href="../assets/projects/asic/memories/mem_sram_column.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_sram_column.png" alt="Spectre simulation of one SRAM column with GPDK045 transistors: write 0, read 0, write 1, read 1, all correct." loading="lazy" /></a><figcaption>Spectre simulation of one SRAM column with GPDK045 transistors: write 0, read 0, write 1, read 1, all correct.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_one_column_schematic.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_one_column_schematic.png" alt="One complete column at transistor level: precharge, 6T cell, word-line driver, column mux, sense amp and write driver." loading="lazy" /></a><figcaption>One complete column at transistor level: precharge, 6T cell, word-line driver, column mux, sense amp and write driver.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_bitcell_6t.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_bitcell_6t.png" alt="The 6T bit cell used by the single-port macros." loading="lazy" /></a><figcaption>The 6T bit cell used by the single-port macros.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_bitcell_8t.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_bitcell_8t.png" alt="The 8T bit cell with a separate read port, used by the two-port macros." loading="lazy" /></a><figcaption>The 8T bit cell with a separate read port, used by the two-port macros.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_sense_amp.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_sense_amp.png" alt="Latch-type sense amplifier that turns a small bit-line difference into a full logic level." loading="lazy" /></a><figcaption>Latch-type sense amplifier that turns a small bit-line difference into a full logic level.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_write_driver.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_write_driver.png" alt="Write driver with write-enable and byte-enable gating." loading="lazy" /></a><figcaption>Write driver with write-enable and byte-enable gating.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_sram_8192x64_organisation.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_sram_8192x64_organisation.png" alt="Typical organisation of the 8192 × 64 main-SRAM tile: 512 rows x 1024 columns, 16:1 column mux." loading="lazy" /></a><figcaption>Typical organisation of the 8192 × 64 main-SRAM tile: 512 rows x 1024 columns, 16:1 column mux.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_macro_in_layout.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_macro_in_layout.jpg" alt="An SRAM macro placed in the V3 layout, with its pins and the power stripes crossing it." loading="lazy" /></a><figcaption>An SRAM macro placed in the V3 layout, with its pins and the power stripes crossing it.</figcaption></figure></div>
+        <hr class="section-divider" />
+<h2 id="overview">Overview</h2>
         <p>Large memories on a chip are SRAM macros: blocks of bit cells with their own address decoder, sense amplifiers and write drivers. The generic GPDK045 PDK has no memory compiler, so I designed my own placeholder macros: an exact behaviour model for simulation, estimated timing and power libraries for synthesis and timing, and an outline with pins for place and route. They are used in all four chips; in DRC / LVS they are black boxes. For a real tapeout the foundry's memory compiler would generate the actual layouts.</p>
         <p>To understand what is inside such a macro, I also drew the read and write circuits at transistor level (6T and 8T bit cells, precharge, column mux, sense amplifier, write driver, word-line driver) and simulated one complete column with GPDK045 transistors in Spectre.</p>
         <p>Finally, a flip-flop-versus-macro study measured when a memory should be built from flip-flops and when it must be a macro.</p>
@@ -180,16 +184,12 @@
         <p><strong>Choosing what goes on chip.</strong> The original accelerator kept a 1.18 Mbit weight tile on chip (0.97 mm²). Analysing the access pattern showed the weights are read sequentially, so V2 / V3 re-stream them from SDRAM with a prefetching DMA and drop the macro entirely.</p>
         <p><strong>Small FIFOs stay flip-flops.</strong> At 576-4,096 bits a macro is only 1.4-4.7x smaller, costs a hard block to place, and a flop FIFO gives dual-clock behaviour for free, so the small FIFOs were kept as flip-flops.</p>
         <p><strong>Area follows memory.</strong> V3 is about 6.5x the area of V2 almost only because of its 4 MB SRAM: memory size is the first decision in a chip plan.</p>
-        <hr class="section-divider" />
-<h2 id="screenshot-proofs">Screenshot proofs</h2>
-        <p>The circuit drawings are generic textbook circuits drawn for learning; the chips use the placeholder macro models described above, not these transistors.</p>
-        <div class="asic-gallery"><figure><a href="../assets/projects/asic/memories/mem_sram_column.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_sram_column.png" alt="Spectre simulation of one SRAM column with GPDK045 transistors: write 0, read 0, write 1, read 1, all correct." loading="lazy" /></a><figcaption>Spectre simulation of one SRAM column with GPDK045 transistors: write 0, read 0, write 1, read 1, all correct.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_one_column_schematic.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_one_column_schematic.png" alt="One complete column at transistor level: precharge, 6T cell, word-line driver, column mux, sense amp and write driver." loading="lazy" /></a><figcaption>One complete column at transistor level: precharge, 6T cell, word-line driver, column mux, sense amp and write driver.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_bitcell_6t.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_bitcell_6t.png" alt="The 6T bit cell used by the single-port macros." loading="lazy" /></a><figcaption>The 6T bit cell used by the single-port macros.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_bitcell_8t.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_bitcell_8t.png" alt="The 8T bit cell with a separate read port, used by the two-port macros." loading="lazy" /></a><figcaption>The 8T bit cell with a separate read port, used by the two-port macros.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_sense_amp.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_sense_amp.png" alt="Latch-type sense amplifier that turns a small bit-line difference into a full logic level." loading="lazy" /></a><figcaption>Latch-type sense amplifier that turns a small bit-line difference into a full logic level.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_write_driver.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_write_driver.png" alt="Write driver with write-enable and byte-enable gating." loading="lazy" /></a><figcaption>Write driver with write-enable and byte-enable gating.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_sram_8192x64_organisation.png" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_sram_8192x64_organisation.png" alt="Typical organisation of the 8192 × 64 main-SRAM tile: 512 rows x 1024 columns, 16:1 column mux." loading="lazy" /></a><figcaption>Typical organisation of the 8192 × 64 main-SRAM tile: 512 rows x 1024 columns, 16:1 column mux.</figcaption></figure><figure><a href="../assets/projects/asic/memories/mem_macro_in_layout.jpg" target="_blank" rel="noopener"><img src="../assets/projects/asic/memories/mem_macro_in_layout.jpg" alt="An SRAM macro placed in the V3 layout, with its pins and the power stripes crossing it." loading="lazy" /></a><figcaption>An SRAM macro placed in the V3 layout, with its pins and the power stripes crossing it.</figcaption></figure></div>
       </div>
 
       <nav class="page-pager" aria-label="Project navigation">
-        <a class="page-pager__link" href="asic-riscv-mcu.html">
+        <a class="page-pager__link" href="asic-sqa-v3.html">
           <span>← Previous</span>
-          <span class="page-pager__title">RISC-V Controller Chip</span>
+          <span class="page-pager__title">SQA V3 Chip</span>
         </a>
         <a class="page-pager__link page-pager__link--next" href="asic.html">
           <span>Back to →</span>
