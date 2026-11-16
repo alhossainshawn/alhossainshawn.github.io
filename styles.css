@@ -2042,3 +2042,18 @@ body.dark-mode .arch {
 @media (max-width: 640px) {
   .result-card a { height: auto; }
 }
+
+/* ── MBCFET-FeFET diagrams (reuse the .arch theme tokens) ── */
+.fe-fig .fe-left { text-anchor: start; font-size: 16px; }
+.fe-fig .fe-sub { font-size: 13px; fill: var(--eng-t); opacity: 0.8; }
+.fe-fig .fe-lab { font-size: 15px; fill: var(--lbl); }
+.fe-fig .fe-small { font-size: 13px; }
+.fe-fig .fe-eq { font-size: 24px; font-weight: 700; fill: var(--mem-t); font-family: var(--font-body); }
+.fe-fig .rq circle { fill: var(--rq-f); stroke: var(--rq-s); stroke-width: 1.5; }
+.fe-fig .fe-plus { font-size: 26px; }
+.fig-card { margin: 1.75rem 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--bg-white); }
+.fig-card__body { overflow-x: auto; padding: 1.25rem 1rem 0.75rem; }
+.fig-card figcaption { font-size: 0.78rem; color: var(--text-muted); padding: 0.5rem 0.75rem; font-style: italic; border-top: 1px solid var(--border); }
+.fe-thumb .fe-lab { font-size: 22px; }
+.fe-thumb .fe-sub { font-size: 18px; }
+.fe-thumb .fe-left { font-size: 24px; }

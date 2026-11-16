@@ -25,7 +25,7 @@
   <meta property="og:image:alt" content="Portrait of Al Hossain Shawn" />
   <meta name="twitter:card" content="summary" />
 
-  <link rel="stylesheet" href="styles.css?v=3.10" />
+  <link rel="stylesheet" href="styles.css?v=3.11" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 
 </head>
@@ -216,7 +216,8 @@
             <h3 class="cr-title">Research Assistant</h3>
             <div class="cr-org">BRAC University, Dept. of Electrical and Electronics Engineering</div>
             <p class="cr-detail">
-              Leading six ongoing research projects: a space-hardened vertical GaN power transistor in Silvaco TCAD; SQA ASIC
+              Leading seven ongoing research projects: MBCFET-FeFET, a ferroelectric nanosheet transistor for multi-bit memory and
+              in-memory computing; a space-hardened vertical GaN power transistor in Silvaco TCAD; SQA ASIC
               chips, five 45 nm designs signed off in Cadence; MOSAIC, a multimodal edge-AI SoC with a RISC-V host; SQA-Arc, a
               sensitivity-driven quantization framework and FPGA overlay; the Hybrid Neural Accelerator on the AMD Artix-7; and
               MBCFET device modeling in Silvaco TCAD.
@@ -330,10 +331,32 @@
       <section class="section reveal" id="research" aria-labelledby="h-research">
         <div class="section-header">
           <h2 id="h-research">Active <em>Research</em></h2>
-          <p>Six open threads: a space-hardened vertical GaN power transistor, 45 nm ASIC chips signed off in Cadence, a multimodal edge-AI SoC, a quantization framework
+          <p>Seven open threads: a ferroelectric nanosheet transistor for multi-bit memory and in-memory computing, a space-hardened vertical GaN power transistor, 45 nm ASIC chips signed off in Cadence, a multimodal edge-AI SoC, a quantization framework
             and FPGA accelerator for edge AI, a hybrid LUT / logarithmic neural accelerator, and a TCAD study of multi-bridge-channel devices for sub-5&nbsp;nm logic.</p>
         </div>
         <div class="research-grid">
+          <a class="res-card" href="projects/mbcfet-fefet.html">
+            <div class="res-card__meta">
+              <span class="res-card__id">R-07 · 2026</span>
+              <span class="badge badge--green">Ongoing</span>
+            </div>
+            <h3>MBCFET-<em>FeFET</em></h3>
+            <p class="res-card__summary">
+              A ferroelectric nanosheet transistor concept that stores 3 bits and computes a three-input weighted sum inside one transistor (TCAD simulation).
+            </p>
+            <ul class="res-card__bullets">
+              <li>Eight ordered read levels: 3 bits from one transistor.</li>
+              <li>Each bit can be written on its own.</li>
+              <li>Multiply and add inside the transistor.</li>
+            </ul>
+            <div class="tags-row">
+              <span class="tag">FeFET</span>
+              <span class="tag">Multi-level memory</span>
+              <span class="tag">TCAD</span>
+            </div>
+            <span class="res-card__link">Read more →</span>
+          </a>
+
           <a class="res-card" href="projects/gan-power-transistor.html">
             <div class="res-card__meta">
               <span class="res-card__id">R-06 · Ongoing</span>
@@ -482,6 +505,31 @@
             integration.</p>
         </div>
         <div class="proj-grid">
+          <!-- R-07 -->
+          <a class="proj-card" href="projects/mbcfet-fefet.html">
+            <div class="proj-card__img proj-card__img--diagram">
+              <svg class="arch fe-fig arch-thumb fe-thumb" viewBox="0 0 760 300" aria-hidden="true"><g class="seq"><rect x="20" y="20" width="270" height="270" rx="12" /><text class="t" x="155" y="50">one shared gate</text></g><g class="mem"><rect x="48" y="74" width="214" height="48" rx="8" /></g><g class="io"><rect x="72" y="87" width="166" height="22" rx="5" /></g><text class="fe-lab" x="300" y="104">channel 3</text><g class="mem"><rect x="48" y="146" width="214" height="48" rx="8" /></g><g class="io"><rect x="72" y="159" width="166" height="22" rx="5" /></g><text class="fe-lab" x="300" y="176">channel 2</text><g class="mem"><rect x="48" y="218" width="214" height="48" rx="8" /></g><g class="io"><rect x="72" y="231" width="166" height="22" rx="5" /></g><text class="fe-lab" x="300" y="248">channel 1</text><g class="eng-a"><rect x="430" y="34" width="310" height="60" rx="8" /><text class="t fe-left" x="448" y="60">stores</text><text class="fe-sub" x="448" y="81">3 bits in one transistor footprint</text></g><g class="eng-a"><rect x="430" y="114" width="310" height="60" rx="8" /><text class="t fe-left" x="448" y="140">writes</text><text class="fe-sub" x="448" y="161">each bit individually</text></g><g class="eng-a"><rect x="430" y="194" width="310" height="60" rx="8" /><text class="t fe-left" x="448" y="220">computes</text><text class="fe-sub" x="448" y="241">a weighted sum of three inputs</text></g></svg>
+            </div>
+            <div class="proj-card__body">
+              <div class="proj-card__meta">
+                <span class="proj-card__id">R-07</span>
+                <span class="badge badge--green">Ongoing</span>
+              </div>
+              <h3>MBCFET-<em>FeFET</em></h3>
+              <div class="proj-card__role">Lead Researcher</div>
+              <p class="proj-card__desc">A ferroelectric nanosheet transistor concept that stores 3 bits and computes a three-input weighted sum inside one transistor (TCAD simulation).</p>
+              <div class="tags-row">
+                <span class="tag">FeFET</span>
+                <span class="tag">In-memory computing</span>
+                <span class="tag">TCAD</span>
+              </div>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__period">2026</span>
+              <span class="proj-card__link">Open →</span>
+            </div>
+          </a>
+
           <!-- R-06 -->
           <a class="proj-card" href="projects/gan-power-transistor.html">
             <div class="proj-card__img proj-card__img--sketch">

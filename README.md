@@ -20,6 +20,7 @@ A static site (plain HTML, CSS and a little JavaScript) with no build step. It u
 │   ├── dom-vlsi.html           DOM-03 VLSI & IC Design
 │   └── dom-embedded.html       DOM-04 Embedded Systems & Robotics
 └── projects/                   one page per project
+    ├── mbcfet-fefet.html               R-07
     ├── gan-power-transistor.html       R-06
     ├── asic.html                       R-05 hub (+ asic-*.html detail pages)
     ├── mosaic.html                     R-04
