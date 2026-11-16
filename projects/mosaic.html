@@ -143,7 +143,7 @@
       <hr class="sidebar__divider" />
       <div class="sidebar__section-title">Project</div>
       <div class="sidebar__tags">
-        <span class="sidebar__tag">R-04</span>
+        <span class="sidebar__tag">R-03</span>
         <span class="sidebar__tag">SoC</span>
         <span class="sidebar__tag">RISC-V</span>
         <span class="sidebar__tag">Multimodal</span>
@@ -164,7 +164,7 @@
       <div class="subpage-header">
         <div class="tags-row" style="margin-bottom: 0.75rem;">
           <span class="badge badge--green">Ongoing</span>
-          <span class="tag">R-04</span>
+          <span class="tag">R-03</span>
           <span class="tag">FPGA</span>
           <span class="tag">RISC-V</span>
           <span class="tag">Edge AI</span>
@@ -193,7 +193,7 @@
           <div class="stat-cell"><div class="stat-cell__val">6 / 6</div><div class="stat-cell__label">Bit-exact checks</div></div>
           <div class="stat-cell"><div class="stat-cell__val">+0.398 ns</div><div class="stat-cell__label">Worst slack, 100 MHz</div></div>
         </div>
-        <p class="stat-note">Accuracy is hardware-exact over 15-fold leave-one-subject-out cross-validation (floating-point model: 93.16%). Power and energy are Vivado vector-less estimates.</p>
+        <p class="stat-note">Accuracy is hardware-exact over 15-fold leave-one-subject-out cross-validation (compressed floating-point model: 93.16%). Power and energy are Vivado vector-less estimates.</p>
 
         <h2>Overview</h2>
         <p>Continuous monitoring of respiratory symptoms, such as counting coughs in chronic disease, has to run on a wearable: low power, predictable latency and no cloud. Typical accelerators either hard-wire one network into logic with no processor, or keep weights in external DRAM and need many multipliers. MOSAIC set out to be a <strong>complete, host-integrated, DRAM-free and bit-exact</strong> SoC on a mid-size FPGA.</p>
@@ -267,7 +267,7 @@
             <tr><td>Inference latency</td><td>9.73 ms (973,246 cycles at 100 MHz, identical for every input)</td></tr>
             <tr><td>System latency</td><td>10.15 ms including the RISC-V host</td></tr>
             <tr><td>Throughput</td><td>102.75 inferences per second</td></tr>
-            <tr><td>Accuracy</td><td>93.08% hardware-exact vs 93.16% floating point (15-fold leave-one-subject-out)</td></tr>
+            <tr><td>Accuracy</td><td>93.08% hardware-exact vs 93.16% compressed floating-point model (15-fold leave-one-subject-out)</td></tr>
             <tr><td>Resources</td><td>12,299 LUTs · 8,835 FFs · 68 BRAM tiles · 17 DSPs (9 in the network, 8 in the SD-card loader)</td></tr>
             <tr><td>Timing</td><td>WNS +0.398 ns, WHS +0.057 ns, 0 of 23,337 endpoints failing</td></tr>
             <tr><td>Power (estimated)</td><td>0.348 W (0.205 W dynamic + 0.143 W static)</td></tr>
