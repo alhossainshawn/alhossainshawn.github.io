@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=3.24" />
+  <link rel="stylesheet" href="../styles.css?v=3.25" />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
@@ -19,7 +19,8 @@
       <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
       <nav class="site-nav" aria-label="Main navigation">
         <a href="../index.html#about">About</a>
-        <a href="../index.html#expertise" class="active">Research</a>
+        <a href="../index.html#research" class="active">Research</a>
+        <a href="../index.html#expertise">Domains</a>
         <a href="../index.html#projects">Projects</a>
         <a href="../index.html#publications">Publications</a>
         <a href="../index.html#contact">Contact</a>
@@ -36,7 +37,8 @@
       <div class="mobile-nav__title">Al Hossain Shawn</div>
       <hr class="mobile-nav__divider" />
       <a href="../index.html#about">About</a>
-      <a href="../index.html#expertise">Research</a>
+      <a href="../index.html#research">Research</a>
+      <a href="../index.html#expertise">Domains</a>
       <a href="../index.html#projects">Projects</a>
       <a href="../index.html#publications">Publications</a>
       <a href="../index.html#contact">Contact</a>
@@ -111,7 +113,7 @@
 <h2 id="overview">Overview</h2>
         <p>The controller is a complete microcontroller chip built around the open-source PicoRV32 RISC-V core (RV32IMC with multiply / divide and interrupts). Everything around the CPU is my own RTL: the Wishbone bus, UART, SPI SD card, I2C, GPIO, timer, interrupt controller, a QSPI flash reader with a read cache and a host-link master that sends commands to the V1 / V2 accelerator chips.</p>
         <p>It boots from an 8 KB ROM, runs C firmware compiled with RISC-V GCC from a 128 KB on-chip SRAM, and was taken through the same full sign-off as the accelerator chips. The same subsystem is built into V3.</p>
-        <p>This is an academic practice design on Cadence's generic GPDK045 45 nm PDK. It is fully signed off in the Cadence tools but it has not been fabricated. The SRAM macros are my own placeholder models (behaviour, estimated timing / area / power, outline and pins), because the generic PDK has no memory compiler.</p>
+        <p>This is an academic practice design on Cadence's generic GPDK045 45 nm PDK. It is fully signed off in the Cadence tools and tape-out ready on that academic PDK, but it has not been fabricated. The SRAM macros are my own, because the generic PDK has no memory compiler.</p>
         <p>The 128 KB SRAM is four 8192 × 32 macros with byte enables; see <a href="asic-memories.html">Memory design</a>.</p>
         <hr class="section-divider" />
 <h2 id="headline-numbers">Headline numbers</h2>

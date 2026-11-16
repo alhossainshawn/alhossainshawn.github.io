@@ -72,7 +72,7 @@
       const href = link.getAttribute('href');
       if (!href || href.charAt(0) !== '#') return;
       link.classList.remove('active');
-      if (href && (href === '#' + current || (href === '#expertise' && current === 'research'))) {
+      if (href && href === '#' + current) {
         link.classList.add('active');
       }
     });

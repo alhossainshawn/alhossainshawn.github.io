@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=3.24" />
+  <link rel="stylesheet" href="../styles.css?v=3.25" />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
@@ -19,7 +19,8 @@
       <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
       <nav class="site-nav" aria-label="Main navigation">
         <a href="../index.html#about">About</a>
-        <a href="../index.html#expertise" class="active">Research</a>
+        <a href="../index.html#research" class="active">Research</a>
+        <a href="../index.html#expertise">Domains</a>
         <a href="../index.html#projects">Projects</a>
         <a href="../index.html#publications">Publications</a>
         <a href="../index.html#contact">Contact</a>
@@ -36,7 +37,8 @@
       <div class="mobile-nav__title">Al Hossain Shawn</div>
       <hr class="mobile-nav__divider" />
       <a href="../index.html#about">About</a>
-      <a href="../index.html#expertise">Research</a>
+      <a href="../index.html#research">Research</a>
+      <a href="../index.html#expertise">Domains</a>
       <a href="../index.html#projects">Projects</a>
       <a href="../index.html#publications">Publications</a>
       <a href="../index.html#contact">Contact</a>
@@ -111,7 +113,7 @@
 <h2 id="overview">Overview</h2>
         <p>V2 brings the frequently used engine buffers (input windows, line buffer, requant and index tables) onto the chip as six SRAM macros. Engine B's big weight tile (1.18 Mbit) was removed instead: its weights are re-streamed from the external SDRAM by a small DMA with prefetch, which saves about 0.97 mm² of SRAM.</p>
         <p>The result is the smallest of the accelerator chips (2.4 mm per side, 126 pads) with only four parts on the board: V2, the RISC-V controller chip, an SDRAM and a flash.</p>
-        <p>This is an academic practice design on Cadence's generic GPDK045 45 nm PDK. It is fully signed off in the Cadence tools but it has not been fabricated. The SRAM macros are my own placeholder models (behaviour, estimated timing / area / power, outline and pins), because the generic PDK has no memory compiler.</p>
+        <p>This is an academic practice design on Cadence's generic GPDK045 45 nm PDK. It is fully signed off in the Cadence tools and tape-out ready on that academic PDK, but it has not been fabricated. The SRAM macros are my own, because the generic PDK has no memory compiler.</p>
         <p>V2's six SRAM macros and the weight-streaming decision are explained in <a href="asic-memories.html">Memory design</a>.</p>
         <hr class="section-divider" />
 <h2 id="headline-numbers">Headline numbers</h2>
@@ -142,7 +144,7 @@
 <tr><td>Signal pins by interface</td><td>SDRAM 56, video 28, host link 7, QSPI flash 6, clocks + reset 3, test 2</td></tr>
 <tr><td>Cells</td><td>103,665 after synthesis; 114,718 standard cells after P&amp;R incl. clock tree (301,746 µm²), core density 8.8 %</td></tr>
 <tr><td>Synthesis area</td><td>2.26 mm² including pads (pads 80 %)</td></tr>
-<tr><td>Memories inside</td><td>6 SRAM macros (placeholder models), placed in one row along the bottom of the core</td></tr>
+<tr><td>Memories inside</td><td>6 SRAM macros (my own), placed in one row along the bottom of the core</td></tr>
 <tr><td>Clocks</td><td>core 100 MHz, pixel 148.5 MHz</td></tr>
 <tr><td>Supply / corners</td><td>1.0 V nominal core library; signed off at 0.9 V / 125 C (slow, setup) and 1.1 V / 0 C (fast, hold)</td></tr>
 <tr><td>Parts on the board</td><td>4: V2 + RISC-V controller + SDRAM + flash</td></tr>
