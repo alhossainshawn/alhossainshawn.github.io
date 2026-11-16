@@ -2111,18 +2111,28 @@ body.dark-mode .arch {
 /* hero text runs the full width of the card */
 .hero .hero__name, .hero .hero__lede { max-width: none; }
 
-/* ── Compact sidebar: fits the screen without scrolling ── */
-.sidebar { gap: 0.7rem; }
-.sidebar__photo { width: 140px; height: 174px; }
-.sidebar__name { font-size: 1.2rem; margin-bottom: 0.3rem; }
-.sidebar__role { font-size: 0.8rem; margin-bottom: 0.4rem; }
-.sidebar__dept, .sidebar__school { font-size: 0.76rem; margin-bottom: 0.15rem; line-height: 1.35; }
-.sidebar__institution { font-size: 0.8rem; margin-top: 0.2rem; }
-.sidebar__links { gap: 0.1rem; }
-.sidebar__link { font-size: 0.76rem; padding: 0.15rem 0; }
+/* ── Sidebar scales with the window height, so it always fits without scrolling ── */
+.sidebar { gap: clamp(0.5rem, 1.5vh, 1.4rem); }
+.sidebar__photo { height: clamp(120px, 21vh, 250px); width: auto; aspect-ratio: 4 / 5; }
+.sidebar__name { font-size: clamp(1.05rem, 2.1vh, 1.4rem); margin-bottom: 0.3rem; }
+.sidebar__role { font-size: clamp(0.74rem, 1.35vh, 0.95rem); margin-bottom: 0.4rem; }
+.sidebar__dept, .sidebar__school { font-size: clamp(0.7rem, 1.25vh, 0.84rem); margin-bottom: 0.15rem; line-height: 1.35; }
+.sidebar__institution { font-size: clamp(0.74rem, 1.3vh, 0.9rem); margin-top: 0.2rem; }
+.sidebar__links { gap: clamp(0rem, 0.4vh, 0.5rem); }
+.sidebar__link { font-size: clamp(0.7rem, 1.25vh, 0.84rem); padding: 0.15rem 0; }
 .sidebar__section-title { margin-bottom: 0.4rem; }
-.sidebar__tags { gap: 0.3rem; }
-.sidebar__tag { font-size: 0.66rem; padding: 0.15em 0.6em; }
+.sidebar__tags { gap: clamp(0.2rem, 0.5vh, 0.4rem); }
+.sidebar__tag { font-size: clamp(0.6rem, 1.1vh, 0.74rem); padding: 0.15em 0.6em; }
 
 /* ── About text a little smaller ── */
 .about__bio, .about__list { font-size: 0.92rem; }
+@media (max-height: 700px) and (min-width: 1025px) {
+  .sidebar { gap: 0.4rem; }
+  .sidebar__photo { height: 96px; }
+  .sidebar__link { padding: 0.05rem 0; }
+  .sidebar__dept, .sidebar__school { margin-bottom: 0; }
+}
+@media (max-height: 620px) and (min-width: 1025px) {
+  .sidebar__photo { height: 80px; }
+  .sidebar__tag { font-size: 0.58rem; }
+}
