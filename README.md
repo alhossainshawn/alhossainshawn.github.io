@@ -20,6 +20,7 @@ A static site (plain HTML, CSS and a little JavaScript) with no build step. It u
 │   ├── dom-vlsi.html           DOM-03 VLSI & IC Design
 │   └── dom-embedded.html       DOM-04 Embedded Systems & Robotics
 └── projects/                   one page per project
+    ├── sqa-arc.html                    R-03
     ├── hybrid-neural-accelerator.html  R-01
     ├── mbcfet.html                     R-02
     ├── cnn-digit-detector.html         P-04

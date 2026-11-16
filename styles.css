@@ -1228,6 +1228,12 @@ body.dark-mode pre {
 }
 .pub-status--accepted { background: var(--status-green-bg); color: var(--status-green); }
 .pub-status--published { background: var(--status-blue-bg); color: var(--status-blue); }
+.pub-status--pending { background: var(--status-amber-bg); color: var(--status-amber); }
+.pub-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+}
 
 /* ── 18. Tools Grid ──────────────────────────────────────── */
 .tools-section__grid {

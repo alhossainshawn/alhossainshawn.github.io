@@ -10,3 +10,6 @@ Desktop.ini
 # Temp/Backup files
 *.tmp
 *.bak
+
+# Temporary content packages
+updates/

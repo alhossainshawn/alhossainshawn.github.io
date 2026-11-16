@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SQA-Arc | Al Hossain Shawn</title>
+  <meta name="description" content="SQA-Arc compresses deep neural networks into ternary and 4-bit engines chosen by layer sensitivity, built as an FPGA accelerator that runs ten networks from one bitstream on an AMD Artix-7." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css?v=3.2" />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+
+  <style>
+    /* ── Full-width media ────────────────────────────── */
+    .media-full {
+      margin: 1.5rem 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .media-full img { width: 100%; height: auto; display: block; }
+    .media-full figcaption {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding: 0.5rem 0.75rem;
+      font-style: italic;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+    }
+    .media-narrow { max-width: 680px; margin-left: auto; margin-right: auto; }
+
+    /* ── Key numbers ─────────────────────────────────── */
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin: 1.5rem 0;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--bg-section-alt);
+    }
+    .stat-cell {
+      padding: 1.1rem 1rem;
+      border-right: 1px solid var(--border);
+      text-align: center;
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-cell__val {
+      font-family: var(--font-mono);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .stat-cell__label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Callout and summary line ────────────────────── */
+    .lede { font-size: 1.05rem; color: var(--text-heading); }
+    .phase-note {
+      margin: 1.25rem 0;
+      padding: 0.85rem 1rem;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-light);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+    }
+
+    /* ── Results table ───────────────────────────────── */
+    .table-scroll { overflow-x: auto; margin: 1.25rem 0 0.5rem; }
+    .table-scroll .spec-table { margin: 0; min-width: 520px; }
+    .num { text-align: right; font-family: var(--font-mono); font-size: 0.85em; }
+    .table-note { font-size: 0.8rem; color: var(--text-muted); margin-top: 0; }
+
+    /* ── Publication list ────────────────────────────── */
+    .paper-list { padding-left: 1.2rem; }
+    .paper-list li { margin-bottom: 0.9rem; }
+    .paper-status { font-weight: 600; color: var(--text-heading); }
+    .paper-note { display: block; font-size: 0.82rem; color: var(--text-muted); }
+
+    .section-divider {
+      margin: 2.5rem 0 2rem;
+      border: none;
+      border-top: 2px solid var(--border);
+    }
+
+    @media (max-width: 640px) {
+      .stat-strip { grid-template-columns: 1fr 1fr; }
+      .stat-cell:nth-child(2) { border-right: none; }
+      .stat-cell:nth-child(1),
+      .stat-cell:nth-child(2) { border-bottom: 1px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+  <script>try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches))document.body.classList.add('dark-mode');}catch(e){}</script>
+
+  <header class="site-header" role="banner">
+    <div class="site-header__inner">
+      <a class="site-wordmark" href="../index.html">Al Hossain <span>Shawn</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../index.html#about">About</a>
+        <a href="../index.html#expertise" class="active">Research</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <div class="mobile-nav__drawer">
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">&times;</button>
+      <div class="mobile-nav__title">Al Hossain Shawn</div>
+      <hr class="mobile-nav__divider" />
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#expertise">Research</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#publications">Publications</a>
+      <a href="../index.html#contact">Contact</a>
+    </div>
+  </div>
+
+  <div class="subpage-layout">
+    <aside class="subpage-sidebar">
+      <a class="back-link" href="../domains/dom-fpga.html">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        FPGA &amp; Reconfigurable Computing
+      </a>
+      <hr class="sidebar__divider" />
+      <div class="subpage-nav-title">On this page</div>
+      <nav class="subpage-nav">
+        <a href="#overview">Overview</a>
+        <a href="#goals">Goals</a>
+        <a href="#achievements">Key Achievements</a>
+        <a href="#results">Results</a>
+        <a href="#publications">Publications</a>
+        <a href="#tools">Tools &amp; Collaborators</a>
+        <a href="#next">Next Steps</a>
+      </nav>
+      <hr class="sidebar__divider" />
+      <div class="sidebar__section-title">Project</div>
+      <div class="sidebar__tags">
+        <span class="sidebar__tag">R-03</span>
+        <span class="sidebar__tag">FPGA</span>
+        <span class="sidebar__tag">Quantization</span>
+        <span class="sidebar__tag">Ternary Networks</span>
+        <span class="sidebar__tag">HW-SW Co-design</span>
+        <span class="sidebar__tag">Edge AI</span>
+      </div>
+    </aside>
+
+    <main class="subpage-content" id="main-content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <a href="../domains/dom-fpga.html">FPGA &amp; Reconfigurable Computing</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>SQA-Arc</span>
+      </div>
+
+      <div class="subpage-header">
+        <div class="tags-row" style="margin-bottom: 0.75rem;">
+          <span class="badge badge--green">Ongoing</span>
+          <span class="tag">R-03</span>
+          <span class="tag">FPGA</span>
+          <span class="tag">Neural Network Accelerator</span>
+          <span class="tag">Quantization</span>
+        </div>
+        <h1>SQA-Arc: Sensitivity-Driven <em>Quantization</em> and Its FPGA Hardware</h1>
+        <div class="subpage-meta">
+          <span>Lead Researcher &amp; First Author</span>
+          <span>BRAC University, Dhaka</span>
+          <span>2026 – Present</span>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p class="lede">A framework that compresses deep neural networks into ternary and 4-bit engines chosen by layer sensitivity, built as a working FPGA accelerator that runs ten networks from one bitstream.</p>
+
+        <figure class="media-full media-narrow">
+          <img src="../assets/projects/sqa-arc/architecture_block_diagram.png" alt="SQA-Core block diagram. Keys, SD card and a FAT32 loader send the program to a sequencer and the parameters to 1 GB of DDR3. In the datapath, a memory arbiter feeds DMA gather, a parameter router and linear readers into Engine A, Engine B and an auxiliary max-pool engine, followed by a requantization and activation table and DMA scatter, which writes back for the next operator. The sequencer also drives an HDMI dashboard." />
+          <figcaption>Block diagram of the SQA-Core FPGA overlay: boot and I/O (yellow), memory and data movement (light blue), the descriptor sequencer (navy), and the ternary, 4-bit and auxiliary engines.</figcaption>
+        </figure>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <h2 id="overview">Overview</h2>
+        <p>Most quantization research is evaluated only in software, so its hardware cost stays unknown. SQA-Arc closes that gap in two stages.</p>
+        <p><strong>Software framework.</strong> SQA-Arc measures how sensitive each layer is with a Fisher information trace. Less sensitive layers go to Engine A, which uses ternary weights {−α, 0, +α} and replaces multiplication with addition and subtraction. More sensitive layers go to Engine B, which uses 4-bit weights. Training also prunes each ternary neuron to at most 12 inputs, so the hardware can process it in a short, fixed loop. The framework was evaluated on 12 network architectures and two image datasets.</p>
+        <p><strong>Hardware.</strong> SQA-Core is a fixed-function overlay on an AMD Artix-7 FPGA. A compiler turns each network into a program of 256-bit descriptors, which a hardware sequencer executes. Ten networks, from MCUNet-style to ResNet-18, are stored on one SD card and run on the same bitstream. No DSP block computes a weight-activation product. EfficientNet-B0 has run on the physical board and shows its results on a live HDMI dashboard.</p>
+
+        <div class="phase-note">
+          SQA-Arc grows out of the earlier <a href="hybrid-neural-accelerator.html">R-01 Hybrid Neural Accelerator</a>, which explored mode-switching low-precision arithmetic on the same FPGA.
+        </div>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="goals">Goals</h2>
+        <ol>
+          <li>Give each layer the cheapest arithmetic it can tolerate, using a measured sensitivity score.</li>
+          <li>Replace the multiplications of low-sensitivity layers with addition and subtraction.</li>
+          <li>Limit each ternary neuron to 12 inputs during training, so that the networks fit FPGA hardware.</li>
+          <li>Show that the method works across many architectures, from tiny mobile networks to ResNet-18.</li>
+          <li>Build the framework as a real FPGA accelerator, and measure its area, timing and power.</li>
+          <li>Run many networks on one hardware configuration, loaded from an SD card.</li>
+        </ol>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="achievements">Key Achievements</h2>
+        <div class="stat-strip">
+          <div class="stat-cell"><div class="stat-cell__val">10</div><div class="stat-cell__label">Networks on one bitstream</div></div>
+          <div class="stat-cell"><div class="stat-cell__val">100 MHz</div><div class="stat-cell__label">Clock, timing met</div></div>
+          <div class="stat-cell"><div class="stat-cell__val">15.58%</div><div class="stat-cell__label">of device LUTs</div></div>
+          <div class="stat-cell"><div class="stat-cell__val">2.20</div><div class="stat-cell__label">Bits per parameter</div></div>
+        </div>
+        <ul>
+          <li><strong>10 networks on one bitstream</strong>, selected from one SD card with two push buttons</li>
+          <li><strong>100 MHz</strong> in <strong>20,845 LUTs</strong>, which is 15.58% of an Artix-7 XC7A200T</li>
+          <li><strong>No DSP block on any weight-activation product</strong>; the design's 22 DSP blocks perform only address arithmetic</li>
+          <li><strong>2.20 bits per parameter</strong>, 3.64× smaller than 8-bit storage</li>
+          <li><strong>79.49% to 91.01% integer top-1 accuracy</strong> on the Imagenette validation split, against a floating-point mean of 89.06%</li>
+          <li><strong>Whole-network RTL simulation</strong> matches the integer reference at every operator of all ten networks</li>
+          <li><strong>Running on the physical board:</strong> EfficientNet-B0 classifies live images and shows the results on HDMI</li>
+          <li><strong>Custom instruction format</strong> of 256-bit descriptors with 11 opcodes, with its own compiler</li>
+        </ul>
+
+        <figure class="media-full">
+          <img src="../assets/projects/sqa-arc/board_demo_side_by_side.png" alt="Two HDMI dashboard screens from the FPGA board. EfficientNet-B0 classifies a garbage truck at 39% confidence and a church at 49% confidence. Each screen lists every layer with the engine that runs it." loading="lazy" />
+          <figcaption>EfficientNet-B0 running on the FPGA board, with results shown on the HDMI dashboard.</figcaption>
+        </figure>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="results">Results</h2>
+        <div class="table-scroll">
+          <table class="spec-table">
+            <thead>
+              <tr><th>Network</th><th class="num">FP32 top-1 (%)</th><th class="num">On-hardware integer top-1 (%)</th><th class="num">Latency (ms)*</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>EfficientNet-B0</td><td class="num">92.20</td><td class="num">91.01</td><td class="num">2,858</td></tr>
+              <tr><td>DeepShift-style</td><td class="num">90.50</td><td class="num">89.38</td><td class="num">10,900</td></tr>
+              <tr><td>ShuffleNetV2</td><td class="num">91.41</td><td class="num">88.89</td><td class="num">2,786</td></tr>
+              <tr><td>BNN</td><td class="num">85.66</td><td class="num">86.06</td><td class="num">5,385</td></tr>
+              <tr><td>ShiftNet</td><td class="num">89.32</td><td class="num">85.40</td><td class="num">3,819</td></tr>
+              <tr><td>ResNet-18</td><td class="num">89.96</td><td class="num">84.36</td><td class="num">7,149</td></tr>
+              <tr><td>GhostNet-lite</td><td class="num">90.42</td><td class="num">83.29</td><td class="num">1,243</td></tr>
+              <tr><td>ResNet-8</td><td class="num">86.68</td><td class="num">83.01</td><td class="num">3,846</td></tr>
+              <tr><td>SqueezeNet</td><td class="num">85.12</td><td class="num">79.67</td><td class="num">1,692</td></tr>
+              <tr><td>MCUNet-style</td><td class="num">89.38</td><td class="num">79.49</td><td class="num">509</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">*From whole-network RTL simulation at 100 MHz with a DDR3 memory model; not timed on the board. Accuracy is on the Imagenette validation split (a 10-class subset of ImageNet). MCUNet-style, GhostNet-lite, DeepShift-style and BNN are adapted versions, not the original networks.</p>
+
+        <p><strong>Power and bottleneck.</strong> On-chip power is 1.473 W in the post-route estimate. The DDR3 memory controller takes 73.8% of the dynamic power, while the two compute engines draw only 22 mW. In the mobile networks, fetching input windows from memory costs more than the arithmetic. A larger cache and a line buffer are projected to bring EfficientNet-B0 from 2,858 ms to about 870 ms.</p>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="publications">Publications</h2>
+        <p>Papers from this project, in the order they were written.</p>
+        <ol class="paper-list">
+          <li>A. H. Shawn and T. Titirsha, “Quantization-Aware Training for Efficient Edge DNN Deployment: A Sensitivity-Driven Approach,” <em>2026 Great Lakes Symposium on VLSI (GLSVLSI)</em>, Late Breaking Session. <span class="paper-status">Accepted.</span>
+            <span class="paper-note">The first proof of concept of SQA-Arc, on CIFAR-10. Not presented because of an error in the university's administrative process.</span></li>
+          <li>Conference paper, <em>International Conference on Computer and Information Technology (ICCIT)</em>, VLSI track. <span class="paper-status">Submitted.</span></li>
+          <li>A. H. Shawn, T. Titirsha and S. M. Saidur Rahman, “SQA-Arc: Sensitivity-Driven Quantization and Architecture Framework for Multiplier-Free Inference on Heterogeneous Deep Neural Networks,” <em>Neural Computing and Applications</em> (Springer). <span class="paper-status">Under review.</span></li>
+          <li>Conference paper on the SQA-Core FPGA overlay, <em>IEEE Electron Devices Technology and Manufacturing Conference (EDTM 2027)</em>. <span class="paper-status">Submitted.</span></li>
+          <li>A. H. Shawn, T. Titirsha, H. U. Zaman, T. Rahman, A. Chakrabarty and A. B. M. Harun-Ur-Rashid, “SQA-Arc Hardware: A Fixed-Function FPGA Overlay for Sensitivity-Partitioned Dual-Engine Inference,” <em>IEEE Transactions on Circuits and Systems II: Express Briefs</em>. <span class="paper-status">Being submitted.</span></li>
+          <li>Review paper. <span class="paper-status">In preparation.</span></li>
+        </ol>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="tools">Tools &amp; Collaborators</h2>
+        <table class="spec-table">
+          <tr><td>Tools</td><td>PyTorch · Brevitas · Optuna · Verilog · Vitis HLS · Vivado 2025.2 · AMD Artix-7 · DDR3 · Python compiler toolchain</td></tr>
+          <tr><td>Collaborators</td><td>Twisha Titirsha, Hasan U. Zaman, Amitabha Chakrabarty and A. B. M. Harun-Ur-Rashid (BRAC University); Touhidur Rahman (Neural Semiconductor)</td></tr>
+        </table>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <hr class="section-divider" />
+        <h2 id="next">Next Steps</h2>
+        <ul>
+          <li>A larger gather cache and a line buffer, projected to bring EfficientNet-B0 from 2,858 ms to about 870 ms.</li>
+          <li>An on-board cycle counter, so latency can be measured on the hardware itself.</li>
+        </ul>
+      </div>
+
+      <nav class="page-pager" aria-label="Project navigation">
+        <a class="page-pager__link" href="../index.html#projects">
+          <span>← Back to</span>
+          <span class="page-pager__title">All Projects</span>
+        </a>
+        <a class="page-pager__link page-pager__link--next" href="hybrid-neural-accelerator.html">
+          <span>Next →</span>
+          <span class="page-pager__title">Hybrid Neural Accelerator</span>
+        </a>
+      </nav>
+    </main>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2026 Al Hossain Shawn &nbsp;·&nbsp; <a href="../index.html">Portfolio</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/al-hossain-shawn/" target="_blank" rel="noopener">LinkedIn</a></p>
+  </footer>
+  <script src="../interactive.js" defer></script>
+</body>
+</html>

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=3.1" />
+  <link rel="stylesheet" href="../styles.css?v=3.2" />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
@@ -91,13 +91,14 @@
       </div>
 
       <div class="prose">
+        <p style="margin: 0 0 1.25rem; padding: 0.85rem 1rem; border-left: 3px solid var(--accent); background: var(--accent-light); border-radius: 0 8px 8px 0; font-size: 0.9rem;">This is the earlier phase of <a href="sqa-arc.html">R-03 SQA-Arc</a>, which builds the sensitivity-driven approach into a full FPGA accelerator that runs ten networks from one bitstream.</p>
         <p>A <em>reconfigurable LUT / logarithmic compute engine</em> for edge-AI inference that bridges Python-trained neural networks to a custom IP block on AMD Artix-7 silicon, with PPA (Power, Performance, Area) optimization as a first-class design constraint.</p>
 
         <table class="spec-table">
           <tr><td>Type</td><td>FPGA hardware accelerator</td></tr>
           <tr><td>Target Device</td><td>AMD Artix-7 XC7A200T-2FBG484I (134,600 LUTs, 740 DSPs, 13 Mb BRAM)</td></tr>
           <tr><td>Toolchain</td><td>Vitis HLS · Vivado Design Suite · Vitis Core Development Kit · AXI4</td></tr>
-          <tr><td>Publication</td><td>GLSVLSI 2026, Late Breaking Session (Accepted)</td></tr>
+          <tr><td>Publication</td><td>GLSVLSI 2026, Late Breaking Session (Accepted; not presented)</td></tr>
         </table>
 
         <h2 id="overview">Overview</h2>
@@ -211,14 +212,14 @@ void hybrid_mac_unit(
           <li><strong>HLS Primitive Validation</strong>: Completed bit-accurate software model validation. The HLS core yields zero mismatch against the PyTorch quantization compiler outputs.</li>
           <li><strong>Timing Closure</strong>: Timing met at the 200 MHz target on the Artix-7 fabric with positive worst negative slack (WNS +0.42 ns); the design reaches an Fmax of 225 MHz.</li>
           <li><strong>DMA System Integration</strong>: Memory subsystem successfully integrated and verified with Xilinx AXI Central DMA (CDMA) on the testbench.</li>
-          <li><strong>Conference Submission</strong>: Accepted for publication at the <strong>2026 Great Lakes Symposium on VLSI (GLSVLSI)</strong> in the Late Breaking Session.</li>
+          <li><strong>Conference Submission</strong>: Accepted at the <strong>2026 Great Lakes Symposium on VLSI (GLSVLSI)</strong> in the Late Breaking Session. Not presented because of an error in the university's administrative process.</li>
         </ul>
       </div>
 
       <nav class="page-pager" aria-label="Project navigation">
-        <a class="page-pager__link" href="../index.html#projects">
-          <span>← Back to</span>
-          <span class="page-pager__title">All Projects</span>
+        <a class="page-pager__link" href="sqa-arc.html">
+          <span>← Previous</span>
+          <span class="page-pager__title">SQA-Arc</span>
         </a>
         <a class="page-pager__link page-pager__link--next" href="mbcfet.html">
           <span>Next →</span>

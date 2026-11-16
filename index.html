@@ -25,7 +25,7 @@
   <meta property="og:image:alt" content="Portrait of Al Hossain Shawn" />
   <meta name="twitter:card" content="summary" />
 
-  <link rel="stylesheet" href="styles.css?v=3.1" />
+  <link rel="stylesheet" href="styles.css?v=3.2" />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 
 </head>
@@ -216,8 +216,8 @@
             <h3 class="cr-title">Research Assistant</h3>
             <div class="cr-org">BRAC University, Dept. of Electrical and Electronics Engineering</div>
             <p class="cr-detail">
-              Leading hybrid neural-accelerator research with FPGA / HLS prototyping of a reconfigurable compute engine
-              for edge AI, going from a Python model to an AMD Artix-7 bitstream.
+              Leading SQA-Arc, a sensitivity-driven quantization framework, and its FPGA overlay, SQA-Core, which runs ten
+              neural networks from one bitstream on an AMD Artix-7.
             </p>
             <div class="tags-row">
               <span class="tag">FPGA</span>
@@ -327,29 +327,29 @@
       <section class="section reveal" id="research" aria-labelledby="h-research">
         <div class="section-header">
           <h2 id="h-research">Active <em>Research</em></h2>
-          <p>Two open threads: a hardware accelerator targeting edge AI workloads, and a TCAD study of
+          <p>Two open threads: a quantization framework and FPGA accelerator for edge AI, and a TCAD study of
             multi-bridge-channel devices for sub-5&nbsp;nm logic.</p>
         </div>
         <div class="research-grid">
-          <a class="res-card" href="projects/hybrid-neural-accelerator.html">
+          <a class="res-card" href="projects/sqa-arc.html">
             <div class="res-card__meta">
-              <span class="res-card__id">R-01 · Feb 2026 – Present</span>
+              <span class="res-card__id">R-03 · 2026 – Present</span>
               <span class="badge badge--green">Ongoing</span>
             </div>
-            <h3>Hybrid Neural <em>Accelerator</em></h3>
+            <h3>SQA-<em>Arc</em></h3>
             <p class="res-card__summary">
-              A reconfigurable LUT / logarithmic compute engine for AI inference, prototyped on the Artix-7 XC7A200T.
+              Sensitivity-driven quantization into ternary and 4-bit engines, built as an FPGA accelerator that runs ten networks from one bitstream.
             </p>
             <ul class="res-card__bullets">
-              <li>Vitis HLS compute engine optimised for PPA across mixed precisions.</li>
-              <li>RTL prototype with timing closure and resource mapping on XC7A200T.</li>
-              <li>AXI4-based co-design between custom IP and ARM cores.</li>
+              <li>Fisher-information sensitivity assigns each layer to a ternary or a 4-bit engine.</li>
+              <li>100 MHz in 15.58% of an Artix-7 XC7A200T; no DSP block computes a weight-activation product.</li>
+              <li>EfficientNet-B0 runs on the board with a live HDMI dashboard.</li>
             </ul>
             <div class="tags-row">
               <span class="tag">FPGA</span>
-              <span class="tag">HLS</span>
-              <span class="tag">AXI4</span>
-              <span class="tag">AI Inference</span>
+              <span class="tag">Quantization</span>
+              <span class="tag">Ternary</span>
+              <span class="tag">Edge AI</span>
             </div>
             <span class="res-card__link">Read more →</span>
           </a>
@@ -389,6 +389,30 @@
             integration.</p>
         </div>
         <div class="proj-grid">
+          <!-- R-03 -->
+          <a class="proj-card" href="projects/sqa-arc.html">
+            <img class="proj-card__img" src="assets/projects/sqa-arc/board_photo_fpga_and_dashboard.jpeg" alt="FPGA board in front of the HDMI dashboard showing an EfficientNet-B0 classification" loading="lazy" />
+            <div class="proj-card__body">
+              <div class="proj-card__meta">
+                <span class="proj-card__id">R-03</span>
+                <span class="badge badge--green">Ongoing</span>
+              </div>
+              <h3>SQA-<em>Arc</em></h3>
+              <div class="proj-card__role">Lead Researcher · First Author</div>
+              <p class="proj-card__desc">Fisher-guided ternary and 4-bit quantization, built as SQA-Core: an FPGA overlay that runs ten networks from one bitstream at 100 MHz.</p>
+              <div class="tags-row">
+                <span class="tag">FPGA</span>
+                <span class="tag">Quantization</span>
+                <span class="tag">Verilog</span>
+                <span class="tag">HLS</span>
+              </div>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__period">2026 – Present</span>
+              <span class="proj-card__link">Open →</span>
+            </div>
+          </a>
+
           <!-- R-01 -->
           <a class="proj-card" href="projects/hybrid-neural-accelerator.html">
             <div class="proj-card__img--placeholder">
@@ -400,7 +424,7 @@
                 <span class="badge badge--green">Ongoing</span>
               </div>
               <h3>Hybrid Neural <em>Accelerator</em></h3>
-              <div class="proj-card__role">Research Assistant</div>
+              <div class="proj-card__role">Research Assistant · Earlier phase of SQA-Arc</div>
               <p class="proj-card__desc">Reconfigurable compute engine for AI inference, featuring mode-switching LNS/INT arithmetic prototyped on Artix-7.</p>
               <div class="tags-row">
                 <span class="tag">FPGA</span>
@@ -595,12 +619,47 @@
         </div>
         <div class="pub-list">
           <div class="pub-item">
+            <div class="pub-year">2027</div>
+            <div>
+              <div class="pub-title">Conference paper on the SQA-Core FPGA overlay</div>
+              <div class="pub-venue">IEEE Electron Devices Technology and Manufacturing Conference (EDTM 2027)</div>
+            </div>
+            <span class="pub-status pub-status--pending">Submitted</span>
+          </div>
+          <div class="pub-item">
+            <div class="pub-year">2026</div>
+            <div>
+              <div class="pub-authors">A. H. Shawn, T. Titirsha, H. U. Zaman, T. Rahman, A. Chakrabarty, A. B. M. Harun-Ur-Rashid</div>
+              <div class="pub-title">SQA-Arc Hardware: A Fixed-Function FPGA Overlay for Sensitivity-Partitioned Dual-Engine Inference</div>
+              <div class="pub-venue">IEEE Transactions on Circuits and Systems II: Express Briefs</div>
+            </div>
+            <span class="pub-status pub-status--pending">Being submitted</span>
+          </div>
+          <div class="pub-item">
+            <div class="pub-year">2026</div>
+            <div>
+              <div class="pub-authors">A. H. Shawn, T. Titirsha, S. M. Saidur Rahman</div>
+              <div class="pub-title">SQA-Arc: Sensitivity-Driven Quantization and Architecture Framework for Multiplier-Free Inference on Heterogeneous Deep Neural Networks</div>
+              <div class="pub-venue">Neural Computing and Applications (Springer)</div>
+            </div>
+            <span class="pub-status pub-status--pending">Under review</span>
+          </div>
+          <div class="pub-item">
+            <div class="pub-year">2026</div>
+            <div>
+              <div class="pub-title">Conference paper</div>
+              <div class="pub-venue">International Conference on Computer and Information Technology (ICCIT), VLSI track</div>
+            </div>
+            <span class="pub-status pub-status--pending">Submitted</span>
+          </div>
+          <div class="pub-item">
             <div class="pub-year">2026</div>
             <div>
               <div class="pub-authors">A. H. Shawn, T. Titirsha</div>
               <div class="pub-title">Quantization-Aware Training for Efficient Edge DNN Deployment: A
                 Sensitivity-Driven Approach</div>
               <div class="pub-venue">2026 Great Lakes Symposium on VLSI (GLSVLSI), Late Breaking Session</div>
+              <div class="pub-note">Not presented because of an error in the university's administrative process.</div>
             </div>
             <span class="pub-status pub-status--accepted">Accepted</span>
           </div>

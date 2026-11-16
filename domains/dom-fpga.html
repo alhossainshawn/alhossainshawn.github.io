@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../styles.css?v=3.1" />
+  <link rel="stylesheet" href="../styles.css?v=3.2" />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
@@ -118,6 +118,32 @@
 
         <h2 id="active">Active Projects</h2>
         <div class="proj-grid" style="margin-top: 1.2rem;">
+          <a class="proj-card" href="../projects/sqa-arc.html">
+            <img class="proj-card__img" src="../assets/projects/sqa-arc/board_photo_fpga_and_dashboard.jpeg" alt="FPGA board in front of the HDMI dashboard showing an EfficientNet-B0 classification" />
+            <div class="proj-card__body">
+              <div class="proj-card__meta">
+                <span class="proj-card__id">R-03 &nbsp;·&nbsp; 2026 – Present</span>
+                <span class="badge badge--green">Ongoing</span>
+              </div>
+              <h3>SQA-<em>Arc</em></h3>
+              <p class="proj-card__desc">Fisher-guided assignment of each layer to a ternary engine or a 4-bit engine, built as SQA-Core: a fixed-function FPGA overlay that runs ten networks from one bitstream.</p>
+              <ul class="res-card__bullets" style="margin: 0.4rem 0 0.8rem 0; padding-left: 1.1rem;">
+                <li>100 MHz in 20,845 LUTs (15.58% of an XC7A200T).</li>
+                <li>No DSP block computes a weight-activation product.</li>
+                <li>EfficientNet-B0 running on the board with an HDMI dashboard.</li>
+              </ul>
+              <div class="tags-row">
+                <span class="tag">FPGA</span>
+                <span class="tag">Quantization</span>
+                <span class="tag">Ternary</span>
+                <span class="tag">Verilog</span>
+                <span class="tag">HLS</span>
+              </div>
+            </div>
+            <div class="proj-card__footer">
+              <span class="proj-card__link">Read more &rarr;</span>
+            </div>
+          </a>
 
           <a class="proj-card" href="../projects/hybrid-neural-accelerator.html">
             <div class="proj-card__img--placeholder">
@@ -133,7 +159,7 @@
               <ul class="res-card__bullets" style="margin: 0.4rem 0 0.8rem 0; padding-left: 1.1rem;">
                 <li>−75% DSP usage vs. standard INT8 baseline.</li>
                 <li>Timing met at the 200 MHz target (WNS +0.42 ns); Fmax 225 MHz.</li>
-                <li>Accepted at GLSVLSI 2026 Late Breaking Session.</li>
+                <li>Accepted at GLSVLSI 2026 Late Breaking Session (not presented).</li>
               </ul>
               <div class="tags-row">
                 <span class="tag">FPGA</span>
