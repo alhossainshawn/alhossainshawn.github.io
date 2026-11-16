@@ -97,7 +97,7 @@
 
       <div class="subpage-header">
         <div class="tags-row" style="margin-bottom: 0.75rem;">
-          <span class="badge badge--blue">Signed off</span><span class="tag">Not fabricated</span>
+          <span class="badge badge--blue">Signed off</span>
           <span class="tag">R-01</span>
           <span class="tag">GPDK045 · 45 nm</span>
         </div>
@@ -113,7 +113,7 @@
 <h2 id="overview">Overview</h2>
         <p>V3 puts everything on one chip: the PicoRV32 RISC-V controller with its peripherals, the accelerator core, a 4 MB main SRAM built from 64 SRAM macros, and the 1080p display controller. The CPU runs C firmware that copies a network from QSPI flash into the on-chip SRAM, starts the accelerator and reports the result over UART. No SDRAM and no host link are needed: the board holds only V3 and a flash.</p>
         <p>Because the data is on chip, V3 runs the test operator fastest of the three versions (60,589 cycles against 66,143 for V2). The 4 MB of SRAM makes it core-limited: 96 % of its macro area is the main memory.</p>
-        <p>This is an academic practice design on Cadence's generic GPDK045 45 nm PDK. It is fully signed off in the Cadence tools and tape-out ready on that academic PDK, but it has not been fabricated. The SRAM macros are my own, because the generic PDK has no memory compiler.</p>
+        <p>This is an academic practice design on Cadence's generic GPDK045 45 nm PDK. It is fully signed off in the Cadence tools and tape-out ready on that academic PDK. I developed the SRAM macros myself, because the generic PDK has no memory compiler.</p>
         <p>The 64-tile 4 MB main SRAM and the other macros are explained in <a href="asic-memories.html">Memory design</a>.</p>
         <hr class="section-divider" />
 <h2 id="headline-numbers">Headline numbers</h2>

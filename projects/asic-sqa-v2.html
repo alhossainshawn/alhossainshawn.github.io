@@ -97,7 +97,7 @@
 
       <div class="subpage-header">
         <div class="tags-row" style="margin-bottom: 0.75rem;">
-          <span class="badge badge--blue">Signed off</span><span class="tag">Not fabricated</span>
+          <span class="badge badge--blue">Signed off</span>
           <span class="tag">R-01</span>
           <span class="tag">GPDK045 · 45 nm</span>
         </div>
@@ -113,7 +113,7 @@
 <h2 id="overview">Overview</h2>
         <p>V2 brings the frequently used engine buffers (input windows, line buffer, requant and index tables) onto the chip as six SRAM macros. Engine B's big weight tile (1.18 Mbit) was removed instead: its weights are re-streamed from the external SDRAM by a small DMA with prefetch, which saves about 0.97 mm² of SRAM.</p>
         <p>The result is the smallest of the accelerator chips (2.4 mm per side, 126 pads) with only four parts on the board: V2, the RISC-V controller chip, an SDRAM and a flash.</p>
-        <p>This is an academic practice design on Cadence's generic GPDK045 45 nm PDK. It is fully signed off in the Cadence tools and tape-out ready on that academic PDK, but it has not been fabricated. The SRAM macros are my own, because the generic PDK has no memory compiler.</p>
+        <p>This is an academic practice design on Cadence's generic GPDK045 45 nm PDK. It is fully signed off in the Cadence tools and tape-out ready on that academic PDK. I developed the SRAM macros myself, because the generic PDK has no memory compiler.</p>
         <p>V2's six SRAM macros and the weight-streaming decision are explained in <a href="asic-memories.html">Memory design</a>.</p>
         <hr class="section-divider" />
 <h2 id="headline-numbers">Headline numbers</h2>
@@ -144,7 +144,7 @@
 <tr><td>Signal pins by interface</td><td>SDRAM 56, video 28, host link 7, QSPI flash 6, clocks + reset 3, test 2</td></tr>
 <tr><td>Cells</td><td>103,665 after synthesis; 114,718 standard cells after P&amp;R incl. clock tree (301,746 µm²), core density 8.8 %</td></tr>
 <tr><td>Synthesis area</td><td>2.26 mm² including pads (pads 80 %)</td></tr>
-<tr><td>Memories inside</td><td>6 SRAM macros (my own), placed in one row along the bottom of the core</td></tr>
+<tr><td>Memories inside</td><td>6 SRAM macros I developed, placed in one row along the bottom of the core</td></tr>
 <tr><td>Clocks</td><td>core 100 MHz, pixel 148.5 MHz</td></tr>
 <tr><td>Supply / corners</td><td>1.0 V nominal core library; signed off at 0.9 V / 125 C (slow, setup) and 1.1 V / 0 C (fast, hold)</td></tr>
 <tr><td>Parts on the board</td><td>4: V2 + RISC-V controller + SDRAM + flash</td></tr>

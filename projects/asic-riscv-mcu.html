@@ -97,7 +97,7 @@
 
       <div class="subpage-header">
         <div class="tags-row" style="margin-bottom: 0.75rem;">
-          <span class="badge badge--blue">Signed off</span><span class="tag">Not fabricated</span>
+          <span class="badge badge--blue">Signed off</span>
           <span class="tag">R-01</span>
           <span class="tag">GPDK045 · 45 nm</span>
         </div>
@@ -113,7 +113,7 @@
 <h2 id="overview">Overview</h2>
         <p>The controller is a complete microcontroller chip built around the open-source PicoRV32 RISC-V core (RV32IMC with multiply / divide and interrupts). Everything around the CPU is my own RTL: the Wishbone bus, UART, SPI SD card, I2C, GPIO, timer, interrupt controller, a QSPI flash reader with a read cache and a host-link master that sends commands to the V1 / V2 accelerator chips.</p>
         <p>It boots from an 8 KB ROM, runs C firmware compiled with RISC-V GCC from a 128 KB on-chip SRAM, and was taken through the same full sign-off as the accelerator chips. The same subsystem is built into V3.</p>
-        <p>This is an academic practice design on Cadence's generic GPDK045 45 nm PDK. It is fully signed off in the Cadence tools and tape-out ready on that academic PDK, but it has not been fabricated. The SRAM macros are my own, because the generic PDK has no memory compiler.</p>
+        <p>This is an academic practice design on Cadence's generic GPDK045 45 nm PDK. It is fully signed off in the Cadence tools and tape-out ready on that academic PDK. I developed the SRAM macros myself, because the generic PDK has no memory compiler.</p>
         <p>The 128 KB SRAM is four 8192 × 32 macros with byte enables; see <a href="asic-memories.html">Memory design</a>.</p>
         <hr class="section-divider" />
 <h2 id="headline-numbers">Headline numbers</h2>

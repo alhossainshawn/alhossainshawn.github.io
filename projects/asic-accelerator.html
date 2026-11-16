@@ -97,7 +97,7 @@
 
       <div class="subpage-header">
         <div class="tags-row" style="margin-bottom: 0.75rem;">
-          <span class="badge badge--blue">Signed off</span><span class="tag">Not fabricated</span>
+          <span class="badge badge--blue">Signed off</span>
           <span class="tag">R-01</span>
           <span class="tag">GPDK045 · 45 nm</span>
         </div>
@@ -114,7 +114,7 @@
         <p>accel_core is the inference core of the SQA-Arc accelerator: it runs whole quantised neural networks (ternary and 4-bit weights) operator by operator from a descriptor program in external memory. The same RTL had already been verified on an AMD Artix-7 FPGA (XC7A200T) at 100 MHz.</p>
         <p>This project took that RTL to an ASIC layout in the GPDK045 generic 45 nm technology: memory planning, synthesis, place and route of the core (no pad ring: core-only block), sign-off timing with signal integrity, and power analysis with real simulation activity. Every verification step matched the expected results bit for bit and cycle for cycle.</p>
         <p>It became the reference design for the three SQA chip versions (V1, V2, V3), which all reuse an updated copy of this core.</p>
-        <p>The 15 large on-chip buffers are my own SRAM macros; see <a href="asic-memories.html">Memory design</a>.</p>
+        <p>The 15 large on-chip buffers are SRAM macros I developed; see <a href="asic-memories.html">Memory design</a>.</p>
         <hr class="section-divider" />
 <h2 id="headline-numbers">Headline numbers</h2>
         <div class="asic-stats"><div class="asic-stat"><div class="asic-stat__val">100 MHz</div><div class="asic-stat__label">Clock</div></div><div class="asic-stat"><div class="asic-stat__val">72,806</div><div class="asic-stat__label">Cells (synthesis)</div></div><div class="asic-stat"><div class="asic-stat__val">1.65 × 1.30 mm</div><div class="asic-stat__label">Core</div></div><div class="asic-stat"><div class="asic-stat__val">4.28 mW</div><div class="asic-stat__label">Power (real activity)</div></div></div>
@@ -144,7 +144,7 @@
 <tr><td>Cells after synthesis</td><td>72,806 (16,081 flip-flops)</td></tr>
 <tr><td>Synthesis area</td><td>1,407,518 µm², of which SRAM macros 1,203,010 µm² (85.5 %)</td></tr>
 <tr><td>Instances after P&amp;R</td><td>204,007 incl. fillers; standard cells 222,162 µm²; standard-cell density 27 %</td></tr>
-<tr><td>Memories</td><td>15 SRAM macros (my own, 1-port and 2-port) + 7 arrays of up to 2 Kbit as flip-flops (8.3 Kbit); largest = 4 × 294,912 weight tile</td></tr>
+<tr><td>Memories</td><td>15 SRAM macros I developed (1-port and 2-port) + 7 arrays of up to 2 Kbit as flip-flops (8.3 Kbit); largest = 4 × 294,912 weight tile</td></tr>
 <tr><td>Networks</td><td>10 networks (resnet8, mcunet, shiftnet, ghostnet, squeezenet, deepshift, efficientnet, resnet18, bnn_xnor, shufflenetv2)</td></tr>
 <tr><td>FPGA reference (same RTL)</td><td>Artix-7 XC7A200T at 100 MHz: core alone about 11,690 LUT; whole FPGA design 20,845 LUT, 15,743 FF, 75 BRAM tiles, 22 DSP</td></tr>
 </tbody></table>

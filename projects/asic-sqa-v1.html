@@ -97,7 +97,7 @@
 
       <div class="subpage-header">
         <div class="tags-row" style="margin-bottom: 0.75rem;">
-          <span class="badge badge--blue">Signed off</span><span class="tag">Not fabricated</span>
+          <span class="badge badge--blue">Signed off</span>
           <span class="tag">R-01</span>
           <span class="tag">GPDK045 · 45 nm</span>
         </div>
@@ -113,7 +113,7 @@
 <h2 id="overview">Overview</h2>
         <p>V1 is the first of three versions of the SQA-Arc accelerator chip. It keeps almost no memory inside: the engine buffers go to three external synchronous SRAM chips, network data and results to a 32 MB SDRAM, and the boot image to a QSPI flash. A separate RISC-V controller chip (see the MCU page) sends it commands over a host link, and it drives a 1080p60 display.</p>
         <p>The point of V1 is to learn what an off-chip memory architecture really costs: 232 signal pins, forwarded clocks for the SRAM banks, and a die whose size is set by the pad ring, not by the logic (the logic uses under 2 % of the core).</p>
-        <p>This is an academic practice design on Cadence's generic GPDK045 45 nm PDK. It is fully signed off in the Cadence tools and tape-out ready on that academic PDK, but it has not been fabricated. The SRAM macros are my own, because the generic PDK has no memory compiler.</p>
+        <p>This is an academic practice design on Cadence's generic GPDK045 45 nm PDK. It is fully signed off in the Cadence tools and tape-out ready on that academic PDK. I developed the SRAM macros myself, because the generic PDK has no memory compiler.</p>
         <p>V1 keeps only one SRAM macro on chip (the pooling line buffer); see <a href="asic-memories.html">Memory design</a>.</p>
         <hr class="section-divider" />
 <h2 id="headline-numbers">Headline numbers</h2>
